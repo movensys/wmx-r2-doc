@@ -14,7 +14,7 @@ Hardware Requirements
      - Minimum
      - Recommended
    * - CPU
-     - x86_64 or ARM64 (aarch64)
+     - x86_64 or ARM64 (arm64)
      - Intel Core i7 or NVIDIA Jetson Orin/Thor
    * - RAM
      - 4 GB
@@ -103,13 +103,13 @@ servo drives.
      - Advantech UNO-258
      - Edge AI platform
    * - NVIDIA Jetson Orin
-     - aarch64
+     - arm64
      - 22.04 LTS (Jammy)
      - `Humble <https://docs.ros.org/en/humble/index.html>`_
      - Advantech MIC-713 / MIC-733ao
      - Edge AI platform
    * - NVIDIA Jetson Thor
-     - aarch64
+     - arm64
      - 24.04 LTS (Noble)
      - `Jazzy <https://docs.ros.org/en/jazzy/index.html>`_
      - Advantech MIC-743

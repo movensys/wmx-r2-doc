@@ -263,7 +263,7 @@ Then remove the build artifacts:
       .. code-block:: bash
 
          sudo rm -rf eval-rt-713
-         sudo rm -rf aarch64--glibc--stable-2022.08-1
+         sudo rm -rf arm64--glibc--stable-2022.08-1
 
    .. tab-item:: MIC-743
 
