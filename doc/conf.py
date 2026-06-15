@@ -75,9 +75,13 @@ html_context = {
 }
 
 # -- Intersphinx mapping (link to ROS2 docs) --------------------------------
-intersphinx_mapping = {
-    'ros2': ('https://docs.ros.org/en/humble/', None),
-}
+# Left empty intentionally: no page currently uses an ``:external+ros2:`` /
+# ``ros2:`` cross-reference, and fetching docs.ros.org/en/humble/objects.inv at
+# build time is unreliable (the host serves an anti-bot challenge page instead
+# of the inventory), which fails the strict ``-W`` build. To re-enable ROS2
+# cross-references, add the mapping back with a committed local inventory
+# fallback, e.g. ('https://docs.ros.org/en/humble/', (None, '_inv/ros2.inv')).
+intersphinx_mapping = {}
 
 # -- Options for linkcheck builder ------------------------------------------
 # The WMX3 installer downloads sit behind WebDAV basic auth (guest/guest)

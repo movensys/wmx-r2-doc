@@ -71,8 +71,8 @@ recovery mode. Pick your target:
       usual way (including its real-time kernel), then continue to the
       :ref:`verification step <computer-setup-verify>`:
 
-      - Ubuntu 22.04 LTS — `download <https://releases.ubuntu.com/jammy/>`_
-      - Ubuntu 24.04 LTS — `download <https://releases.ubuntu.com/noble/>`_
+      - Ubuntu 22.04 LTS — `download <https://releases.ubuntu.com/jammy/>`__
+      - Ubuntu 24.04 LTS — `download <https://releases.ubuntu.com/noble/>`__
 
    .. tab-item:: MIC-713
 
