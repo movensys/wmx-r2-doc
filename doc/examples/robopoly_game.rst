@@ -67,11 +67,54 @@ required services across terminals:
    # Terminal 1: launch WMX ROS2
    ./run_robopoly.sh wmx-ros2
 
-   # Terminal 2: build the containers for your accelerator
-   ./run_robopoly.sh build_nvidia     # or: ./run_robopoly.sh build_intel
-
-   # Terminal 3: run MoveIt2, the containers, and YOLO
+   # Nvidia Jetson Thor (arm)
+   ## Terminal 2: build the containers for your accelerator
+   ./run_robopoly.sh build_nvidia     
+   
+   ## Terminal 3: run MoveIt2, the containers, and YOLO
    ./run_robopoly.sh run
+
+   # Intel IPC with Panther Lake (x86)
+   ## Terminal 2: build vision-language model
+   ./run_robopoly.sh build_intel_vllm 
+
+   ## Terminal 3: run MoveIt2, the containers, and YOLO
+   ./run_robopoly.sh build_intel
+   ./run_robopoly.sh run
+
+
+.. tab-set::
+
+   .. tab-item:: Nvidia Jetson Thor (MIC-743)
+      
+      .. code-block:: bash
+
+         # Terminal 1: launch WMX ROS2
+         ./run_robopoly.sh wmx-ros2
+
+         # Terminal 2: build the containers for your accelerator
+         ./run_robopoly.sh build_nvidia
+
+         # Terminal 3: run MoveIt2, the containers, and YOLO
+         ./run_robopoly.sh run
+
+   .. tab-item:: Intel Panther Lake (UNO-258)
+      
+      .. code-block:: bash
+
+         # Terminal 1: launch WMX ROS2
+         ./run_robopoly.sh wmx-ros2
+
+         # Terminal 2: build the vision-language model
+         ./run_robopoly.sh build_intel_vllm
+
+         # Terminal 3: build containers for your accelerator
+         ./run_robopoly.sh build_intel
+
+         # Terminal 3: run MoveIt2, the containers, and YOLO
+         ./run_robopoly.sh run
+      
+
 
 Voice Controls
 --------------
