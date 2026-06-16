@@ -60,18 +60,38 @@ Running on the Real Robot
 A helper script, ``movensys_sample/doc/run_robopoly.sh``, orchestrates the
 required services across terminals:
 
-.. code-block:: bash
+.. tab-set::
 
-   cd ~/workspaces/movensys-intelligence/movensys_sample/doc
+   .. tab-item:: Nvidia Jetson Thor (MIC-743)
+      
+      .. code-block:: bash
 
-   # Terminal 1: launch WMX ROS2
-   ./run_robopoly.sh wmx-ros2
+         # Terminal 1: launch WMX ROS2
+         ./run_robopoly.sh wmx-ros2
 
-   # Terminal 2: build the containers for your accelerator
-   ./run_robopoly.sh build_nvidia     # or: ./run_robopoly.sh build_intel
+         # Terminal 2: build the containers for your accelerator
+         ./run_robopoly.sh build_nvidia
 
-   # Terminal 3: run MoveIt2, the containers, and YOLO
-   ./run_robopoly.sh run
+         # Terminal 3: run MoveIt2, the containers, and YOLO
+         ./run_robopoly.sh run
+
+   .. tab-item:: Intel Panther Lake (UNO-258)
+      
+      .. code-block:: bash
+
+         # Terminal 1: launch WMX ROS2
+         ./run_robopoly.sh wmx-ros2
+
+         # Terminal 2: build the vision-language model
+         ./run_robopoly.sh build_intel_vllm
+
+         # Terminal 3: build containers for your accelerator
+         ./run_robopoly.sh build_intel
+
+         # Terminal 3: run MoveIt2, the containers, and YOLO
+         ./run_robopoly.sh run
+      
+
 
 Voice Controls
 --------------
