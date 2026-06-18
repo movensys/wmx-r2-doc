@@ -11,6 +11,7 @@ extensions = [
     'sphinx.ext.intersphinx',# Cross-reference other Sphinx docs
     'sphinx.ext.todo',       # TODO directives
     'sphinxcontrib.mermaid', # Mermaid diagram support
+    'sphinx_design',         # Tabs, cards, grids
 ]
 
 # Markdown support
@@ -21,6 +22,7 @@ source_suffix = {
 
 rst_prolog = """
 .. role:: bi
+.. role:: red
 """
 
 templates_path = ['_templates']
@@ -44,13 +46,13 @@ html_theme_options = {
     "icon_links": [
         {
             "name": "GitHub",
-            "url": "https://github.com/movensys/wmx_ros2_doc",
+            "url": "https://github.com/movensys/wmx-ros2-doc",
             "icon": "fa-brands fa-github",
             "type": "fontawesome",
         },
     ],
     "navbar_align": "left",
-    "navigation_depth": 4,
+    "navigation_depth": 2,
     "show_nav_level": 1,
     "show_toc_level": 2,
     "collapse_navigation": True,
@@ -73,6 +75,19 @@ html_context = {
 }
 
 # -- Intersphinx mapping (link to ROS2 docs) --------------------------------
-intersphinx_mapping = {
-    'ros2': ('https://docs.ros.org/en/humble/', None),
-}
+# Left empty intentionally: no page currently uses an ``:external+ros2:`` /
+# ``ros2:`` cross-reference, and fetching docs.ros.org/en/humble/objects.inv at
+# build time is unreliable (the host serves an anti-bot challenge page instead
+# of the inventory), which fails the strict ``-W`` build. To re-enable ROS2
+# cross-references, add the mapping back with a committed local inventory
+# fallback, e.g. ('https://docs.ros.org/en/humble/', (None, '_inv/ros2.inv')).
+intersphinx_mapping = {}
+
+# -- Options for linkcheck builder ------------------------------------------
+# The WMX3 installer downloads sit behind WebDAV basic auth (guest/guest)
+# that the linkcheck HEAD probe cannot satisfy, so skip them.
+linkcheck_ignore = [
+    r'^http://download\.movensys\.com:8111/.*',
+    # SharePoint download links require authentication; linkcheck cannot reach them.
+    r'^https://softservogroup.*\.sharepoint\.com/.*',
+]
