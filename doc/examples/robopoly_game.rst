@@ -120,3 +120,8 @@ An automated dry-run test is also available:
 
 See :doc:`../integration/intelligence_integration` for the VLM/LLM service
 architecture and API.
+
+.. toctree::
+   :maxdepth: 1
+
+   robopoly_detailed_guide
