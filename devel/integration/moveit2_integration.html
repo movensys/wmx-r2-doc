@@ -1,0 +1,652 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>MoveIt2 Motion Planning &#8212; WMX ROS2 Documentation 1.0.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=c5bec18d" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
+
+    <script src="../_static/documentation_options.js?v=8d563738"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'integration/moveit2_integration';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="icon" href="../_static/movensys_logo.png"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Isaac cuMotion Accelerated Planning" href="cumotion_integration.html" />
+    <link rel="prev" title="Integration Scenarios" href="integration.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="Jun 25, 2026"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="light">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../_static/movensys_logo.png" class="logo__image only-light" alt=""/>
+    <img src="../_static/movensys_logo.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">WMX ROS2 Documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/movensys/wmx-ros2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/movensys/wmx-ros2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item"><div class="sidebar-toc-header">
+  <p class="sidebar-toc-title">Table of Contents</p>
+  <p class="sidebar-toc-subtitle">Contents</p>
+</div></div>
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links" aria-label="Section Navigation">
+  <div class="bd-toc-item navbar-nav">
+    <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/system_requirements.html">System Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/computer_setup.html">Computer Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx3.html">Install WMX ROS2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/testing_wmx_ros2.html">Testing WMX ROS2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/examples.html">Example Applications</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/isaacsim_setup.html">NVIDIA Isaac Setup (Optional)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/trajectory_planning.html">Trajectory Planning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/apriltag_pick_and_place.html">AprilTag Pick-and-Place</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/obstacle_avoidance.html">Nvblox Obstacle Avoidance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/yolo_pick_and_place.html">YOLO Pick-and-Place</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/apriltag_obstacle_avoidance.html">AprilTag + Obstacle Avoidance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/robopoly_game.html">Robopoly Game (VLM / LLM)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples/robopoly_detailed_guide.html">Robopoly Game Guide</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="integration.html">Integration Scenarios</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">MoveIt2 Motion Planning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cumotion_integration.html">Isaac cuMotion Accelerated Planning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_planner.html">Custom Planner Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_application.html">Building Custom Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intelligence_integration.html">Natural-Language and Vision Control (VLM / LLM)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/api_reference.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/communication.html">Communication Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_ros2_message.html">wmx_ros2_message</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_ros2_package.html">wmx_ros2_package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_services.html">ROS2 Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_topics.html">ROS2 Topics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_actions.html">ROS2 Actions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support.html">Support</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About Us</a></li>
+</ul>
+
+  </div>
+</nav>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var navItems = document.querySelectorAll(".bd-docs-nav li");
+  navItems.forEach(function(li) {
+    var subList = li.querySelector(":scope > ul");
+    if (subList) {
+      var toggle = document.createElement("span");
+      toggle.className = "toc-toggle";
+      var isCurrent = li.classList.contains("current");
+      toggle.textContent = isCurrent ? "−" : "+";
+      if (!isCurrent) {
+        subList.classList.add("toc-collapsed");
+      }
+      toggle.addEventListener("click", function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        subList.classList.toggle("toc-collapsed");
+        toggle.textContent = subList.classList.contains("toc-collapsed") ? "+" : "−";
+      });
+      li.style.position = "relative";
+      var link = li.querySelector(":scope > a");
+      if (link) {
+        link.after(toggle);
+      }
+    }
+  });
+});
+</script></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="integration.html" class="nav-link">Integration Scenarios</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">MoveIt2 Motion Planning</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="moveit2-motion-planning">
+<h1>MoveIt2 Motion Planning<a class="headerlink" href="#moveit2-motion-planning" title="Link to this heading">#</a></h1>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
+<p>MoveIt2 is the primary motion-planning integration for WMX ROS2. The
+<a class="reference external" href="https://github.com/movensys/movensys-manipulator">movensys-manipulator</a>
+repository provides the <code class="docutils literal notranslate"><span class="pre">movensys_manipulator_moveit_config</span></code> package, which
+wraps MoveIt2 with a high-level service API and executes the planned motion on
+the robot through the WMX ROS2 stack.</p>
+<p>MoveIt2 produces collision-aware, time-parameterized trajectories; WMX runs
+them on a deterministic real-time cycle. The same configuration drives three
+execution modes: pure <strong>simulation</strong> (Isaac Sim or Gazebo), <strong>hardware-in-the-loop</strong>
+(simulator visuals with the real WMX runtime), and <strong>real</strong> robot control over
+EtherCAT.</p>
+</section>
+<section id="architecture">
+<h2>Architecture<a class="headerlink" href="#architecture" title="Link to this heading">#</a></h2>
+<img alt="MoveIt2 integration — end-to-end data flow" class="with-border align-center" src="../_images/moveIt2_trajectory_flow.png" />
+<p>The <code class="docutils literal notranslate"><span class="pre">trajectory_api</span></code> node (in <code class="docutils literal notranslate"><span class="pre">movensys_manipulator_moveit_config</span></code>) hosts
+a MoveIt2 <code class="docutils literal notranslate"><span class="pre">MoveGroupInterface</span></code> client and exposes simple pose/joint services
+under <code class="docutils literal notranslate"><span class="pre">/wmx/moveit2/</span></code>. For each request it:</p>
+<ol class="arabic simple">
+<li><p>Sets a joint or Cartesian target on the move group.</p></li>
+<li><p>Plans with MoveIt2 (OMPL), or computes a Cartesian path for straight-line
+moves.</p></li>
+<li><p>Time-parameterizes the trajectory with Time-Optimal Trajectory Generation
+(TOTG), applying velocity and acceleration scaling.</p></li>
+<li><p>Executes it, which streams the trajectory to the WMX
+<code class="docutils literal notranslate"><span class="pre">joint_trajectory_controller</span></code> for deterministic execution on the servos.</p></li>
+</ol>
+<p>It also publishes the live end-effector pose on <code class="docutils literal notranslate"><span class="pre">/wmx/moveit2/eef_pose</span></code>
+(<code class="docutils literal notranslate"><span class="pre">geometry_msgs/PoseStamped</span></code>) and orientation on <code class="docutils literal notranslate"><span class="pre">/wmx/moveit2/eef_rpy</span></code>
+(<code class="docutils literal notranslate"><span class="pre">geometry_msgs/Vector3Stamped</span></code>), and calls <code class="docutils literal notranslate"><span class="pre">/wmx/set_gripper</span></code> for gripper
+actions.</p>
+</section>
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
+<p>The MoveIt2 integration runs inside the <code class="docutils literal notranslate"><span class="pre">movensys-manipulator</span></code> Docker
+container. After cloning the repository and configuring the host environment,
+enter the container with the <code class="docutils literal notranslate"><span class="pre">mros</span></code> helper. Key environment variables:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 32.0%" />
+<col style="width: 68.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Variable</p></th>
+<th class="head"><p>Purpose</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ROS_DISTRO</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">humble</span></code> or <code class="docutils literal notranslate"><span class="pre">jazzy</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MANIPULATOR_MODEL</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dobot_cr3a</span></code> or <code class="docutils literal notranslate"><span class="pre">dobot_cr5a</span></code> (selects the MoveIt config)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">MOVENSYS_ROS_VERSION</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">isaac-ros_4.1</span></code>, <code class="docutils literal notranslate"><span class="pre">isaac-ros_3.2</span></code>, or <code class="docutils literal notranslate"><span class="pre">general</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CPU_ARCH</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">amd64</span></code> or <code class="docutils literal notranslate"><span class="pre">arm64</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>See the <a class="reference external" href="https://github.com/movensys/movensys-manipulator">movensys-manipulator README</a> for the full host setup,
+CycloneDDS buffer tuning, and container build steps.</p>
+</section>
+<section id="running-moveit2">
+<h2>Running MoveIt2<a class="headerlink" href="#running-moveit2" title="Link to this heading">#</a></h2>
+<p>Bring up the MoveIt2 stack (commands run through the <code class="docutils literal notranslate"><span class="pre">mros</span></code> container
+helper). For a real robot:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Start MoveIt2 (move_group + trajectory_api services)</span>
+mros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>movensys_manipulator_moveit_config<span class="w"> </span>moveit.launch.py
+
+<span class="c1"># Run a trajectory test, or send your own service calls</span>
+mros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>movensys_manipulator_moveit_config<span class="w"> </span>trajectory_test.launch.py
+</pre></div>
+</div>
+<p>For simulation or hardware-in-the-loop, start the simulator bridge first and
+pass <code class="docutils literal notranslate"><span class="pre">use_sim_time:=true</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>movensys_manipulator_moveit_config<span class="w"> </span>sim_bridge.launch.py<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span>simulator:<span class="o">=</span>isaacsim<span class="w"> </span>use_sim_time:<span class="o">=</span><span class="nb">true</span>
+mros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>movensys_manipulator_moveit_config<span class="w"> </span>moveit.launch.py<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span>use_sim_time:<span class="o">=</span><span class="nb">true</span>
+</pre></div>
+</div>
+</section>
+<section id="service-api">
+<h2>Service API<a class="headerlink" href="#service-api" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">trajectory_api</span></code> node exposes these services. Pose services use
+<code class="docutils literal notranslate"><span class="pre">movensys_manipulator_moveit_config/srv/MovePose</span></code> (<code class="docutils literal notranslate"><span class="pre">pos</span></code> = XYZ metres,
+<code class="docutils literal notranslate"><span class="pre">ori</span></code> = roll/pitch/yaw radians); joint services use <code class="docutils literal notranslate"><span class="pre">MoveJoints</span></code>.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 45.0%" />
+<col style="width: 30.0%" />
+<col style="width: 25.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Service</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Purpose</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/moveit2/get_eef_pose</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">GetEefPose</span></code></p></td>
+<td><p>Read the current end-effector pose (<code class="docutils literal notranslate"><span class="pre">pos</span></code> + <code class="docutils literal notranslate"><span class="pre">rpy</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/moveit2/absolute_base_eef_cartesian</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MovePose</span></code></p></td>
+<td><p>Cartesian move to an absolute pose (base frame)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/moveit2/relative_base_eef_cartesian</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MovePose</span></code></p></td>
+<td><p>Cartesian move by a relative offset (base frame)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/moveit2/relative_tool_eef_cartesian</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MovePose</span></code></p></td>
+<td><p>Cartesian move by a relative offset (tool frame)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/moveit2/absolute_base_eef_joint_movement</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MovePose</span></code></p></td>
+<td><p>Plan to a pose target in joint space (base frame)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/moveit2/joint_movement</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MoveJoints</span></code></p></td>
+<td><p>Absolute joint-space move</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/moveit2/relative_joint_movement</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MoveJoints</span></code></p></td>
+<td><p>Relative (incremental) joint-space move</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h2>
+<p>Read the current end-effector pose:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/moveit2/get_eef_pose<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span>movensys_manipulator_moveit_config/srv/GetEefPose<span class="w"> </span><span class="s1">&#39;&quot;{}&quot;&#39;</span>
+</pre></div>
+</div>
+<p>Absolute Cartesian move (base frame):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/moveit2/absolute_base_eef_cartesian<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span>movensys_manipulator_moveit_config/srv/MovePose<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span><span class="s1">&#39;&quot;{pos: [-0.158, -0.071, 0.346], ori: [3.14159265, 0.0, -3.14159265]}&quot;&#39;</span>
+</pre></div>
+</div>
+<p>Absolute joint move:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/moveit2/joint_movement<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span>movensys_manipulator_moveit_config/srv/MoveJoints<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span><span class="s1">&#39;&quot;{joint_names: [joint1, joint2, joint3, joint4, joint5, joint6], joint_values: [0.0, 0.0, -1.57, 0.0, 1.57, 0.0]}&quot;&#39;</span>
+</pre></div>
+</div>
+<p>Open or close the gripper:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/set_gripper<span class="w"> </span>std_srvs/srv/SetBool<span class="w"> </span><span class="s1">&#39;&quot;{data: true}&quot;&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="trajectory-execution">
+<h2>Trajectory Execution<a class="headerlink" href="#trajectory-execution" title="Link to this heading">#</a></h2>
+<p>Planned trajectories are streamed to the WMX <code class="docutils literal notranslate"><span class="pre">joint_trajectory_controller</span></code>,
+which executes them with cubic spline interpolation
+(<code class="docutils literal notranslate"><span class="pre">AdvancedMotion::StartCSplinePos()</span></code>) on a deterministic real-time cycle.
+See <a class="reference internal" href="../api_reference/ros2_actions.html"><span class="doc">ROS2 Actions</span></a> for the execution details and limits.</p>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="cumotion_integration.html"><span class="doc">Isaac cuMotion Accelerated Planning</span></a> – GPU-accelerated planning with Isaac cuMotion</p></li>
+<li><p><a class="reference internal" href="custom_application.html"><span class="doc">Building Custom Applications</span></a> – drive the <code class="docutils literal notranslate"><span class="pre">/wmx/moveit2/*</span></code> services from your
+own code</p></li>
+<li><p>The <a class="reference external" href="https://github.com/movensys/movensys-manipulator">movensys-manipulator</a>
+repository for the full trajectory, AprilTag, Nvblox, and YOLO walkthroughs</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="integration.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Integration Scenarios</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="cumotion_integration.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Isaac cuMotion Accelerated Planning</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture">Architecture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-moveit2">Running MoveIt2</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#service-api">Service API</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#trajectory-execution">Trajectory Execution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#see-also">See Also</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5"></script>
+
+<footer class="bd-footer">
+<div class="movensys-footer">
+  <div class="movensys-footer__logo">
+    <a href="https://www.movensys.com" target="_blank" rel="noopener">
+      <img src="../_static/movensys_wordmark.png" alt="Movensys" />
+    </a>
+  </div>
+  <div class="movensys-footer__info">
+    <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
+    
+      <p>Last updated: Jun 25, 2026</p>
+    
+  </div>
+  <div class="movensys-footer__links">
+    <a href="https://www.movensys.com" target="_blank" rel="noopener">MOVENSYS.com</a>
+    <a href="https://www.movensys.com/privacy" target="_blank" rel="noopener">Privacy Policy</a>
+  </div>
+</div>
+</footer>
+  </body>
+</html>
