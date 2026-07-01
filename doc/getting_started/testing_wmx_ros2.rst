@@ -134,7 +134,7 @@ engine is communicating:
 For the complete list of services, topics, and message types exposed by the
 general nodes — engine control, axis motion, I/O, and EtherCAT — see the
 `WMX ROS2 General Nodes reference
-<https://github.com/movensys/wmx-ros2/blob/release/release-0.2-rc1/doc/reference_wmx_ros2_general_nodes.md>`_.
+<https://github.com/movensys/wmx-ros2/blob/main/doc/reference_wmx_ros2_general_nodes.md>`_.
 
 Shutdown
 --------
