@@ -32,7 +32,7 @@ jobs:
             mmdc -i "$f" -o "/tmp/$(basename "$f" .mmd).svg" --quiet
             echo "  OK"
           done
-      - name: Extract and validate inline .. mermaid:: blocks
+      - name: "Extract and validate inline .. mermaid:: blocks"
         run: |
           set -e
           python3 <<'PY'
