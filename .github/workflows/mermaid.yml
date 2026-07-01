@@ -60,6 +60,12 @@ jobs:
                       if indent < base_indent:
                           break
                       body.append(line[base_indent:])
+                  # Strip the reST directive option block (e.g. :caption:, :zoom:)
+                  # which precedes the diagram and is not valid mermaid. Options form
+                  # a field list right after the directive, ending at the first blank line.
+                  if body and re.match(r"^:[^:\s][^:]*:", body[0]):
+                      while body and body[0].strip():
+                          body.pop(0)
                   diagram = "\n".join(body).strip()
                   if not diagram:
                       continue
