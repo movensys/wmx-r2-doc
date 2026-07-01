@@ -2,16 +2,15 @@ WMX ROS2 Documentation
 =======================
 
 WMX ROS2 brings industrial deterministic real-time motion control into the
-ROS2 ecosystem. It provides ROS2 packages that drive robot platforms
-through the WMX motion control engine over EtherCAT. It turns planner
-output such as MoveIt2 and Nav2 trajectories into the precisely timed servo motion
-that industrial applications demand such as semiconductor equipment,
+ROS2 ecosystem for physical AI. It puts sensing and motion on a single device
+so a machine can perceive and act in the real world. Its ROS2 packages drive
+robot platforms through the WMX motion control engine over EtherCAT. They turn
+planner output such as MoveIt2 and Nav2 trajectories into the precisely timed
+servo motion that industrial applications demand such as semiconductor equipment,
 manufacturing automation, and precision robotics.
 
 The entire stack runs on a single industrial PC (IPC) or edge device with no separate motion
-controller, combining perception and deterministic motion into edge
-physical AI so a machine can sense and act in the real world on one
-device.
+controller, combining perception and deterministic motion into edge physical AI.
 
 WMX ROS2 integrates with widely used projects in the ROS2 ecosystem:
 
