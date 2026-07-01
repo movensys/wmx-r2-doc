@@ -1,16 +1,17 @@
 WMX ROS2 Documentation
 =======================
 
-Welcome to the WMX ROS2 documentation. This project provides ROS2
-packages for controlling robot platforms through the WMX motion control
-engine over EtherCAT. It targets industrial applications that require
-deterministic and high precision motion, such as semiconductor
-equipment, manufacturing automation, and precision robotics. The entire
-stack runs on a single industrial PC (IPC) or edge device with no
-separate motion controller. It combines perception and deterministic
-motion into edge physical AI so a machine can sense and act in the real
-world on one device. A Real-Time OS is required so that motion timing
-stays predictable under load.
+WMX ROS2 brings production-grade, deterministic motion control into the
+ROS2 ecosystem. It provides ROS2 packages that drive robot platforms
+through the WMX motion control engine over EtherCAT, turning planner
+output such as MoveIt2 trajectories into the precisely timed servo motion
+that industrial applications demand such as semiconductor equipment,
+manufacturing automation, and precision robotics. 
+
+The entire stack runs on a single industrial PC (IPC) or edge device with no separate motion
+controller, combining perception and deterministic motion into edge
+physical AI so a machine can sense and act in the real world on one
+device.
 
 WMX ROS2 integrates with widely used projects in the ROS2 ecosystem:
 
@@ -34,24 +35,11 @@ WMX ROS2 integrates with widely used projects in the ROS2 ecosystem:
 
    WMX ROS2 architecture overview.
 
-Why need a Real-Time OS?
-----------------------------------------
-
-Servo drivers expect a command every fixed cycle. Standard Linux
-optimizes for throughput rather than keeping a strict deterministic
-schedule, so it may pause the program for a few milliseconds to handle
-a packet or a background task. That delay makes the next command arrive
-late and miss its cycle. A missed cycle makes motion stutter and drops
-accuracy, and on a production line it can even fault the drivers and
-stop the machine. A Real-Time OS such as Linux with the PREEMPT_RT
-patch guarantees motion threads run on time even under load, which is
-why every industrial motion stack runs on one.
-
 Why WMX ROS2?
 ----------------------------------------
 
-A Real-Time OS covers the kernel-level guarantees, but ROS2 still
-leaves one step uncovered. A planner such as MoveIt2 or Nav2 produces a
+A real-time OS provides the kernel-level timing guarantees, but ROS2
+still leaves one step uncovered. A planner such as MoveIt2 or Nav2 produces a
 trajectory and `ros2_control <https://control.ros.org/>`_ sends joint
 commands to the hardware. Those commands still need to become the
 precisely timed signals servo drivers execute on a fixed cycle. Most

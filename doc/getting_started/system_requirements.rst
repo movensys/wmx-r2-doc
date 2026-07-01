@@ -26,6 +26,19 @@ Hardware Requirements
      - Not required for base operation
      - NVIDIA GPU with CUDA for Isaac cuMotion
 
+Real-Time OS requirements
+-------------------------
+
+Servo drivers expect a command every fixed cycle. Standard Linux
+optimizes for throughput rather than keeping a strict deterministic
+schedule, so it may pause the program for a few milliseconds to handle
+a packet or a background task. That delay makes the next command arrive
+late and miss its cycle. A missed cycle makes motion stutter and drops
+accuracy, and on a production line it can even fault the drivers and
+stop the machine. A Real-Time OS such as Linux with the PREEMPT_RT
+patch guarantees motion threads run on time even under load, which is
+why every industrial motion stack runs on one.
+
 WMX Motion Control Engine
 --------------------------
 
