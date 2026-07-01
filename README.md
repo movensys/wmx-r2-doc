@@ -38,6 +38,7 @@ pip install -r doc/requirements.txt
 
 ```bash
 cd doc
+make clean
 make html
 ```
 
@@ -49,5 +50,6 @@ Documentation is automatically built and deployed to GitHub Pages via GitHub Act
 
 
 ## License
-
+ 
 Copyright 2026 MOVENSYS. All rights reserved.
+

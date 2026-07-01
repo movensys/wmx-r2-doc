@@ -1,8 +1,8 @@
-name: Build and Deploy Documentation
+name: Build and Deploy Devel Documentation
 
 on:
   push:
-    branches: [main]
+    branches: [devel]
   workflow_dispatch:
 
 permissions:
@@ -24,10 +24,11 @@ jobs:
       - name: Build Sphinx documentation
         run: sphinx-build doc doc/_build
 
-      - name: Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages (devel subdir)
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: doc/_build
           publish_branch: gh-pages
+          destination_dir: devel
           keep_files: true
