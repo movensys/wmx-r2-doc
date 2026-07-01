@@ -19,34 +19,12 @@ Every manipulator and navigation scenario runs in three execution modes:
 - **Real** -- the real robot via WMX over EtherCAT
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
    :hidden:
-   :caption: Manipulator scenarios
+   :caption: Application stacks
 
-   isaacsim_setup
-   movensys_manipulator_setup
-   trajectory_planning
-   apriltag_pick_and_place
-   obstacle_avoidance
-   yolo_pick_and_place
-   apriltag_obstacle_avoidance
-
-.. toctree::
-   :maxdepth: 1
-   :hidden:
-   :caption: Navigation scenarios
-
-   movensys_navigation_setup
-   manual_driving
-   slam_mapping
-   autonomous_navigation
-
-.. toctree::
-   :maxdepth: 1
-   :hidden:
-   :caption: Intelligence
-
-   robopoly_game
+   movensys_manipulator
+   movensys_navigation
 
 Common Requirements
 -------------------
