@@ -5,12 +5,14 @@ This section provides complete examples that you can run from start to finish
 on the WMX ROS2 stack. The **manipulator scenarios** come from the
 `movensys-manipulator <https://github.com/movensys/movensys-manipulator>`_
 repository (Dobot CR3A / CR5A arms with MoveIt2 / Isaac cuMotion planning and
-Nvblox / YOLO / AprilTag perception). The **Robopoly game** is a voice-driven
-VLM/LLM application from the
+Nvblox / YOLO / AprilTag perception). The **navigation scenarios** come from the
+`movensys-navigation <https://github.com/movensys/movensys-navigation>`_
+repository (a differential-drive base with Nav2 planning, EKF odometry, and SLAM
+mapping). The **Robopoly game** is a voice-driven VLM/LLM application from the
 `movensys-intelligence <https://github.com/movensys/movensys-intelligence>`_
 repository, built on top of the manipulator stack.
 
-Every manipulator scenario runs in three execution modes:
+Every manipulator and navigation scenario runs in three execution modes:
 
 - **Simulation** -- pure simulation (Isaac Sim or Gazebo), no hardware
 - **HIL** -- hardware-in-the-loop: simulator visuals with the real WMX runtime
@@ -32,6 +34,16 @@ Every manipulator scenario runs in three execution modes:
 .. toctree::
    :maxdepth: 1
    :hidden:
+   :caption: Navigation scenarios
+
+   movensys_navigation_setup
+   manual_driving
+   slam_mapping
+   autonomous_navigation
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
    :caption: Intelligence
 
    robopoly_game
@@ -47,8 +59,9 @@ Common Requirements
 - The `movensys-simulation <https://github.com/movensys/movensys-simulation>`_
   repo for the Isaac Sim scenes
 
-Before running any manipulator scenario, set up the stack once — see
-:doc:`movensys_manipulator_setup`.
+Before running any scenario, set up the stack once — see
+:doc:`movensys_manipulator_setup` for manipulator scenarios and
+:doc:`movensys_navigation_setup` for navigation scenarios.
 
 Supported Configurations
 ------------------------
