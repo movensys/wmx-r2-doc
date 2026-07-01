@@ -1,0 +1,794 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>wmx_ros2_message &#8212; WMX ROS2 Documentation 1.0.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=c5bec18d" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
+
+    <script src="../_static/documentation_options.js?v=8d563738"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api_reference/wmx_ros2_message';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="icon" href="../_static/movensys_logo.png"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="wmx_ros2_package" href="wmx_ros2_package.html" />
+    <link rel="prev" title="Communication Overview" href="communication.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="Jul 01, 2026"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="light">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../_static/movensys_logo.png" class="logo__image only-light" alt=""/>
+    <img src="../_static/movensys_logo.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">WMX ROS2 Documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/movensys/wmx-ros2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/movensys/wmx-ros2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item"><div class="sidebar-toc-header">
+  <p class="sidebar-toc-title">Table of Contents</p>
+  <p class="sidebar-toc-subtitle">Contents</p>
+</div></div>
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links" aria-label="Section Navigation">
+  <div class="bd-toc-item navbar-nav">
+    <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/system_requirements.html">System Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/computer_setup.html">Computer Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx3.html">Install WMX ROS2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/testing_wmx_ros2.html">Testing WMX ROS2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/examples.html">Example Applications</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/isaacsim_setup.html">NVIDIA Isaac Setup (Optional)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/trajectory_planning.html">Trajectory Planning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/apriltag_pick_and_place.html">AprilTag Pick-and-Place</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/obstacle_avoidance.html">Nvblox Obstacle Avoidance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/yolo_pick_and_place.html">YOLO Pick-and-Place</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/apriltag_obstacle_avoidance.html">AprilTag + Obstacle Avoidance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/robopoly_game.html">Robopoly Game (VLM / LLM)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples/robopoly_detailed_guide.html">Robopoly Game Guide</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../integration/integration.html">Integration Scenarios</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../integration/moveit2_integration.html">MoveIt2 Motion Planning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/cumotion_integration.html">Isaac cuMotion Accelerated Planning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/custom_planner.html">Custom Planner Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/custom_application.html">Building Custom Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/intelligence_integration.html">Natural-Language and Vision Control (VLM / LLM)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="api_reference.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="communication.html">Communication Overview</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">wmx_ros2_message</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wmx_ros2_package.html">wmx_ros2_package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ros2_services.html">ROS2 Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ros2_topics.html">ROS2 Topics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ros2_actions.html">ROS2 Actions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support.html">Support</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About Us</a></li>
+</ul>
+
+  </div>
+</nav>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var navItems = document.querySelectorAll(".bd-docs-nav li");
+  navItems.forEach(function(li) {
+    var subList = li.querySelector(":scope > ul");
+    if (subList) {
+      var toggle = document.createElement("span");
+      toggle.className = "toc-toggle";
+      var isCurrent = li.classList.contains("current");
+      toggle.textContent = isCurrent ? "−" : "+";
+      if (!isCurrent) {
+        subList.classList.add("toc-collapsed");
+      }
+      toggle.addEventListener("click", function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        subList.classList.toggle("toc-collapsed");
+        toggle.textContent = subList.classList.contains("toc-collapsed") ? "+" : "−";
+      });
+      li.style.position = "relative";
+      var link = li.querySelector(":scope > a");
+      if (link) {
+        link.after(toggle);
+      }
+    }
+  });
+});
+</script></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="api_reference.html" class="nav-link">API Reference</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">wmx_ros2_message</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="wmx-ros2-message">
+<h1>wmx_ros2_message<a class="headerlink" href="#wmx-ros2-message" title="Link to this heading">#</a></h1>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">wmx_ros2_message</span></code> package defines custom ROS2 message and service
+interfaces used by all nodes in the WMX ROS2 application. It contains no
+executable nodes – only interface definitions that are compiled into C++
+and Python bindings by <code class="docutils literal notranslate"><span class="pre">rosidl</span></code>.</p>
+<p><strong>Package Metadata:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 75.0%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Package Name</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_ros2_message</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Version</strong></p></td>
+<td><p>0.1.0</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>License</strong></p></td>
+<td><p>MIT</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Build Type</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ament_cmake</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="package-structure">
+<h2>Package Structure<a class="headerlink" href="#package-structure" title="Link to this heading">#</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>wmx_ros2_message/
+├── CMakeLists.txt
+├── package.xml
+├── msg/
+│   ├── AxisPose.msg
+│   ├── AxisState.msg
+│   └── AxisVelocity.msg
+└── srv/
+    ├── SetEngine.srv
+    ├── SetAxis.srv
+    ├── SetAxisGearRatio.srv
+    ├── LoadWmxParams.srv
+    ├── GetWmxParams.srv
+    ├── GetIoBit.srv
+    ├── GetIoBytes.srv
+    ├── SetIoBit.srv
+    ├── SetIoBytes.srv
+    ├── EcatGetNetworkState.srv
+    ├── EcatRegisterRead.srv
+    ├── EcatResetStatistics.srv
+    └── EcatStartHotconnect.srv
+</pre></div>
+</div>
+</section>
+<section id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 30.0%" />
+<col style="width: 30.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Dependency</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Purpose</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ament_cmake</span></code></p></td>
+<td><p>buildtool</p></td>
+<td><p>CMake build system</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">rosidl_default_generators</span></code></p></td>
+<td><p>build</p></td>
+<td><p>Message/service code generation</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">std_msgs</span></code></p></td>
+<td><p>depend</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">std_msgs/Header</span></code> used by <code class="docutils literal notranslate"><span class="pre">AxisState</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">rosidl_default_runtime</span></code></p></td>
+<td><p>exec</p></td>
+<td><p>Runtime message type support</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ament_lint_auto</span></code> / <code class="docutils literal notranslate"><span class="pre">ament_lint_common</span></code> / <code class="docutils literal notranslate"><span class="pre">ament_cmake_gtest</span></code></p></td>
+<td><p>test</p></td>
+<td><p>Linting and tests</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The package is a member of the <code class="docutils literal notranslate"><span class="pre">rosidl_interface_packages</span></code> group, which
+allows other packages to discover its generated interfaces at build time.</p>
+</section>
+<section id="message-definitions">
+<h2>Message Definitions<a class="headerlink" href="#message-definitions" title="Link to this heading">#</a></h2>
+<section id="axispose">
+<h3>AxisPose<a class="headerlink" href="#axispose" title="Link to this heading">#</a></h3>
+<p>Used for absolute and relative position motion commands. Subscribed by
+<code class="docutils literal notranslate"><span class="pre">wmx_core_motion_node</span></code> on <code class="docutils literal notranslate"><span class="pre">/wmx/axis/position</span></code> and
+<code class="docutils literal notranslate"><span class="pre">/wmx/axis/position/relative</span></code>.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>int32[]   index       # Axis indices to command
+float64[] target      # Target positions (radians)
+float64[] velocity    # Motion velocity per axis (rad/s)
+float64[] acc         # Acceleration per axis (rad/s²)
+float64[] dec         # Deceleration per axis (rad/s²)
+</pre></div>
+</div>
+<p>All array fields are parallel – element <code class="docutils literal notranslate"><span class="pre">i</span></code> in each array corresponds to
+the same axis.</p>
+</section>
+<section id="axisvelocity">
+<h3>AxisVelocity<a class="headerlink" href="#axisvelocity" title="Link to this heading">#</a></h3>
+<p>Used for continuous velocity motion commands. Subscribed by
+<code class="docutils literal notranslate"><span class="pre">wmx_core_motion_node</span></code> on <code class="docutils literal notranslate"><span class="pre">/wmx/axis/velocity</span></code>.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>int32[]   index       # Axis indices to command
+float64[] velocity    # Target velocity per axis (rad/s)
+float64[] acc         # Acceleration per axis (rad/s²)
+float64[] dec         # Deceleration per axis (rad/s²)
+</pre></div>
+</div>
+</section>
+<section id="axisstate">
+<h3>AxisState<a class="headerlink" href="#axisstate" title="Link to this heading">#</a></h3>
+<p>Comprehensive per-axis status feedback published at 100 Hz by
+<code class="docutils literal notranslate"><span class="pre">wmx_core_motion_node</span></code> on <code class="docutils literal notranslate"><span class="pre">/wmx/axis/state</span></code>.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>std_msgs/Header header
+
+# Status flags (per axis)
+bool[] amp_alarm        # Amplifier alarm active
+bool[] servo_on         # Servo enabled
+bool[] home_done        # Homing completed
+bool[] home_switch      # Home switch triggered
+bool[] negative_ls      # Negative limit switch triggered
+bool[] positive_ls      # Positive limit switch triggered
+bool[] motion_complete  # Motion finished / in position
+
+# Command and feedback values (per axis)
+float64[] pos_cmd          # Commanded position (radians)
+float64[] velocity_cmd     # Commanded velocity (rad/s)
+float64[] actual_pos       # Actual encoder position (radians)
+float64[] actual_velocity  # Actual velocity (rad/s)
+float64[] actual_torque    # Actual torque
+</pre></div>
+</div>
+</section>
+</section>
+<section id="service-definitions">
+<h2>Service Definitions<a class="headerlink" href="#service-definitions" title="Link to this heading">#</a></h2>
+<section id="engine">
+<h3>Engine<a class="headerlink" href="#engine" title="Link to this heading">#</a></h3>
+<p><strong>SetEngine</strong> – controls the WMX engine lifecycle (device creation and
+communication). Used by <code class="docutils literal notranslate"><span class="pre">/wmx/engine/set_device</span></code> on <code class="docutils literal notranslate"><span class="pre">wmx_engine_node</span></code>.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># Request
+bool   data      # true = create device, false = close device
+string path      # WMX3 device path (e.g., &quot;/opt/wmx3/&quot;)
+string name      # Device name identifier
+---
+# Response
+bool   success   # true if operation succeeded
+string message   # Human-readable result description
+</pre></div>
+</div>
+</section>
+<section id="axis-control">
+<h3>Axis Control<a class="headerlink" href="#axis-control" title="Link to this heading">#</a></h3>
+<p><strong>SetAxis</strong> – generic per-axis control. The meaning of <code class="docutils literal notranslate"><span class="pre">data</span></code> depends on
+the service using it.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>int32[] index    # Axis indices (e.g., [0, 1, 2, 3, 4, 5])
+int32[] data     # Per-axis values (meaning varies by service)
+---
+bool   success   # true only if ALL axes succeeded
+string message   # Concatenated per-axis result messages
+</pre></div>
+</div>
+<p>Used by <code class="docutils literal notranslate"><span class="pre">/wmx/axis/set_on</span></code> (1=enable / 0=disable), <code class="docutils literal notranslate"><span class="pre">/wmx/axis/clear_alarm</span></code>
+(data unused), <code class="docutils literal notranslate"><span class="pre">/wmx/axis/set_mode</span></code> (0=position / 1=velocity),
+<code class="docutils literal notranslate"><span class="pre">/wmx/axis/set_polarity</span></code> (1=normal / -1=reversed), and <code class="docutils literal notranslate"><span class="pre">/wmx/axis/homing</span></code>
+(data unused).</p>
+<p><strong>SetAxisGearRatio</strong> – configures the encoder gear ratio per axis. Used by
+<code class="docutils literal notranslate"><span class="pre">/wmx/axis/set_gear_ratio</span></code>.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>int32[]   index         # Axis indices
+float64[] numerator     # Gear ratio numerators
+float64[] denominator   # Gear ratio denominators
+---
+bool   success
+string message
+</pre></div>
+</div>
+</section>
+<section id="parameters">
+<h3>Parameters<a class="headerlink" href="#parameters" title="Link to this heading">#</a></h3>
+<p><strong>LoadWmxParams</strong> – load axis parameters from a WMX3 XML file
+(<code class="docutils literal notranslate"><span class="pre">/wmx/params/load</span></code>).</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>string file_path   # absolute path to the WMX3 XML parameter file
+---
+bool   success
+string message
+</pre></div>
+</div>
+<p><strong>GetWmxParams</strong> – retrieve active axis parameters as text
+(<code class="docutils literal notranslate"><span class="pre">/wmx/params/get</span></code>).</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>int32[] index          # axis indices to report
+---
+bool     success
+string   message
+string[] params_dump   # formatted, human-readable parameter dump
+</pre></div>
+</div>
+</section>
+<section id="i-o">
+<h3>I/O<a class="headerlink" href="#i-o" title="Link to this heading">#</a></h3>
+<p><strong>GetIoBit</strong> / <strong>SetIoBit</strong> – read/write a single digital I/O bit.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># GetIoBit request          # SetIoBit request
+int32 byte                  int32 byte
+int32 bit                   int32 bit
+---                         int32 value
+bool   success              ---
+int32  value                bool   success
+string message              string message
+</pre></div>
+</div>
+<p><strong>GetIoBytes</strong> / <strong>SetIoBytes</strong> – read/write a contiguous block of I/O bytes.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># GetIoBytes request        # SetIoBytes request
+int32 byte                  int32 byte
+int32 length                uint8[] data
+---                         ---
+bool    success             bool   success
+uint8[] data                string message
+string  message
+</pre></div>
+</div>
+</section>
+<section id="ethercat">
+<h3>EtherCAT<a class="headerlink" href="#ethercat" title="Link to this heading">#</a></h3>
+<p><strong>EcatGetNetworkState</strong> – full master + per-slave network state.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>int32 master_id
+---
+bool   success
+string message
+int32  master_state      # 0=None 1=Init 2=Preop 4=Boot 8=Safeop 16=Op
+int32  master_mode
+uint32 comm_period
+uint32 total_axes
+uint32 packet_loss
+uint32 over_cycle
+int32  num_of_slaves
+int32[]  slave_ids
+int32[]  slave_states
+bool[]   slave_offline
+bool[]   slave_inaccessible
+uint32[] slave_vendor_ids
+uint32[] slave_product_codes
+# (plus additional timing and addressing fields)
+</pre></div>
+</div>
+<p><strong>EcatRegisterRead</strong> – read raw register data from a slave.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>int32 master_id
+int32 slave_id
+int32 reg_address   # 0x000–0xFFF
+int32 length        # 1–4096 bytes
+---
+bool    success
+uint8[] data
+string  message
+</pre></div>
+</div>
+<p><strong>EcatResetStatistics</strong> / <strong>EcatStartHotconnect</strong> – both take only
+<code class="docutils literal notranslate"><span class="pre">int32</span> <span class="pre">master_id</span></code> and return <code class="docutils literal notranslate"><span class="pre">bool</span> <span class="pre">success</span></code> + <code class="docutils literal notranslate"><span class="pre">string</span> <span class="pre">message</span></code>.</p>
+</section>
+</section>
+<section id="building-the-package">
+<h2>Building the Package<a class="headerlink" href="#building-the-package" title="Link to this heading">#</a></h2>
+<p>This package must be built <strong>before</strong> <code class="docutils literal notranslate"><span class="pre">wmx_ros2_package</span></code> because the main
+package depends on the generated message headers:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/workspaces/movensys_ws
+colcon<span class="w"> </span>build<span class="w"> </span>--packages-select<span class="w"> </span>wmx_ros2_message
+<span class="nb">source</span><span class="w"> </span>install/setup.bash
+</pre></div>
+</div>
+<p>Verify the interfaces are registered:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>interface<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>wmx
+</pre></div>
+</div>
+<p>Expected:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>wmx_ros2_message/msg/AxisPose
+wmx_ros2_message/msg/AxisState
+wmx_ros2_message/msg/AxisVelocity
+wmx_ros2_message/srv/EcatGetNetworkState
+wmx_ros2_message/srv/EcatRegisterRead
+wmx_ros2_message/srv/EcatResetStatistics
+wmx_ros2_message/srv/EcatStartHotconnect
+wmx_ros2_message/srv/GetIoBit
+wmx_ros2_message/srv/GetIoBytes
+wmx_ros2_message/srv/GetWmxParams
+wmx_ros2_message/srv/LoadWmxParams
+wmx_ros2_message/srv/SetAxis
+wmx_ros2_message/srv/SetAxisGearRatio
+wmx_ros2_message/srv/SetEngine
+wmx_ros2_message/srv/SetIoBit
+wmx_ros2_message/srv/SetIoBytes
+</pre></div>
+</div>
+<p>Inspect a specific interface:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>interface<span class="w"> </span>show<span class="w"> </span>wmx_ros2_message/msg/AxisState
+</pre></div>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="communication.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Communication Overview</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="wmx_ros2_package.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">wmx_ros2_package</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#package-structure">Package Structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dependencies">Dependencies</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#message-definitions">Message Definitions</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#axispose">AxisPose</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#axisvelocity">AxisVelocity</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#axisstate">AxisState</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#service-definitions">Service Definitions</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#engine">Engine</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#axis-control">Axis Control</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parameters">Parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#i-o">I/O</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ethercat">EtherCAT</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-the-package">Building the Package</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5"></script>
+
+<footer class="bd-footer">
+<div class="movensys-footer">
+  <div class="movensys-footer__logo">
+    <a href="https://www.movensys.com" target="_blank" rel="noopener">
+      <img src="../_static/movensys_wordmark.png" alt="Movensys" />
+    </a>
+  </div>
+  <div class="movensys-footer__info">
+    <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
+    
+      <p>Last updated: Jul 01, 2026</p>
+    
+  </div>
+  <div class="movensys-footer__links">
+    <a href="https://www.movensys.com" target="_blank" rel="noopener">MOVENSYS.com</a>
+    <a href="https://www.movensys.com/privacy" target="_blank" rel="noopener">Privacy Policy</a>
+  </div>
+</div>
+</footer>
+  </body>
+</html>

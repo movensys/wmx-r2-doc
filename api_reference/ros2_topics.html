@@ -27,21 +27,23 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=fcc44a03" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=c5bec18d" />
   
   <!-- So that users can add custom icons -->
-  <script defer src="../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <script defer src="../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
     <script src="../_static/documentation_options.js?v=8d563738"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api_reference/ros2_topics';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="icon" href="../_static/movensys_logo.png"/>
@@ -53,7 +55,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Apr 23, 2026"/>
+    <meta name="docbuild:last-update" content="Jul 01, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -166,8 +168,7 @@
           
           
           
-          <a href="https://github.com/movensys/wmx_ros2_doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
-            <span class="sr-only">GitHub</span></a>
+          <a href="https://github.com/movensys/wmx-ros2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
 </ul></div>
       
@@ -230,8 +231,7 @@
           
           
           
-          <a href="https://github.com/movensys/wmx_ros2_doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
-            <span class="sr-only">GitHub</span></a>
+          <a href="https://github.com/movensys/wmx-ros2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
 </ul></div>
         
@@ -248,287 +248,45 @@
   <div class="bd-toc-item navbar-nav">
     <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started/system_requirements.html">System Requirements</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../getting_started/system_requirements.html#wmx-motion-control-engine">WMX Motion Control Engine</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../getting_started/system_requirements.html#operating-system">Operating System</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../getting_started/system_requirements.html#ros2-distribution">ROS2 Distribution</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../getting_started/system_requirements.html#hardware-requirements">Hardware Requirements</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../getting_started/system_requirements.html#supported-models-platforms">Supported Models &amp; Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/system_requirements.html">System Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/computer_setup.html">Computer Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx3.html">Install WMX ROS2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/testing_wmx_ros2.html">Testing WMX ROS2</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started/install_ros2.html">Install ROS2</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../getting_started/install_ros2.html#ros2-humble-ubuntu-22-04">ROS2 Humble (Ubuntu 22.04)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../getting_started/install_ros2.html#ros2-jazzy-ubuntu-24-04">ROS2 Jazzy (Ubuntu 24.04)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../getting_started/install_ros2.html#verify-ros2">Verify ROS2</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx3.html">Install WMX3</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../getting_started/wmx3_x86.html">WMX3 on x86-based PC</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../getting_started/wmx3_arm.html">WMX3 on ARM-based PC</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started/install_dependencies.html">Install Dependencies</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../getting_started/install_dependencies.html#verify-wmx3-runtime-installation">Verify WMX3 Runtime Installation</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started/create_workspace.html">Create Workspace and Build</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started/configure_environment.html">Configure Environment</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../getting_started/configure_environment.html#verify-installation">Verify Installation</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started/simulation_hardware.html">Testing in Simulation</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../getting_started/simulation_hardware.html#test-the-general-node-standalone">Test the General Node (Standalone)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../getting_started/simulation_hardware.html#publish-simulated-joint-states">Publish Simulated Joint States</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../getting_started/simulation_hardware.html#simulation-environments">Simulation Environments</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started/physical_hardware.html">Testing with Real Robot</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../getting_started/physical_hardware.html#prerequisites">Prerequisites</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../getting_started/physical_hardware.html#ethercat-wiring">EtherCAT Wiring</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../getting_started/physical_hardware.html#configuration">Configuration</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../getting_started/physical_hardware.html#launch-commands">Launch Commands</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../getting_started/physical_hardware.html#startup-sequence">Startup Sequence</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../getting_started/physical_hardware.html#verifying-the-connection">Verifying the Connection</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../getting_started/physical_hardware.html#gripper-control">Gripper Control</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../getting_started/physical_hardware.html#shutdown">Shutdown</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started/communication.html">Communication Overview</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../packages/packages.html">Packages</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../packages/wmx_ros2_message.html">wmx_ros2_message</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../packages/wmx_ros2_message.html#overview">Overview</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../packages/wmx_ros2_message.html#package-structure">Package Structure</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../packages/wmx_ros2_message.html#dependencies">Dependencies</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../packages/wmx_ros2_message.html#message-definitions">Message Definitions</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../packages/wmx_ros2_message.html#axispose">AxisPose</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../packages/wmx_ros2_message.html#axisvelocity">AxisVelocity</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../packages/wmx_ros2_message.html#axisstate">AxisState</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../packages/wmx_ros2_message.html#service-definitions">Service Definitions</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../packages/wmx_ros2_message.html#setengine">SetEngine</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../packages/wmx_ros2_message.html#setaxis">SetAxis</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../packages/wmx_ros2_message.html#setaxisgearratio">SetAxisGearRatio</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../packages/wmx_ros2_message.html#building-the-package">Building the Package</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../packages/wmx_ros2_package.html">wmx_ros2_package</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../packages/wmx_ros2_package.html#overview">Overview</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../packages/wmx_ros2_package.html#package-structure">Package Structure</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../packages/wmx_ros2_package.html#dependencies">Dependencies</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../packages/wmx_ros2_package.html#package-dependencies-package-xml">Package Dependencies (package.xml)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../packages/wmx_ros2_package.html#cmake-dependencies-find-package">CMake Dependencies (find_package)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../packages/wmx_ros2_package.html#wmx-libraries-external">WMX Libraries (External)</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../packages/wmx_ros2_package.html#nodes">Nodes</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../packages/wmx_ros2_package.html#manipulator-state">manipulator_state</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../packages/wmx_ros2_package.html#follow-joint-trajectory-server">follow_joint_trajectory_server</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../packages/wmx_ros2_package.html#wmx-engine-node">wmx_engine_node</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../packages/wmx_ros2_package.html#wmx-core-motion-node">wmx_core_motion_node</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../packages/wmx_ros2_package.html#wmx-io-node">wmx_io_node</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../packages/wmx_ros2_package.html#wmx-ethercat-node">wmx_ethercat_node</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../packages/wmx_ros2_package.html#diff-drive-controller-disabled">diff_drive_controller (Disabled)</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../packages/wmx_ros2_package.html#launch-files">Launch Files</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../packages/wmx_ros2_package.html#wmx-ros2-multi-node-launch-py">wmx_ros2_multi_node.launch.py</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../packages/wmx_ros2_package.html#wmx-ros2-intel-manipulator-cr3a-launch-py">wmx_ros2_intel_manipulator_cr3a.launch.py</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../packages/wmx_ros2_package.html#wmx-ros2-orin-manipulator-cr3a-launch-py">wmx_ros2_orin_manipulator_cr3a.launch.py</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../packages/wmx_ros2_package.html#wmx-ros2-diff-drive-controller-launch-py">wmx_ros2_diff_drive_controller.launch.py</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../packages/wmx_ros2_package.html#configuration-files">Configuration Files</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../packages/wmx_ros2_package.html#intel-manipulator-config-cr3a-yaml">intel_manipulator_config_cr3a.yaml</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../packages/wmx_ros2_package.html#orin-manipulator-config-cr3a-yaml">orin_manipulator_config_cr3a.yaml</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../packages/wmx_ros2_package.html#diff-drive-controller-config-yaml">diff_drive_controller_config.yaml</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../packages/wmx_ros2_package.html#wmx-parameter-xml-files">WMX Parameter XML Files</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../packages/wmx_ros2_package.html#building-the-package">Building the Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/examples.html">Example Applications</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/isaacsim_setup.html">NVIDIA Isaac Setup (Optional)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/trajectory_planning.html">Trajectory Planning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/apriltag_pick_and_place.html">AprilTag Pick-and-Place</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/obstacle_avoidance.html">Nvblox Obstacle Avoidance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/yolo_pick_and_place.html">YOLO Pick-and-Place</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/apriltag_obstacle_avoidance.html">AprilTag + Obstacle Avoidance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/robopoly_game.html">Robopoly Game (VLM / LLM)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples/robopoly_detailed_guide.html">Robopoly Game Guide</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../integration/integration.html">Integration Scenarios</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../integration/moveit2_integration.html">MoveIt2 Motion Planning</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../integration/moveit2_integration.html#overview">Overview</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../integration/moveit2_integration.html#architecture">Architecture</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../integration/moveit2_integration.html#prerequisites">Prerequisites</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../integration/moveit2_integration.html#configuration">Configuration</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../integration/moveit2_integration.html#usage">Usage</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../integration/moveit2_integration.html#trajectory-execution-details">Trajectory Execution Details</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../integration/cumotion_integration.html">Isaac cuMotion Accelerated Planning</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../integration/cumotion_integration.html#overview">Overview</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../integration/cumotion_integration.html#prerequisites">Prerequisites</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../integration/cumotion_integration.html#integration">Integration</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../integration/cumotion_integration.html#stage-2a-simulation">Stage 2a – Simulation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../integration/cumotion_integration.html#stage-2b-hardware-in-the-loop-hil">Stage 2b – Hardware-in-the-Loop (HiL)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../integration/cumotion_integration.html#stage-2c-real-robot-no-simulation">Stage 2c – Real Robot (No Simulation)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../integration/cumotion_integration.html#see-also">See Also</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../integration/custom_planner.html">Custom Planner Integration</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../integration/custom_planner.html#overview">Overview</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../integration/custom_planner.html#replacing-the-default-planner">Replacing the Default Planner</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../integration/custom_planner.html#interface-requirements">Interface Requirements</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../integration/custom_planner.html#constraints-and-limitations">Constraints and Limitations</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../integration/custom_planner.html#python-example-custom-trajectory-generator">Python Example: Custom Trajectory Generator</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../integration/custom_planner.html#standalone-axis-control">Standalone Axis Control</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../integration/custom_planner.html#see-also">See Also</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../integration/custom_application.html">Building Custom Applications</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../integration/custom_application.html#overview">Overview</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../integration/custom_application.html#prerequisites">Prerequisites</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../integration/custom_application.html#available-interfaces">Available Interfaces</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../integration/custom_application.html#python-example-send-a-trajectory">Python Example: Send a Trajectory</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../integration/custom_application.html#c-example-send-a-trajectory">C++ Example: Send a Trajectory</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../integration/custom_application.html#python-example-read-robot-state">Python Example: Read Robot State</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../integration/custom_application.html#python-example-monitor-axis-state-and-control-gripper">Python Example: Monitor Axis State and Control Gripper</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../integration/custom_application.html#using-with-moveit2-python-api">Using with MoveIt2 Python API</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../integration/custom_application.html#direct-axis-control">Direct Axis Control</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../integration/custom_application.html#adapting-for-different-6-dof-robots">Adapting for Different 6-DOF Robots</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../integration/custom_application.html#configuration-files-to-create-or-modify">Configuration files to create or modify</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../integration/custom_application.html#steps-to-adapt">Steps to adapt</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../integration/custom_application.html#what-stays-the-same">What stays the same</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/moveit2_integration.html">MoveIt2 Motion Planning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/cumotion_integration.html">Isaac cuMotion Accelerated Planning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/custom_planner.html">Custom Planner Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/custom_application.html">Building Custom Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/intelligence_integration.html">Natural-Language and Vision Control (VLM / LLM)</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="api_reference.html">API Reference</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="ros2_services.html">ROS2 Services</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="ros2_services.html#custom-service-types">Custom Service Types</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ros2_services.html#engine-management-services">Engine Management Services</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="ros2_services.html#wmx-engine-set-device">/wmx/engine/set_device</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ros2_services.html#wmx-engine-set-comm">/wmx/engine/set_comm</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ros2_services.html#wmx-engine-get-status">/wmx/engine/get_status</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ros2_services.html#wmx-engine-scan-network">/wmx/engine/scan_network</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="ros2_services.html#axis-control-services">Axis Control Services</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="ros2_services.html#wmx-axis-set-on">/wmx/axis/set_on</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ros2_services.html#wmx-axis-clear-alarm">/wmx/axis/clear_alarm</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ros2_services.html#wmx-axis-set-mode">/wmx/axis/set_mode</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ros2_services.html#wmx-axis-set-polarity">/wmx/axis/set_polarity</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ros2_services.html#wmx-axis-set-gear-ratio">/wmx/axis/set_gear_ratio</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ros2_services.html#wmx-axis-homing">/wmx/axis/homing</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="ros2_services.html#gripper-service">Gripper Service</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="ros2_services.html#wmx-set-gripper">/wmx/set_gripper</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="ros2_services.html#i-o-services">I/O Services</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="ros2_services.html#wmx-io-get-input-bit">/wmx/io/get_input_bit</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ros2_services.html#wmx-io-get-output-bit">/wmx/io/get_output_bit</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ros2_services.html#wmx-io-get-input-bytes">/wmx/io/get_input_bytes</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ros2_services.html#wmx-io-get-output-bytes">/wmx/io/get_output_bytes</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ros2_services.html#wmx-io-set-output-bit">/wmx/io/set_output_bit</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ros2_services.html#wmx-io-set-output-bytes">/wmx/io/set_output_bytes</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="ros2_services.html#ethercat-diagnostic-services">EtherCAT Diagnostic Services</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="ros2_services.html#wmx-ecat-get-network-state">/wmx/ecat/get_network_state</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ros2_services.html#wmx-ecat-register-read">/wmx/ecat/register_read</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ros2_services.html#wmx-ecat-reset-statistics">/wmx/ecat/reset_statistics</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ros2_services.html#wmx-ecat-start-hotconnect">/wmx/ecat/start_hotconnect</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="ros2_services.html#service-call-workflow">Service Call Workflow</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ros2_services.html#error-handling">Error Handling</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ros2_services.html#see-also">See Also</a></li>
-</ul>
-</li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">ROS2 Topics</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#custom-message-types">Custom Message Types</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#published-topics">Published Topics</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#engine-ready-signal">Engine Ready Signal</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#joint-state-feedback">Joint State Feedback</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#simulator-integration-topics">Simulator Integration Topics</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#axis-state-monitoring">Axis State Monitoring</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#subscribed-topics-motion-commands">Subscribed Topics (Motion Commands)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#wmx-axis-velocity">/wmx/axis/velocity</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#wmx-axis-position">/wmx/axis/position</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#wmx-axis-position-relative">/wmx/axis/position/relative</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#differential-drive-topics-optional">Differential Drive Topics (Optional)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#cmd-vel-subscribed">/cmd_vel (Subscribed)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#cmd-vel-check-published">/cmd_vel_check (Published)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#velocity-controller-commands-published">/velocity_controller/commands (Published)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#odom-enc-published">/odom_enc (Published)</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#see-also">See Also</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="ros2_actions.html">ROS2 Actions</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="ros2_actions.html#followjointtrajectory">FollowJointTrajectory</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="ros2_actions.html#goal">Goal</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ros2_actions.html#result">Result</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ros2_actions.html#feedback">Feedback</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ros2_actions.html#execution-details">Execution Details</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ros2_actions.html#example-usage">Example Usage</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ros2_actions.html#moveit2-integration">MoveIt2 Integration</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ros2_actions.html#see-also">See Also</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../examples/examples.html">Example Applications</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../examples/examples.html#overview">Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../examples/examples.html#requirements">Requirements</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../examples/isaac_manipulator.html">Isaac Sim Manipulator</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../examples/isaac_manipulator.html#overview">Overview</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../examples/isaac_manipulator.html#architecture">Architecture</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../examples/isaac_manipulator.html#prerequisites">Prerequisites</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../examples/isaac_manipulator.html#installation">Installation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../examples/isaac_manipulator.html#configuration">Configuration</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../examples/isaac_manipulator.html#usage">Usage</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../examples/isaac_manipulator.html#how-it-connects-to-wmx-ros2">How It Connects to WMX ROS2</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../examples/intel_manipulator.html">Intel Manipulator Integration</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../examples/intel_manipulator.html#overview">Overview</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../examples/intel_manipulator.html#architecture">Architecture</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../examples/intel_manipulator.html#prerequisites">Prerequisites</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../examples/intel_manipulator.html#installation">Installation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../examples/intel_manipulator.html#configuration">Configuration</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../examples/intel_manipulator.html#usage">Usage</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../examples/intel_manipulator.html#how-it-connects-to-wmx-ros2">How It Connects to WMX ROS2</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="communication.html">Communication Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wmx_ros2_message.html">wmx_ros2_message</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wmx_ros2_package.html">wmx_ros2_package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ros2_services.html">ROS2 Services</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">ROS2 Topics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ros2_actions.html">ROS2 Actions</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../support.html">Support</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../troubleshooting/troubleshooting.html">Troubleshooting</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../troubleshooting/troubleshooting.html#device-creation-failures">Device Creation Failures</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../troubleshooting/troubleshooting.html#ethercat-scan-failures">EtherCAT Scan Failures</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../troubleshooting/troubleshooting.html#communication-start-failures">Communication Start Failures</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../troubleshooting/troubleshooting.html#joint-states-all-zero">Joint States All Zero</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../troubleshooting/troubleshooting.html#servo-alarm-errors">Servo Alarm Errors</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../troubleshooting/troubleshooting.html#trajectory-execution-failures">Trajectory Execution Failures</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../troubleshooting/troubleshooting.html#gripper-not-responding">Gripper Not Responding</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../troubleshooting/troubleshooting.html#nodes-not-found">Nodes Not Found</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../troubleshooting/troubleshooting.html#build-errors">Build Errors</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../troubleshooting/troubleshooting.html#getting-help">Getting Help</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting/troubleshooting.html">Troubleshooting</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../about.html">About Us</a></li>
@@ -648,19 +406,19 @@ divided into published (output) and subscribed (input) categories.</p>
 <td><p><code class="docutils literal notranslate"><span class="pre">sensor_msgs/JointState</span></code></p></td>
 <td><p>Published</p></td>
 <td><p>500 Hz</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">manipulator_state</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/isaacsim/joint_command</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">sensor_msgs/JointState</span></code></p></td>
 <td><p>Published</p></td>
 <td><p>500 Hz</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">manipulator_state</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/gazebo_.../commands</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">std_msgs/Float64MultiArray</span></code></p></td>
 <td><p>Published</p></td>
 <td><p>500 Hz</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">manipulator_state</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/axis/state</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">wmx_ros2_message/AxisState</span></code></p></td>
@@ -704,13 +462,14 @@ divided into published (output) and subscribed (input) categories.</p>
 <p>Before reviewing the topics, here are the custom message type definitions
 from <code class="docutils literal notranslate"><span class="pre">wmx_ros2_message</span></code>.</p>
 <p><strong>wmx_ros2_message/msg/AxisState</strong></p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>int32[] amp_alarm          # Amplifier alarm active per axis
-int32[] servo_on           # Servo enabled per axis
-int32[] home_done          # Homing completed per axis
-int32[] in_pos             # At target position per axis
-int32[] negative_ls        # Negative limit switch active per axis
-int32[] positive_ls        # Positive limit switch active per axis
-int32[] home_switch        # Home switch active per axis
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>std_msgs/Header header
+bool[] amp_alarm           # Amplifier alarm active per axis
+bool[] servo_on            # Servo enabled per axis
+bool[] home_done           # Homing completed per axis
+bool[] home_switch         # Home switch active per axis
+bool[] negative_ls         # Negative limit switch active per axis
+bool[] positive_ls         # Positive limit switch active per axis
+bool[] motion_complete     # Motion finished / in position per axis
 float64[] pos_cmd         # Commanded position per axis (radians)
 float64[] velocity_cmd    # Commanded velocity per axis (rad/s)
 float64[] actual_pos      # Actual encoder position per axis (radians)
@@ -721,7 +480,6 @@ float64[] actual_torque   # Actual torque per axis (Nm)
 <p><strong>wmx_ros2_message/msg/AxisPose</strong></p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>int32[] index         # Axis indices to command
 float64[] target      # Target positions (radians)
-string profile        # Motion profile type (reserved)
 float64[] velocity    # Motion velocity per axis (rad/s)
 float64[] acc         # Acceleration per axis (rad/s^2)
 float64[] dec         # Deceleration per axis (rad/s^2)
@@ -729,7 +487,6 @@ float64[] dec         # Deceleration per axis (rad/s^2)
 </div>
 <p><strong>wmx_ros2_message/msg/AxisVelocity</strong></p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>int32[] index         # Axis indices to command
-string profile        # Motion profile type (reserved)
 float64[] velocity    # Target velocity per axis (rad/s)
 float64[] acc         # Acceleration per axis (rad/s^2)
 float64[] dec         # Deceleration per axis (rad/s^2)
@@ -786,7 +543,7 @@ float64[] dec         # Deceleration per axis (rad/s^2)
 <td><p><code class="docutils literal notranslate"><span class="pre">sensor_msgs/msg/JointState</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Publisher</strong></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">manipulator_state</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>Rate</strong></p></td>
 <td><p>500 Hz (configurable via <code class="docutils literal notranslate"><span class="pre">joint_feedback_rate</span></code> parameter)</p></td>
@@ -795,7 +552,7 @@ float64[] dec         # Deceleration per axis (rad/s^2)
 <td><p>Topic name set via <code class="docutils literal notranslate"><span class="pre">encoder_joint_topic</span></code> parameter</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>Source</strong></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">manipulator_state.cpp:encoderJointStep()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster.cpp:publishJointState()</span></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -878,7 +635,7 @@ closed (bit=1), they report the <code class="docutils literal notranslate"><span
 <td><p><code class="docutils literal notranslate"><span class="pre">sensor_msgs/msg/JointState</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Publisher</strong></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">manipulator_state</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>Rate</strong></p></td>
 <td><p>500 Hz (same timer as <code class="docutils literal notranslate"><span class="pre">/joint_states</span></code>)</p></td>
@@ -920,7 +677,7 @@ order in the source code.</p>
 <td><p><code class="docutils literal notranslate"><span class="pre">std_msgs/msg/Float64MultiArray</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Publisher</strong></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">manipulator_state</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>Rate</strong></p></td>
 <td><p>500 Hz (same timer as <code class="docutils literal notranslate"><span class="pre">/joint_states</span></code>)</p></td>
@@ -1127,12 +884,12 @@ the robot workspace is clear and all safety precautions are in place.</p>
 <code class="docutils literal notranslate"><span class="pre">/wmx/axis/set_mode</span></code> with <code class="docutils literal notranslate"><span class="pre">data=[1]</span></code>).</p>
 <p><strong>Example – Rotate axis 0 at 1.0 rad/s:</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>topic<span class="w"> </span>pub<span class="w"> </span>--once<span class="w"> </span>/wmx/axis/velocity<span class="w"> </span>wmx_ros2_message/msg/AxisVelocity<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">&quot;{index: [0], profile: &#39;&#39;, velocity: [1.0], acc: [10.0], dec: [10.0]}&quot;</span>
+<span class="w">  </span><span class="s2">&quot;{index: [0], velocity: [1.0], acc: [10.0], dec: [10.0]}&quot;</span>
 </pre></div>
 </div>
 <p><strong>Example – Stop axis 0:</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>topic<span class="w"> </span>pub<span class="w"> </span>--once<span class="w"> </span>/wmx/axis/velocity<span class="w"> </span>wmx_ros2_message/msg/AxisVelocity<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">&quot;{index: [0], profile: &#39;&#39;, velocity: [0.0], acc: [10.0], dec: [10.0]}&quot;</span>
+<span class="w">  </span><span class="s2">&quot;{index: [0], velocity: [0.0], acc: [10.0], dec: [10.0]}&quot;</span>
 </pre></div>
 </div>
 </section>
@@ -1171,7 +928,7 @@ the robot workspace is clear and all safety precautions are in place.</p>
 position.</p>
 <p><strong>Example – Move axis 0 to 1.5 radians:</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>topic<span class="w"> </span>pub<span class="w"> </span>--once<span class="w"> </span>/wmx/axis/position<span class="w"> </span>wmx_ros2_message/msg/AxisPose<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">&quot;{index: [0], target: [1.5], profile: &#39;&#39;, velocity: [5.0], acc: [10.0], dec: [10.0]}&quot;</span>
+<span class="w">  </span><span class="s2">&quot;{index: [0], target: [1.5], velocity: [5.0], acc: [10.0], dec: [10.0]}&quot;</span>
 </pre></div>
 </div>
 </section>
@@ -1210,7 +967,7 @@ position.</p>
 position.</p>
 <p><strong>Example – Move axis 0 by +0.5 radians from current position:</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>topic<span class="w"> </span>pub<span class="w"> </span>--once<span class="w"> </span>/wmx/axis/position/relative<span class="w"> </span>wmx_ros2_message/msg/AxisPose<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">&quot;{index: [0], target: [0.5], profile: &#39;&#39;, velocity: [5.0], acc: [10.0], dec: [10.0]}&quot;</span>
+<span class="w">  </span><span class="s2">&quot;{index: [0], target: [0.5], velocity: [5.0], acc: [10.0], dec: [10.0]}&quot;</span>
 </pre></div>
 </div>
 </section>
@@ -1349,8 +1106,8 @@ The <code class="docutils literal notranslate"><span class="pre">cmdVelStep()</s
 <ul class="simple">
 <li><p><a class="reference internal" href="ros2_services.html"><span class="doc">ROS2 Services</span></a> – Service API for engine management and axis control</p></li>
 <li><p><a class="reference internal" href="ros2_actions.html"><span class="doc">ROS2 Actions</span></a> – FollowJointTrajectory action for MoveIt2 integration</p></li>
-<li><p><a class="reference internal" href="../packages/wmx_ros2_message.html"><span class="doc">wmx_ros2_message</span></a> – Custom message type definitions</p></li>
-<li><p><a class="reference internal" href="../packages/wmx_ros2_package.html"><span class="doc">wmx_ros2_package</span></a> – Node documentation with parameters</p></li>
+<li><p><a class="reference internal" href="wmx_ros2_message.html"><span class="doc">wmx_ros2_message</span></a> – Custom message type definitions</p></li>
+<li><p><a class="reference internal" href="wmx_ros2_package.html"><span class="doc">wmx_ros2_package</span></a> – Node documentation with parameters</p></li>
 </ul>
 </section>
 </section>
@@ -1453,8 +1210,8 @@ The <code class="docutils literal notranslate"><span class="pre">cmdVelStep()</s
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5"></script>
 
 <footer class="bd-footer">
 <div class="movensys-footer">
@@ -1466,7 +1223,7 @@ The <code class="docutils literal notranslate"><span class="pre">cmdVelStep()</s
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Apr 23, 2026</p>
+      <p>Last updated: Jul 01, 2026</p>
     
   </div>
   <div class="movensys-footer__links">
