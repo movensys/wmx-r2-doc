@@ -1,12 +1,12 @@
 WMX ROS2 Documentation
 =======================
 
-WMX ROS2 brings production-grade, deterministic motion control into the
+WMX ROS2 brings industrial deterministic real-time motion control into the
 ROS2 ecosystem. It provides ROS2 packages that drive robot platforms
-through the WMX motion control engine over EtherCAT, turning planner
-output such as MoveIt2 trajectories into the precisely timed servo motion
+through the WMX motion control engine over EtherCAT. It turns planner
+output such as MoveIt2 and Nav2 trajectories into the precisely timed servo motion
 that industrial applications demand such as semiconductor equipment,
-manufacturing automation, and precision robotics. 
+manufacturing automation, and precision robotics.
 
 The entire stack runs on a single industrial PC (IPC) or edge device with no separate motion
 controller, combining perception and deterministic motion into edge
@@ -16,6 +16,8 @@ device.
 WMX ROS2 integrates with widely used projects in the ROS2 ecosystem:
 
 * `MoveIt2 <https://moveit.ai/>`_ for manipulator motion planning
+* `Nav2 <https://nav2.org/>`_ for mobile robot navigation
+* `ros2_control <https://control.ros.org/>`_ for hardware interface and controller management
 * `NVIDIA Isaac Sim <https://developer.nvidia.com/isaac/sim>`_ and
   `Gazebo <https://gazebosim.org/>`_ for simulation
 * `NVIDIA Isaac ROS <https://developer.nvidia.com/isaac/ros>`_ for GPU
