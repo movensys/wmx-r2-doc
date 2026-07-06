@@ -80,9 +80,17 @@ Pick your target and install the operating system.
 
    .. tab-item:: Jetson Developer Kit
 
+      The Jetson developer kit's built-in eMMC storage is small — too small
+      for JetPack plus ROS 2, MoveIt2, Docker images, and perception models.
+      To add this storage capacity, install an NVMe SSD card in the Jetson
+      developer kit's carrier board (in the M.2 Key M slot) before flashing,
+      then flash the OS onto the SSD.
+
       Flash the board's Board Support Package (BSP) with **NVIDIA SDK
       Manager**, which installs JetPack (the L4T Linux distribution) for your
-      Jetson model — Jetson Orin NX, Jetson Orin AGX, or Jetson Thor.
+      Jetson model — Jetson Orin NX, Jetson Orin AGX, or Jetson Thor. In SDK
+      Manager, select the NVMe SSD as the storage device so JetPack is
+      installed on the SSD rather than the eMMC.
 
       - `Install Jetson with SDK Manager
         <https://docs.nvidia.com/sdk-manager/install-with-sdkm-jetson/index.html>`__
