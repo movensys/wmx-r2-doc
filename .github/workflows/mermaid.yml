@@ -29,10 +29,10 @@ jobs:
           fi
           for f in "${files[@]}"; do
             echo "=== validating: $f ==="
-            mmdc -i "$f" -o "/tmp/$(basename "$f" .mmd).svg" --quiet
+            mmdc -p .github/puppeteer-config.json -i "$f" -o "/tmp/$(basename "$f" .mmd).svg" --quiet
             echo "  OK"
           done
-      - name: Extract and validate inline .. mermaid:: blocks
+      - name: "Extract and validate inline .. mermaid:: blocks"
         run: |
           set -e
           python3 <<'PY'
@@ -60,6 +60,12 @@ jobs:
                       if indent < base_indent:
                           break
                       body.append(line[base_indent:])
+                  # Strip the reST directive option block (e.g. :caption:, :zoom:)
+                  # which precedes the diagram and is not valid mermaid. Options form
+                  # a field list right after the directive, ending at the first blank line.
+                  if body and re.match(r"^:[^:\s][^:]*:", body[0]):
+                      while body and body[0].strip():
+                          body.pop(0)
                   diagram = "\n".join(body).strip()
                   if not diagram:
                       continue
@@ -67,7 +73,7 @@ jobs:
                       tf.write(diagram)
                       tmp = tf.name
                   print(f"=== validating inline block in: {f} (line {text[:m.start()].count(chr(10))+1}) ===")
-                  r = subprocess.run(["mmdc", "-i", tmp, "-o", "/tmp/inline.svg", "--quiet"], capture_output=True, text=True)
+                  r = subprocess.run(["mmdc", "-p", ".github/puppeteer-config.json", "-i", tmp, "-o", "/tmp/inline.svg", "--quiet"], capture_output=True, text=True)
                   if r.returncode != 0:
                       print(r.stdout, r.stderr)
                       fail += 1

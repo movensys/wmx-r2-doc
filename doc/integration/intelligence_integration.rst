@@ -169,7 +169,7 @@ sending requests. A pick-and-place example is included in the repository:
    The Movensys Intelligence services connect to a running WMX ROS2 /
    MoveIt2 session. Bring up the robot (or simulation) first — see
    :doc:`moveit2_integration` and
-   :doc:`../getting_started/testing_wmx_ros2`.
+   :doc:`../getting_started/install_wmx3`.
 
 Supported accelerators include NVIDIA desktop GPUs and Jetson Thor
 (``nvidia-gpu``) and Intel B60 / Panther Lake (``intel-xpu``). See the

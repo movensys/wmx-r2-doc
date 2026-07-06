@@ -19,5 +19,5 @@ Follow the steps in order. At step 6 choose the path that matches your setup
 
    system_requirements
    computer_setup
+   install_wmx_runtime
    install_wmx3
-   testing_wmx_ros2

@@ -1,17 +1,18 @@
-movensys-manipulator Setup
-==========================
+movensys-navigation Setup
+=========================
 
-Set up the ``movensys-manipulator`` stack once before running any of the
-manipulator scenarios. The examples run inside a Docker container; the host only
-needs the environment variables, network tuning, and the cloned repository
-described below.
+Set up the ``movensys-navigation`` stack once before running any of the
+navigation scenarios. Like the manipulator examples, the scenarios run inside a
+Docker container; the host only needs the environment variables, network tuning,
+and the cloned repository described below. Commands run inside the container
+through the ``nros`` helper (the navigation counterpart of ``mros``).
 
 1. Host environment
 -------------------
 
 Add the following to your ``~/.bashrc`` (source it afterwards). The variables
 select the ROS distro, the build flavor, the CPU architecture, and the robot
-model, and define the ``mros`` helper used to run commands inside the container.
+model, and define the ``nros`` helper used to run commands inside the container.
 
 .. code-block:: bash
 
@@ -19,21 +20,21 @@ model, and define the ``mros`` helper used to run commands inside the container.
    export ROS_DISTRO=jazzy                         # {jazzy, humble}
    export MOVENSYS_ROS_VERSION=isaac-ros_4.1       # {isaac-ros_4.1, isaac-ros_3.2, general}
    export CPU_ARCH=amd64                           # {amd64, arm64}
-   export MANIPULATOR_MODEL=dobot_cr3a             # {dobot_cr3a, dobot_cr5a}
+   export NAVIGATION_MODEL=diffbot                 # {diffbot}
 
    export HOST_USER_UID=$(id -u)
    export HOST_USER_GID=$(id -g)
    export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 
-   export MOVENSYS_MANIPULATOR_PACKAGES=~/workspaces/movensys_ws/src/movensys-manipulator
+   export MOVENSYS_NAVIGATION_PACKAGES=~/workspaces/movensys_ws/src/movensys-navigation
    export ISAAC_ROS_WS=~/workspaces/isaac_ros-dev
 
-   mros() {
+   nros() {
      if [ $# -eq 0 ]; then
-       docker exec -it -u admin movensys_manipulator_container \
+       docker exec -it -u admin movensys_navigation_container \
          bash -lc 'source /opt/ros/${ROS_DISTRO}/setup.bash && source /home/admin/workspaces/movensys_ws/install/setup.bash && exec bash -i'
      else
-       docker exec -it -u admin movensys_manipulator_container \
+       docker exec -it -u admin movensys_navigation_container \
          bash -lc "source /opt/ros/\${ROS_DISTRO}/setup.bash && source /home/admin/workspaces/movensys_ws/install/setup.bash && $*"
      fi
    }
@@ -49,7 +50,7 @@ Allow the container to reach the host X server and reload the shell:
 -----------------------------
 
 Raise the kernel socket-buffer limits so the CycloneDDS RMW can carry the
-joint-state and image traffic without drops:
+odometry, laser scan, and image traffic without drops:
 
 .. code-block:: bash
 
@@ -70,7 +71,7 @@ joint-state and image traffic without drops:
 
    mkdir -p ~/workspaces/movensys_ws/src
    cd ~/workspaces/movensys_ws/src
-   git clone git@github.com:movensys/movensys-manipulator.git
+   git clone git@github.com:movensys/movensys-navigation.git
 
 4. Build and start the container
 --------------------------------
@@ -84,39 +85,39 @@ joint-state and image traffic without drops:
    ``MOVENSYS_ROS_VERSION=isaac-ros_3.2`` / ``isaac-ros_4.1``).
 
 The compose files combine the ROS-version layer with the per-architecture
-manipulator layer:
+navigation layer:
 
 .. code-block:: bash
 
-   cd ${MOVENSYS_MANIPULATOR_PACKAGES}/docker
-   docker compose -f ${MOVENSYS_ROS_VERSION}.yaml -f movensys_manipulator.${CPU_ARCH}.yaml down
-   docker compose -f ${MOVENSYS_ROS_VERSION}.yaml -f movensys_manipulator.${CPU_ARCH}.yaml build
-   docker compose -f ${MOVENSYS_ROS_VERSION}.yaml -f movensys_manipulator.${CPU_ARCH}.yaml up -d
+   cd ${MOVENSYS_NAVIGATION_PACKAGES}/docker
+   docker compose -f ${MOVENSYS_ROS_VERSION}.yaml -f movensys_navigation.${CPU_ARCH}.yaml down
+   docker compose -f ${MOVENSYS_ROS_VERSION}.yaml -f movensys_navigation.${CPU_ARCH}.yaml build
+   docker compose -f ${MOVENSYS_ROS_VERSION}.yaml -f movensys_navigation.${CPU_ARCH}.yaml up -d
 
 Follow the container startup logs:
 
 .. code-block:: bash
 
-   docker logs movensys_manipulator_container -f
+   docker logs movensys_navigation_container -f
 
 5. Enter the container
 ----------------------
 
-All scenario commands run through ``mros``, which executes inside the
-``movensys_manipulator_container``. Open an interactive shell:
+All scenario commands run through ``nros``, which executes inside the
+``movensys_navigation_container``. Open an interactive shell:
 
 .. code-block:: bash
 
-   mros
+   nros
 
 Verify the build by launching the robot description in RViz:
 
 .. code-block:: bash
 
-   mros ros2 launch movensys_manipulator_description movensys_manipulator_rviz.launch.py
+   nros ros2 launch movensys_navigation_description movensys_navigation_rviz.launch.py
 
-For HIL and Real modes, the manipulator is brought up with WMX ROS2 (see
-``wmx-ros2/doc/launch_<MANIPULATOR_MODEL>_manipulator.md`` and
+For HIL and Real modes, the base is brought up with WMX ROS2 (see
+``wmx-ros2/doc/launch_<NAVIGATION_MODEL>_navigation.md`` and
 :doc:`../getting_started/install_wmx3`).
 
 .. note:: **Isaac Sim scenes**
