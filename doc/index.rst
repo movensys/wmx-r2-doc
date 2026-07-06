@@ -2,14 +2,13 @@ WMX ROS2 Documentation
 =======================
 
 WMX ROS2 brings industrial deterministic real-time motion control into the
-ROS2 ecosystem for physical AI. It puts sensing and motion on a single device
-so a machine can perceive and act in the real world. Its ROS2 packages drive
-robot platforms through the WMX motion control engine over EtherCAT. They turn
+ROS2 ecosystem for physical AI. It is a set of ROS2 packages that drive
+industrial servos through the WMX motion control engine over EtherCAT. It turns
 planner output such as MoveIt2 and Nav2 trajectories into the precisely timed
-servo motion that industrial applications demand such as semiconductor equipment,
-manufacturing automation, and precision robotics.
+servo motion that industrial applications demand, such as semiconductor
+equipment, manufacturing automation, and precision robotics.
 
-The entire stack runs on a single industrial PC (IPC) or edge device with no separate motion
+The entire stack runs on a single industrial PC (IPC) or edge device with no separate external motion
 controller, combining perception and deterministic motion into edge physical AI.
 
 WMX ROS2 integrates with widely used projects in the ROS2 ecosystem:
@@ -39,40 +38,29 @@ WMX ROS2 integrates with widely used projects in the ROS2 ecosystem:
 Why WMX ROS2?
 ----------------------------------------
 
-A real-time OS provides the kernel-level timing guarantees, but ROS2
-still leaves one step uncovered. A planner such as MoveIt2 or Nav2 produces a
-trajectory and `ros2_control <https://control.ros.org/>`_ sends joint
-commands to the hardware. Those commands still need to become the
+A planner such as MoveIt2 or Nav2 produces a trajectory that must become the
 precisely timed signals servo drivers execute on a fixed cycle. Most
 ROS2 setups bridge this execution gap with a closed industrial
 controller over TCP/IP, which adds latency the planner can never
 recover. The other common option sends raw EtherCAT commands and leaves
 smoothing and coordination to ROS2, which is not built for hard
-real-time work. Both approaches become the limiting factor once a line
-needs production-grade cycle accuracy. The WMX ROS2 package closes the
-gap by bringing the WMX motion control engine into ROS2, so the
-planner's output runs as smooth and deterministic motion without
-leaving the ROS2 ecosystem.
+real-time system. WMX ROS2 closes this gap by bringing the WMX motion control engine into ROS2
+so planner output runs as smooth deterministic motion.
 
-What is WMX ROS2?
-----------------------------------------
-
-WMX ROS2 is an open source MIT-licensed ROS2 package layer that owns the
+WMX ROS2 is an open source MIT-licensed ROS2 package with
 timing-sensitive step: smoothing trajectories, coordinating joints, and
 emitting commands at the rate servo drivers expect. It runs in
 simulation, in hardware-in-the-loop, and on real EtherCAT hardware across
-x86 industrial PCs and NVIDIA Jetson boards on a real-time Linux kernel
-(PREEMPT_RT). It also brings AI to the edge as physical AI, hosting
-workloads such as `NVIDIA Isaac ROS <https://developer.nvidia.com/isaac/ros>`_,
-`YOLO <https://docs.ultralytics.com/>`_,
-`Intel OpenVINO <https://docs.openvino.ai/2026/index.html>`_, and
-vision-language models on the same device that drives the servo. It is
-built on the WMX motion control engine, which keeps motion on a
+x86 or arm64 industrial PCs on a real-time Linux kernel. 
+
+It is built on the WMX motion control engine, which keeps motion on a
 deterministic cycle and exposes more than 200 APIs for trajectory
 conversion, EtherCAT, I/O, and engine control. Proven over a decade in
 semiconductor, manufacturing, and precision robotics. WMX runs free in
-renewable 1-hour sessions that you extend by restarting the engine, and a
+renewable 6-hour sessions that you extend by restarting the engine, and a
 commercial license removes the limit for production.
+
+
 
 Where to go next
 ----------------------------------------
