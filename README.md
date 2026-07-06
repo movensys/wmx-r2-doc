@@ -50,6 +50,6 @@ Documentation is automatically built and deployed to GitHub Pages via GitHub Act
 
 
 ## License
- 
-Copyright 2026 MOVENSYS. All rights reserved.
+
+Copyright 2026 MOVENSYS. All rights reserved. 
 
