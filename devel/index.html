@@ -251,19 +251,27 @@
 <li class="toctree-l1"><a class="reference internal" href="getting_started/index.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="getting_started/system_requirements.html">System Requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="getting_started/computer_setup.html">Computer Setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="getting_started/install_wmx3.html">Install WMX ROS2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started/install_wmx_runtime.html">Install WMX Runtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started/install_wmx3.html">Install WMX ROS2 Package</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="examples/examples.html">Example Applications</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="examples/isaacsim_setup.html">NVIDIA Isaac Setup (Optional)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="examples/trajectory_planning.html">Trajectory Planning</a></li>
-<li class="toctree-l2"><a class="reference internal" href="examples/apriltag_pick_and_place.html">AprilTag Pick-and-Place</a></li>
-<li class="toctree-l2"><a class="reference internal" href="examples/obstacle_avoidance.html">Nvblox Obstacle Avoidance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="examples/yolo_pick_and_place.html">YOLO Pick-and-Place</a></li>
-<li class="toctree-l2"><a class="reference internal" href="examples/apriltag_obstacle_avoidance.html">AprilTag + Obstacle Avoidance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="examples/robopoly_game.html">Robopoly Game (VLM / LLM)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="examples/robopoly_detailed_guide.html">Robopoly Game Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/movensys_manipulator.html">movensys-manipulator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="examples/isaacsim_setup.html">NVIDIA Isaac Setup (Optional)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/trajectory_planning.html">Trajectory Planning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/apriltag_pick_and_place.html">AprilTag Pick-and-Place</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/obstacle_avoidance.html">Nvblox Obstacle Avoidance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/yolo_pick_and_place.html">YOLO Pick-and-Place</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/apriltag_obstacle_avoidance.html">AprilTag + Obstacle Avoidance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/robopoly_game.html">Robopoly Game (VLM / LLM)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="examples/movensys_navigation.html">movensys-navigation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="examples/movensys_navigation_setup.html">movensys-navigation Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/manual_driving.html">Manual Driving</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/slam_mapping.html">SLAM Mapping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/autonomous_navigation.html">Autonomous Navigation</a></li>
 </ul>
 </li>
 </ul>
@@ -348,19 +356,19 @@ document.addEventListener("DOMContentLoaded", function() {
                   
   <section id="wmx-ros2-documentation">
 <h1>WMX ROS2 Documentation<a class="headerlink" href="#wmx-ros2-documentation" title="Link to this heading">#</a></h1>
-<p>Welcome to the WMX ROS2 documentation. This project provides ROS2
-packages for controlling robot platforms through the WMX motion control
-engine over EtherCAT. It targets industrial applications that require
-deterministic and high precision motion, such as semiconductor
-equipment, manufacturing automation, and precision robotics. The entire
-stack runs on a single industrial PC (IPC) or edge device with no
-separate motion controller. It combines perception and deterministic
-motion into edge physical AI so a machine can sense and act in the real
-world on one device. A Real-Time OS is required so that motion timing
-stays predictable under load.</p>
+<p>WMX ROS2 brings industrial deterministic real-time motion control into the
+ROS2 ecosystem for physical AI. It is a set of ROS2 packages that drive
+industrial servos through the WMX motion control engine over EtherCAT. It turns
+planner output such as MoveIt2 and Nav2 trajectories into the precisely timed
+servo motion that industrial applications demand, such as semiconductor
+equipment, manufacturing automation, and precision robotics.</p>
+<p>The entire stack runs on a single industrial PC (IPC) or edge device with no separate external motion
+controller, combining perception and deterministic motion into edge physical AI.</p>
 <p>WMX ROS2 integrates with widely used projects in the ROS2 ecosystem:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://moveit.ai/">MoveIt2</a> for manipulator motion planning</p></li>
+<li><p><a class="reference external" href="https://nav2.org/">Nav2</a> for mobile robot navigation</p></li>
+<li><p><a class="reference external" href="https://control.ros.org/">ros2_control</a> for hardware interface and controller management</p></li>
 <li><p><a class="reference external" href="https://developer.nvidia.com/isaac/sim">NVIDIA Isaac Sim</a> and
 <a class="reference external" href="https://gazebosim.org/">Gazebo</a> for simulation</p></li>
 <li><p><a class="reference external" href="https://developer.nvidia.com/isaac/ros">NVIDIA Isaac ROS</a> for GPU
@@ -371,59 +379,33 @@ CPU and integrated accelerators</p></li>
 <li><p>Multimodal large language models (LLMs) and vision language models
 (VLMs) for natural language task specification and high level reasoning</p></li>
 </ul>
-<figure class="align-center" id="id4">
+<figure class="align-center" id="id1">
 <a class="reference internal image-reference" href="_images/wmx-ros2_overview.drawio.png"><img alt="WMX ROS2 architecture overview" src="_images/wmx-ros2_overview.drawio.png" style="width: 100%;" />
 </a>
 <figcaption>
-<p><span class="caption-text">WMX ROS2 architecture overview.</span><a class="headerlink" href="#id4" title="Link to this image">#</a></p>
+<p><span class="caption-text">WMX ROS2 architecture overview.</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-<section id="why-need-a-real-time-os">
-<h2>Why need a Real-Time OS?<a class="headerlink" href="#why-need-a-real-time-os" title="Link to this heading">#</a></h2>
-<p>Servo drivers expect a command every fixed cycle. Standard Linux
-optimizes for throughput rather than keeping a strict deterministic
-schedule, so it may pause the program for a few milliseconds to handle
-a packet or a background task. That delay makes the next command arrive
-late and miss its cycle. A missed cycle makes motion stutter and drops
-accuracy, and on a production line it can even fault the drivers and
-stop the machine. A Real-Time OS such as Linux with the PREEMPT_RT
-patch guarantees motion threads run on time even under load, which is
-why every industrial motion stack runs on one.</p>
-</section>
 <section id="why-wmx-ros2">
 <h2>Why WMX ROS2?<a class="headerlink" href="#why-wmx-ros2" title="Link to this heading">#</a></h2>
-<p>A Real-Time OS covers the kernel-level guarantees, but ROS2 still
-leaves one step uncovered. A planner such as MoveIt2 or Nav2 produces a
-trajectory and <a class="reference external" href="https://control.ros.org/">ros2_control</a> sends joint
-commands to the hardware. Those commands still need to become the
+<p>A planner such as MoveIt2 or Nav2 produces a trajectory that must become the
 precisely timed signals servo drivers execute on a fixed cycle. Most
 ROS2 setups bridge this execution gap with a closed industrial
 controller over TCP/IP, which adds latency the planner can never
 recover. The other common option sends raw EtherCAT commands and leaves
 smoothing and coordination to ROS2, which is not built for hard
-real-time work. Both approaches become the limiting factor once a line
-needs production-grade cycle accuracy. The WMX ROS2 package closes the
-gap by bringing the WMX motion control engine into ROS2, so the
-planner’s output runs as smooth and deterministic motion without
-leaving the ROS2 ecosystem.</p>
-</section>
-<section id="what-is-wmx-ros2">
-<h2>What is WMX ROS2?<a class="headerlink" href="#what-is-wmx-ros2" title="Link to this heading">#</a></h2>
-<p>WMX ROS2 is an open source MIT-licensed ROS2 package layer that owns the
+real-time system. WMX ROS2 closes this gap by bringing the WMX motion control engine into ROS2
+so planner output runs as smooth deterministic motion.</p>
+<p>WMX ROS2 is an open source MIT-licensed ROS2 package with
 timing-sensitive step: smoothing trajectories, coordinating joints, and
 emitting commands at the rate servo drivers expect. It runs in
 simulation, in hardware-in-the-loop, and on real EtherCAT hardware across
-x86 industrial PCs and NVIDIA Jetson boards on a real-time Linux kernel
-(PREEMPT_RT). It also brings AI to the edge as physical AI, hosting
-workloads such as <a class="reference external" href="https://developer.nvidia.com/isaac/ros">NVIDIA Isaac ROS</a>,
-<a class="reference external" href="https://docs.ultralytics.com/">YOLO</a>,
-<a class="reference external" href="https://docs.openvino.ai/2026/index.html">Intel OpenVINO</a>, and
-vision-language models on the same device that drives the servo. It is
-built on the WMX motion control engine, which keeps motion on a
+x86 or arm64 industrial PCs on a real-time Linux kernel.</p>
+<p>It is built on the WMX motion control engine, which keeps motion on a
 deterministic cycle and exposes more than 200 APIs for trajectory
 conversion, EtherCAT, I/O, and engine control. Proven over a decade in
 semiconductor, manufacturing, and precision robotics. WMX runs free in
-renewable 1-hour sessions that you extend by restarting the engine, and a
+renewable 6-hour sessions that you extend by restarting the engine, and a
 commercial license removes the limit for production.</p>
 </section>
 <section id="where-to-go-next">
@@ -608,9 +590,7 @@ commercial license removes the limit for production.</p>
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-need-a-real-time-os">Why need a Real-Time OS?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-wmx-ros2">Why WMX ROS2?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-wmx-ros2">What is WMX ROS2?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#where-to-go-next">Where to go next</a></li>
 </ul>
   </nav></div>

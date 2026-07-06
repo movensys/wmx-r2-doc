@@ -50,8 +50,8 @@
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="NVIDIA Isaac Setup (Optional)" href="isaacsim_setup.html" />
-    <link rel="prev" title="Install WMX ROS2" href="../getting_started/install_wmx3.html" />
+    <link rel="next" title="movensys-manipulator" href="movensys_manipulator.html" />
+    <link rel="prev" title="Install WMX ROS2 Package" href="../getting_started/install_wmx3.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -250,19 +250,27 @@
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../getting_started/system_requirements.html">System Requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../getting_started/computer_setup.html">Computer Setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx3.html">Install WMX ROS2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx_runtime.html">Install WMX Runtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx3.html">Install WMX ROS2 Package</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Example Applications</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="isaacsim_setup.html">NVIDIA Isaac Setup (Optional)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="trajectory_planning.html">Trajectory Planning</a></li>
-<li class="toctree-l2"><a class="reference internal" href="apriltag_pick_and_place.html">AprilTag Pick-and-Place</a></li>
-<li class="toctree-l2"><a class="reference internal" href="obstacle_avoidance.html">Nvblox Obstacle Avoidance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="yolo_pick_and_place.html">YOLO Pick-and-Place</a></li>
-<li class="toctree-l2"><a class="reference internal" href="apriltag_obstacle_avoidance.html">AprilTag + Obstacle Avoidance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="robopoly_game.html">Robopoly Game (VLM / LLM)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="robopoly_detailed_guide.html">Robopoly Game Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="movensys_manipulator.html">movensys-manipulator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="isaacsim_setup.html">NVIDIA Isaac Setup (Optional)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="trajectory_planning.html">Trajectory Planning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="apriltag_pick_and_place.html">AprilTag Pick-and-Place</a></li>
+<li class="toctree-l3"><a class="reference internal" href="obstacle_avoidance.html">Nvblox Obstacle Avoidance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="yolo_pick_and_place.html">YOLO Pick-and-Place</a></li>
+<li class="toctree-l3"><a class="reference internal" href="apriltag_obstacle_avoidance.html">AprilTag + Obstacle Avoidance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="robopoly_game.html">Robopoly Game (VLM / LLM)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="movensys_navigation.html">movensys-navigation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="movensys_navigation_setup.html">movensys-navigation Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual_driving.html">Manual Driving</a></li>
+<li class="toctree-l3"><a class="reference internal" href="slam_mapping.html">SLAM Mapping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autonomous_navigation.html">Autonomous Navigation</a></li>
 </ul>
 </li>
 </ul>
@@ -375,18 +383,18 @@ document.addEventListener("DOMContentLoaded", function() {
 on the WMX ROS2 stack. The <strong>manipulator scenarios</strong> come from the
 <a class="reference external" href="https://github.com/movensys/movensys-manipulator">movensys-manipulator</a>
 repository (Dobot CR3A / CR5A arms with MoveIt2 / Isaac cuMotion planning and
-Nvblox / YOLO / AprilTag perception). The <strong>Robopoly game</strong> is a voice-driven
-VLM/LLM application from the
+Nvblox / YOLO / AprilTag perception). The <strong>navigation scenarios</strong> come from the
+<a class="reference external" href="https://github.com/movensys/movensys-navigation">movensys-navigation</a>
+repository (a differential-drive base with Nav2 planning, EKF odometry, and SLAM
+mapping). The <strong>Robopoly game</strong> is a voice-driven VLM/LLM application from the
 <a class="reference external" href="https://github.com/movensys/movensys-intelligence">movensys-intelligence</a>
 repository, built on top of the manipulator stack.</p>
-<p>Every manipulator scenario runs in three execution modes:</p>
+<p>Every manipulator and navigation scenario runs in three execution modes:</p>
 <ul class="simple">
 <li><p><strong>Simulation</strong> – pure simulation (Isaac Sim or Gazebo), no hardware</p></li>
 <li><p><strong>HIL</strong> – hardware-in-the-loop: simulator visuals with the real WMX runtime</p></li>
 <li><p><strong>Real</strong> – the real robot via WMX over EtherCAT</p></li>
 </ul>
-<div class="toctree-wrapper compound">
-</div>
 <div class="toctree-wrapper compound">
 </div>
 <section id="common-requirements">
@@ -400,8 +408,9 @@ repository, built on top of the manipulator stack.</p>
 <li><p>The <a class="reference external" href="https://github.com/movensys/movensys-simulation">movensys-simulation</a>
 repo for the Isaac Sim scenes</p></li>
 </ul>
-<p>Before running any manipulator scenario, set up the stack once — see
-<a class="reference internal" href="movensys_manipulator_setup.html"><span class="doc">movensys-manipulator Setup</span></a>.</p>
+<p>Before running any scenario, set up the stack once — see
+<a class="reference internal" href="movensys_manipulator_setup.html"><span class="doc">movensys-manipulator Setup</span></a> for manipulator scenarios and
+<a class="reference internal" href="movensys_navigation_setup.html"><span class="doc">movensys-navigation Setup</span></a> for navigation scenarios.</p>
 </section>
 <section id="supported-configurations">
 <h2>Supported Configurations<a class="headerlink" href="#supported-configurations" title="Link to this heading">#</a></h2>
@@ -560,15 +569,15 @@ tracked below.</p>
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Install WMX ROS2</p>
+        <p class="prev-next-title">Install WMX ROS2 Package</p>
       </div>
     </a>
     <a class="right-next"
-       href="isaacsim_setup.html"
+       href="movensys_manipulator.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">NVIDIA Isaac Setup (Optional)</p>
+        <p class="prev-next-title">movensys-manipulator</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

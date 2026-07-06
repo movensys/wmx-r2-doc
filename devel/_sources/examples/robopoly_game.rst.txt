@@ -62,7 +62,7 @@ required services across terminals:
 
 .. tab-set::
 
-   .. tab-item:: Nvidia Jetson Thor (MIC-743)
+   .. tab-item:: NVIDIA Jetson Thor
       
       .. code-block:: bash
 
@@ -75,7 +75,7 @@ required services across terminals:
          # Terminal 3: run MoveIt2, the containers, and YOLO
          ./run_robopoly.sh run
 
-   .. tab-item:: Intel Panther Lake (UNO-258)
+   .. tab-item:: Intel Panther Lake
       
       .. code-block:: bash
 

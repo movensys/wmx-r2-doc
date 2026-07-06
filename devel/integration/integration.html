@@ -487,7 +487,7 @@ window.runMermaid = runMermaid;</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="MoveIt2 Motion Planning" href="moveit2_integration.html" />
-    <link rel="prev" title="Robopoly Game Guide" href="../examples/robopoly_detailed_guide.html" />
+    <link rel="prev" title="Autonomous Navigation" href="../examples/autonomous_navigation.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -682,19 +682,27 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../getting_started/system_requirements.html">System Requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../getting_started/computer_setup.html">Computer Setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx3.html">Install WMX ROS2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx_runtime.html">Install WMX Runtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx3.html">Install WMX ROS2 Package</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/examples.html">Example Applications</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../examples/isaacsim_setup.html">NVIDIA Isaac Setup (Optional)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../examples/trajectory_planning.html">Trajectory Planning</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../examples/apriltag_pick_and_place.html">AprilTag Pick-and-Place</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../examples/obstacle_avoidance.html">Nvblox Obstacle Avoidance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../examples/yolo_pick_and_place.html">YOLO Pick-and-Place</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../examples/apriltag_obstacle_avoidance.html">AprilTag + Obstacle Avoidance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../examples/robopoly_game.html">Robopoly Game (VLM / LLM)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../examples/robopoly_detailed_guide.html">Robopoly Game Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator.html">movensys-manipulator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples/isaacsim_setup.html">NVIDIA Isaac Setup (Optional)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/trajectory_planning.html">Trajectory Planning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/apriltag_pick_and_place.html">AprilTag Pick-and-Place</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/obstacle_avoidance.html">Nvblox Obstacle Avoidance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/yolo_pick_and_place.html">YOLO Pick-and-Place</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/apriltag_obstacle_avoidance.html">AprilTag + Obstacle Avoidance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/robopoly_game.html">Robopoly Game (VLM / LLM)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/movensys_navigation.html">movensys-navigation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples/movensys_navigation_setup.html">movensys-navigation Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/manual_driving.html">Manual Driving</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/slam_mapping.html">SLAM Mapping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/autonomous_navigation.html">Autonomous Navigation</a></li>
 </ul>
 </li>
 </ul>
@@ -809,7 +817,7 @@ custom planners and applications.</p>
 <p>Use the decision tree below to find the right integration for your use case,
 then follow the corresponding guide.</p>
 <figure class="align-default" id="id1">
-<pre data-zoom-id="id-1d7f8c06-25eb-4337-8c1a-f7263a5c1107" class="mermaid">
+<pre data-zoom-id="id-754b2a6c-670e-4127-84bd-aa4bfe8c180b" class="mermaid">
         %%{init: {&quot;theme&quot;: &quot;base&quot;, &quot;themeVariables&quot;: {&quot;primaryColor&quot;: &quot;#2563eb&quot;, &quot;primaryTextColor&quot;: &quot;#0f172a&quot;, &quot;primaryBorderColor&quot;: &quot;#1e40af&quot;, &quot;lineColor&quot;: &quot;#475569&quot;, &quot;fontSize&quot;: &quot;14px&quot;, &quot;edgeLabelBackground&quot;: &quot;#f1f5f9&quot;, &quot;tertiaryColor&quot;: &quot;#f1f5f9&quot;}}}%%
 flowchart TD
     START([&quot; What do I need? &quot;])
@@ -941,12 +949,12 @@ through a FastAPI service (an application layer on top of MoveIt2)</p></li>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../examples/robopoly_detailed_guide.html"
+       href="../examples/autonomous_navigation.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Robopoly Game Guide</p>
+        <p class="prev-next-title">Autonomous Navigation</p>
       </div>
     </a>
     <a class="right-next"

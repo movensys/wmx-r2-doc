@@ -250,19 +250,27 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Getting Started</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">System Requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="computer_setup.html">Computer Setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="install_wmx3.html">Install WMX ROS2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install_wmx_runtime.html">Install WMX Runtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install_wmx3.html">Install WMX ROS2 Package</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/examples.html">Example Applications</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../examples/isaacsim_setup.html">NVIDIA Isaac Setup (Optional)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../examples/trajectory_planning.html">Trajectory Planning</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../examples/apriltag_pick_and_place.html">AprilTag Pick-and-Place</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../examples/obstacle_avoidance.html">Nvblox Obstacle Avoidance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../examples/yolo_pick_and_place.html">YOLO Pick-and-Place</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../examples/apriltag_obstacle_avoidance.html">AprilTag + Obstacle Avoidance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../examples/robopoly_game.html">Robopoly Game (VLM / LLM)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../examples/robopoly_detailed_guide.html">Robopoly Game Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator.html">movensys-manipulator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples/isaacsim_setup.html">NVIDIA Isaac Setup (Optional)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/trajectory_planning.html">Trajectory Planning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/apriltag_pick_and_place.html">AprilTag Pick-and-Place</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/obstacle_avoidance.html">Nvblox Obstacle Avoidance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/yolo_pick_and_place.html">YOLO Pick-and-Place</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/apriltag_obstacle_avoidance.html">AprilTag + Obstacle Avoidance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/robopoly_game.html">Robopoly Game (VLM / LLM)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/movensys_navigation.html">movensys-navigation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples/movensys_navigation_setup.html">movensys-navigation Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/manual_driving.html">Manual Driving</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/slam_mapping.html">SLAM Mapping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/autonomous_navigation.html">Autonomous Navigation</a></li>
 </ul>
 </li>
 </ul>
@@ -406,9 +414,25 @@ document.addEventListener("DOMContentLoaded", function() {
 <td><p>Not required for base operation</p></td>
 <td><p>NVIDIA GPU with CUDA for Isaac cuMotion</p></td>
 </tr>
+<tr class="row-even"><td><p>NPU</p></td>
+<td><p>Not required for base operation</p></td>
+<td><p>Intel NPU for OpenVINO inference applications</p></td>
+</tr>
 </tbody>
 </table>
 </div>
+</section>
+<section id="real-time-os-requirements">
+<h2>Real-Time OS requirements<a class="headerlink" href="#real-time-os-requirements" title="Link to this heading">#</a></h2>
+<p>Servo drivers expect a command every fixed cycle. Standard Linux
+optimizes for throughput rather than keeping a strict deterministic
+schedule, so it may pause the program for a few milliseconds to handle
+a packet or a background task. That delay makes the next command arrive
+late and miss its cycle. A missed cycle makes motion stutter and drops
+accuracy, and on a production line it can even fault the drivers and
+stop the machine. A Real-Time OS such as Linux with the PREEMPT_RT
+patch guarantees motion threads run on time even under load, which is
+why every industrial motion stack runs on one.</p>
 </section>
 <section id="wmx-motion-control-engine">
 <h2>WMX Motion Control Engine<a class="headerlink" href="#wmx-motion-control-engine" title="Link to this heading">#</a></h2>
@@ -430,110 +454,15 @@ non-real-time ROS2 domain with the real-time WMX engine</p></li>
 robot-agnostic; only configuration files differ between robots</p></li>
 </ul>
 <p>The WMX runtime must be installed at <code class="docutils literal notranslate"><span class="pre">/opt/wmx3/</span></code> before building or
-running the WMX ROS2 packages. See <a class="reference internal" href="install_wmx3.html"><span class="doc">Install WMX ROS2</span></a> for verification
-steps.</p>
+running the WMX ROS2 packages. See <a class="reference internal" href="computer_setup.html"><span class="doc">Computer Setup</span></a> for installation and
+verification steps.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Root (sudo) access is required at runtime. The WMX motion control engine
 and EtherCAT communication require kernel-level access to the network
 interface.</p>
 </div>
-</section>
-<section id="supported-robot-models-and-platforms">
-<h2>Supported Robot Models and Platforms<a class="headerlink" href="#supported-robot-models-and-platforms" title="Link to this heading">#</a></h2>
-<div class="pst-scrollable-table-container"><table class="table">
-<colgroup>
-<col style="width: 15.0%" />
-<col style="width: 15.0%" />
-<col style="width: 15.0%" />
-<col style="width: 55.0%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Model</p></th>
-<th class="head"><p>DOF</p></th>
-<th class="head"><p>Payload</p></th>
-<th class="head"><p>Status</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>Dobot CR3A</p></td>
-<td><p>6</p></td>
-<td><p>16.5 kg</p></td>
-<td><p>Fully supported. Configuration files and WMX parameters included.</p></td>
-</tr>
-<tr class="row-odd"><td><p>Dobot CR5A</p></td>
-<td><p>6</p></td>
-<td><p>25 kg</p></td>
-<td><p>Tested only in simulation and hardware-in-loop</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>The architecture is robot-agnostic for any 6-DOF manipulator with EtherCAT
-servo drives.</p>
-<div class="pst-scrollable-table-container"><table class="table">
-<colgroup>
-<col style="width: 18.0%" />
-<col style="width: 11.0%" />
-<col style="width: 22.0%" />
-<col style="width: 18.0%" />
-<col style="width: 17.0%" />
-<col style="width: 14.0%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Platform</p></th>
-<th class="head"><p>Architecture</p></th>
-<th class="head"><p>Ubuntu Version</p></th>
-<th class="head"><p>ROS2 Distro</p></th>
-<th class="head"><p>Model</p></th>
-<th class="head"><p>Notes</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>Desktop PC</p></td>
-<td><p>x86_64</p></td>
-<td><p>22.04 LTS (Jammy) / 24.04 LTS (Noble)</p></td>
-<td><p><a class="reference external" href="https://docs.ros.org/en/humble/index.html">Humble</a> / <a class="reference external" href="https://docs.ros.org/en/jazzy/index.html">Jazzy</a></p></td>
-<td><p>Desktop with NVIDIA RTX 5070 / 5090</p></td>
-<td><p>Simulation and HIL</p></td>
-</tr>
-<tr class="row-odd"><td><p>Intel IPC</p></td>
-<td><p>x86_64</p></td>
-<td><p>22.04 LTS (Jammy) / 24.04 LTS (Noble)</p></td>
-<td><p><a class="reference external" href="https://docs.ros.org/en/humble/index.html">Humble</a> / <a class="reference external" href="https://docs.ros.org/en/jazzy/index.html">Jazzy</a></p></td>
-<td><p>Advantech UNO-258</p></td>
-<td><p>Edge AI platform</p></td>
-</tr>
-<tr class="row-even"><td><p>NVIDIA Jetson Orin</p></td>
-<td><p>arm64</p></td>
-<td><p>22.04 LTS (Jammy)</p></td>
-<td><p><a class="reference external" href="https://docs.ros.org/en/humble/index.html">Humble</a></p></td>
-<td><p>Advantech MIC-713 / MIC-733ao</p></td>
-<td><p>Edge AI platform</p></td>
-</tr>
-<tr class="row-odd"><td><p>NVIDIA Jetson Thor</p></td>
-<td><p>arm64</p></td>
-<td><p>24.04 LTS (Noble)</p></td>
-<td><p><a class="reference external" href="https://docs.ros.org/en/jazzy/index.html">Jazzy</a></p></td>
-<td><p>Advantech MIC-743</p></td>
-<td><p>Edge AI platform</p></td>
-</tr>
-</tbody>
-</table>
-</div>
 <p>The C++ standard required is <strong>C++17</strong> (set in <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code>).</p>
-<p><strong>EtherCAT Network Interface:</strong></p>
-<ul class="simple">
-<li><p><strong>Dedicated Ethernet NIC</strong> for the EtherCAT fieldbus (cannot be shared with
-regular network traffic)</p></li>
-<li><p>The EtherCAT port connects directly to the first servo drive in the daisy chain</p></li>
-</ul>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>The EtherCAT Ethernet port is <strong>not</strong> a standard TCP/IP connection. Do not
-configure it with a regular IP address. The WMX engine controls this
-interface at the raw Ethernet level.</p>
-</div>
 </section>
 </section>
 
@@ -585,8 +514,8 @@ interface at the raw Ethernet level.</p>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hardware-requirements">Hardware Requirements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#real-time-os-requirements">Real-Time OS requirements</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wmx-motion-control-engine">WMX Motion Control Engine</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#supported-robot-models-and-platforms">Supported Robot Models and Platforms</a></li>
 </ul>
   </nav></div>
 

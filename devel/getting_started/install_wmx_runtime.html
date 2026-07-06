@@ -1,0 +1,694 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Install WMX Runtime &#8212; WMX ROS2 Documentation 1.0.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=c5bec18d" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
+
+    <script src="../_static/documentation_options.js?v=8d563738"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'getting_started/install_wmx_runtime';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="icon" href="../_static/movensys_logo.png"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Install WMX ROS2 Package" href="install_wmx3.html" />
+    <link rel="prev" title="Computer Setup" href="computer_setup.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="Jul 06, 2026"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="light">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../_static/movensys_logo.png" class="logo__image only-light" alt=""/>
+    <img src="../_static/movensys_logo.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">WMX ROS2 Documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/movensys/wmx-ros2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/movensys/wmx-ros2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item"><div class="sidebar-toc-header">
+  <p class="sidebar-toc-title">Table of Contents</p>
+  <p class="sidebar-toc-subtitle">Contents</p>
+</div></div>
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links" aria-label="Section Navigation">
+  <div class="bd-toc-item navbar-nav">
+    <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Getting Started</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="system_requirements.html">System Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="computer_setup.html">Computer Setup</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Install WMX Runtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install_wmx3.html">Install WMX ROS2 Package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/examples.html">Example Applications</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator.html">movensys-manipulator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples/isaacsim_setup.html">NVIDIA Isaac Setup (Optional)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/trajectory_planning.html">Trajectory Planning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/apriltag_pick_and_place.html">AprilTag Pick-and-Place</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/obstacle_avoidance.html">Nvblox Obstacle Avoidance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/yolo_pick_and_place.html">YOLO Pick-and-Place</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/apriltag_obstacle_avoidance.html">AprilTag + Obstacle Avoidance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/robopoly_game.html">Robopoly Game (VLM / LLM)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/movensys_navigation.html">movensys-navigation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples/movensys_navigation_setup.html">movensys-navigation Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/manual_driving.html">Manual Driving</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/slam_mapping.html">SLAM Mapping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/autonomous_navigation.html">Autonomous Navigation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../integration/integration.html">Integration Scenarios</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../integration/moveit2_integration.html">MoveIt2 Motion Planning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/cumotion_integration.html">Isaac cuMotion Accelerated Planning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/custom_planner.html">Custom Planner Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/custom_application.html">Building Custom Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/intelligence_integration.html">Natural-Language and Vision Control (VLM / LLM)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/api_reference.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/communication.html">Communication Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_ros2_message.html">wmx_ros2_message</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_ros2_package.html">wmx_ros2_package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_services.html">ROS2 Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_topics.html">ROS2 Topics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_actions.html">ROS2 Actions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support.html">Support</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About Us</a></li>
+</ul>
+
+  </div>
+</nav>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var navItems = document.querySelectorAll(".bd-docs-nav li");
+  navItems.forEach(function(li) {
+    var subList = li.querySelector(":scope > ul");
+    if (subList) {
+      var toggle = document.createElement("span");
+      toggle.className = "toc-toggle";
+      var isCurrent = li.classList.contains("current");
+      toggle.textContent = isCurrent ? "−" : "+";
+      if (!isCurrent) {
+        subList.classList.add("toc-collapsed");
+      }
+      toggle.addEventListener("click", function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        subList.classList.toggle("toc-collapsed");
+        toggle.textContent = subList.classList.contains("toc-collapsed") ? "+" : "−";
+      });
+      li.style.position = "relative";
+      var link = li.querySelector(":scope > a");
+      if (link) {
+        link.after(toggle);
+      }
+    }
+  });
+});
+</script></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Getting Started</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Install WMX Runtime</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="install-wmx-runtime">
+<h1>Install WMX Runtime<a class="headerlink" href="#install-wmx-runtime" title="Link to this heading">#</a></h1>
+<p>With the real-time kernel in place (see <a class="reference internal" href="computer_setup.html"><span class="doc">Computer Setup</span></a>), install the WMX
+runtime, isolate the CPU cores for the real-time threads, and point the runtime
+at the EtherCAT NIC.</p>
+<section id="install-the-wmx-runtime">
+<h2>1. Install the WMX runtime<a class="headerlink" href="#install-the-wmx-runtime" title="Link to this heading">#</a></h2>
+<p>WMX3 is MOVENSYS’s software-defined motion control stack. It connects the PC to
+the servo drives over EtherCAT and provides the deterministic cycle loop. Select
+the tab that matches your hardware.</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="x86" for="sd-tab-item-0">
+x86-based PC</label><div class="sd-tab-content docutils">
+<p><strong>Download the WMX3 installer</strong> — pick the archive that matches your
+Ubuntu version:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ubuntu 22.04</span>
+wget<span class="w"> </span>--user<span class="o">=</span>guest<span class="w"> </span>--password<span class="o">=</span>guest<span class="w"> </span>http://download.movensys.com:8111/webdav/WMX3_Installer/Linux/Ubuntu22.04_linux5.19.0_rt10.zip
+<span class="c1"># Ubuntu 24.04</span>
+wget<span class="w"> </span>--user<span class="o">=</span>guest<span class="w"> </span>--password<span class="o">=</span>guest<span class="w"> </span>http://download.movensys.com:8111/webdav/WMX3_Installer/Linux/Ubuntu24.04_linux6.15.2_rt2.zip
+</pre></div>
+</div>
+<p><strong>Install WMX3</strong> — extract the archive and run the installer:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ubuntu 22.04</span>
+unzip<span class="w"> </span>Ubuntu22.04_linux5.19.0_rt10.zip
+<span class="nb">cd</span><span class="w"> </span>Ubuntu22.04_linux5.19.0_rt10
+sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>*wmx3-installer.deb
+
+<span class="c1"># Ubuntu 24.04</span>
+unzip<span class="w"> </span>Ubuntu24.04_linux6.15.2_rt2.zip
+<span class="nb">cd</span><span class="w"> </span>Ubuntu24.04_linux6.15.2_rt2
+sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>*wmx3-installer.deb
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="arm" for="sd-tab-item-1">
+ARM-based PC</label><div class="sd-tab-content docutils">
+<p><strong>Download the WMX3 installer:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>--user<span class="o">=</span>guest<span class="w"> </span>--password<span class="o">=</span>guest<span class="w"> </span>http://download.movensys.com:8111/webdav/WMX3_Installer/Linux/wmx3_arm64_installers.zip
+unzip<span class="w"> </span>wmx3_arm64_installers.zip
+</pre></div>
+</div>
+<p><strong>Install the package for your board:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># NVIDIA Jetson Orin NX Developer Kit (Advantech MIC-713), Ubuntu 20.04</span>
+sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>20260403_Ubuntu20.04_linux-5.10.120-rt70-jetson-orin-nx-mic-713-wmx3-installer.deb
+
+<span class="c1"># NVIDIA Jetson Orin AGX Developer Kit (Advantech MIC-733ao), Ubuntu 22.04</span>
+sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>20260403_Ubuntu22.04_linux-5.15.148-rt-jetson-agx-orin-mic-733ao-wmx3-installer.deb
+
+<span class="c1"># NVIDIA Jetson Thor Developer Kit (Advantech MIC-743), Ubuntu 24.04</span>
+sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>20260403_Ubuntu24.04_linux-6.8.12-rt-jetson-thor-mic-743-wmx3-installer.deb
+</pre></div>
+</div>
+</div>
+</div>
+<p>The installer places the WMX3 runtime at <code class="docutils literal notranslate"><span class="pre">/opt/wmx3/</span></code>. Confirm the required
+headers and libraries are present:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>/opt/wmx3/include/WMX3Api.h
+ls<span class="w"> </span>/opt/wmx3/lib/libwmx3api.so
+ls<span class="w"> </span>/opt/wmx3/lib/libimdll.so
+</pre></div>
+</div>
+<p>All files must exist before proceeding. If any are missing, re-run the installer
+or contact your MOVENSYS representative.</p>
+</section>
+<section id="isolate-cores-for-wmx">
+<span id="computer-setup-isolate"></span><h2>2. Isolate cores for WMX<a class="headerlink" href="#isolate-cores-for-wmx" title="Link to this heading">#</a></h2>
+<p>Determinism comes from dedicating CPU cores to the WMX real-time threads and
+keeping housekeeping work off them. Add the isolation parameters to
+<code class="docutils literal notranslate"><span class="pre">/etc/default/grub</span></code> for your platform:</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-2" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-2">
+General x86/amd64 &amp; Jetson</label><div class="sd-tab-content docutils">
+<p>Set <code class="docutils literal notranslate"><span class="pre">GRUB_CMDLINE_LINUX</span></code> (example: reserve core <code class="docutils literal notranslate"><span class="pre">3</span></code> for the control
+loop and leave cores <code class="docutils literal notranslate"><span class="pre">0,1,2</span></code> for housekeeping):</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>GRUB_CMDLINE_LINUX=&quot;quiet splash isolcpus=3 nohz_full=3 rcu_nocbs=3 irqaffinity=0,1,2 acpi_irq_nobalance noirqbalance&quot;
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-3">
+Intel XPU (Panther Lake)</label><div class="sd-tab-content docutils">
+<p>Set <code class="docutils literal notranslate"><span class="pre">GRUB_CMDLINE_LINUX_DEFAULT</span></code>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>GRUB_CMDLINE_LINUX_DEFAULT=&quot;isolcpus=managed_irq,domain,&lt;rt_cpus&gt; nohz_full=&lt;rt_cpus&gt; rcu_nocbs=&lt;rt_cpus&gt; irqaffinity=&lt;housekeeping_cpus&gt; intel_pstate=disable processor.max_cstate=1 idle=poll&quot;
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Replace <code class="docutils literal notranslate"><span class="pre">&lt;rt_cpus&gt;</span></code> with the cores reserved for the control loop (for
+example <code class="docutils literal notranslate"><span class="pre">2,3</span></code>) and <code class="docutils literal notranslate"><span class="pre">&lt;housekeeping_cpus&gt;</span></code> with the remaining cores.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">idle=poll</span></code> trades power for latency; measure with <code class="docutils literal notranslate"><span class="pre">cyclictest</span></code> to
+confirm it helps on your hardware.</p></li>
+<li><p>On hybrid Intel silicon (Panther Lake mixes P-cores, E-cores, and
+LP-E-cores), pin the control loop to isolated <strong>P-cores</strong> for the most
+consistent latency.</p></li>
+</ul>
+</div>
+</div>
+<p>Then apply the change and reboot:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>update-grub
+sudo<span class="w"> </span>reboot
+</pre></div>
+</div>
+<p>Pin the WMX control loop to the isolated cores; pin AI workloads such as VLM,
+Whisper, or OpenVINO to the remaining cores. A cgroup v2 slice (<code class="docutils literal notranslate"><span class="pre">cpuset</span></code> +
+<code class="docutils literal notranslate"><span class="pre">cpu.weight</span></code>) keeps the AI stack off the control cores while keeping GPU/NPU
+access simple.</p>
+</section>
+<section id="configure-the-ethercat-nic">
+<h2>3. Configure the EtherCAT NIC<a class="headerlink" href="#configure-the-ethercat-nic" title="Link to this heading">#</a></h2>
+<p>WMX3’s EtherCAT platform (<code class="docutils literal notranslate"><span class="pre">ec_platform.so</span></code>) sends and receives frames through
+a NIC-driver DLL. Pick the driver that matches your transport:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 22.0%" />
+<col style="width: 42.0%" />
+<col style="width: 36.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Driver</p></th>
+<th class="head"><p>Transport</p></th>
+<th class="head"><p>Runtime prerequisites</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ndd_sock_raw.so</span></code></p></td>
+<td><p>Linux <code class="docutils literal notranslate"><span class="pre">AF_PACKET</span></code> / <code class="docutils literal notranslate"><span class="pre">SOCK_RAW</span></code> socket</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">CAP_NET_RAW</span></code> (typically root)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ndd_dpdk.so</span></code></p></td>
+<td><p>DPDK poll-mode driver (kernel bypass)</p></td>
+<td><p>Hugepages, NIC bound to <code class="docutils literal notranslate"><span class="pre">vfio-pci</span></code>/<code class="docutils literal notranslate"><span class="pre">uio</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ndd_vnw.so</span></code></p></td>
+<td><p>Virtual network (no hardware)</p></td>
+<td><p>None</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Configure the driver in the section for the real-time network device
+(<code class="docutils literal notranslate"><span class="pre">[rtnd0]</span></code> for the first device) of
+<code class="docutils literal notranslate"><span class="pre">/opt/wmx3/platform/ethercat/PrtTcpip.ini</span></code>. The <code class="docutils literal notranslate"><span class="pre">UseNicDrvDll</span></code> key selects
+the driver; each driver reads its own keys from the same section.</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-4" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-4">
+sock_raw</label><div class="sd-tab-content docutils">
+<p>Bind the driver to a kernel network interface. <code class="docutils literal notranslate"><span class="pre">ifname</span></code> is required (the
+<code class="docutils literal notranslate"><span class="pre">NIC_DRV_DLL_IFNAME</span></code> environment variable overrides it):</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[rtnd0]</span>
+<span class="na">UseNicDrvDll</span><span class="o">=</span><span class="s">ndd_sock_raw.so</span>
+<span class="na">ifname</span><span class="o">=</span><span class="s">enp3s0</span><span class="w">            </span><span class="c1">; kernel interface to bind (required)</span>
+<span class="na">rxprio</span><span class="o">=</span><span class="s">97</span><span class="w">               </span><span class="c1">; RX thread SCHED_FIFO priority (&lt;=0 = default sched)</span>
+</pre></div>
+</div>
+<p>Opening the raw socket needs <code class="docutils literal notranslate"><span class="pre">CAP_NET_RAW</span></code>, so run the nodes as root.</p>
+</div>
+<input id="sd-tab-item-5" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-5">
+dpdk</label><div class="sd-tab-content docutils">
+<p>DPDK bypasses the kernel network stack, so reserve hugepages and bind the
+NIC to a userspace driver <strong>before</strong> starting the WMX3 engine.</p>
+<p>Reserve hugepages (2 GB as 1024 pages of 2 MB):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="m">1024</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages
+grep<span class="w"> </span>-i<span class="w"> </span>hugepages_<span class="w"> </span>/proc/meminfo<span class="w">         </span><span class="c1"># expect HugePages_Total: 1024</span>
+</pre></div>
+</div>
+<p>Bind the EtherCAT NIC to <code class="docutils literal notranslate"><span class="pre">vfio-pci</span></code> (find the PCI address with
+<code class="docutils literal notranslate"><span class="pre">dpdk-devbind.py</span> <span class="pre">--status</span></code>; pick a port that is not your management
+link, because the bound interface disappears from the kernel):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>modprobe<span class="w"> </span>vfio-pci
+sudo<span class="w"> </span>dpdk-devbind.py<span class="w"> </span>--bind<span class="o">=</span>vfio-pci<span class="w"> </span><span class="m">0000</span>:03:00.0
+</pre></div>
+</div>
+<p>Select the port in <code class="docutils literal notranslate"><span class="pre">PrtTcpip.ini</span></code>. <code class="docutils literal notranslate"><span class="pre">ifname</span></code> is ignored; the port is
+chosen by id, pinned deterministically with an EAL allowlist:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[rtnd0]</span>
+<span class="na">UseNicDrvDll</span><span class="o">=</span><span class="s">ndd_dpdk.so</span>
+<span class="na">dpdk_port</span><span class="o">=</span><span class="s">0</span>
+<span class="na">eal</span><span class="o">=</span><span class="s">-a 0000:03:00.0</span><span class="w">     </span><span class="c1">; allowlist the exact device, becomes port 0</span>
+<span class="na">rxprio</span><span class="o">=</span><span class="s">97</span><span class="w">               </span><span class="c1">; RX thread SCHED_FIFO priority</span>
+<span class="na">rxcore</span><span class="o">=</span><span class="s">3</span><span class="w">                </span><span class="c1">; pin RX poll loop to an ISOLATED core</span>
+</pre></div>
+</div>
+<p>Binding does not survive a reboot, so re-run <code class="docutils literal notranslate"><span class="pre">modprobe</span></code> and the bind
+after each boot or automate them.</p>
+</div>
+<input id="sd-tab-item-6" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-6">
+vnw</label><div class="sd-tab-content docutils">
+<p>The virtual-network driver needs no hardware and takes no transport keys.
+The engine reads its virtual slave list from the same section:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[rtnd0]</span>
+<span class="na">UseNicDrvDll</span><span class="o">=</span><span class="s">ndd_vnw.so</span>
+<span class="na">numofslaves</span><span class="o">=</span><span class="s">6</span><span class="w">           </span><span class="c1">; number of virtual slaves (0 = empty network)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="test-the-wmx-runtime">
+<h2>4. Test the WMX runtime<a class="headerlink" href="#test-the-wmx-runtime" title="Link to this heading">#</a></h2>
+<p>Connect the EtherCAT slave hardware (a single servo drive is recommended for a
+first bring-up) to the configured NIC, power it on, then run the WMX3 command
+line tools to bring the engine up, scan the bus, and enable the servo:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt/wmx3/bin/
+sudo<span class="w"> </span>./wmx3-start-engine<span class="w">     </span><span class="c1"># start the WMX3 engine</span>
+sudo<span class="w"> </span>./wmx3-start-comm<span class="w">       </span><span class="c1"># start cyclic EtherCAT communication</span>
+sudo<span class="w"> </span>./wmx3-ec-scan<span class="w">          </span><span class="c1"># scan the bus for slaves</span>
+sudo<span class="w"> </span>./wmx3-ec-state<span class="w">         </span><span class="c1"># show the EtherCAT master/slave state</span>
+sudo<span class="w"> </span>./wmx3-clear-alarm<span class="w">      </span><span class="c1"># clear any drive alarms</span>
+sudo<span class="w"> </span>./wmx3-servo-on<span class="w">         </span><span class="c1"># enable the servos</span>
+sudo<span class="w"> </span>./wmx3-axis-state<span class="w"> </span><span class="m">0</span><span class="w">     </span><span class="c1"># show the state of axis 0</span>
+sudo<span class="w"> </span>./wmx3-stop-engine<span class="w">      </span><span class="c1"># stop the engine when done</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="computer_setup.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Computer Setup</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="install_wmx3.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Install WMX ROS2 Package</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-the-wmx-runtime">1. Install the WMX runtime</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isolate-cores-for-wmx">2. Isolate cores for WMX</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configure-the-ethercat-nic">3. Configure the EtherCAT NIC</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-the-wmx-runtime">4. Test the WMX runtime</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5"></script>
+
+<footer class="bd-footer">
+<div class="movensys-footer">
+  <div class="movensys-footer__logo">
+    <a href="https://www.movensys.com" target="_blank" rel="noopener">
+      <img src="../_static/movensys_wordmark.png" alt="Movensys" />
+    </a>
+  </div>
+  <div class="movensys-footer__info">
+    <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
+    
+      <p>Last updated: Jul 06, 2026</p>
+    
+  </div>
+  <div class="movensys-footer__links">
+    <a href="https://www.movensys.com" target="_blank" rel="noopener">MOVENSYS.com</a>
+    <a href="https://www.movensys.com/privacy" target="_blank" rel="noopener">Privacy Policy</a>
+  </div>
+</div>
+</footer>
+  </body>
+</html>

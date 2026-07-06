@@ -516,7 +516,7 @@ Full Dobot CR5A manipulator launch. Includes the general nodes and starts
 
    The launch commands above assume the workspace is already sourced. On real
    hardware the nodes require ``sudo`` with the ROS2 environment preserved —
-   see :doc:`../getting_started/testing_wmx_ros2` for the full ``sudo
+   see :doc:`../getting_started/install_wmx3` for the full ``sudo
    --preserve-env`` invocation.
 
 Configuration Files
