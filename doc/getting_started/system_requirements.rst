@@ -109,23 +109,29 @@ servo drives.
      - `Humble <https://docs.ros.org/en/humble/index.html>`_ / `Jazzy <https://docs.ros.org/en/jazzy/index.html>`_
      - Desktop with NVIDIA RTX 5070 / 5090
      - Simulation and HIL
-   * - Intel IPC
+   * - Intel XPU
      - x86_64
-     - 22.04 LTS (Jammy) / 24.04 LTS (Noble)
-     - `Humble <https://docs.ros.org/en/humble/index.html>`_ / `Jazzy <https://docs.ros.org/en/jazzy/index.html>`_
-     - Advantech UNO-258
+     - 24.04 LTS (Noble)
+     - `Jazzy <https://docs.ros.org/en/jazzy/index.html>`_
+     - Intel Panther Lake
      - Edge AI platform
-   * - NVIDIA Jetson Orin
+   * - NVIDIA Jetson Orin NX
      - arm64
      - 22.04 LTS (Jammy)
      - `Humble <https://docs.ros.org/en/humble/index.html>`_
-     - Advantech MIC-713 / MIC-733ao
+     - Jetson Orin NX Developer Kit
+     - Edge AI platform
+   * - NVIDIA Jetson Orin AGX
+     - arm64
+     - 22.04 LTS (Jammy) / 24.04 LTS (Noble)
+     - `Humble <https://docs.ros.org/en/humble/index.html>`_ / `Jazzy <https://docs.ros.org/en/jazzy/index.html>`_
+     - Jetson Orin AGX Developer Kit
      - Edge AI platform
    * - NVIDIA Jetson Thor
      - arm64
      - 24.04 LTS (Noble)
      - `Jazzy <https://docs.ros.org/en/jazzy/index.html>`_
-     - Advantech MIC-743
+     - Jetson Thor Developer Kit
      - Edge AI platform
 
 The C++ standard required is **C++17** (set in ``CMakeLists.txt``).
