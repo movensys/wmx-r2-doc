@@ -1,50 +1,39 @@
 Computer Setup
 ==============
 
-WMX ROS2 needs a real-time Linux kernel, ROS 2, and the WMX Runtime on the
-target computer before you install the ROS2 packages. The target can be a
-**general x86/amd64** machine (a standard desktop or industrial PC), an
-**Intel XPU** platform such as Intel Panther Lake, or an **NVIDIA Jetson
-Developer Kit** (Jetson Orin NX, Jetson Orin AGX, or Jetson Thor). This page
-covers installing the operating system, getting a PREEMPT_RT kernel in place,
-verifying latency, installing ROS 2, and configuring the WMX Runtime.
+WMX ROS2 needs a real-time Linux kernel, ROS 2, and Docker on the
+target computer before you install the WMX-ROS2 packages. 
 
 Supported targets
 -----------------
 
 .. list-table::
    :header-rows: 1
-   :widths: 30 12 18 22 18
+   :widths: 32 14 20 34
 
    * - Target
      - Arch
      - Ubuntu
-     - RT kernel
      - Kernel source
    * - General x86/amd64
      - x86_64
      - 22.04 / 24.04
-     - PREEMPT_RT
      - kernel.org vanilla + RT patch
    * - Intel XPU (Panther Lake)
      - x86_64
      - 24.04
-     - PREEMPT_RT
      - Intel ``mainline-tracking`` (v6.17)
    * - Jetson Orin NX
      - arm64
      - JetPack (L4T)
-     - PREEMPT_RT
      - NVIDIA L4T real-time kernel
    * - Jetson Orin AGX
      - arm64
      - JetPack (L4T)
-     - PREEMPT_RT
      - NVIDIA L4T real-time kernel
    * - Jetson Thor
      - arm64
      - JetPack (L4T)
-     - PREEMPT_RT
      - NVIDIA L4T real-time kernel
 
 1. Install the base OS
@@ -68,11 +57,15 @@ Pick your target and install the operating system.
 
          sudo apt update && sudo apt full-upgrade -y
 
+      In firmware/BIOS, disable **Secure Boot** for now. Signing a custom
+      kernel is extra work you can add later.
+
    .. tab-item:: Intel XPU (Panther Lake)
 
-      Install **Ubuntu 24.04.x LTS** (Server or Desktop) using the standard
-      Ubuntu installer, then update fully.
+      Install Ubuntu 24.04 the usual way with the standard Ubuntu installer,
+      then update fully.
 
+      - Ubuntu 24.04 LTS — `download <https://releases.ubuntu.com/noble/>`__
       - Install guide — `Install Ubuntu desktop
         <https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview>`__
 
@@ -80,13 +73,10 @@ Pick your target and install the operating system.
 
          sudo apt update && sudo apt full-upgrade -y
 
-      In firmware/BIOS, prepare the platform for low-latency operation:
-
-      - Disable **Secure Boot** for now — signing a custom kernel is extra
-        work you can add later.
-      - Review **C-states**, **SpeedStep**, and **Turbo**, plus any
-        "low-power E-core" options. You will likely pin these down later for
-        latency (see :ref:`core isolation <computer-setup-isolate>`).
+      In firmware/BIOS, disable **Secure Boot** for now. Also review
+      **C-states**, **SpeedStep**, and **Turbo**, plus any "low-power E-core"
+      options; you will likely pin these down later for latency (see
+      :ref:`core isolation <computer-setup-isolate>`).
 
    .. tab-item:: Jetson Developer Kit
 
@@ -114,9 +104,7 @@ Install a PREEMPT_RT kernel for your target.
    .. tab-item:: General x86/amd64
 
       Build a PREEMPT_RT kernel from the kernel.org vanilla source plus the
-      official RT patch, then install the resulting ``.deb`` packages. The
-      commands below match the ``build-rt_general_x86_amd64.sh`` helper script;
-      the kernel/patch versions are set once and reused.
+      official RT patch, then install the resulting ``.deb`` packages. 
 
       **Install build dependencies:**
 
@@ -127,6 +115,19 @@ Install a PREEMPT_RT kernel for your target.
               libelf-dev bc zstd kmod cpio rsync git wget gnupg2 rt-tests stress-ng
 
       **Fetch the kernel and RT patch (with signatures):**
+
+      Not every kernel release ships a matching RT patch. Pick a ``KVER`` that
+      has one and set ``RTVER`` to its revision. Browse the
+      `RT patch index <https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/>`__,
+      or list the revisions available for a version from the terminal:
+
+      .. code-block:: bash
+
+         uname -r   # your PC's current kernel version, e.g. 6.15.2-generic
+         # RT patch revisions available for a kernel version (here 6.15)
+         wget -qO- https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.15/ | grep -oE 'patch-[0-9.]+-rt[0-9]+'
+
+      Set the version you chose, then download it:
 
       .. code-block:: bash
 
@@ -177,8 +178,9 @@ Install a PREEMPT_RT kernel for your target.
 
    .. tab-item:: Intel XPU (Panther Lake)
 
-      Build the RT kernel from Intel's ``mainline-tracking`` tree, which
-      carries the platform enablement for current Intel silicon.
+      Build the RT kernel from Intel's
+      `mainline-tracking <https://github.com/intel/mainline-tracking>`_ tree,
+      which carries the platform enablement for current Intel silicon.
 
       **Install build dependencies:**
 
@@ -239,6 +241,19 @@ Install a PREEMPT_RT kernel for your target.
          sudo update-grub
          sudo reboot
 
+      **Install the AI/accelerator stack** — once the RT kernel has booted,
+      install the GPU/NPU drivers and inference runtimes for the platform:
+
+      .. code-block:: bash
+
+         sudo bash -c "$(wget -qLO - https://raw.githubusercontent.com/open-edge-platform/edge-developer-kit-reference-scripts/refs/heads/main/main_installer.sh)"
+
+      .. note::
+
+         The installer targets the stock HWE kernel; on a custom RT kernel the
+         DKMS driver builds should work against your installed headers, but be
+         ready to install the GPU/NPU drivers manually if the script balks.
+
    .. tab-item:: Jetson Developer Kit
 
       The Jetson boards ship without a real-time kernel. Enable PREEMPT_RT by
@@ -265,8 +280,11 @@ Install a PREEMPT_RT kernel for your target.
 
 Confirm the RT kernel is running, then run ``cyclictest`` to measure worst-case
 latency. ``rt-tests`` was installed with the build dependencies above; on
-targets where it is not present, install it with ``sudo apt install -y
-rt-tests``.
+targets where it is not present, install it with:
+
+.. code-block:: bash
+
+   sudo apt install -y rt-tests
 
 .. code-block:: bash
 
@@ -297,58 +315,7 @@ or power-management issues to chase (BIOS C-states, SpeedStep, Turbo).
    sudo hostnamectl set-hostname <new-host-name>
    sudo reboot
 
-.. _computer-setup-isolate:
-
-5. Isolate cores for WMX
-------------------------
-
-Determinism comes from dedicating CPU cores to the WMX real-time threads and
-keeping housekeeping work off them. Add isolation parameters to the kernel
-command line (edit ``GRUB_CMDLINE_LINUX_DEFAULT`` in ``/etc/default/grub``,
-then run ``sudo update-grub`` and reboot):
-
-.. code-block:: text
-
-   isolcpus=managed_irq,domain,<rt_cpus> nohz_full=<rt_cpus> rcu_nocbs=<rt_cpus> \
-   irqaffinity=<housekeeping_cpus> intel_pstate=disable processor.max_cstate=1 idle=poll
-
-- Replace ``<rt_cpus>`` with the cores reserved for the control loop (for
-  example ``2,3``) and ``<housekeeping_cpus>`` with the remaining cores.
-- ``idle=poll`` trades power for latency — measure with ``cyclictest`` to
-  confirm it helps on your hardware.
-- Pin the WMX control loop to the isolated cores; pin AI workloads such as
-  VLM, Whisper, or OpenVINO to the remaining cores. A cgroup v2 slice
-  (``cpuset`` + ``cpu.weight``) keeps the AI stack off the control cores while
-  keeping GPU/NPU access simple.
-
-.. note::
-
-   On hybrid Intel silicon (Panther Lake mixes P-cores, E-cores, and
-   LP-E-cores), pin the control loop to isolated **P-cores** for the most
-   consistent latency.
-
-6. Configure the EtherCAT NIC
------------------------------
-
-Find the EtherCAT NIC's PCI address and record it as ``Location`` in
-``/opt/wmx3/platform/ethercat/PrtTcpip.ini``:
-
-.. code-block:: bash
-
-   lspci   # e.g. x86: 02:00.0 Ethernet controller   arm64: 0008:01:00.0 Ethernet controller
-
-- x86 example: ``Location=2;1;0``
-- arm64 example: ``Location=8;1;0;0``
-
-If your NIC needs a WMX-patched driver (for example a Realtek adapter for
-EtherCAT), install the prebuilt module from the WMX setup material and make it
-executable, or rebuild it from the MOVENSYS NIC-driver source:
-
-.. code-block:: bash
-
-   sudo chmod 755 wmx_r8168.ko   # prebuilt module, when provided
-
-7. Install ROS 2
+5. Install ROS 2
 ----------------
 
 Install ROS 2 on the target, matching the Ubuntu version — **Jazzy** on Ubuntu
@@ -379,24 +346,7 @@ add the CycloneDDS RMW that WMX ROS2 uses.
          sudo apt install -y ros-humble-rmw-cyclonedds-cpp
          echo 'export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp' >> ~/.bashrc
 
-8. Install the AI/accelerator stack (Intel XPU)
------------------------------------------------
-
-On Intel XPU targets, install the AI/accelerator stack **only after the RT
-kernel boots**. This pulls in the GPU/NPU drivers and inference runtimes for
-the platform:
-
-.. code-block:: bash
-
-   sudo bash -c "$(wget -qLO - https://raw.githubusercontent.com/open-edge-platform/edge-developer-kit-reference-scripts/refs/heads/main/main_installer.sh)"
-
-.. note::
-
-   The installer targets the stock HWE kernel; on a custom RT kernel the DKMS
-   driver builds should work against your installed headers, but be ready to
-   install the GPU/NPU drivers manually if the script balks.
-
-9. Install Docker
+6. Install Docker
 -----------------
 
 Docker is used to run the containerized WMX ROS2 and perception workloads.

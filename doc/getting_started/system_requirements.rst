@@ -25,6 +25,9 @@ Hardware Requirements
    * - GPU
      - Not required for base operation
      - NVIDIA GPU with CUDA for Isaac cuMotion
+   * - NPU
+     - Not required for base operation
+     - Intel NPU for OpenVINO inference applications
 
 Real-Time OS requirements
 -------------------------
@@ -61,8 +64,8 @@ and physical servo drives.
   robot-agnostic; only configuration files differ between robots
 
 The WMX runtime must be installed at ``/opt/wmx3/`` before building or
-running the WMX ROS2 packages. See :doc:`install_wmx3` for verification
-steps.
+running the WMX ROS2 packages. See :doc:`computer_setup` for installation and
+verification steps.
 
 .. note::
 
@@ -70,81 +73,4 @@ steps.
    and EtherCAT communication require kernel-level access to the network
    interface.
 
-Supported Robot Models and Platforms
-------------------------------------
-
-.. list-table::
-   :header-rows: 1
-   :widths: 15 15 15 55
-
-   * - Model
-     - DOF
-     - Payload
-     - Status
-   * - Dobot CR3A
-     - 6
-     - 16.5 kg
-     - Fully supported. Configuration files and WMX parameters included.
-   * - Dobot CR5A
-     - 6
-     - 25 kg
-     - Tested only in simulation and hardware-in-loop
-
-The architecture is robot-agnostic for any 6-DOF manipulator with EtherCAT
-servo drives. 
-
-.. list-table::
-   :header-rows: 1
-   :widths: 18 11 22 18 17 14
-
-   * - Platform
-     - Architecture
-     - Ubuntu Version
-     - ROS2 Distro
-     - Model
-     - Notes
-   * - Desktop PC
-     - x86_64
-     - 22.04 LTS (Jammy) / 24.04 LTS (Noble)
-     - `Humble <https://docs.ros.org/en/humble/index.html>`_ / `Jazzy <https://docs.ros.org/en/jazzy/index.html>`_
-     - Desktop with NVIDIA RTX 5070 / 5090
-     - Simulation and HIL
-   * - Intel XPU
-     - x86_64
-     - 24.04 LTS (Noble)
-     - `Jazzy <https://docs.ros.org/en/jazzy/index.html>`_
-     - Intel Panther Lake
-     - Edge AI platform
-   * - NVIDIA Jetson Orin NX
-     - arm64
-     - 22.04 LTS (Jammy)
-     - `Humble <https://docs.ros.org/en/humble/index.html>`_
-     - Jetson Orin NX Developer Kit
-     - Edge AI platform
-   * - NVIDIA Jetson Orin AGX
-     - arm64
-     - 22.04 LTS (Jammy) / 24.04 LTS (Noble)
-     - `Humble <https://docs.ros.org/en/humble/index.html>`_ / `Jazzy <https://docs.ros.org/en/jazzy/index.html>`_
-     - Jetson Orin AGX Developer Kit
-     - Edge AI platform
-   * - NVIDIA Jetson Thor
-     - arm64
-     - 24.04 LTS (Noble)
-     - `Jazzy <https://docs.ros.org/en/jazzy/index.html>`_
-     - Jetson Thor Developer Kit
-     - Edge AI platform
-
 The C++ standard required is **C++17** (set in ``CMakeLists.txt``).
-
-**EtherCAT Network Interface:**
-
-- **Dedicated Ethernet NIC** for the EtherCAT fieldbus (cannot be shared with
-  regular network traffic)
-- The EtherCAT port connects directly to the first servo drive in the daisy chain
-
-.. warning::
-
-   The EtherCAT Ethernet port is **not** a standard TCP/IP connection. Do not
-   configure it with a regular IP address. The WMX engine controls this
-   interface at the raw Ethernet level.
-
