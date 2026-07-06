@@ -3,8 +3,9 @@ Computer Setup
 
 WMX ROS2 needs a real-time Linux kernel, ROS 2, and the WMX Runtime on the
 target computer before you install the ROS2 packages. The target can be a
-standard **desktop** (x86), an **Intel IPC** such as the Advantech UNO-258
-(x86), or an **Advantech MIC** edge platform (NVIDIA Jetson, arm64). This page
+**general x86/amd64** machine (a standard desktop or industrial PC), an
+**Intel XPU** platform such as Intel Panther Lake, or an **NVIDIA Jetson
+Developer Kit** (Jetson Orin NX, Jetson Orin AGX, or Jetson Thor). This page
 covers installing the operating system, getting a PREEMPT_RT kernel in place,
 verifying latency, installing ROS 2, and configuring the WMX Runtime.
 
@@ -13,311 +14,321 @@ Supported targets
 
 .. list-table::
    :header-rows: 1
-   :widths: 30 14 22 18 16
+   :widths: 30 12 18 22 18
 
    * - Target
      - Arch
      - Ubuntu
      - RT kernel
-     - OS install
-   * - Desktop
+     - Kernel source
+   * - General x86/amd64
      - x86_64
      - 22.04 / 24.04
      - PREEMPT_RT
-     - Standard installer
-   * - Intel IPC (Advantech UNO-258)
+     - kernel.org vanilla + RT patch
+   * - Intel XPU (Panther Lake)
      - x86_64
-     - 22.04 / 24.04
+     - 24.04
      - PREEMPT_RT
-     - Standard installer
-   * - Advantech MIC-713
+     - Intel ``mainline-tracking`` (v6.17)
+   * - Jetson Orin NX
      - arm64
-     - 22.04
-     - ``5.15.148-rt``
-     - Flash (Jetson)
-   * - Advantech MIC-733ao
+     - JetPack (L4T)
+     - PREEMPT_RT
+     - NVIDIA L4T real-time kernel
+   * - Jetson Orin AGX
      - arm64
-     - 22.04
-     - ``5.15.148-rt``
-     - Flash (Jetson)
-   * - Advantech MIC-743
+     - JetPack (L4T)
+     - PREEMPT_RT
+     - NVIDIA L4T real-time kernel
+   * - Jetson Thor
      - arm64
-     - 24.04 (JetPack 7.0)
-     - ``6.8.12-rt``
-     - Flash (Jetson)
+     - JetPack (L4T)
+     - PREEMPT_RT
+     - NVIDIA L4T real-time kernel
 
-Install the operating system
-----------------------------
+1. Install the base OS
+----------------------
 
-**Desktop / Intel IPC (Advantech UNO-258, x86):** install Ubuntu 22.04 or 24.04
-the usual way with the standard Ubuntu installer (including its real-time
-kernel).
-
-**Advantech MIC (Jetson, arm64):** the MIC boards ship without a real-time
-kernel, so you build and flash a prebuilt PREEMPT_RT image using the steps
-below.
-
-1. Connect the IPC (Advantech MIC)
-----------------------------------
-
-On a desktop machine, prepare the board's setup bundle and put the board into
-recovery mode. Pick your target:
+Pick your target and install the operating system.
 
 .. tab-set::
 
-   .. tab-item:: Desktop / Intel IPC (x86)
+   .. tab-item:: General x86/amd64
 
-      Not applicable — x86 targets do not flash a kernel. Install Ubuntu the
-      usual way (including its real-time kernel), then continue to the
-      :ref:`verification step <computer-setup-verify>`:
+      Install Ubuntu 22.04 or 24.04 the usual way with the standard Ubuntu
+      installer, then update fully.
 
       - Ubuntu 22.04 LTS — `download <https://releases.ubuntu.com/jammy/>`__
       - Ubuntu 24.04 LTS — `download <https://releases.ubuntu.com/noble/>`__
-
-   .. tab-item:: MIC-713
-
-      **Prepare the setup files [Desktop]** — make a workspace and place the
-      board's setup bundle (kernel-build/flash scripts) inside it:
+      - Install guide — `Install Ubuntu desktop
+        <https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview>`__
 
       .. code-block:: bash
 
-         mkdir ~/mic713_ubuntu2204_setup
-         cd mic713_ubuntu2204_setup
+         sudo apt update && sudo apt full-upgrade -y
 
-      **Enter recovery mode [IPC]** — push and hold **REC**, push **RST** and
-      release, wait ~8 s, then release **REC**. Confirm the desktop sees it:
+   .. tab-item:: Intel XPU (Panther Lake)
+
+      Install **Ubuntu 24.04.x LTS** (Server or Desktop) using the standard
+      Ubuntu installer, then update fully.
+
+      - Install guide — `Install Ubuntu desktop
+        <https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview>`__
 
       .. code-block:: bash
 
-         lsusb   # expect a line containing: NVIDIA Corp. APX
+         sudo apt update && sudo apt full-upgrade -y
 
-   .. tab-item:: MIC-733ao
+      In firmware/BIOS, prepare the platform for low-latency operation:
+
+      - Disable **Secure Boot** for now — signing a custom kernel is extra
+        work you can add later.
+      - Review **C-states**, **SpeedStep**, and **Turbo**, plus any
+        "low-power E-core" options. You will likely pin these down later for
+        latency (see :ref:`core isolation <computer-setup-isolate>`).
+
+   .. tab-item:: Jetson Developer Kit
+
+      Flash the board's Board Support Package (BSP) with **NVIDIA SDK
+      Manager**, which installs JetPack (the L4T Linux distribution) for your
+      Jetson model — Jetson Orin NX, Jetson Orin AGX, or Jetson Thor.
+
+      - `Install Jetson with SDK Manager
+        <https://docs.nvidia.com/sdk-manager/install-with-sdkm-jetson/index.html>`__
+
+      After flashing, record the L4T release — you need it to match the
+      correct real-time kernel in the next step:
+
+      .. code-block:: bash
+
+         cat /etc/nv_tegra_release   # e.g. R38 (release), REVISION: 4.x  ->  L4T r38.4
+
+2. Install the real-time kernel
+-------------------------------
+
+Install a PREEMPT_RT kernel for your target.
+
+.. tab-set::
+
+   .. tab-item:: General x86/amd64
+
+      Build a PREEMPT_RT kernel from the kernel.org vanilla source plus the
+      official RT patch, then install the resulting ``.deb`` packages. The
+      commands below match the ``build-rt_general_x86_amd64.sh`` helper script;
+      the kernel/patch versions are set once and reused.
+
+      **Install build dependencies:**
+
+      .. code-block:: bash
+
+         sudo apt update
+         sudo apt install -y build-essential libncurses-dev bison flex libssl-dev \
+              libelf-dev bc zstd kmod cpio rsync git wget gnupg2 rt-tests stress-ng
+
+      **Fetch the kernel and RT patch (with signatures):**
+
+      .. code-block:: bash
+
+         export KVER=6.15 RTVER=rt2
+         mkdir -p ~/rt-build && cd ~/rt-build
+         wget -N https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-${KVER}.tar.xz \
+                 https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-${KVER}.tar.sign
+         wget -N https://cdn.kernel.org/pub/linux/kernel/projects/rt/${KVER}/patch-${KVER}-${RTVER}.patch.xz \
+                 https://cdn.kernel.org/pub/linux/kernel/projects/rt/${KVER}/patch-${KVER}-${RTVER}.sign
+
+      **Verify the GPG signatures:**
+
+      .. code-block:: bash
+
+         gpg2 --locate-keys torvalds@kernel.org gregkh@kernel.org
+         gpg2 --locate-keys bigeasy@linutronix.de
+         xz -dk linux-${KVER}.tar.xz patch-${KVER}-${RTVER}.patch.xz
+         gpg2 --verify linux-${KVER}.tar.sign linux-${KVER}.tar
+         gpg2 --verify patch-${KVER}-${RTVER}.sign patch-${KVER}-${RTVER}.patch
+
+      A "not certified" warning is normal.
+
+      **Apply the patch and configure PREEMPT_RT:**
+
+      .. code-block:: bash
+
+         tar xf linux-${KVER}.tar && cd linux-${KVER}
+         patch -p1 < ../patch-${KVER}-${RTVER}.patch
+         cp /boot/config-$(uname -r) .config
+         make olddefconfig
+         scripts/config --disable PREEMPT_VOLUNTARY --disable PREEMPT \
+                        --disable PREEMPT_DYNAMIC --enable PREEMPT_RT
+         # avoid distro signing-cert traps for a personal build
+         scripts/config --set-str SYSTEM_TRUSTED_KEYS "" \
+                        --set-str SYSTEM_REVOCATION_KEYS ""
+         scripts/config --disable MODULE_SIG
+         make olddefconfig
+         grep '^CONFIG_PREEMPT_RT=y' .config   # expect a match
+
+      **Build and install the ``.deb`` packages, then reboot:**
+
+      .. code-block:: bash
+
+         make -j"$(nproc)" bindeb-pkg
+         sudo dpkg -i ../linux-image-*${RTVER}*.deb ../linux-headers-*${RTVER}*.deb
+         sudo update-grub
+         sudo reboot
+
+   .. tab-item:: Intel XPU (Panther Lake)
+
+      Build the RT kernel from Intel's ``mainline-tracking`` tree, which
+      carries the platform enablement for current Intel silicon.
+
+      **Install build dependencies:**
+
+      .. code-block:: bash
+
+         sudo apt update
+         sudo apt install -y build-essential libncurses-dev bison flex libssl-dev \
+              libelf-dev bc dwarves zstd git fakeroot
+
+      **Clone the tree and check out the target branch:**
+
+      .. code-block:: bash
+
+         git clone https://github.com/intel/mainline-tracking.git
+         cd mainline-tracking
+         git checkout linux/v6.17   # or the latest v6.17 tag on that branch
 
       .. note::
 
-         Install an additional M.2 NVMe SSD in the board before starting due to
-         limited storage capacity.
+         Panther Lake Linux support is in active flux. Pin the exact
+         commit/tag you build so you can reproduce it, and expect to rebuild
+         as fixes land.
 
-      **Prepare the setup files [Desktop]** — make a workspace and place the
-      board's setup bundle (kernel-build/flash scripts) inside it:
-
-      .. code-block:: bash
-
-         mkdir ~/mic733_ubuntu2204_setup
-         cd mic733_ubuntu2204_setup
-
-      **Enter recovery mode [IPC]** — with power off, hold **REC** (``SW_REC1``);
-      apply power and press **RST** (``SW_RST1``) once while holding ``SW_REC1``
-      for 5–10 s, then release. Use a USB type-A to Micro-USB cable. Confirm:
+      **Start from your running config plus Intel defaults, then enable RT:**
 
       .. code-block:: bash
 
-         lsusb   # expect a line containing: NVIDIA Corp. APX
+         cp /boot/config-$(uname -r) .config
+         make olddefconfig
+         ./scripts/config --enable PREEMPT_RT
+         ./scripts/config --disable PREEMPT_VOLUNTARY --disable PREEMPT --disable PREEMPT_NONE
+         make olddefconfig                       # resolves the RT dependency chain
+         grep PREEMPT_RT .config                 # expect CONFIG_PREEMPT_RT=y
 
-   .. tab-item:: MIC-743
-
-      **Prepare the setup files [Desktop]** — make a workspace and place the
-      board's setup bundle (kernel-build/flash scripts) inside it:
-
-      .. code-block:: bash
-
-         mkdir ~/mic743_ubuntu2404_setup
-         cd mic743_ubuntu2404_setup
-
-      **Enter recovery mode [IPC]** — push and hold **REC**, push **RST** and
-      release, wait ~8 s, then release **REC**. Confirm the desktop sees it:
+      **Clear the distro signing keys for a personal build:**
 
       .. code-block:: bash
 
-         lsusb   # expect a line containing: NVIDIA Corp. APX
+         ./scripts/config --set-str SYSTEM_TRUSTED_KEYS ""
+         ./scripts/config --set-str SYSTEM_REVOCATION_KEYS ""
+         make olddefconfig
+         grep -E 'SYSTEM_TRUSTED_KEYS|SYSTEM_REVOCATION_KEYS' .config
 
-2. Build the RT kernel [Desktop]
---------------------------------
-
-Make the bundle scripts executable and build the kernel. Pick your target:
-
-.. tab-set::
-
-   .. tab-item:: Desktop / Intel IPC (x86)
-
-      Not applicable — x86 targets use the kernel from the standard Ubuntu
-      install. Continue to the :ref:`verification step <computer-setup-verify>`.
-
-   .. tab-item:: MIC-713
-
-      Download the setup material (including the kernel-build/flash ``.sh``
-      scripts) into the workspace created in step 1:
-
-      - `MIC-713 Ubuntu 22.04 setup files <https://softservogroup-my.sharepoint.com/my?csf=1&web=1&e=jE7ImF&id=%2Fpersonal%2Fmfikih%5Fmovensys%5Fcom%2FDocuments%2FMIC%2D713%20Ubuntu%2022%2E04&FolderCTID=0x012000B151A254E50D934D86D4E7D8A20B5881>`_
-      - `MIC-713 (S)-OX4A1 6.1.0 package <https://softservogroup.sharepoint.com/sites/rnd-LMX/Shared%20Documents/Forms/AllItems.aspx?id=%2Fsites%2Frnd%2DLMX%2FShared%20Documents%2FLMX%2FMIC%2D713%2FMIC%2D713%28S%29%2DOX4A1%2F6%2E1%2E0&viewid=d96db33b%2Dd591%2D40e6%2D8d8b%2De28fafb22b39&e=5%3A62565d4591264fd7a123045b74ca8afe&sharingv2=true&fromShare=true&at=9&CID=99612995%2Df964%2D4069%2D002d%2D4fa01cfa0feb&FolderCTID=0x012000035A31A124A36C45B5417DD6D08E57E1&ovuser=d824d7cb%2D8b07%2D470f%2Db893%2Daaeb2a457183%2Cmfikih%40movensys%2Ecom&OR=Teams%2DHL&CT=1747194077702&clickparams=eyJBcHBOYW1lIjoiVGVhbXMtRGVza3RvcCIsIkFwcFZlcnNpb24iOiIxNDE1LzI1MDQxNzE5MzA5IiwiSGFzRmVkZXJhdGVkVXNlciI6ZmFsc2V9>`_
-
-      Then make the scripts executable and build the kernel:
+      **Build the ``.deb`` packages:**
 
       .. code-block:: bash
 
-         sudo chmod +x *.sh
-         ./code_MIC713.sh
-         ./build_eval_713.sh
+         sudo apt update
+         sudo apt install -y debhelper libdw-dev gawk
+         make -j"$(nproc)" bindeb-pkg LOCALVERSION=-preempt-rt DPKG_FLAGS=-d
+         ls -1 ~/linux-image-*preempt-rt*.deb ~/linux-headers-*preempt-rt*.deb
 
-      In the kernel ``menuconfig`` that opens, set:
-
-      - General setup → Timer subsystem → Timer tick handling → **Full dynticks
-        system (tickless)**
-      - General setup → Preemption Model: **Fully Preemptible Kernel (RT)**
-      - Kernel Features → Timer frequency: **1000 HZ**
-      - Device Drivers → Network device support → Ethernet driver support →
-        Realtek devices → ``<M>`` **Realtek 8169/8168/8101/8125 ethernet
-        support** (toggle with the space key)
-      - then **save and exit**
-
-   .. tab-item:: MIC-733ao
-
-      Download the setup material (including the kernel-build/flash ``.sh``
-      scripts) into the workspace created in step 1:
-
-      - `MIC-733ao Ubuntu 22.04 setup files <https://softservogroup-my.sharepoint.com/my?csf=1&web=1&e=aR5ViQ&id=%2Fpersonal%2Fmfikih%5Fmovensys%5Fcom%2FDocuments%2FMIC%2D733ao%20Ubuntu%2022%2E04&FolderCTID=0x012000B151A254E50D934D86D4E7D8A20B5881>`_
-      - `MIC-733ao package <https://softservogroup.sharepoint.com/sites/rnd-LMX/Shared%20Documents/Forms/AllItems.aspx?id=%2Fsites%2Frnd%2DLMX%2FShared%20Documents%2FLMX%2FMIC%2D733&viewid=d96db33b%2Dd591%2D40e6%2D8d8b%2De28fafb22b39&sharingv2=true&fromShare=true&at=9&CID=99612995%2Df964%2D4069%2D002d%2D4fa01cfa0feb&FolderCTID=0x012000035A31A124A36C45B5417DD6D08E57E1&ovuser=d824d7cb%2D8b07%2D470f%2Db893%2Daaeb2a457183%2Cmfikih%40movensys%2Ecom&OR=Teams%2DHL&CT=1747194077702&clickparams=eyJBcHBOYW1lIjoiVGVhbXMtRGVza3RvcCIsIkFwcFZlcnNpb24iOiIxNDE1LzI1MDQxNzE5MzA5IiwiSGFzRmVkZXJhdGVkVXNlciI6ZmFsc2V9>`_
-
-      Then make the scripts executable and build the kernel:
+      **Install (clean install/rollback) and reboot:**
 
       .. code-block:: bash
 
-         sudo chmod +x *.sh
-         ./code_MIC733.sh
-         ./build_eval_733.sh
+         sudo dpkg -i ../linux-image-*preempt-rt*.deb ../linux-headers-*preempt-rt*.deb
+         sudo update-grub
+         sudo reboot
 
-      In the kernel ``menuconfig`` that opens, set:
+   .. tab-item:: Jetson Developer Kit
 
-      - General setup → Timer subsystem → Timer tick handling → **Full dynticks
-        system (tickless)**
-      - General setup → Preemption Model: **Fully Preemptible Kernel (RT)**
-      - Kernel Features → Timer frequency: **1000 HZ**
-      - Device Drivers → Network device support → Ethernet driver support →
-        Realtek devices → ``<M>`` **Realtek 8169/8168/8101/8125 ethernet
-        support** (toggle with the space key)
-      - then **save and exit**
+      The Jetson boards ship without a real-time kernel. Enable PREEMPT_RT by
+      following NVIDIA's real-time kernel guide **for the L4T version you
+      recorded** when flashing the BSP (for example, L4T r38.4):
 
-   .. tab-item:: MIC-743
+      - `Jetson Real-Time Kernel
+        <https://docs.nvidia.com/jetson/archives/r38.4/DeveloperGuide/SD/Kernel/RealTimeKernel.html>`__
 
-      Download the setup material (including the kernel-build/flash ``.sh``
-      scripts) into the workspace created in step 1:
-
-      - `MIC-743 Ubuntu 24.04 setup files <https://softservogroup-my.sharepoint.com/my?id=%2Fpersonal%2Fmfikih%5Fmovensys%5Fcom%2FDocuments%2FMIC%2D743%20Ubuntu%2024%2E04&viewid=96402766%2Db04c%2D4c41%2D9f40%2D13485a5d5d54&csf=1&FolderCTID=0x012000B151A254E50D934D86D4E7D8A20B5881>`_
-      - `MIC-743 package <https://softservogroup.sharepoint.com/sites/rnd-LMX/Shared%20Documents/Forms/AllItems.aspx?id=%2Fsites%2Frnd%2DLMX%2FShared%20Documents%2FLMX%2FMIC%2D743&viewid=d96db33b%2Dd591%2D40e6%2D8d8b%2De28fafb22b39&sharingv2=true&fromShare=true&at=9&CID=99612995%2Df964%2D4069%2D002d%2D4fa01cfa0feb&FolderCTID=0x012000035A31A124A36C45B5417DD6D08E57E1&ovuser=d824d7cb%2D8b07%2D470f%2Db893%2Daaeb2a457183%2Cmfikih%40movensys%2Ecom&OR=Teams%2DHL&CT=1747194077702&clickparams=eyJBcHBOYW1lIjoiVGVhbXMtRGVza3RvcCIsIkFwcFZlcnNpb24iOiIxNDE1LzI1MDQxNzE5MzA5IiwiSGFzRmVkZXJhdGVkVXNlciI6ZmFsc2V9>`_
-
-      Then make the scripts executable and build the kernel:
+      After installing and rebooting into the RT kernel, lock the board to
+      maximum performance:
 
       .. code-block:: bash
 
-         sudo chmod +x *.sh
-         ./code_MIC743.sh
-         ./build_eval_743.sh
+         sudo /usr/bin/jetson_clocks
+         sudo /usr/sbin/nvpmodel -m 0
 
-      In the kernel ``menuconfig`` that opens, set:
-
-      - General setup → Timer subsystem → Timer tick handling → **Full dynticks
-        system (tickless)**
-      - General setup → **Configure standard kernel features (expert users)**
-      - General setup → Preemption Model: **Fully Preemptible Kernel (RT)**
-      - Kernel Features → Timer frequency: **1000 HZ**
-      - **PCI support**
-      - Device Drivers → Network device support → Ethernet driver support →
-        Realtek devices → ``<M>`` **Realtek 8169/8168/8101/8125 ethernet
-        support** (toggle with the space key)
-      - then **save and exit**
-
-3. Flash the RT kernel to the IPC [Desktop]
--------------------------------------------
-
-.. tab-set::
-
-   .. tab-item:: Desktop / Intel IPC (x86)
-
-      Not applicable — x86 targets are not flashed. Continue to the
-      :ref:`verification step <computer-setup-verify>`.
-
-   .. tab-item:: MIC-713
-
-      .. code-block:: bash
-
-         ./flash_713.sh
-
-   .. tab-item:: MIC-733ao
-
-      .. code-block:: bash
-
-         ./flash_733.sh
-
-   .. tab-item:: MIC-743
-
-      .. code-block:: bash
-
-         ./flash_743.sh
-
-Then remove the build artifacts:
-
-.. tab-set::
-
-   .. tab-item:: MIC-713 / MIC-733ao
-
-      .. code-block:: bash
-
-         sudo rm -rf eval-rt-713
-         sudo rm -rf arm64--glibc--stable-2022.08-1
-
-   .. tab-item:: MIC-743
-
-      .. code-block:: bash
-
-         sudo rm -rf eval-rt-743
+      Then continue to the verification step below.
 
 .. _computer-setup-verify:
 
-4. Verify the real-time install [IPC]
--------------------------------------
+3. Verify the real-time install
+-------------------------------
 
-Confirm the RT kernel is running, then build and run ``cyclictest``:
+Confirm the RT kernel is running, then run ``cyclictest`` to measure worst-case
+latency. ``rt-tests`` was installed with the build dependencies above; on
+targets where it is not present, install it with ``sudo apt install -y
+rt-tests``.
 
 .. code-block:: bash
 
-   uname -r                  # MIC-713/733ao: 5.15.148-rt   MIC-743: 6.8.12-rt
+   uname -r                  # RT kernel version (e.g. 6.15.0-rt2, or the Jetson L4T RT build)
+   uname -v | grep PREEMPT_RT
    cat /sys/kernel/realtime  # 1
    lsb_release -a            # Ubuntu 22.04 or 24.04
 
-   sudo apt update && sudo apt install -y build-essential git   # MIC-743: also libnuma-dev
-   git clone https://git.kernel.org/pub/scm/utils/rt-tests/rt-tests.git
-   cd rt-tests
-   make -j
-   sudo make install
+   # baseline, then again under load (run the stressor in another terminal):
+   #   stress-ng --cpu $(nproc) --io 4 --vm 2 --vm-bytes 1G --timeout 5m
+   sudo cyclictest -m -S -p 90 -i 200 -d 0 -D 5m
 
-   sudo taskset -c 2 cyclictest -D 60s -i 1000 p99 -m -q -h 1000 --latency=0 --priority=99 --thread --histfile=hist_cpu2.txt
+Watch the **Max** latency. On a tuned PREEMPT_RT x86 box you typically want the
+worst case in the low tens of microseconds; high spikes point to firmware/SMI
+or power-management issues to chase (BIOS C-states, SpeedStep, Turbo).
 
 .. tip::
 
-   For a soak test, run ``stress`` across all cores in one terminal and
-   ``sudo cyclictest -t -p 95`` in another for several hours, watching the max
+   For a longer soak test, keep the stressor running across all cores in one
+   terminal and ``cyclictest`` in another for several hours, watching the max
    latency stay bounded.
 
-5. Set the hostname [IPC]
--------------------------
+4. Set the hostname
+-------------------
 
 .. code-block:: bash
 
    sudo hostnamectl set-hostname <new-host-name>
    sudo reboot
 
-6. Jetson clocks and power [IPC]
---------------------------------
+.. _computer-setup-isolate:
 
-Lock the Jetson to maximum performance:
+5. Isolate cores for WMX
+------------------------
 
-.. code-block:: bash
+Determinism comes from dedicating CPU cores to the WMX real-time threads and
+keeping housekeeping work off them. Add isolation parameters to the kernel
+command line (edit ``GRUB_CMDLINE_LINUX_DEFAULT`` in ``/etc/default/grub``,
+then run ``sudo update-grub`` and reboot):
 
-   sudo /usr/bin/jetson_clocks
-   sudo /usr/sbin/nvpmodel -m 0
+.. code-block:: text
 
-7. NIC driver config [IPC]
---------------------------
+   isolcpus=managed_irq,domain,<rt_cpus> nohz_full=<rt_cpus> rcu_nocbs=<rt_cpus> \
+   irqaffinity=<housekeeping_cpus> intel_pstate=disable processor.max_cstate=1 idle=poll
+
+- Replace ``<rt_cpus>`` with the cores reserved for the control loop (for
+  example ``2,3``) and ``<housekeeping_cpus>`` with the remaining cores.
+- ``idle=poll`` trades power for latency — measure with ``cyclictest`` to
+  confirm it helps on your hardware.
+- Pin the WMX control loop to the isolated cores; pin AI workloads such as
+  VLM, Whisper, or OpenVINO to the remaining cores. A cgroup v2 slice
+  (``cpuset`` + ``cpu.weight``) keeps the AI stack off the control cores while
+  keeping GPU/NPU access simple.
+
+.. note::
+
+   On hybrid Intel silicon (Panther Lake mixes P-cores, E-cores, and
+   LP-E-cores), pin the control loop to isolated **P-cores** for the most
+   consistent latency.
+
+6. Configure the EtherCAT NIC
+-----------------------------
 
 Find the EtherCAT NIC's PCI address and record it as ``Location`` in
 ``/opt/wmx3/platform/ethercat/PrtTcpip.ini``:
@@ -329,43 +340,93 @@ Find the EtherCAT NIC's PCI address and record it as ``Location`` in
 - x86 example: ``Location=2;1;0``
 - arm64 example: ``Location=8;1;0;0``
 
-8. Modify the NIC driver [IPC]
-------------------------------
+If your NIC needs a WMX-patched driver (for example a Realtek adapter for
+EtherCAT), install the prebuilt module from the WMX setup material and make it
+executable, or rebuild it from the MOVENSYS NIC-driver source:
 
-WMX needs a patched Realtek NIC driver for EtherCAT. Use one of:
+.. code-block:: bash
 
-- **Option 1** — use the prebuilt module(s) from the setup material and make
-  them executable:
+   sudo chmod 755 wmx_r8168.ko   # prebuilt module, when provided
 
-  .. code-block:: bash
-
-     sudo chmod 755 wmx_r8168.ko          # MIC-733ao also: wmx_igb.ko
-
-- **Option 2** — rebuild it from the MOVENSYS NIC-driver source with
-  ``build_nic.sh``.
-
-9. Isolate the core for WMX [IPC]
----------------------------------
-
-Isolate CPU cores for the WMX real-time threads using the Linux core-isolation
-method. On MIC-743, run the provided ``linux_scripts.zip`` scripts, using the
-same ``Location`` configured in ``/opt/wmx3/platform/ethercat/PrtTcpip.ini``.
-
-10. Install ROS 2 [IPC]
------------------------
+7. Install ROS 2
+----------------
 
 Install ROS 2 on the target, matching the Ubuntu version — **Jazzy** on Ubuntu
 24.04, **Humble** on Ubuntu 22.04. Follow the official installation guide, then
-add the CycloneDDS RMW that WMX ROS2 uses:
+add the CycloneDDS RMW that WMX ROS2 uses.
 
 .. tab-set::
 
    .. tab-item:: Jazzy (Ubuntu 24.04)
 
       Follow the `ROS 2 Jazzy installation guide
-      <https://docs.ros.org/en/jazzy/Installation.html>`_, then:
+      <https://docs.ros.org/en/jazzy/Installation.html>`_, then install the
+      CycloneDDS RMW:
+
+      .. code-block:: bash
+
+         sudo apt install -y ros-jazzy-rmw-cyclonedds-cpp
+         echo 'export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp' >> ~/.bashrc
 
    .. tab-item:: Humble (Ubuntu 22.04)
 
       Follow the `ROS 2 Humble installation guide
-      <https://docs.ros.org/en/humble/Installation.html>`_, then:
+      <https://docs.ros.org/en/humble/Installation.html>`_, then install the
+      CycloneDDS RMW:
+
+      .. code-block:: bash
+
+         sudo apt install -y ros-humble-rmw-cyclonedds-cpp
+         echo 'export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp' >> ~/.bashrc
+
+8. Install the AI/accelerator stack (Intel XPU)
+-----------------------------------------------
+
+On Intel XPU targets, install the AI/accelerator stack **only after the RT
+kernel boots**. This pulls in the GPU/NPU drivers and inference runtimes for
+the platform:
+
+.. code-block:: bash
+
+   sudo bash -c "$(wget -qLO - https://raw.githubusercontent.com/open-edge-platform/edge-developer-kit-reference-scripts/refs/heads/main/main_installer.sh)"
+
+.. note::
+
+   The installer targets the stock HWE kernel; on a custom RT kernel the DKMS
+   driver builds should work against your installed headers, but be ready to
+   install the GPU/NPU drivers manually if the script balks.
+
+9. Install Docker
+-----------------
+
+Docker is used to run the containerized WMX ROS2 and perception workloads.
+
+**Set up the Docker apt repository:**
+
+.. code-block:: bash
+
+   sudo apt-get update
+   sudo apt-get install -y ca-certificates curl gnupg
+   sudo install -m 0755 -d /etc/apt/keyrings
+   curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
+        sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+   sudo chmod a+r /etc/apt/keyrings/docker.gpg
+   echo \
+     "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] \
+     https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+     sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+   sudo apt-get update
+
+**Install the Docker packages:**
+
+.. code-block:: bash
+
+   sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+   sudo systemctl restart docker
+
+**Run Docker without sudo:**
+
+.. code-block:: bash
+
+   sudo usermod -aG docker $USER
+   newgrp docker

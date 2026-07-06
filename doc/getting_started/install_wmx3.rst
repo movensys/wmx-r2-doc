@@ -95,13 +95,13 @@ Select the tab that matches your hardware.
 
       Currently supported IPCs are listed below.
 
-      1. Advantech MIC-713, NVIDIA Jetson Orin NX on Ubuntu 20.04
+      1. NVIDIA Jetson Orin NX Developer Kit (Advantech MIC-713) on Ubuntu 20.04
 
       .. code-block:: bash
 
          sudo dpkg -i 20260403_Ubuntu20.04_linux-5.10.120-rt70-jetson-orin-nx-mic-713-wmx3-installer.deb
 
-      2. Advantech MIC-733ao, NVIDIA Jetson Orin AGX on Ubuntu 22.04
+      2. NVIDIA Jetson Orin AGX Developer Kit (Advantech MIC-733ao) on Ubuntu 22.04
 
       .. code-block:: bash
 
@@ -124,7 +124,7 @@ Select the tab that matches your hardware.
 
             cp rt_igc.ko rt_igb.ko /opt/wmx3/platform/ethercat
 
-      3. Advantech MIC-743, NVIDIA Jetson Thor on Ubuntu 24.04
+      3. NVIDIA Jetson Thor Developer Kit (Advantech MIC-743) on Ubuntu 24.04
 
       .. code-block:: bash
 
