@@ -12,7 +12,7 @@ the robot through the WMX ROS2 stack.
 
 MoveIt2 produces collision-aware, time-parameterized trajectories; WMX runs
 them on a deterministic real-time cycle. The same configuration drives three
-execution modes: pure **simulation** (Isaac Sim or Gazebo), **hardware-in-the-loop**
+execution modes: pure **simulation** (Isaac Sim or Gazebo), **simulation-in-the-loop**
 (simulator visuals with the real WMX runtime), and **real** robot control over
 EtherCAT.
 
@@ -81,7 +81,7 @@ helper). For a real robot:
    # Run a trajectory test, or send your own service calls
    mros ros2 launch movensys_manipulator_moveit_config trajectory_test.launch.py
 
-For simulation or hardware-in-the-loop, start the simulator bridge first and
+For simulation or simulation-in-the-loop, start the simulator bridge first and
 pass ``use_sim_time:=true``:
 
 .. code-block:: bash

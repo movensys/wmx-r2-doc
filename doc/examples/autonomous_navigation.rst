@@ -52,7 +52,7 @@ Simulation
         "'{pose: {header: {frame_id: map}, pose: {position: {x: 8.0, y: 0.0, z: 0.0}, \
         orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}}}}'"
 
-HIL
+SIL
 ---
 
 1. Open the scene:
@@ -68,7 +68,7 @@ HIL
       .. tab-item:: Gazebo
          :sync: gazebo
 
-         Not applicable for HIL.
+         Not applicable for SIL.
 
 2. Start WMX ROS2 for the navigation base (real WMX runtime) with
    ``use_sim_time:=true``. See

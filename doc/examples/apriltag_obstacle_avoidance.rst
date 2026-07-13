@@ -38,7 +38,7 @@ Simulation
       mros ros2 launch movensys_manipulator_moveit_config apriltag_pick_and_place.launch.py \
            use_sim_time:=true target_spawn:=false
 
-HIL
+SIL
 ---
 
 1. Open the Isaac Sim scene:

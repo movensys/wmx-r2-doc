@@ -14,7 +14,7 @@ the tab that matches your hardware.
 
 .. tab-set::
 
-   .. tab-item:: x86-based PC
+   .. tab-item:: x86/amd64-based PC
       :sync: x86
 
       **Download the WMX3 installer** — pick the archive that matches your

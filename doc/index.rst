@@ -2,13 +2,13 @@ WMX ROS2 Documentation
 =======================
 
 WMX ROS2 brings industrial deterministic real-time motion control into the
-ROS2 ecosystem for physical AI. It is a set of ROS2 packages that drive
+ROS2 ecosystem. WMX ROS2 is a set of ROS2 packages that drive
 industrial servos through the WMX motion control engine over EtherCAT. It turns
 planner output such as MoveIt2 and Nav2 trajectories into the precisely timed
-servo motion that industrial applications demand, such as semiconductor
-equipment, manufacturing automation, and precision robotics.
+servo motion that industrial and physical AI applications demand, such as
+semiconductor equipment, manufacturing automation, and precision robotics.
 
-The entire stack runs on a single industrial PC (IPC) or edge device with no separate external motion
+The entire stack runs on a single edge device with no separate external motion
 controller, combining perception and deterministic motion into edge physical AI.
 
 WMX ROS2 integrates with widely used projects in the ROS2 ecosystem:
@@ -16,13 +16,13 @@ WMX ROS2 integrates with widely used projects in the ROS2 ecosystem:
 * `MoveIt2 <https://moveit.ai/>`_ for manipulator motion planning
 * `Nav2 <https://nav2.org/>`_ for mobile robot navigation
 * `ros2_control <https://control.ros.org/>`_ for hardware interface and controller management
+* `Intel OpenVINO <https://docs.openvino.ai/2026/index.html>`_ for optimized inference on
+  Intel XPU and integrated accelerators
 * `NVIDIA Isaac Sim <https://developer.nvidia.com/isaac/sim>`_ and
   `Gazebo <https://gazebosim.org/>`_ for simulation
-* `NVIDIA Isaac ROS <https://developer.nvidia.com/isaac/ros>`_ for GPU
+* `NVIDIA Isaac ROS <https://developer.nvidia.com/isaac/ros>`_ for NVIDIA GPU
   accelerated perception
 * `YOLO <https://docs.ultralytics.com/>`_ for real time object detection
-* `Intel OpenVINO <https://docs.openvino.ai/2026/index.html>`_ for optimized inference on
-  CPU and integrated accelerators
 * Multimodal large language models (LLMs) and vision language models
   (VLMs) for natural language task specification and high level reasoning
 
@@ -50,8 +50,8 @@ so planner output runs as smooth deterministic motion.
 WMX ROS2 is an open source MIT-licensed ROS2 package with
 timing-sensitive step: smoothing trajectories, coordinating joints, and
 emitting commands at the rate servo drivers expect. It runs in
-simulation, in hardware-in-the-loop, and on real EtherCAT hardware across
-x86 or arm64 industrial PCs on a real-time Linux kernel. 
+pure simulation, in simulation-in-the-loop, and on real EtherCAT hardware across
+x86 or arm64 edge device on a real-time Linux kernel. 
 
 It is built on the WMX motion control engine, which keeps motion on a
 deterministic cycle and exposes more than 200 APIs for trajectory

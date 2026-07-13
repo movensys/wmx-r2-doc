@@ -14,7 +14,7 @@ Hardware Requirements
      - Minimum
      - Recommended
    * - CPU
-     - x86_64 or ARM64 (arm64)
+     - x86_64/amd64 or arm64
      - Intel Core i7 or NVIDIA Jetson Orin/Thor
    * - RAM
      - 4 GB
@@ -32,23 +32,28 @@ Hardware Requirements
 Real-Time OS requirements
 -------------------------
 
-Servo drivers expect a command every fixed cycle. Standard Linux
-optimizes for throughput rather than keeping a strict deterministic
-schedule, so it may pause the program for a few milliseconds to handle
-a packet or a background task. That delay makes the next command arrive
-late and miss its cycle. A missed cycle makes motion stutter and drops
-accuracy, and on a production line it can even fault the drivers and
-stop the machine. A Real-Time OS such as Linux with the PREEMPT_RT
-patch guarantees motion threads run on time even under load, which is
-why every industrial motion stack runs on one.
+A servo drive needs a new command at a fixed interval, for example one
+every millisecond. Regular Linux is built to get as much work done as
+possible, not to hit that interval exactly, so it may pause the servo
+control loop for a few milliseconds to handle a network packet or a
+background job. When that happens the next command arrives late and
+misses its deadline. Even one missed deadline makes the motion jerk and
+lose both accuracy and speed, and on a production line it can trip the
+drives and stop the machine. A real-time OS, such as Linux with the
+PREEMPT_RT patch, makes sure the motion code always runs on time even
+when the computer is busy. That is why industrial motion systems run on
+one.
+
+Installing this real-time kernel is covered in :doc:`computer_setup`,
+and configuring it for use (isolating CPU cores for the WMX real-time
+threads and tuning latency) is covered in :doc:`install_wmx_runtime`.
 
 WMX Motion Control Engine
 --------------------------
 
 The WMX motion control engine is a high-performance, high-accuracy, real-time motion control
 platform developed by MOVENSYS. It provides deterministic servo control over
-EtherCAT fieldbus and serves as the hardware abstraction layer between ROS2
-and physical servo drives.
+EtherCAT fieldbus and serves as the hardware abstraction layer for physical servo drives.
 
 **Key features:**
 

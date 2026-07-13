@@ -58,7 +58,7 @@ Simulation
       ros2 run rqt_image_view rqt_image_view /yolo_dice_detector/debug_image
       ros2 run rqt_image_view rqt_image_view /yolo_cube_detector/debug_image
 
-HIL
+SIL
 ---
 
 1. Open the Isaac Sim scene:

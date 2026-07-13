@@ -4,38 +4,6 @@ Computer Setup
 WMX ROS2 needs a real-time Linux kernel, ROS 2, and Docker on the
 target computer before you install the WMX-ROS2 packages. 
 
-Supported targets
------------------
-
-.. list-table::
-   :header-rows: 1
-   :widths: 32 14 20 34
-
-   * - Target
-     - Arch
-     - Ubuntu
-     - Kernel source
-   * - General x86/amd64
-     - x86_64
-     - 22.04 / 24.04
-     - kernel.org vanilla + RT patch
-   * - Intel XPU (Panther Lake)
-     - x86_64
-     - 24.04
-     - Intel ``mainline-tracking`` (v6.17)
-   * - Jetson Orin NX
-     - arm64
-     - JetPack (L4T)
-     - NVIDIA L4T real-time kernel
-   * - Jetson Orin AGX
-     - arm64
-     - JetPack (L4T)
-     - NVIDIA L4T real-time kernel
-   * - Jetson Thor
-     - arm64
-     - JetPack (L4T)
-     - NVIDIA L4T real-time kernel
-
 1. Install the base OS
 ----------------------
 
@@ -183,6 +151,51 @@ Install a PREEMPT_RT kernel for your target.
          sudo dpkg -i ../linux-image-*${RTVER}*.deb ../linux-headers-*${RTVER}*.deb
          sudo update-grub
          sudo reboot
+
+      .. dropdown:: Fix the NVIDIA GPU driver (only if the target has an NVIDIA GPU)
+         :animate: fade-in-slide-down
+
+         NVIDIA's kernel-module build refuses to compile against a PREEMPT_RT
+         kernel: it aborts on a ``PREEMPT_RT`` presence check, so after booting
+         the RT kernel the GPU comes up with no driver (``nvidia-smi`` fails).
+         Rebuild the driver through DKMS with that check bypassed
+         (``IGNORE_PREEMPT_RT_PRESENCE=1``). Do this while booted into the RT
+         kernel, so ``uname -r`` reports it.
+
+         Install DKMS, the open NVIDIA driver (``-open``), and confirm the RT
+         kernel headers installed with the ``.deb`` packages above are present:
+
+         .. code-block:: bash
+
+            sudo apt install -y dkms
+            sudo apt install -y nvidia-driver-580-open   # open kernel modules
+            ls /lib/modules/$(uname -r)/build            # headers for the running RT kernel
+
+         The driver source lands in ``/usr/src/nvidia-<version>/``. Add the RT
+         bypass to the ``MAKE`` line of its ``dkms.conf``:
+
+         .. code-block:: bash
+
+            NVER=$(dpkg -l | grep -oP 'nvidia-kernel-source-\d+(-open)?\s+\K[0-9.]+' | head -1)
+            sudo sed -i 's|^MAKE=.*|MAKE="IGNORE_PREEMPT_RT_PRESENCE=1 make -j$(nproc) modules SYSSRC=${kernel_source_dir}"|' \
+                 /usr/src/nvidia-${NVER}/dkms.conf
+            grep IGNORE_PREEMPT_RT_PRESENCE /usr/src/nvidia-${NVER}/dkms.conf   # expect a match
+
+         Build and install the modules for the running RT kernel, then load and
+         verify:
+
+         .. code-block:: bash
+
+            sudo dkms add "nvidia/${NVER}" 2>/dev/null || true
+            sudo dkms install --force "nvidia/${NVER}" -k "$(uname -r)"
+            sudo modprobe nvidia nvidia-drm nvidia-uvm
+            nvidia-smi
+
+         .. note::
+
+            Secure Boot was disabled in the base OS step, so the freshly built
+            modules load unsigned. If you later re-enable Secure Boot, enroll a
+            MOK and sign the NVIDIA modules, or they will be refused at load.
 
    .. tab-item:: Intel XPU (Panther Lake)
 

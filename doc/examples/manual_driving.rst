@@ -55,7 +55,7 @@ Simulation
 
    Keep this terminal focused to send keystrokes to the base.
 
-HIL
+SIL
 ---
 
 1. Open the scene:
@@ -71,7 +71,7 @@ HIL
       .. tab-item:: Gazebo
          :sync: gazebo
 
-         Not applicable for HIL.
+         Not applicable for SIL.
 
 2. Start WMX ROS2 for the navigation base (real WMX runtime) with
    ``use_sim_time:=true``. See
