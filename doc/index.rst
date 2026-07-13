@@ -45,7 +45,17 @@ controller over TCP/IP, which adds latency the planner can never
 recover. The other common option sends raw EtherCAT commands and leaves
 smoothing and coordination to ROS2, which is not built for hard
 real-time system. WMX ROS2 closes this gap by bringing the WMX motion control engine into ROS2
-so planner output runs as smooth deterministic motion.
+so planner output runs as smooth deterministic motion in one single edge device.
+
+.. figure:: /_static/images/one_ipc.png
+   :alt: Conventional motion control versus WMX software motion on a single PC
+   :align: center
+   :width: 100%
+
+   Conventional motion control routes the PC through a separate dedicated
+   motion controller; WMX software motion drives the servo drives directly
+   from a single edge device over the field network.
+
 
 WMX ROS2 is an open source MIT-licensed ROS2 package with
 timing-sensitive step: smoothing trajectories, coordinating joints, and
@@ -59,6 +69,40 @@ conversion, EtherCAT, I/O, and engine control. Proven over a decade in
 semiconductor, manufacturing, and precision robotics. WMX runs free in
 renewable 6-hour sessions that you extend by restarting the engine, and a
 commercial license removes the limit for production.
+
+Performance comparison
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. grid:: 1 1 2 2
+   :gutter: 3
+
+   .. grid-item::
+
+      .. figure:: /_static/images/graph_1.png
+         :alt: Representative single run — joint-angle tracking
+         :width: 100%
+
+         Representative run: joint-angle tracking for the reference, the
+         traditional external controller, and the proposed WMX ROS2.
+
+   .. grid-item::
+
+      .. figure:: /_static/images/graph_2.png
+         :alt: Mean absolute tracking error across ten runs
+         :width: 100%
+
+         Per-sample mean absolute error across ten runs.
+
+We executed the same trajectory ten times. The left panel shows a representative run,
+and the right panel presents the per-sample mean absolute tracking error (MAE).
+The overall MAE corresponds to the time average of this curve. WMX ROS2 reduced
+the MAE by 85% relative to the conventional external controller, thanks to lower
+communication latency from removing the TCP/IP hop and a redundant control stage.
+
+.. note::
+
+   This result highlights the importance of tightly coupled real-time execution
+   when deploying foundation-model-driven physical AI to real-world systems.
 
 
 
