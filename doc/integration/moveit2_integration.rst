@@ -171,6 +171,7 @@ See Also
 --------
 
 - :doc:`cumotion_integration` -- GPU-accelerated planning with Isaac cuMotion
+- :doc:`nav2_integration` -- the mobile-base (Nav2) counterpart to this page
 - :doc:`custom_application` -- drive the ``/wmx/moveit2/*`` services from your
   own code
 - The `movensys-manipulator <https://github.com/movensys/movensys-manipulator>`_

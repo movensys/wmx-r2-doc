@@ -14,6 +14,10 @@ step-by-step solutions.
 For additional help, contact your MOVENSYS representative or visit
 `movensys.com <https://www.movensys.com/en/>`_.
 
+**Documentation issues:** to report an error or a gap in this documentation,
+open an issue on `GitHub Issues
+<https://github.com/movensys/wmx-ros2-doc/issues>`_.
+
 .. toctree::
    :maxdepth: 2
 

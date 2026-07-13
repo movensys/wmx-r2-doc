@@ -1,0 +1,182 @@
+Nav2 Navigation (Mobile Base)
+=============================
+
+Overview
+--------
+
+Nav2 is the mobile-base counterpart to :doc:`moveit2_integration`. Where MoveIt2
+plans arm trajectories, `Nav2 <https://docs.nav2.org/>`_ plans and follows paths
+for a wheeled base. The
+`movensys-navigation <https://github.com/movensys/movensys-navigation>`_
+repository provides the ``movensys_navigation_nav2_config`` package, which wraps
+Nav2 for a differential-drive base and executes the resulting velocity commands
+on the wheels through the WMX ROS2 stack.
+
+Nav2 produces a stream of velocity commands from a costmap-aware controller; WMX
+turns those into wheel motion on a deterministic real-time cycle over EtherCAT.
+As with the manipulator, the same configuration drives three execution modes:
+pure **simulation** (Isaac Sim or Gazebo), **simulation-in-the-loop** (simulator
+visuals with the real WMX runtime), and **real** base control.
+
+Architecture
+------------
+
+.. mermaid::
+   :caption: Nav2 → WMX ROS2 velocity and odometry loop
+
+   flowchart LR
+       GOAL["Goal pose<br/>(RViz / action)"]
+       NAV2["Nav2 servers<br/>planner · controller · BT"]
+       SMOOTH["velocity_smoother"]
+       WMX["WMX differential<br/>drive controller"]
+       WHEELS["Wheel servos<br/>(EtherCAT)"]
+       EKF["robot_localization<br/>EKF"]
+       AMCL["AMCL<br/>(map localization)"]
+
+       GOAL --> NAV2
+       NAV2 -->|"/cmd_vel_nav"| SMOOTH
+       SMOOTH -->|"/cmd_vel_safe"| WMX
+       WMX --> WHEELS
+       WHEELS -->|"/odom_enc"| EKF
+       EKF -->|"/odom"| AMCL
+       AMCL --> NAV2
+
+The command path is one-way to the wheels and the odometry path closes the loop
+back to localization:
+
+1. Nav2's ``controller_server`` produces velocity commands on ``/cmd_vel_nav``.
+2. ``velocity_smoother`` limits and republishes them on the single base input
+   topic ``/cmd_vel_safe`` (manual teleop publishes here directly — see
+   :doc:`../examples/manual_driving`).
+3. The WMX differential-drive controller converts the ``Twist`` into
+   left/right wheel velocities (from ``wheel_radius`` and ``wheel_to_wheel``)
+   and commands the wheel axes with ``CoreMotion::StartVel()`` on a fixed cycle.
+4. Wheel encoder feedback is dead-reckoned into ``/odom_enc``, fused by the
+   ``robot_localization`` EKF into ``/odom``, and used by ``AMCL`` to localize
+   against the map — which is what Nav2 plans on.
+
+Execution modes
+---------------
+
+The WMX side drives the base in either of two ways. Both consume ``/cmd_vel_safe``
+and publish the same encoder odometry, so the Nav2 side is identical either way.
+
+.. tab-set::
+
+   .. tab-item:: Native controller
+
+      ``wmx_ros2_package`` runs a native ``differential_drive_controller`` node
+      that feeds velocity straight to the wheels, with the WMX ``StartVel``
+      profile doing the acceleration and braking. This is the default used by
+      the navigation examples.
+
+      .. code-block:: bash
+
+         nros ros2 launch wmx_ros2_package wmx_ros2_diffbot_navigation.launch.py
+
+   .. tab-item:: ros2_control
+
+      ``wmx_ros2_control`` runs the standard
+      ``diff_drive_controller/DiffDriveController`` on top of the
+      ``WmxSystemHardware`` ``SystemInterface`` plugin. The controller is
+      configured as a pure passthrough (velocity/acceleration/jerk limiters
+      off) so the WMX profile still owns the timing.
+
+      .. code-block:: bash
+
+         nros ros2 launch wmx_ros2_control wmx_ros2_control_diffbot_navigation.launch.py
+
+Setup
+-----
+
+The navigation stack runs inside the ``movensys-navigation`` Docker container.
+Commands run through the ``nros`` container helper (the navigation counterpart
+of ``mros``). Key environment variables:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 32 68
+
+   * - Variable
+     - Purpose
+   * - ``ROS_DISTRO``
+     - ``humble`` or ``jazzy`` (selects the matching Nav2 params file, since
+       plugin names differ per distro)
+   * - ``NAVIGATION_MODEL``
+     - Base model, e.g. ``diffbot`` (selects the URDF, EKF, and Nav2 config)
+
+See the `movensys-navigation <https://github.com/movensys/movensys-navigation>`_
+repository for the full host setup and container build, and
+:doc:`../examples/movensys_navigation_setup` for the example stack.
+
+Running Nav2
+------------
+
+Bring up the WMX base (one of the execution modes above), then start Nav2. For a
+real base:
+
+.. code-block:: bash
+
+   # WMX base (native controller shown; use_sim_time omitted for real hardware)
+   nros ros2 launch wmx_ros2_package wmx_ros2_diffbot_navigation.launch.py
+
+   # Nav2: map_server + AMCL + planner/controller/BT servers + EKF + RViz
+   nros ros2 launch movensys_navigation_nav2_config navigation.launch.py
+
+For simulation or simulation-in-the-loop, start the simulator bridge first and
+pass ``use_sim_time:=true`` to each command:
+
+.. code-block:: bash
+
+   nros ros2 launch movensys_navigation_nav2_config sim_bridge.launch.py use_sim_time:=true
+   nros ros2 launch wmx_ros2_package wmx_ros2_diffbot_navigation.launch.py use_sim_time:=true
+   nros ros2 launch movensys_navigation_nav2_config navigation.launch.py use_sim_time:=true
+
+To build a map instead of navigating a known one, launch ``mapping.launch.py``
+(SLAM Toolbox) in place of ``navigation.launch.py`` and drive the base manually.
+The end-to-end walkthroughs — manual driving, SLAM mapping, and autonomous
+navigation — are in :doc:`../examples/movensys_navigation`.
+
+.. note::
+
+   Pass ``rsp:=false`` when a backend already publishes ``/robot_description``
+   (the Gazebo sim, or the ``ros2_control`` launch), so it is not published
+   twice.
+
+Key Interfaces
+--------------
+
+Provided by the WMX ``differential_drive_controller`` (``diffbot`` defaults:
+``wheel_radius`` 0.095 m, ``wheel_to_wheel`` 0.55 m, control ``rate`` 100 Hz).
+
+.. list-table::
+   :header-rows: 1
+   :widths: 30 30 40
+
+   * - Topic
+     - Type
+     - Purpose
+   * - ``/cmd_vel_safe``
+     - ``geometry_msgs/TwistStamped``
+     - Base velocity input (from Nav2's ``velocity_smoother`` or teleop)
+   * - ``/joint_states``
+     - ``sensor_msgs/JointState``
+     - Left/right wheel positions and velocities
+   * - ``/odom_enc``
+     - ``nav_msgs/Odometry``
+     - Encoder dead-reckoned odometry; feeds the localization EKF
+   * - ``/odom``
+     - ``nav_msgs/Odometry``
+     - EKF-fused odometry that Nav2 and AMCL consume
+
+A stale-command safety timeout (``cmd_vel_timeout``, default 0.25 s) zeroes the
+wheels if no velocity command arrives, so a stalled planner stops the base.
+
+See Also
+--------
+
+- :doc:`moveit2_integration` -- the manipulator (arm) planning counterpart
+- :doc:`../examples/movensys_navigation` -- manual driving, SLAM, and
+  autonomous navigation walkthroughs
+- The `movensys-navigation <https://github.com/movensys/movensys-navigation>`_
+  repository for the full base configuration and Nav2 tuning
