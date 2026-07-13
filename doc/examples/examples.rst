@@ -23,6 +23,7 @@ Every manipulator and navigation scenario runs in three execution modes:
    :hidden:
    :caption: Application stacks
 
+   isaacsim_setup
    movensys_manipulator
    movensys_navigation
 
@@ -40,71 +41,6 @@ Common Requirements
 Before running any scenario, set up the stack once — see
 :doc:`movensys_manipulator_setup` for manipulator scenarios and
 :doc:`movensys_navigation_setup` for navigation scenarios.
-
-Supported Configurations
-------------------------
-
-**Framework support:**
-
-.. list-table::
-   :header-rows: 1
-   :widths: auto
-
-   * - Demo Scenario
-     - ROS2 Humble
-     - ROS2 Jazzy
-     - Isaac ROS 3.2
-     - Isaac ROS 4.1
-   * - Joint trajectory motion
-     - ✓
-     - ✓
-     - ✓
-     - ✓
-   * - AprilTag pick and place
-     - ✓
-     - ✓
-     - ✓
-     - ✓
-   * - Obstacle avoidance
-     -
-     -
-     - ✓
-     - ✓
-   * - AprilTag pick and place with obstacle avoidance
-     -
-     -
-     - ✓
-     - ✓
-   * - Robopoly game
-     - ✓
-     - ✓
-     - ✓
-     - ✓
-
-**Robot platform support:**
-
-.. list-table::
-   :header-rows: 1
-   :widths: auto
-
-   * - Demo Scenario
-     - Dobot CR3A
-     - Dobot CR5A
-   * - Joint trajectory motion
-     - ✓
-     - ✓
-   * - AprilTag pick and place
-     - ✓
-     -
-   * - Obstacle avoidance
-     - ✓
-     -
-   * - AprilTag pick and place with obstacle avoidance
-     - ✓
-     -
-   * - Robopoly game
-     - ✓
-     -
 
 Development Roadmap
 -------------------
@@ -143,10 +79,10 @@ tracked below.
        - Delete movensys_intel_manipulator
        - Delete movensys_thor_manipulator
        
-     - - Add Differential node
-       - Add movensys-navigation
-       - Add VLA example
+     - - Add movensys-navigation
        - Add Diffbot in isaacsim
        - Add differential drive controller node
-       - Add robot option node
        - ros2_control integration
+       - Support Jetson Development Kit 
+       - Universal NIC Kernel driver
+       - Free license for 6 hours

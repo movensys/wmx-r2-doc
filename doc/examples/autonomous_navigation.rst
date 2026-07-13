@@ -7,111 +7,110 @@ send goal poses that Nav2 plans and executes on the collision-aware
 ``/cmd_vel_safe`` topic. See :doc:`examples` for the shared navigation setup. All
 commands run through ``nros``.
 
-Simulation
-----------
+.. tab-set::
 
-1. Open the scene:
+   .. tab-item:: Simulation
 
-   .. tab-set::
+      1. Open the scene:
 
-      .. tab-item:: Isaac Sim
-         :sync: isaacsim
+         .. tab-set::
 
-         Open
-         ``~/workspaces/movensys-simulation/<NAVIGATION_MODEL>/navigation_simulation.usd``
+            .. tab-item:: Isaac Sim
+               :sync: isaacsim
 
-      .. tab-item:: Gazebo
-         :sync: gazebo
+               Open
+               ``~/workspaces/movensys-simulation/<NAVIGATION_MODEL>/navigation_simulation.usd``
+
+            .. tab-item:: Gazebo
+               :sync: gazebo
+
+               .. code-block:: bash
+
+                  nros ros2 launch movensys_navigation_description gazebo_navigation_simulation.launch.py
+
+      2. Run the simulator bridge:
 
          .. code-block:: bash
 
-            nros ros2 launch movensys_navigation_description gazebo_navigation_simulation.launch.py
+            nros ros2 launch movensys_navigation_nav2_config sim_bridge.launch.py use_sim_time:=true
 
-2. Run the simulator bridge:
+      3. Launch navigation:
 
-   .. code-block:: bash
+         .. code-block:: bash
 
-      nros ros2 launch movensys_navigation_nav2_config sim_bridge.launch.py use_sim_time:=true
+            nros ros2 launch movensys_navigation_nav2_config navigation.launch.py use_sim_time:=true
 
-3. Launch navigation:
+         Add ``rsp:=false`` when using Gazebo.
 
-   .. code-block:: bash
+      4. Set the initial pose: in RViz, click **2D Pose Estimate** and click the map
+         at the robot's current position and heading.
 
-      nros ros2 launch movensys_navigation_nav2_config navigation.launch.py use_sim_time:=true
+      5. Send a goal pose:
 
-   Add ``rsp:=false`` when using Gazebo.
+         .. code-block:: bash
 
-4. Set the initial pose: in RViz, click **2D Pose Estimate** and click the map
-   at the robot's current position and heading.
+            nros ros2 action send_goal /navigate_to_pose nav2_msgs/action/NavigateToPose \
+              "'{pose: {header: {frame_id: map}, pose: {position: {x: 8.0, y: 0.0, z: 0.0}, \
+              orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}}}}'"
 
-5. Send a goal pose:
+   .. tab-item:: SIL
 
-   .. code-block:: bash
+      1. Open the scene:
 
-      nros ros2 action send_goal /navigate_to_pose nav2_msgs/action/NavigateToPose \
-        "'{pose: {header: {frame_id: map}, pose: {position: {x: 8.0, y: 0.0, z: 0.0}, \
-        orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}}}}'"
+         .. tab-set::
 
-SIL
----
+            .. tab-item:: Isaac Sim
+               :sync: isaacsim
 
-1. Open the scene:
+               Open
+               ``~/workspaces/movensys-simulation/<NAVIGATION_MODEL>/navigation_hil.usd``
 
-   .. tab-set::
+            .. tab-item:: Gazebo
+               :sync: gazebo
 
-      .. tab-item:: Isaac Sim
-         :sync: isaacsim
+               Not applicable for SIL.
 
-         Open
-         ``~/workspaces/movensys-simulation/<NAVIGATION_MODEL>/navigation_hil.usd``
+      2. Start WMX ROS2 for the navigation base (real WMX runtime) with
+         ``use_sim_time:=true`` (see
+         ``~/workspaces/movensys_ws/src/wmx-ros2/doc/launch_<NAVIGATION_MODEL>_navigation.md``).
 
-      .. tab-item:: Gazebo
-         :sync: gazebo
+      3. Launch navigation:
 
-         Not applicable for SIL.
+         .. code-block:: bash
 
-2. Start WMX ROS2 for the navigation base (real WMX runtime) with
-   ``use_sim_time:=true``. See
-   ``wmx-ros2/doc/launch_<NAVIGATION_MODEL>_navigation.md``.
+            nros ros2 launch movensys_navigation_nav2_config navigation.launch.py use_sim_time:=true
 
-3. Launch navigation:
+         Add ``rsp:=false`` when using Gazebo.
 
-   .. code-block:: bash
+      4. Set the initial pose: in RViz, click **2D Pose Estimate** and click the map
+         at the robot's current position and heading.
 
-      nros ros2 launch movensys_navigation_nav2_config navigation.launch.py use_sim_time:=true
+      5. Send a goal pose:
 
-   Add ``rsp:=false`` when using Gazebo.
+         .. code-block:: bash
 
-4. Set the initial pose: in RViz, click **2D Pose Estimate** and click the map
-   at the robot's current position and heading.
+            nros ros2 action send_goal /navigate_to_pose nav2_msgs/action/NavigateToPose \
+              "'{pose: {header: {frame_id: map}, pose: {position: {x: 8.0, y: 0.0, z: 0.0}, \
+              orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}}}}'"
 
-5. Send a goal pose:
+   .. tab-item:: Real
 
-   .. code-block:: bash
+      1. Start WMX ROS2 for the navigation base on the robot (see
+         ``~/workspaces/movensys_ws/src/wmx-ros2/doc/launch_<NAVIGATION_MODEL>_navigation.md``).
 
-      nros ros2 action send_goal /navigate_to_pose nav2_msgs/action/NavigateToPose \
-        "'{pose: {header: {frame_id: map}, pose: {position: {x: 8.0, y: 0.0, z: 0.0}, \
-        orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}}}}'"
+      2. Launch navigation:
 
-Real
-----
+         .. code-block:: bash
 
-1. Start WMX ROS2 for the navigation base on the robot (no ``use_sim_time``).
-   See ``wmx-ros2/doc/launch_<NAVIGATION_MODEL>_navigation.md``.
+            nros ros2 launch movensys_navigation_nav2_config navigation.launch.py
 
-2. Launch navigation (no ``use_sim_time``):
+      3. Set the initial pose: in RViz, click **2D Pose Estimate** and click the map
+         at the robot's current position and heading.
 
-   .. code-block:: bash
+      4. Send a goal pose:
 
-      nros ros2 launch movensys_navigation_nav2_config navigation.launch.py
+         .. code-block:: bash
 
-3. Set the initial pose: in RViz, click **2D Pose Estimate** and click the map
-   at the robot's current position and heading.
-
-4. Send a goal pose:
-
-   .. code-block:: bash
-
-      nros ros2 action send_goal /navigate_to_pose nav2_msgs/action/NavigateToPose \
-        "'{pose: {header: {frame_id: map}, pose: {position: {x: 8.0, y: 0.0, z: 0.0}, \
-        orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}}}}'"
+            nros ros2 action send_goal /navigate_to_pose nav2_msgs/action/NavigateToPose \
+              "'{pose: {header: {frame_id: map}, pose: {position: {x: 8.0, y: 0.0, z: 0.0}, \
+              orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}}}}'"

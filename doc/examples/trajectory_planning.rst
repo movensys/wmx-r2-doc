@@ -6,153 +6,163 @@ cuMotion. See :doc:`examples` for the shared manipulator setup. All commands
 run through ``mros``. For the programmatic ``/wmx/moveit2/*`` service API, see
 :doc:`../integration/moveit2_integration`.
 
-Simulation
-----------
+.. tab-set::
 
-1. Open the scene:
+   .. tab-item:: Simulation
 
-   .. tab-set::
+      1. Open the scene:
 
-      .. tab-item:: Isaac Sim
-         :sync: isaacsim
+         .. tab-set::
 
-         Open
-         ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/3a_trajectory_simulation.usd``
+            .. tab-item:: Isaac Sim
+               :sync: isaacsim
 
-      .. tab-item:: Gazebo
-         :sync: gazebo
+               Open
+               ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/3a_trajectory_simulation.usd``
 
-         .. code-block:: bash
+            .. tab-item:: Gazebo
+               :sync: gazebo
 
-            mros ros2 launch movensys_manipulator_description gazebo_trajectory_simulation.launch.py
+               .. code-block:: bash
 
-2. Run the simulator bridge:
+                  mros ros2 launch movensys_manipulator_description gazebo_trajectory_simulation.launch.py
 
-   .. tab-set::
+      2. Run the simulator bridge:
 
-      .. tab-item:: Isaac Sim
-         :sync: isaacsim
+         .. tab-set::
 
-         .. code-block:: bash
+            .. tab-item:: Isaac Sim
+               :sync: isaacsim
 
-            mros ros2 launch movensys_manipulator_moveit_config sim_bridge.launch.py \
-                 simulator:=isaacsim use_sim_time:=true
+               .. code-block:: bash
 
-      .. tab-item:: Gazebo
-         :sync: gazebo
+                  mros ros2 launch movensys_manipulator_moveit_config sim_bridge.launch.py \
+                       simulator:=isaacsim use_sim_time:=true
 
-         .. code-block:: bash
+            .. tab-item:: Gazebo
+               :sync: gazebo
 
-            mros ros2 launch movensys_manipulator_moveit_config sim_bridge.launch.py \
-                 simulator:=gazebo use_sim_time:=true
+               .. code-block:: bash
 
-3. Launch the planner and service API:
+                  mros ros2 launch movensys_manipulator_moveit_config sim_bridge.launch.py \
+                       simulator:=gazebo use_sim_time:=true
 
-   .. tab-set::
+      3. Launch the planner and service API:
 
-      .. tab-item:: MoveIt2 OMPL
-         :sync: ompl
+         .. tab-set::
 
-         .. code-block:: bash
+            .. tab-item:: MoveIt2 OMPL
+               :sync: ompl
 
-            mros ros2 launch movensys_manipulator_moveit_config moveit.launch.py use_sim_time:=true
+               .. code-block:: bash
 
-      .. tab-item:: Isaac cuMotion
-         :sync: cumotion
+                  mros ros2 launch movensys_manipulator_moveit_config moveit.launch.py use_sim_time:=true
 
-         .. code-block:: bash
+            .. tab-item:: Isaac cuMotion
+               :sync: cumotion
 
-            mros ros2 launch movensys_manipulator_isaac_ros_config isaac_cumotion.launch.py use_sim_time:=true
+               .. code-block:: bash
 
-4. (optional) Execute the trajectory or coverage test:
+                  mros ros2 launch movensys_manipulator_isaac_ros_config isaac_cumotion.launch.py use_sim_time:=true
 
-   .. code-block:: bash
-
-      mros ros2 launch movensys_manipulator_moveit_config trajectory_test.launch.py use_sim_time:=true
-      mros ros2 launch movensys_manipulator_moveit_config coverage_pose.launch.py use_sim_time:=true
-
-SIL
----
-
-1. Open the scene:
-
-   .. tab-set::
-
-      .. tab-item:: Isaac Sim
-         :sync: isaacsim
-
-         Open
-         ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/3b_trajectory_hil.usd``
-
-      .. tab-item:: Gazebo
-         :sync: gazebo
+      4. (optional) Execute the trajectory or coverage test:
 
          .. code-block:: bash
 
-            mros ros2 launch movensys_manipulator_description gazebo_trajectory_hil.launch.py
+            mros ros2 launch movensys_manipulator_moveit_config trajectory_test.launch.py use_sim_time:=true
+            mros ros2 launch movensys_manipulator_moveit_config coverage_pose.launch.py use_sim_time:=true
 
-2. Start WMX ROS2 for the manipulator (real WMX runtime) with
-   ``use_sim_time:=true``.
+   .. tab-item:: SIL
 
-3. Launch the planner and service API with ``use_sim_time:=true``:
+      1. Open the scene:
 
-   .. tab-set::
+         .. tab-set::
 
-      .. tab-item:: MoveIt2 OMPL
-         :sync: ompl
+            .. tab-item:: Isaac Sim
+               :sync: isaacsim
 
-         .. code-block:: bash
+               Open
+               ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/3b_trajectory_hil.usd``
 
-            mros ros2 launch movensys_manipulator_moveit_config moveit.launch.py use_sim_time:=true
+            .. tab-item:: Gazebo
+               :sync: gazebo
 
-      .. tab-item:: Isaac cuMotion
-         :sync: cumotion
+               .. code-block:: bash
 
-         .. code-block:: bash
+                  mros ros2 launch movensys_manipulator_description gazebo_trajectory_hil.launch.py
 
-            mros ros2 launch movensys_manipulator_isaac_ros_config isaac_cumotion.launch.py use_sim_time:=true
+      2. Start WMX ROS2 for the manipulator (real WMX runtime) with
+         ``use_sim_time:=true`` (see
+         ``~/workspaces/movensys_ws/src/wmx-ros2/doc/launch_<MANIPULATOR_MODEL>_manipulator.md``).
 
-4. (optional) Run ``trajectory_test.launch.py`` / ``coverage_pose.launch.py``
-   with ``use_sim_time:=true``.
+      3. Launch the planner and service API with ``use_sim_time:=true``:
 
-Real
-----
+         .. tab-set::
 
-1. (optional) Open the matching scene for visualization:
+            .. tab-item:: MoveIt2 OMPL
+               :sync: ompl
 
-   .. tab-set::
+               .. code-block:: bash
 
-      .. tab-item:: Isaac Sim
-         :sync: isaacsim
+                  mros ros2 launch movensys_manipulator_moveit_config moveit.launch.py use_sim_time:=true
 
-         Open
-         ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/3c_trajectory_real.usd``
+            .. tab-item:: Isaac cuMotion
+               :sync: cumotion
 
-      .. tab-item:: Gazebo
-         :sync: gazebo
+               .. code-block:: bash
 
-         .. code-block:: bash
+                  mros ros2 launch movensys_manipulator_isaac_ros_config isaac_cumotion.launch.py use_sim_time:=true
 
-            mros ros2 launch movensys_manipulator_description gazebo_trajectory_real.launch.py
-
-2. Start WMX ROS2 for the manipulator on the robot (no ``use_sim_time``).
-
-3. Launch the planner and service API (no ``use_sim_time``):
-
-   .. tab-set::
-
-      .. tab-item:: MoveIt2 OMPL
-         :sync: ompl
+      4. (optional) Execute the trajectory or coverage test:
 
          .. code-block:: bash
 
-            mros ros2 launch movensys_manipulator_moveit_config moveit.launch.py
+            mros ros2 launch movensys_manipulator_moveit_config trajectory_test.launch.py use_sim_time:=true
+            mros ros2 launch movensys_manipulator_moveit_config coverage_pose.launch.py use_sim_time:=true
 
-      .. tab-item:: Isaac cuMotion
-         :sync: cumotion
+   .. tab-item:: Real
+
+      1. (optional) Open the matching scene for visualization:
+
+         .. tab-set::
+
+            .. tab-item:: Isaac Sim
+               :sync: isaacsim
+
+               Open
+               ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/3c_trajectory_real.usd``
+
+            .. tab-item:: Gazebo
+               :sync: gazebo
+
+               .. code-block:: bash
+
+                  mros ros2 launch movensys_manipulator_description gazebo_trajectory_real.launch.py
+
+      2. Start WMX ROS2 for the manipulator on the robot (see
+         ``~/workspaces/movensys_ws/src/wmx-ros2/doc/launch_<MANIPULATOR_MODEL>_manipulator.md``).
+
+      3. Launch the planner and service API:
+
+         .. tab-set::
+
+            .. tab-item:: MoveIt2 OMPL
+               :sync: ompl
+
+               .. code-block:: bash
+
+                  mros ros2 launch movensys_manipulator_moveit_config moveit.launch.py
+
+            .. tab-item:: Isaac cuMotion
+               :sync: cumotion
+
+               .. code-block:: bash
+
+                  mros ros2 launch movensys_manipulator_isaac_ros_config isaac_cumotion.launch.py
+
+      4. (optional) Execute the trajectory or coverage test:
 
          .. code-block:: bash
 
-            mros ros2 launch movensys_manipulator_isaac_ros_config isaac_cumotion.launch.py
-
-4. (optional) Run ``trajectory_test.launch.py`` / ``coverage_pose.launch.py``.
+            mros ros2 launch movensys_manipulator_moveit_config trajectory_test.launch.py
+            mros ros2 launch movensys_manipulator_moveit_config coverage_pose.launch.py

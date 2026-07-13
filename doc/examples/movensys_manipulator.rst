@@ -15,7 +15,6 @@ repository, built on top of this manipulator stack.
 .. toctree::
    :maxdepth: 1
 
-   isaacsim_setup
    movensys_manipulator_setup
    trajectory_planning
    apriltag_pick_and_place

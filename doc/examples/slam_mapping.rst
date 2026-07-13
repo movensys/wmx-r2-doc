@@ -6,131 +6,130 @@ while SLAM runs. When the map looks complete, save it for later use in
 :doc:`autonomous_navigation`. See :doc:`examples` for the shared navigation
 setup. All commands run through ``nros``.
 
-Simulation
-----------
+.. tab-set::
 
-1. Open the scene:
+   .. tab-item:: Simulation
 
-   .. tab-set::
+      1. Open the scene:
 
-      .. tab-item:: Isaac Sim
-         :sync: isaacsim
+         .. tab-set::
 
-         Open
-         ``~/workspaces/movensys-simulation/<NAVIGATION_MODEL>/navigation_simulation.usd``
+            .. tab-item:: Isaac Sim
+               :sync: isaacsim
 
-      .. tab-item:: Gazebo
-         :sync: gazebo
+               Open
+               ``~/workspaces/movensys-simulation/<NAVIGATION_MODEL>/navigation_simulation.usd``
+
+            .. tab-item:: Gazebo
+               :sync: gazebo
+
+               .. code-block:: bash
+
+                  nros ros2 launch movensys_navigation_description gazebo_navigation_simulation.launch.py
+
+      2. Run the simulator bridge:
 
          .. code-block:: bash
 
-            nros ros2 launch movensys_navigation_description gazebo_navigation_simulation.launch.py
+            nros ros2 launch movensys_navigation_nav2_config sim_bridge.launch.py use_sim_time:=true
 
-2. Run the simulator bridge:
+      3. Start mapping:
 
-   .. code-block:: bash
+         .. code-block:: bash
 
-      nros ros2 launch movensys_navigation_nav2_config sim_bridge.launch.py use_sim_time:=true
+            nros ros2 launch movensys_navigation_nav2_config mapping.launch.py use_sim_time:=true
 
-3. Start mapping:
+         Add ``rsp:=false`` when using Gazebo.
 
-   .. code-block:: bash
+      4. Drive with the teleop keyboard to cover the environment:
 
-      nros ros2 launch movensys_navigation_nav2_config mapping.launch.py use_sim_time:=true
+         .. code-block:: bash
 
-   Add ``rsp:=false`` when using Gazebo.
+            nros ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args \
+                 -p turn:=0.5 \
+                 -p stamped:=true \
+                 -p frame_id:=base_link \
+                 -p use_sim_time:=true \
+                 -r cmd_vel:=/cmd_vel_safe
 
-4. Drive with the teleop keyboard to cover the environment:
+      5. Save the map once coverage is complete:
 
-   .. code-block:: bash
+         .. code-block:: bash
 
-      nros ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args \
-           -p turn:=0.5 \
-           -p stamped:=true \
-           -p frame_id:=base_link \
-           -p use_sim_time:=true \
-           -r cmd_vel:=/cmd_vel_safe
+            nros ros2 run nav2_map_server map_saver_cli \
+                 -f /home/admin/workspaces/movensys_ws/src/movensys-navigation/movensys_navigation_nav2_config/maps/my_map
 
-5. Save the map once coverage is complete:
+   .. tab-item:: SIL
 
-   .. code-block:: bash
+      1. Open the scene:
 
-      nros ros2 run nav2_map_server map_saver_cli \
-           -f /home/admin/workspaces/movensys_ws/src/movensys-navigation/movensys_navigation_nav2_config/maps/my_map
+         .. tab-set::
 
-SIL
----
+            .. tab-item:: Isaac Sim
+               :sync: isaacsim
 
-1. Open the scene:
+               Open
+               ``~/workspaces/movensys-simulation/<NAVIGATION_MODEL>/navigation_hil.usd``
 
-   .. tab-set::
+            .. tab-item:: Gazebo
+               :sync: gazebo
 
-      .. tab-item:: Isaac Sim
-         :sync: isaacsim
+               Not applicable for SIL.
 
-         Open
-         ``~/workspaces/movensys-simulation/<NAVIGATION_MODEL>/navigation_hil.usd``
+      2. Start WMX ROS2 for the navigation base (real WMX runtime) with
+         ``use_sim_time:=true`` (see
+         ``~/workspaces/movensys_ws/src/wmx-ros2/doc/launch_<NAVIGATION_MODEL>_navigation.md``).
 
-      .. tab-item:: Gazebo
-         :sync: gazebo
+      3. Start mapping:
 
-         Not applicable for SIL.
+         .. code-block:: bash
 
-2. Start WMX ROS2 for the navigation base (real WMX runtime) with
-   ``use_sim_time:=true``. See
-   ``wmx-ros2/doc/launch_<NAVIGATION_MODEL>_navigation.md``.
+            nros ros2 launch movensys_navigation_nav2_config mapping.launch.py use_sim_time:=true
 
-3. Start mapping:
+         Add ``rsp:=false`` when using Gazebo.
 
-   .. code-block:: bash
+      4. Drive with the teleop keyboard to cover the environment:
 
-      nros ros2 launch movensys_navigation_nav2_config mapping.launch.py use_sim_time:=true
+         .. code-block:: bash
 
-   Add ``rsp:=false`` when using Gazebo.
+            nros ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args \
+                 -p turn:=0.5 \
+                 -p stamped:=true \
+                 -p frame_id:=base_link \
+                 -p use_sim_time:=true \
+                 -r cmd_vel:=/cmd_vel_safe
 
-4. Drive with the teleop keyboard to cover the environment:
+      5. Save the map once coverage is complete:
 
-   .. code-block:: bash
+         .. code-block:: bash
 
-      nros ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args \
-           -p turn:=0.5 \
-           -p stamped:=true \
-           -p frame_id:=base_link \
-           -p use_sim_time:=true \
-           -r cmd_vel:=/cmd_vel_safe
+            nros ros2 run nav2_map_server map_saver_cli \
+                 -f /home/admin/workspaces/movensys_ws/src/movensys-navigation/movensys_navigation_nav2_config/maps/my_map
 
-5. Save the map once coverage is complete:
+   .. tab-item:: Real
 
-   .. code-block:: bash
+      1. Start WMX ROS2 for the navigation base on the robot (see
+         ``~/workspaces/movensys_ws/src/wmx-ros2/doc/launch_<NAVIGATION_MODEL>_navigation.md``).
 
-      nros ros2 run nav2_map_server map_saver_cli \
-           -f /home/admin/workspaces/movensys_ws/src/movensys-navigation/movensys_navigation_nav2_config/maps/my_map
+      2. Start mapping:
 
-Real
-----
+         .. code-block:: bash
 
-1. Start WMX ROS2 for the navigation base on the robot (no ``use_sim_time``).
-   See ``wmx-ros2/doc/launch_<NAVIGATION_MODEL>_navigation.md``.
+            nros ros2 launch movensys_navigation_nav2_config mapping.launch.py
 
-2. Start mapping (no ``use_sim_time``):
+      3. Drive with the teleop keyboard to cover the environment:
 
-   .. code-block:: bash
+         .. code-block:: bash
 
-      nros ros2 launch movensys_navigation_nav2_config mapping.launch.py
+            nros ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args \
+                 -p turn:=0.5 \
+                 -p stamped:=true \
+                 -p frame_id:=base_link \
+                 -r cmd_vel:=/cmd_vel_safe
 
-3. Drive with the teleop keyboard to cover the environment:
+      4. Save the map once coverage is complete:
 
-   .. code-block:: bash
+         .. code-block:: bash
 
-      nros ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args \
-           -p turn:=0.5 \
-           -p stamped:=true \
-           -p frame_id:=base_link \
-           -r cmd_vel:=/cmd_vel_safe
-
-4. Save the map once coverage is complete:
-
-   .. code-block:: bash
-
-      nros ros2 run nav2_map_server map_saver_cli \
-           -f /home/admin/workspaces/movensys_ws/src/movensys-navigation/movensys_navigation_nav2_config/maps/my_map
+            nros ros2 run nav2_map_server map_saver_cli \
+                 -f /home/admin/workspaces/movensys_ws/src/movensys-navigation/movensys_navigation_nav2_config/maps/my_map
