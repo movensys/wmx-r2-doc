@@ -47,7 +47,7 @@ through the ``mros`` container helper.
    # Run a trajectory
    mros ros2 launch movensys_manipulator_moveit_config trajectory_test.launch.py
 
-**Simulation / hardware-in-the-loop:** start the simulator bridge first and add
+**Simulation / simulation-in-the-loop:** start the simulator bridge first and add
 ``use_sim_time:=true`` to each command:
 
 .. code-block:: bash

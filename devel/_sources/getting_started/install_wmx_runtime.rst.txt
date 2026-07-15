@@ -1,6 +1,56 @@
 Install WMX Runtime
 ===================
 
+What is WMX Motion Engine?
+---------------------------
+
+The WMX motion engine is MOVENSYS's software-defined motion control. It
+replaces the dedicated hardware motion controller used in a conventional setup.
+The engine runs directly on the PC and drives the servos over EtherCAT. It
+handles both cyclic process data (PDO) and configuration data (SDO) on the bus.
+
+.. figure:: /_static/images/one_pc.png
+   :alt: WMX software motion running on a single PC and driving servos directly over EtherCAT
+   :width: 100%
+
+   With WMX there is no separate motion controller. The PC runs the software
+   motion engine and talks to the servo drives directly over EtherCAT.
+
+Running the motion on a single PC removes the separate controller box and the
+cabling that connects it. This shrinks the overall footprint and lowers the
+parts count and cost. Fewer components also mean less to wire, mount, and
+maintain. Performance improves at the same time, because commands no longer take
+an extra hop through external hardware. The smaller size and lighter weight make
+WMX a strong fit for robots and mobile machines where space and payload are
+limited.
+
+The motion runs in software on a real-time kernel instead of on fixed controller
+hardware. This lets it scale far beyond a conventional controller. A typical
+hardware controller handles up to 32 axes on a 250 µs to 1 ms cycle. WMX
+software motion drives up to 128 axes on a 31.25 µs to 1 ms cycle and keeps
+deterministic real-time performance.
+
+.. figure:: /_static/images/soft_motion.png
+   :alt: Conventional hardware motion control versus WMX software motion, comparing axis count and cycle time
+   :width: 100%
+
+   Conventional hardware control handles up to 32 axes on a 250 µs to 1 ms cycle.
+   WMX software motion drives up to 128 axes on a 31.25 µs to 1 ms cycle.
+
+The engine is built on MOVENSYS's proprietary Soft Motion technology and holds
+the highest EtherCAT master. It exposes more than 200
+APIs for trajectory conversion, EtherCAT and fieldbus communication, digital and
+analog I/O, and engine control. Users can build applications in C, C++, C#, or
+Python. This is the same engine that WMX ROS2 drives underneath the ROS2 layer.
+Planner output such as MoveIt2 and Nav2 trajectories is handed to the engine,
+and the engine turns it into the precisely timed servo commands that the drives
+execute on a fixed cycle.
+
+WMX has been proven over 25 years in demanding industrial fields such as
+semiconductor and precision robotics. The runtime is free to evaluate in renewable 
+6-hour sessions that you extend by restarting the engine. A commercial license removes the time
+limit for production use.
+
 With the real-time kernel in place (see :doc:`computer_setup`), install the WMX
 runtime, isolate the CPU cores for the real-time threads, and point the runtime
 at the EtherCAT NIC.
@@ -14,7 +64,7 @@ the tab that matches your hardware.
 
 .. tab-set::
 
-   .. tab-item:: x86-based PC
+   .. tab-item:: x86/amd64-based PC
       :sync: x86
 
       **Download the WMX3 installer** — pick the archive that matches your

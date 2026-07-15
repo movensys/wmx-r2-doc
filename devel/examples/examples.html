@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=c5bec18d" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=4bf0b306" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
@@ -50,12 +50,12 @@
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="movensys-manipulator" href="movensys_manipulator.html" />
+    <link rel="next" title="NVIDIA Isaac ROS Setup (Optional)" href="isaacsim_setup.html" />
     <link rel="prev" title="Install WMX ROS2 Package" href="../getting_started/install_wmx3.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Jul 06, 2026"/>
+    <meta name="docbuild:last-update" content="Jul 15, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -248,15 +248,14 @@
   <div class="bd-toc-item navbar-nav">
     <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started/system_requirements.html">System Requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../getting_started/computer_setup.html">Computer Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx_runtime.html">Install WMX Runtime</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx3.html">Install WMX ROS2 Package</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Example Applications</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="isaacsim_setup.html">NVIDIA Isaac ROS Setup (Optional)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="movensys_manipulator.html">movensys-manipulator</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="isaacsim_setup.html">NVIDIA Isaac Setup (Optional)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
 <li class="toctree-l3"><a class="reference internal" href="trajectory_planning.html">Trajectory Planning</a></li>
 <li class="toctree-l3"><a class="reference internal" href="apriltag_pick_and_place.html">AprilTag Pick-and-Place</a></li>
@@ -278,6 +277,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../integration/integration.html">Integration Scenarios</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../integration/moveit2_integration.html">MoveIt2 Motion Planning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../integration/cumotion_integration.html">Isaac cuMotion Accelerated Planning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/nav2_integration.html">Nav2 Navigation (Mobile Base)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../integration/custom_planner.html">Custom Planner Integration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../integration/custom_application.html">Building Custom Applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../integration/intelligence_integration.html">Natural-Language and Vision Control (VLM / LLM)</a></li>
@@ -285,11 +285,11 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../api_reference/api_reference.html">API Reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/communication.html">Communication Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_ros2_message.html">wmx_ros2_message</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_ros2_package.html">wmx_ros2_package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_services.html">ROS2 Services</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_topics.html">ROS2 Topics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_actions.html">ROS2 Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_ros2_message.html">wmx_ros2_message</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_ros2_package.html">wmx_ros2_package</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../support.html">Support</a><ul>
@@ -392,7 +392,7 @@ repository, built on top of the manipulator stack.</p>
 <p>Every manipulator and navigation scenario runs in three execution modes:</p>
 <ul class="simple">
 <li><p><strong>Simulation</strong> – pure simulation (Isaac Sim or Gazebo), no hardware</p></li>
-<li><p><strong>HIL</strong> – hardware-in-the-loop: simulator visuals with the real WMX runtime</p></li>
+<li><p><strong>SIL</strong> – simulation-in-the-loop: simulator visuals with the real WMX runtime</p></li>
 <li><p><strong>Real</strong> – the real robot via WMX over EtherCAT</p></li>
 </ul>
 <div class="toctree-wrapper compound">
@@ -404,92 +404,13 @@ repository, built on top of the manipulator stack.</p>
 (see <a class="reference internal" href="../getting_started/index.html"><span class="doc">Getting Started</span></a>)</p></li>
 <li><p>Docker with <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">compose</span></code> (the examples run inside containers)</p></li>
 <li><p>An NVIDIA GPU and Isaac ROS prerequisites for the <code class="docutils literal notranslate"><span class="pre">isaac-ros_*</span></code> images</p></li>
-<li><p>EtherCAT hardware for HIL and Real modes</p></li>
+<li><p>EtherCAT hardware for SIL and Real modes</p></li>
 <li><p>The <a class="reference external" href="https://github.com/movensys/movensys-simulation">movensys-simulation</a>
 repo for the Isaac Sim scenes</p></li>
 </ul>
 <p>Before running any scenario, set up the stack once — see
 <a class="reference internal" href="movensys_manipulator_setup.html"><span class="doc">movensys-manipulator Setup</span></a> for manipulator scenarios and
 <a class="reference internal" href="movensys_navigation_setup.html"><span class="doc">movensys-navigation Setup</span></a> for navigation scenarios.</p>
-</section>
-<section id="supported-configurations">
-<h2>Supported Configurations<a class="headerlink" href="#supported-configurations" title="Link to this heading">#</a></h2>
-<p><strong>Framework support:</strong></p>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p>Demo Scenario</p></th>
-<th class="head"><p>ROS2 Humble</p></th>
-<th class="head"><p>ROS2 Jazzy</p></th>
-<th class="head"><p>Isaac ROS 3.2</p></th>
-<th class="head"><p>Isaac ROS 4.1</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>Joint trajectory motion</p></td>
-<td><p>✓</p></td>
-<td><p>✓</p></td>
-<td><p>✓</p></td>
-<td><p>✓</p></td>
-</tr>
-<tr class="row-odd"><td><p>AprilTag pick and place</p></td>
-<td><p>✓</p></td>
-<td><p>✓</p></td>
-<td><p>✓</p></td>
-<td><p>✓</p></td>
-</tr>
-<tr class="row-even"><td><p>Obstacle avoidance</p></td>
-<td></td>
-<td></td>
-<td><p>✓</p></td>
-<td><p>✓</p></td>
-</tr>
-<tr class="row-odd"><td><p>AprilTag pick and place with obstacle avoidance</p></td>
-<td></td>
-<td></td>
-<td><p>✓</p></td>
-<td><p>✓</p></td>
-</tr>
-<tr class="row-even"><td><p>Robopoly game</p></td>
-<td><p>✓</p></td>
-<td><p>✓</p></td>
-<td><p>✓</p></td>
-<td><p>✓</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<p><strong>Robot platform support:</strong></p>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p>Demo Scenario</p></th>
-<th class="head"><p>Dobot CR3A</p></th>
-<th class="head"><p>Dobot CR5A</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>Joint trajectory motion</p></td>
-<td><p>✓</p></td>
-<td><p>✓</p></td>
-</tr>
-<tr class="row-odd"><td><p>AprilTag pick and place</p></td>
-<td><p>✓</p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p>Obstacle avoidance</p></td>
-<td><p>✓</p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p>AprilTag pick and place with obstacle avoidance</p></td>
-<td><p>✓</p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p>Robopoly game</p></td>
-<td><p>✓</p></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-</div>
 </section>
 <section id="development-roadmap">
 <h2>Development Roadmap<a class="headerlink" href="#development-roadmap" title="Link to this heading">#</a></h2>
@@ -537,13 +458,13 @@ tracked below.</p>
 </ul>
 </td>
 <td><ul class="simple">
-<li><p>Add Differential node</p></li>
 <li><p>Add movensys-navigation</p></li>
-<li><p>Add VLA example</p></li>
 <li><p>Add Diffbot in isaacsim</p></li>
 <li><p>Add differential drive controller node</p></li>
-<li><p>Add robot option node</p></li>
 <li><p>ros2_control integration</p></li>
+<li><p>Support Jetson Development Kit</p></li>
+<li><p>Universal NIC Kernel driver</p></li>
+<li><p>Free license for 6 hours</p></li>
 </ul>
 </td>
 </tr>
@@ -573,11 +494,11 @@ tracked below.</p>
       </div>
     </a>
     <a class="right-next"
-       href="movensys_manipulator.html"
+       href="isaacsim_setup.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">movensys-manipulator</p>
+        <p class="prev-next-title">NVIDIA Isaac ROS Setup (Optional)</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -601,7 +522,6 @@ tracked below.</p>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common-requirements">Common Requirements</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#supported-configurations">Supported Configurations</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#development-roadmap">Development Roadmap</a></li>
 </ul>
   </nav></div>
@@ -632,7 +552,7 @@ tracked below.</p>
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Jul 06, 2026</p>
+      <p>Last updated: Jul 15, 2026</p>
     
   </div>
   <div class="movensys-footer__links">

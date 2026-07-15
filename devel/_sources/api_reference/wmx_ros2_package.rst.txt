@@ -171,6 +171,7 @@ layers are live:
 
 .. mermaid::
    :caption: Node startup coordination via ready signals
+   :zoom:
 
    sequenceDiagram
        participant E as wmx_engine_node

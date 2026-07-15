@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=c5bec18d" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=4bf0b306" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
@@ -51,11 +51,11 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Install WMX Runtime" href="install_wmx_runtime.html" />
-    <link rel="prev" title="System Requirements" href="system_requirements.html" />
+    <link rel="prev" title="Getting Started" href="index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Jul 06, 2026"/>
+    <meta name="docbuild:last-update" content="Jul 15, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -248,15 +248,14 @@
   <div class="bd-toc-item navbar-nav">
     <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Getting Started</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="system_requirements.html">System Requirements</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Computer Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="install_wmx_runtime.html">Install WMX Runtime</a></li>
 <li class="toctree-l2"><a class="reference internal" href="install_wmx3.html">Install WMX ROS2 Package</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/examples.html">Example Applications</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/isaacsim_setup.html">NVIDIA Isaac ROS Setup (Optional)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator.html">movensys-manipulator</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../examples/isaacsim_setup.html">NVIDIA Isaac Setup (Optional)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/trajectory_planning.html">Trajectory Planning</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/apriltag_pick_and_place.html">AprilTag Pick-and-Place</a></li>
@@ -278,6 +277,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../integration/integration.html">Integration Scenarios</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../integration/moveit2_integration.html">MoveIt2 Motion Planning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../integration/cumotion_integration.html">Isaac cuMotion Accelerated Planning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/nav2_integration.html">Nav2 Navigation (Mobile Base)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../integration/custom_planner.html">Custom Planner Integration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../integration/custom_application.html">Building Custom Applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../integration/intelligence_integration.html">Natural-Language and Vision Control (VLM / LLM)</a></li>
@@ -285,11 +285,11 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../api_reference/api_reference.html">API Reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/communication.html">Communication Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_ros2_message.html">wmx_ros2_message</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_ros2_package.html">wmx_ros2_package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_services.html">ROS2 Services</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_topics.html">ROS2 Topics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_actions.html">ROS2 Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_ros2_message.html">wmx_ros2_message</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_ros2_package.html">wmx_ros2_package</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../support.html">Support</a><ul>
@@ -383,55 +383,94 @@ document.addEventListener("DOMContentLoaded", function() {
   <section id="computer-setup">
 <h1>Computer Setup<a class="headerlink" href="#computer-setup" title="Link to this heading">#</a></h1>
 <p>WMX ROS2 needs a real-time Linux kernel, ROS 2, and Docker on the
-target computer before you install the WMX-ROS2 packages.</p>
-<section id="supported-targets">
-<h2>Supported targets<a class="headerlink" href="#supported-targets" title="Link to this heading">#</a></h2>
+target computer before you install the WMX-ROS2 packages. This page lists the
+system requirements, then walks through preparing the computer step by step.</p>
+<section id="hardware-requirements">
+<h2>Hardware Requirements<a class="headerlink" href="#hardware-requirements" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="table">
 <colgroup>
-<col style="width: 32.0%" />
-<col style="width: 14.0%" />
 <col style="width: 20.0%" />
-<col style="width: 34.0%" />
+<col style="width: 40.0%" />
+<col style="width: 40.0%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>Target</p></th>
-<th class="head"><p>Arch</p></th>
-<th class="head"><p>Ubuntu</p></th>
-<th class="head"><p>Kernel source</p></th>
+<tr class="row-odd"><th class="head"><p>Component</p></th>
+<th class="head"><p>Minimum</p></th>
+<th class="head"><p>Recommended</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>General x86/amd64</p></td>
-<td><p>x86_64</p></td>
-<td><p>22.04 / 24.04</p></td>
-<td><p>kernel.org vanilla + RT patch</p></td>
+<tr class="row-even"><td><p>CPU</p></td>
+<td><p>x86_64/amd64 or arm64</p></td>
+<td><p>Intel Core i7 or NVIDIA Jetson Orin/Thor</p></td>
 </tr>
-<tr class="row-odd"><td><p>Intel XPU (Panther Lake)</p></td>
-<td><p>x86_64</p></td>
-<td><p>24.04</p></td>
-<td><p>Intel <code class="docutils literal notranslate"><span class="pre">mainline-tracking</span></code> (v6.17)</p></td>
+<tr class="row-odd"><td><p>RAM</p></td>
+<td><p>4 GB</p></td>
+<td><p>8 GB or more</p></td>
 </tr>
-<tr class="row-even"><td><p>Jetson Orin NX</p></td>
-<td><p>arm64</p></td>
-<td><p>JetPack (L4T)</p></td>
-<td><p>NVIDIA L4T real-time kernel</p></td>
+<tr class="row-even"><td><p>Storage</p></td>
+<td><p>10 GB free</p></td>
+<td><p>20 GB free (including ROS2 + MoveIt2)</p></td>
 </tr>
-<tr class="row-odd"><td><p>Jetson Orin AGX</p></td>
-<td><p>arm64</p></td>
-<td><p>JetPack (L4T)</p></td>
-<td><p>NVIDIA L4T real-time kernel</p></td>
+<tr class="row-odd"><td><p>GPU</p></td>
+<td><p>Not required for base operation</p></td>
+<td><p>NVIDIA GPU with CUDA for Isaac cuMotion</p></td>
 </tr>
-<tr class="row-even"><td><p>Jetson Thor</p></td>
-<td><p>arm64</p></td>
-<td><p>JetPack (L4T)</p></td>
-<td><p>NVIDIA L4T real-time kernel</p></td>
+<tr class="row-even"><td><p>NPU</p></td>
+<td><p>Not required for base operation</p></td>
+<td><p>Intel NPU for OpenVINO inference applications</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 </section>
+<section id="real-time-os-requirements">
+<h2>Real-Time OS requirements<a class="headerlink" href="#real-time-os-requirements" title="Link to this heading">#</a></h2>
+<p>A servo drive needs a new command at a fixed interval, for example one
+every millisecond. Regular Linux is built to get as much work done as
+possible, not to hit that interval exactly, so it may pause the servo
+control loop for a few milliseconds to handle a network packet or a
+background job. When that happens the next command arrives late and
+misses its deadline. Even one missed deadline makes the motion jerk and
+lose both accuracy and speed, and on a production line it can trip the
+drives and stop the machine. A real-time OS, such as Linux with the
+PREEMPT_RT patch, makes sure the motion code always runs on time even
+when the computer is busy. That is why industrial motion systems run on
+one.</p>
+<p>Installing this real-time kernel is covered in the setup steps below,
+and configuring it for use (isolating CPU cores for the WMX real-time
+threads and tuning latency) is covered in <a class="reference internal" href="install_wmx_runtime.html"><span class="doc">Install WMX Runtime</span></a>.</p>
+</section>
+<section id="wmx-motion-control-engine">
+<h2>WMX Motion Control Engine<a class="headerlink" href="#wmx-motion-control-engine" title="Link to this heading">#</a></h2>
+<p>The WMX motion control engine is a high-performance, high-accuracy, real-time motion control
+platform developed by MOVENSYS. It provides deterministic servo control over
+EtherCAT fieldbus and serves as the hardware abstraction layer for physical servo drives.</p>
+<p><strong>Key features:</strong></p>
+<ul class="simple">
+<li><p><strong>Real-time EtherCAT master</strong> – manages cyclic communication with servo
+drives at deterministic update rates</p></li>
+<li><p><strong>Multi-axis coordination</strong> – supports synchronized motion across 6+ servo
+axes with cubic spline interpolation (<code class="docutils literal notranslate"><span class="pre">CSplinePos</span></code>)</p></li>
+<li><p><strong>Shared-memory architecture</strong> – multiple ROS2 nodes connect to the same
+WMX engine instance through independent device handles, bridging the
+non-real-time ROS2 domain with the real-time WMX engine</p></li>
+<li><p><strong>Hardware abstraction</strong> – provides a unified C++ API (<code class="docutils literal notranslate"><span class="pre">CoreMotion</span></code>,
+<code class="docutils literal notranslate"><span class="pre">AdvancedMotion</span></code>, <code class="docutils literal notranslate"><span class="pre">Io</span></code>, <code class="docutils literal notranslate"><span class="pre">Ecat</span></code>, <code class="docutils literal notranslate"><span class="pre">WMX3Api</span></code>) so ROS2 nodes remain
+robot-agnostic; only configuration files differ between robots</p></li>
+</ul>
+<p>The WMX runtime must be installed at <code class="docutils literal notranslate"><span class="pre">/opt/wmx3/</span></code> before building or
+running the WMX ROS2 packages. See <a class="reference internal" href="install_wmx_runtime.html"><span class="doc">Install WMX Runtime</span></a> for installation and
+verification steps.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Root (sudo) access is required at runtime. The WMX motion control engine
+and EtherCAT communication require kernel-level access to the network
+interface.</p>
+</div>
+<p>The C++ standard required is <strong>C++17</strong> (set in <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code>).</p>
 <section id="install-the-base-os">
-<h2>1. Install the base OS<a class="headerlink" href="#install-the-base-os" title="Link to this heading">#</a></h2>
+<h3>1. Install the base OS<a class="headerlink" href="#install-the-base-os" title="Link to this heading">#</a></h3>
 <p>Pick your target and install the operating system.</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
@@ -492,7 +531,7 @@ correct real-time kernel in the next step:</p>
 </div>
 </section>
 <section id="install-the-real-time-kernel">
-<h2>2. Install the real-time kernel<a class="headerlink" href="#install-the-real-time-kernel" title="Link to this heading">#</a></h2>
+<h3>2. Install the real-time kernel<a class="headerlink" href="#install-the-real-time-kernel" title="Link to this heading">#</a></h3>
 <p>Install a PREEMPT_RT kernel for your target.</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
@@ -556,7 +595,46 @@ sudo<span class="w"> </span>update-grub
 sudo<span class="w"> </span>reboot
 </pre></div>
 </div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3 sd-fade-in-slide-down">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Fix the NVIDIA GPU driver (only if the target has an NVIDIA GPU)</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">NVIDIA’s kernel-module build refuses to compile against a PREEMPT_RT
+kernel: it aborts on a <code class="docutils literal notranslate"><span class="pre">PREEMPT_RT</span></code> presence check, so after booting
+the RT kernel the GPU comes up with no driver (<code class="docutils literal notranslate"><span class="pre">nvidia-smi</span></code> fails).
+Rebuild the driver through DKMS with that check bypassed
+(<code class="docutils literal notranslate"><span class="pre">IGNORE_PREEMPT_RT_PRESENCE=1</span></code>). Do this while booted into the RT
+kernel, so <code class="docutils literal notranslate"><span class="pre">uname</span> <span class="pre">-r</span></code> reports it.</p>
+<p class="sd-card-text">Install DKMS, the open NVIDIA driver (<code class="docutils literal notranslate"><span class="pre">-open</span></code>), and confirm the RT
+kernel headers installed with the <code class="docutils literal notranslate"><span class="pre">.deb</span></code> packages above are present:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>dkms
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>nvidia-driver-580-open<span class="w">   </span><span class="c1"># open kernel modules</span>
+ls<span class="w"> </span>/lib/modules/<span class="k">$(</span>uname<span class="w"> </span>-r<span class="k">)</span>/build<span class="w">            </span><span class="c1"># headers for the running RT kernel</span>
+</pre></div>
 </div>
+<p class="sd-card-text">The driver source lands in <code class="docutils literal notranslate"><span class="pre">/usr/src/nvidia-&lt;version&gt;/</span></code>. Add the RT
+bypass to the <code class="docutils literal notranslate"><span class="pre">MAKE</span></code> line of its <code class="docutils literal notranslate"><span class="pre">dkms.conf</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">NVER</span><span class="o">=</span><span class="k">$(</span>dpkg<span class="w"> </span>-l<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-oP<span class="w"> </span><span class="s1">&#39;nvidia-kernel-source-\d+(-open)?\s+\K[0-9.]+&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-1<span class="k">)</span>
+sudo<span class="w"> </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s|^MAKE=.*|MAKE=&quot;IGNORE_PREEMPT_RT_PRESENCE=1 make -j$(nproc) modules SYSSRC=${kernel_source_dir}&quot;|&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">     </span>/usr/src/nvidia-<span class="si">${</span><span class="nv">NVER</span><span class="si">}</span>/dkms.conf
+grep<span class="w"> </span>IGNORE_PREEMPT_RT_PRESENCE<span class="w"> </span>/usr/src/nvidia-<span class="si">${</span><span class="nv">NVER</span><span class="si">}</span>/dkms.conf<span class="w">   </span><span class="c1"># expect a match</span>
+</pre></div>
+</div>
+<p class="sd-card-text">Build and install the modules for the running RT kernel, then load and
+verify:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>dkms<span class="w"> </span>add<span class="w"> </span><span class="s2">&quot;nvidia/</span><span class="si">${</span><span class="nv">NVER</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+sudo<span class="w"> </span>dkms<span class="w"> </span>install<span class="w"> </span>--force<span class="w"> </span><span class="s2">&quot;nvidia/</span><span class="si">${</span><span class="nv">NVER</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>-k<span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>uname<span class="w"> </span>-r<span class="k">)</span><span class="s2">&quot;</span>
+sudo<span class="w"> </span>modprobe<span class="w"> </span>nvidia<span class="w"> </span>nvidia-drm<span class="w"> </span>nvidia-uvm
+nvidia-smi
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p class="sd-card-text">Secure Boot was disabled in the base OS step, so the freshly built
+modules load unsigned. If you later re-enable Secure Boot, enroll a
+MOK and sign the NVIDIA modules, or they will be refused at load.</p>
+</div>
+</div>
+</details></div>
 <input id="sd-tab-item-4" name="sd-tab-set-1" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-4">
 Intel XPU (Panther Lake)</label><div class="sd-tab-content docutils">
@@ -642,7 +720,7 @@ sudo<span class="w"> </span>/usr/sbin/nvpmodel<span class="w"> </span>-m<span cl
 </div>
 </section>
 <section id="verify-the-real-time-install">
-<span id="computer-setup-verify"></span><h2>3. Verify the real-time install<a class="headerlink" href="#verify-the-real-time-install" title="Link to this heading">#</a></h2>
+<span id="computer-setup-verify"></span><h3>3. Verify the real-time install<a class="headerlink" href="#verify-the-real-time-install" title="Link to this heading">#</a></h3>
 <p>Confirm the RT kernel is running, then run <code class="docutils literal notranslate"><span class="pre">cyclictest</span></code> to measure worst-case
 latency. <code class="docutils literal notranslate"><span class="pre">rt-tests</span></code> was installed with the build dependencies above; on
 targets where it is not present, install it with:</p>
@@ -670,14 +748,14 @@ latency stay bounded.</p>
 </div>
 </section>
 <section id="set-the-hostname">
-<h2>4. Set the hostname<a class="headerlink" href="#set-the-hostname" title="Link to this heading">#</a></h2>
+<h3>4. Set the hostname<a class="headerlink" href="#set-the-hostname" title="Link to this heading">#</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>hostnamectl<span class="w"> </span>set-hostname<span class="w"> </span>&lt;new-host-name&gt;
 sudo<span class="w"> </span>reboot
 </pre></div>
 </div>
 </section>
 <section id="install-ros-2">
-<h2>5. Install ROS 2<a class="headerlink" href="#install-ros-2" title="Link to this heading">#</a></h2>
+<h3>5. Install ROS 2<a class="headerlink" href="#install-ros-2" title="Link to this heading">#</a></h3>
 <p>Install ROS 2 on the target, matching the Ubuntu version — <strong>Jazzy</strong> on Ubuntu
 24.04, <strong>Humble</strong> on Ubuntu 22.04. Follow the official installation guide, then
 add the CycloneDDS RMW that WMX ROS2 uses.</p>
@@ -705,7 +783,7 @@ CycloneDDS RMW:</p>
 </div>
 </section>
 <section id="install-docker">
-<h2>6. Install Docker<a class="headerlink" href="#install-docker" title="Link to this heading">#</a></h2>
+<h3>6. Install Docker<a class="headerlink" href="#install-docker" title="Link to this heading">#</a></h3>
 <p>Docker is used to run the containerized WMX ROS2 and perception workloads.</p>
 <p><strong>Set up the Docker apt repository:</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt-get<span class="w"> </span>update
@@ -733,6 +811,7 @@ newgrp<span class="w"> </span>docker
 </div>
 </section>
 </section>
+</section>
 
 
                 </article>
@@ -745,12 +824,12 @@ newgrp<span class="w"> </span>docker
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="system_requirements.html"
+       href="index.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">System Requirements</p>
+        <p class="prev-next-title">Getting Started</p>
       </div>
     </a>
     <a class="right-next"
@@ -781,13 +860,17 @@ newgrp<span class="w"> </span>docker
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#supported-targets">Supported targets</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-the-base-os">1. Install the base OS</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-the-real-time-kernel">2. Install the real-time kernel</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#verify-the-real-time-install">3. Verify the real-time install</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-the-hostname">4. Set the hostname</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-ros-2">5. Install ROS 2</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-docker">6. Install Docker</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hardware-requirements">Hardware Requirements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#real-time-os-requirements">Real-Time OS requirements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wmx-motion-control-engine">WMX Motion Control Engine</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-the-base-os">1. Install the base OS</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-the-real-time-kernel">2. Install the real-time kernel</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verify-the-real-time-install">3. Verify the real-time install</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set-the-hostname">4. Set the hostname</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-ros-2">5. Install ROS 2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-docker">6. Install Docker</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
@@ -817,7 +900,7 @@ newgrp<span class="w"> </span>docker
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Jul 06, 2026</p>
+      <p>Last updated: Jul 15, 2026</p>
     
   </div>
   <div class="movensys-footer__links">

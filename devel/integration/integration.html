@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=c5bec18d" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=4bf0b306" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
@@ -264,6 +264,25 @@ let darkTheme = isDarkTheme();
 let modal = null;
 let modalContent = null;
 let previousScrollOffset = [window.scrollX, window.scrollY];
+let _lazyObserver = null;
+let _renderQueue = Promise.resolve();
+
+// Apply d3 zoom to each SVG. Idempotent: an SVG already wrapped is skipped,
+// so this is safe to call both for the initial batch and for diagrams that
+// render lazily once they become visible.
+const addZoomToSvgs = (svgs) => {
+    svgs.each(function() {
+        if (this.getAttribute('data-zoom-applied') === 'true') return;
+        var svg = d3.select(this);
+        svg.html("<g class='wrapper'>" + svg.html() + "</g>");
+        var inner = svg.select("g");
+        var zoom = d3.zoom().on("zoom", function(event) {
+            inner.attr("transform", event.transform);
+        });
+        svg.call(zoom);
+        this.setAttribute('data-zoom-applied', 'true');
+    });
+};
 
 const runMermaid = async (rerun) => {
     console.log("Running mermaid diagrams, rerun =", rerun);
@@ -271,7 +290,15 @@ const runMermaid = async (rerun) => {
     let all_mermaids = document.querySelectorAll(".mermaid");
 
     if (rerun) {
+        // Disconnect any previous lazy rendering observer
+        if (_lazyObserver) {
+            _lazyObserver.disconnect();
+            _lazyObserver = null;
+        }
+
         all_mermaids.forEach((el) => {
+            el.removeAttribute('data-mermaid-deferred');
+            el.removeAttribute('data-mermaid-render-failed');
             if(!el.hasAttribute("data-original-code")) {
                 // store original code
                 // console.log(`Storing original code for first run: `, el.innerHTML);
@@ -288,35 +315,89 @@ const runMermaid = async (rerun) => {
                 el.setAttribute('data-original-code', el.innerHTML);
             }
         });
-        await mermaid.run();
+
+        // Separate visible and hidden elements. Mermaid's layout engine measures
+        // text dimensions via the DOM, which fails for elements hidden by a parent
+        // (e.g., Reveal.js non-active slides, sphinx-design unopened tabs),
+        // producing broken SVGs. Render visible elements now, defer hidden ones.
+        const visible = [];
+        const hidden = [];
+        all_mermaids.forEach((el) => {
+            // offsetParent is null for display:none ancestors.
+            // getClientRects().length > 0 catches position:fixed elements
+            // (which also have null offsetParent but are still visible).
+            if (el.offsetParent !== null || el.getClientRects().length > 0) {
+                visible.push(el);
+            } else {
+                hidden.push(el);
+                el.setAttribute('data-mermaid-deferred', 'true');
+            }
+        });
+
+        if (visible.length > 0) {
+            try {
+                await mermaid.run({ nodes: visible });
+            } catch (e) {
+                console.error("Mermaid rendering failed:", e);
+            }
+        }
+
+        // Lazily render hidden elements when they become visible.
+        // Uses a promise chain (_renderQueue) to serialize rendering,
+        // since IntersectionObserver may report multiple entries at once
+        // and mermaid.run() is not safe to call concurrently.
+        if (hidden.length > 0) {
+            if (typeof IntersectionObserver === 'undefined') {
+                console.warn("IntersectionObserver not available; hidden mermaid diagrams will not render.");
+            } else {
+                _renderQueue = Promise.resolve();
+                _lazyObserver = new IntersectionObserver((entries) => {
+                    for (const entry of entries) {
+                        if (entry.isIntersecting && entry.target.getAttribute("data-processed") !== "true") {
+                            _lazyObserver.unobserve(entry.target);
+                            const el = entry.target;
+                            _renderQueue = _renderQueue.then(async () => {
+                                try {
+                                    await mermaid.run({ nodes: [el] });
+                                    el.removeAttribute('data-mermaid-deferred');
+                                    // Apply zoom to the now-rendered diagram, matching
+                                    // the decoration visible diagrams receive.
+                                    if ("False" === "True") {
+                                        addZoomToSvgs(d3.selectAll(""));
+                                    }
+                                } catch (e) {
+                                    console.error("Mermaid deferred rendering failed:", e);
+                                    el.removeAttribute('data-mermaid-deferred');
+                                    el.setAttribute('data-mermaid-render-failed', 'true');
+                                }
+                            });
+                        }
+                    }
+                });
+                hidden.forEach((el) => _lazyObserver.observe(el));
+            }
+        }
     }
 
     all_mermaids = document.querySelectorAll(".mermaid");
-    const mermaids_processed = document.querySelectorAll(".mermaid[data-processed='true']");
+    // Exclude deferred (hidden) and render-failed elements from completion checks
+    const mermaids_active = document.querySelectorAll(".mermaid:not([data-mermaid-deferred]):not([data-mermaid-render-failed])");
+    const mermaids_processed = document.querySelectorAll(".mermaid:not([data-mermaid-deferred]):not([data-mermaid-render-failed])[data-processed='true']");
 
     if ("False" === "True") {
-        const mermaids_to_add_zoom = -1 === -1 ? all_mermaids.length : -1;
+        const mermaids_to_add_zoom = -1 === -1 ? mermaids_active.length : -1;
         if(mermaids_to_add_zoom > 0) {
             var svgs = d3.selectAll("");
-            if(all_mermaids.length !== mermaids_processed.length) {
+            // Wait until every active (visible) diagram has rendered. Deferred
+            // diagrams are excluded, so a fixed d3_node_count that counts a
+            // hidden diagram no longer loops forever waiting for its SVG.
+            if(mermaids_active.length !== mermaids_processed.length) {
                 setTimeout(() => runMermaid(false), 200);
                 return;
-            } else if(svgs.size() !== mermaids_to_add_zoom) {
-                setTimeout(() => runMermaid(false), 200);
-                return;
-            } else {
-                svgs.each(function() {
-                    var svg = d3.select(this);
-                    svg.html("<g class='wrapper'>" + svg.html() + "</g>");
-                    var inner = svg.select("g");
-                    var zoom = d3.zoom().on("zoom", function(event) {
-                        inner.attr("transform", event.transform);
-                    });
-                    svg.call(zoom);
-                });
             }
+            addZoomToSvgs(svgs);
         }
-    } else if(all_mermaids.length !== mermaids_processed.length) {
+    } else if(mermaids_active.length !== mermaids_processed.length) {
         // Wait for mermaid to process all diagrams
         setTimeout(() => runMermaid(false), 200);
         return;
@@ -444,7 +525,7 @@ const load = async () => {
             console.log("Theme change detected, re-running mermaid with", darkTheme ? "dark" : "default", "theme");
             await mermaid.initialize(
                 {...JSON.parse(
-                    `{"startOnLoad": false}`
+                    `{"startOnLoad": false, "flowchart": {"useMaxWidth": false}, "sequence": {"useMaxWidth": false}}`
                 ),
                 ...{ darkMode: darkTheme, theme: darkTheme ? 'dark' : 'default' },
                 }
@@ -472,7 +553,7 @@ const load = async () => {
 console.log("Initializing mermaid with", darkTheme ? "dark" : "default", "theme");
 mermaid.initialize(
     {...JSON.parse(
-        `{"startOnLoad": false}`
+        `{"startOnLoad": false, "flowchart": {"useMaxWidth": false}, "sequence": {"useMaxWidth": false}}`
     ),
     ...{ darkMode: darkTheme, theme: darkTheme ? 'dark' : 'default' },
     }
@@ -491,7 +572,7 @@ window.runMermaid = runMermaid;</script>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Jul 06, 2026"/>
+    <meta name="docbuild:last-update" content="Jul 15, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -680,15 +761,14 @@ window.runMermaid = runMermaid;</script>
   <div class="bd-toc-item navbar-nav">
     <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started/system_requirements.html">System Requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../getting_started/computer_setup.html">Computer Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx_runtime.html">Install WMX Runtime</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx3.html">Install WMX ROS2 Package</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/examples.html">Example Applications</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/isaacsim_setup.html">NVIDIA Isaac ROS Setup (Optional)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator.html">movensys-manipulator</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../examples/isaacsim_setup.html">NVIDIA Isaac Setup (Optional)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/trajectory_planning.html">Trajectory Planning</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/apriltag_pick_and_place.html">AprilTag Pick-and-Place</a></li>
@@ -710,6 +790,7 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Integration Scenarios</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="moveit2_integration.html">MoveIt2 Motion Planning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cumotion_integration.html">Isaac cuMotion Accelerated Planning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nav2_integration.html">Nav2 Navigation (Mobile Base)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="custom_planner.html">Custom Planner Integration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="custom_application.html">Building Custom Applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="intelligence_integration.html">Natural-Language and Vision Control (VLM / LLM)</a></li>
@@ -717,11 +798,11 @@ window.runMermaid = runMermaid;</script>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../api_reference/api_reference.html">API Reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/communication.html">Communication Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_ros2_message.html">wmx_ros2_message</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_ros2_package.html">wmx_ros2_package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_services.html">ROS2 Services</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_topics.html">ROS2 Topics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_actions.html">ROS2 Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_ros2_message.html">wmx_ros2_message</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_ros2_package.html">wmx_ros2_package</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../support.html">Support</a><ul>
@@ -811,28 +892,34 @@ document.addEventListener("DOMContentLoaded", function() {
                   
   <section id="integration-scenarios">
 <h1>Integration Scenarios<a class="headerlink" href="#integration-scenarios" title="Link to this heading">#</a></h1>
-<p>WMX ROS2 supports multiple motion planning backends and can be extended with
-custom planners and applications.</p>
+<p>WMX ROS2 supports motion-planning backends for both robot arms (MoveIt2, Isaac
+cuMotion) and mobile bases (Nav2), and can be extended with custom planners and
+standalone applications.</p>
 <p class="rubric">Planning Backend Selection</p>
 <p>Use the decision tree below to find the right integration for your use case,
 then follow the corresponding guide.</p>
 <figure class="align-default" id="id1">
-<pre data-zoom-id="id-754b2a6c-670e-4127-84bd-aa4bfe8c180b" class="mermaid">
+<pre data-zoom-id="id-d9eb7ea0-d5d4-4bc9-a1d4-4146e4c6bd94" class="mermaid">
         %%{init: {&quot;theme&quot;: &quot;base&quot;, &quot;themeVariables&quot;: {&quot;primaryColor&quot;: &quot;#2563eb&quot;, &quot;primaryTextColor&quot;: &quot;#0f172a&quot;, &quot;primaryBorderColor&quot;: &quot;#1e40af&quot;, &quot;lineColor&quot;: &quot;#475569&quot;, &quot;fontSize&quot;: &quot;14px&quot;, &quot;edgeLabelBackground&quot;: &quot;#f1f5f9&quot;, &quot;tertiaryColor&quot;: &quot;#f1f5f9&quot;}}}%%
 flowchart TD
     START([&quot; What do I need? &quot;])
 
+    Q0{{&quot;Robot arm or&lt;br/&gt;mobile base?&quot;}}
     Q1{{&quot;NVIDIA GPU with&lt;br/&gt;CUDA available?&quot;}}
     Q2{{&quot;Need vision / 3D&lt;br/&gt;obstacle avoidance?&quot;}}
     Q3{{&quot;Custom planning&lt;br/&gt;algorithm?&quot;}}
     Q4{{&quot;Standalone&lt;br/&gt;ROS2 app?&quot;}}
 
+    R_NAV[&quot;**Nav2**&lt;br/&gt;&lt;br/&gt;Mobile base&lt;br/&gt;Path planning · AMCL&quot;]
     R_MV[&quot;**MoveIt2**&lt;br/&gt;&lt;br/&gt;OMPL · CHOMP · Pilz&lt;br/&gt;Any hardware&quot;]
     R_CU[&quot;**Isaac cuMotion**&lt;br/&gt;&lt;br/&gt;GPU-accelerated&lt;br/&gt;AprilTag · NvBlox&quot;]
     R_CP[&quot;**Custom Planner**&lt;br/&gt;&lt;br/&gt;Your own algorithm&lt;br/&gt;MoveIt2 plugin API&quot;]
     R_CA[&quot;**Custom App**&lt;br/&gt;&lt;br/&gt;WMX services direct&lt;br/&gt;No MoveIt2 needed&quot;]
 
-    START --&gt; Q1
+    START --&gt; Q0
+    Q0 --&gt;|&quot;Mobile base&quot;| R_NAV
+    Q0 --&gt;|&quot;Robot arm&quot;| Q1
+
     Q1 --&gt;|&quot;Yes&quot;| Q2
     Q1 --&gt;|&quot;No&quot;| Q3
 
@@ -851,23 +938,27 @@ flowchart TD
     classDef cumotion fill:#2563eb,stroke:#1d4ed8,stroke-width:2px,color:#fff
     classDef custom fill:#ea580c,stroke:#c2410c,stroke-width:2px,color:#fff
     classDef customapp fill:#7c3aed,stroke:#6d28d9,stroke-width:2px,color:#fff
+    classDef nav fill:#0d9488,stroke:#0f766e,stroke-width:2px,color:#fff
 
     class START startNode
-    class Q1,Q2,Q3,Q4 question
+    class Q0,Q1,Q2,Q3,Q4 question
+    class R_NAV nav
     class R_MV moveit
     class R_CU cumotion
     class R_CP custom
     class R_CA customapp
 
     linkStyle 0 stroke:#475569,stroke-width:2px
-    linkStyle 1 stroke:#16a34a,stroke-width:2px
-    linkStyle 2 stroke:#ef4444,stroke-width:2px
+    linkStyle 1 stroke:#0d9488,stroke-width:2px
+    linkStyle 2 stroke:#475569,stroke-width:2px
     linkStyle 3 stroke:#16a34a,stroke-width:2px
     linkStyle 4 stroke:#ef4444,stroke-width:2px
     linkStyle 5 stroke:#16a34a,stroke-width:2px
     linkStyle 6 stroke:#ef4444,stroke-width:2px
     linkStyle 7 stroke:#16a34a,stroke-width:2px
     linkStyle 8 stroke:#ef4444,stroke-width:2px
+    linkStyle 9 stroke:#16a34a,stroke-width:2px
+    linkStyle 10 stroke:#ef4444,stroke-width:2px
     </pre><figcaption>
 <p><span class="caption-text">Integration — which scenario fits your use case?</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
 </figcaption>
@@ -876,6 +967,8 @@ flowchart TD
 <ul class="simple">
 <li><p><strong>MoveIt2</strong> – Standard ROS2 motion planning via <code class="docutils literal notranslate"><span class="pre">FollowJointTrajectory</span></code></p></li>
 <li><p><strong>Isaac cuMotion</strong> – NVIDIA GPU-accelerated collision-aware planning</p></li>
+<li><p><strong>Nav2</strong> – ROS2 navigation for differential-drive mobile bases, executed on
+the wheels via <code class="docutils literal notranslate"><span class="pre">/cmd_vel_safe</span></code></p></li>
 <li><p><strong>Custom Planner</strong> – Integrate your own planning algorithm</p></li>
 <li><p><strong>Custom Application</strong> – Build standalone ROS2 apps using WMX services</p></li>
 <li><p><strong>Natural-Language and Vision Control</strong> – drive the robot with a VLM/LLM
@@ -901,6 +994,16 @@ through a FastAPI service (an application layer on top of MoveIt2)</p></li>
 <li class="toctree-l2"><a class="reference internal" href="cumotion_integration.html#obstacle-avoidance-nvblox">Obstacle Avoidance (Nvblox)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cumotion_integration.html#cumotion-vs-moveit2-ompl">cuMotion vs. MoveIt2 OMPL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cumotion_integration.html#see-also">See Also</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="nav2_integration.html">Nav2 Navigation (Mobile Base)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="nav2_integration.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nav2_integration.html#architecture">Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nav2_integration.html#execution-modes">Execution modes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nav2_integration.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nav2_integration.html#running-nav2">Running Nav2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nav2_integration.html#key-interfaces">Key Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nav2_integration.html#see-also">See Also</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="custom_planner.html">Custom Planner Integration</a><ul>
@@ -997,7 +1100,7 @@ through a FastAPI service (an application layer on top of MoveIt2)</p></li>
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Jul 06, 2026</p>
+      <p>Last updated: Jul 15, 2026</p>
     
   </div>
   <div class="movensys-footer__links">
