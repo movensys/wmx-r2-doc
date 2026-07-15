@@ -56,6 +56,11 @@ so planner output runs as smooth deterministic motion in one single edge device.
    motion controller; WMX software motion drives the servo drives directly
    from a single edge device over the field network.
 
+Moving the controller into the PC removes an enclosure and its cabling, so
+the system is smaller, lighter, and efficient while performing better. That
+compact footprint suits robots and mobile machines where space and payload are
+tight.
+
 
 WMX ROS2 is an open source MIT-licensed ROS2 package with
 timing-sensitive step: smoothing trajectories, coordinating joints, and
@@ -65,7 +70,7 @@ x86 or arm64 edge device on a real-time Linux kernel.
 
 It is built on the WMX motion control engine, which keeps motion on a
 deterministic cycle and exposes more than 200 APIs for trajectory
-conversion, EtherCAT, I/O, and engine control. Proven over a decade in
+conversion, EtherCAT, I/O, and engine control. Proven over 20 years in
 semiconductor, manufacturing, and precision robotics. WMX runs free in
 renewable 6-hour sessions that you extend by restarting the engine, and a
 commercial license removes the limit for production.
@@ -98,11 +103,6 @@ and the right panel presents the per-sample mean absolute tracking error (MAE).
 The overall MAE corresponds to the time average of this curve. WMX ROS2 reduced
 the MAE by 85% relative to the conventional external controller, thanks to lower
 communication latency from removing the TCP/IP hop and a redundant control stage.
-
-.. note::
-
-   This result highlights the importance of tightly coupled real-time execution
-   when deploying foundation-model-driven physical AI to real-world systems.
 
 
 

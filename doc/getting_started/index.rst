@@ -17,7 +17,6 @@ Follow the steps in order. At step 6 choose the path that matches your setup
    :maxdepth: 1
    :hidden:
 
-   system_requirements
    computer_setup
    install_wmx_runtime
    install_wmx3
