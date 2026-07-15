@@ -32,7 +32,7 @@ jobs:
             mmdc -p .github/puppeteer-config.json -i "$f" -o "/tmp/$(basename "$f" .mmd).svg" --quiet
             echo "  OK"
           done
-      - name: "Extract and validate inline .. mermaid:: blocks"
+      - name: Validate inline mermaid blocks in reST
         run: |
           set -e
           python3 <<'PY'

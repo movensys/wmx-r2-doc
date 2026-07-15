@@ -24,26 +24,11 @@ jobs:
       - name: Build Sphinx documentation
         run: sphinx-build doc doc/_build
 
-      # Password-protect the devel preview. GitHub Pages has no native auth, so
-      # we AES-encrypt every built HTML page with StatiCrypt; visitors must enter
-      # the shared password to decrypt. Non-HTML assets are copied as-is.
-      # The password lives in the DEVEL_SITE_PASSWORD repo secret.
-      - name: Password-protect devel site (StatiCrypt)
-        env:
-          STATICRYPT_PASSWORD: ${{ secrets.DEVEL_SITE_PASSWORD }}
-        run: |
-          if [ -z "$STATICRYPT_PASSWORD" ]; then
-            echo "::error::DEVEL_SITE_PASSWORD secret is not set. Add it in repo Settings > Secrets and variables > Actions."
-            exit 1
-          fi
-          npx --yes staticrypt "doc/_build" -r --remember 30
-          # Encrypted output is written to encrypted/doc/_build/
-
       - name: Deploy to GitHub Pages (devel subdir)
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: encrypted/doc/_build
+          publish_dir: doc/_build
           publish_branch: gh-pages
           destination_dir: devel
           keep_files: true
