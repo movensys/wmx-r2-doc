@@ -46,7 +46,7 @@ Planner output such as MoveIt2 and Nav2 trajectories is handed to the engine,
 and the engine turns it into the precisely timed servo commands that the drives
 execute on a fixed cycle.
 
-WMX has been proven over 20 years in demanding industrial fields such as
+WMX has been proven over 25 years in demanding industrial fields such as
 semiconductor and precision robotics. The runtime is free to evaluate in renewable 
 6-hour sessions that you extend by restarting the engine. A commercial license removes the time
 limit for production use.

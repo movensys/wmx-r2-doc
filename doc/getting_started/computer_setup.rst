@@ -8,8 +8,6 @@ system requirements, then walks through preparing the computer step by step.
 Hardware Requirements
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-**Compute Platform:**
-
 .. list-table::
    :header-rows: 1
    :widths: 20 40 40

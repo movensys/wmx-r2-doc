@@ -25,7 +25,7 @@ The diagram below shows how the three layers stack and which libraries and buses
 
    %%{init: {"theme": "base", "themeVariables": {"primaryColor": "#1a73e8", "primaryTextColor": "#fff", "primaryBorderColor": "#1558b0", "lineColor": "#555"}}}%%
    flowchart TB
-       subgraph L1["Layer 1 — ROS2 DDS  (CycloneDDS middleware)"]
+       subgraph L1["Layer 1: ROS2 DDS"]
            direction LR
            N1["manipulator_state"]
            N2["follow_joint_trajectory_server"]
@@ -35,7 +35,7 @@ The diagram below shows how the three layers stack and which libraries and buses
            N6["wmx_ethercat_node"]
        end
 
-       subgraph L2["Layer 2 — WMX API  (C++ shared libraries at /opt/wmx3/)"]
+       subgraph L2["Layer 2: WMX API"]
            direction LR
            A1["libcoremotionapi<br/>Axis position & velocity"]
            A2["libadvancedmotionapi<br/>Cubic spline execution"]
@@ -44,7 +44,7 @@ The diagram below shows how the three layers stack and which libraries and buses
            A5["libwmx3api<br/>Device lifecycle"]
        end
 
-       subgraph L3["Layer 3 — EtherCAT  (real-time fieldbus, dedicated NIC)"]
+       subgraph L3["Layer 3: EtherCAT"]
            direction LR
            E1["WMX3 Motion Engine"]
            E2["EtherCAT Master"]

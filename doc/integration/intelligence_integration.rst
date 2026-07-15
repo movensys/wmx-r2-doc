@@ -17,6 +17,7 @@ Architecture
 
 .. mermaid::
    :caption: Movensys Intelligence — perception and language to motion
+   :zoom:
 
    flowchart LR
        USER["Voice / text<br/>instruction"]

@@ -21,7 +21,7 @@ WMX ROS2 integrates with widely used projects in the ROS2 ecosystem:
 * `NVIDIA Isaac Sim <https://developer.nvidia.com/isaac/sim>`_ and
   `Gazebo <https://gazebosim.org/>`_ for simulation
 * `NVIDIA Isaac ROS <https://developer.nvidia.com/isaac/ros>`_ for NVIDIA GPU
-  accelerated perception
+  accelerated perception and control
 * `YOLO <https://docs.ultralytics.com/>`_ for real time object detection
 * Multimodal large language models (LLMs) and vision language models
   (VLMs) for natural language task specification and high level reasoning
@@ -64,14 +64,10 @@ tight.
 
 WMX ROS2 is an open source MIT-licensed ROS2 package with
 timing-sensitive step: smoothing trajectories, coordinating joints, and
-emitting commands at the rate servo drivers expect. It runs in
-pure simulation, in simulation-in-the-loop, and on real EtherCAT hardware across
-x86 or arm64 edge device on a real-time Linux kernel. 
-
+emitting commands at the rate servo drivers expect. 
 It is built on the WMX motion control engine, which keeps motion on a
 deterministic cycle and exposes more than 200 APIs for trajectory
-conversion, EtherCAT, I/O, and engine control. Proven over 20 years in
-semiconductor, manufacturing, and precision robotics. WMX runs free in
+conversion, EtherCAT, I/O, and engine control. WMX runs free in
 renewable 6-hour sessions that you extend by restarting the engine, and a
 commercial license removes the limit for production.
 
@@ -104,7 +100,16 @@ The overall MAE corresponds to the time average of this curve. WMX ROS2 reduced
 the MAE by 85% relative to the conventional external controller, thanks to lower
 communication latency from removing the TCP/IP hop and a redundant control stage.
 
+Customers and Partners
+----------------------------------------
 
+The WMX motion engine has a long, proven industrial track record:
+
+* 25+ years of development with 40+ patents worldwide
+* 40,000+ cumulative licenses sold
+* 500+ customers, mainly in the semiconductor industry
+
+.. Add customer and partner logos or names here.
 
 Where to go next
 ----------------------------------------

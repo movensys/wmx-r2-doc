@@ -23,6 +23,7 @@ Architecture
 
 .. mermaid::
    :caption: Nav2 → WMX ROS2 velocity and odometry loop
+   :zoom:
 
    flowchart LR
        GOAL["Goal pose<br/>(RViz / action)"]
