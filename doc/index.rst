@@ -2,13 +2,13 @@ WMX ROS2 Documentation
 =======================
 
 WMX ROS2 brings industrial deterministic real-time motion control into the
-ROS2 ecosystem for physical AI. It is a set of ROS2 packages that drive
+ROS2 ecosystem. WMX ROS2 is a set of ROS2 packages that drive
 industrial servos through the WMX motion control engine over EtherCAT. It turns
 planner output such as MoveIt2 and Nav2 trajectories into the precisely timed
-servo motion that industrial applications demand, such as semiconductor
-equipment, manufacturing automation, and precision robotics.
+servo motion that industrial and physical AI applications demand, such as
+semiconductor equipment, manufacturing automation, and precision robotics.
 
-The entire stack runs on a single industrial PC (IPC) or edge device with no separate external motion
+The entire stack runs on a single edge device with no separate external motion
 controller, combining perception and deterministic motion into edge physical AI.
 
 WMX ROS2 integrates with widely used projects in the ROS2 ecosystem:
@@ -16,13 +16,13 @@ WMX ROS2 integrates with widely used projects in the ROS2 ecosystem:
 * `MoveIt2 <https://moveit.ai/>`_ for manipulator motion planning
 * `Nav2 <https://nav2.org/>`_ for mobile robot navigation
 * `ros2_control <https://control.ros.org/>`_ for hardware interface and controller management
+* `Intel OpenVINO <https://docs.openvino.ai/2026/index.html>`_ for optimized inference on
+  Intel XPU and integrated accelerators
 * `NVIDIA Isaac Sim <https://developer.nvidia.com/isaac/sim>`_ and
   `Gazebo <https://gazebosim.org/>`_ for simulation
-* `NVIDIA Isaac ROS <https://developer.nvidia.com/isaac/ros>`_ for GPU
-  accelerated perception
+* `NVIDIA Isaac ROS <https://developer.nvidia.com/isaac/ros>`_ for NVIDIA GPU
+  accelerated perception and control
 * `YOLO <https://docs.ultralytics.com/>`_ for real time object detection
-* `Intel OpenVINO <https://docs.openvino.ai/2026/index.html>`_ for optimized inference on
-  CPU and integrated accelerators
 * Multimodal large language models (LLMs) and vision language models
   (VLMs) for natural language task specification and high level reasoning
 
@@ -45,22 +45,71 @@ controller over TCP/IP, which adds latency the planner can never
 recover. The other common option sends raw EtherCAT commands and leaves
 smoothing and coordination to ROS2, which is not built for hard
 real-time system. WMX ROS2 closes this gap by bringing the WMX motion control engine into ROS2
-so planner output runs as smooth deterministic motion.
+so planner output runs as smooth deterministic motion in one single edge device.
+
+.. figure:: /_static/images/one_ipc.png
+   :alt: Conventional motion control versus WMX software motion on a single PC
+   :align: center
+   :width: 100%
+
+   Conventional motion control routes the PC through a separate dedicated
+   motion controller; WMX software motion drives the servo drives directly
+   from a single edge device over the field network.
+
+Moving the controller into the PC removes an enclosure and its cabling, so
+the system is smaller, lighter, and efficient while performing better. That
+compact footprint suits robots and mobile machines where space and payload are
+tight.
+
 
 WMX ROS2 is an open source MIT-licensed ROS2 package with
 timing-sensitive step: smoothing trajectories, coordinating joints, and
-emitting commands at the rate servo drivers expect. It runs in
-simulation, in hardware-in-the-loop, and on real EtherCAT hardware across
-x86 or arm64 industrial PCs on a real-time Linux kernel. 
-
+emitting commands at the rate servo drivers expect. 
 It is built on the WMX motion control engine, which keeps motion on a
 deterministic cycle and exposes more than 200 APIs for trajectory
-conversion, EtherCAT, I/O, and engine control. Proven over a decade in
-semiconductor, manufacturing, and precision robotics. WMX runs free in
+conversion, EtherCAT, I/O, and engine control. WMX runs free in
 renewable 6-hour sessions that you extend by restarting the engine, and a
 commercial license removes the limit for production.
 
+Performance comparison
+~~~~~~~~~~~~~~~~~~~~~~~
 
+.. grid:: 1 1 2 2
+   :gutter: 3
+
+   .. grid-item::
+
+      .. figure:: /_static/images/graph_1.png
+         :alt: Representative single run — joint-angle tracking
+         :width: 100%
+
+         Representative run: joint-angle tracking for the reference, the
+         traditional external controller, and the proposed WMX ROS2.
+
+   .. grid-item::
+
+      .. figure:: /_static/images/graph_2.png
+         :alt: Mean absolute tracking error across ten runs
+         :width: 100%
+
+         Per-sample mean absolute error across ten runs.
+
+We executed the same trajectory ten times. The left panel shows a representative run,
+and the right panel presents the per-sample mean absolute tracking error (MAE).
+The overall MAE corresponds to the time average of this curve. WMX ROS2 reduced
+the MAE by 85% relative to the conventional external controller, thanks to lower
+communication latency from removing the TCP/IP hop and a redundant control stage.
+
+Customers and Partners
+----------------------------------------
+
+The WMX motion engine has a long, proven industrial track record:
+
+* 25+ years of development with 40+ patents worldwide
+* 40,000+ cumulative licenses sold
+* 500+ customers, mainly in the semiconductor industry
+
+.. Add customer and partner logos or names here.
 
 Where to go next
 ----------------------------------------

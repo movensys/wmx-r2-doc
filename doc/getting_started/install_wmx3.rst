@@ -91,15 +91,18 @@ Expected:
 
 .. code-block:: text
 
+   wmx_ros2_control
    wmx_ros2_message
    wmx_ros2_package
-   wmx_ros2_package diff_drive_controller
-   wmx_ros2_package follow_joint_trajectory_server
-   wmx_ros2_package manipulator_state
+   wmx_ros2_package differential_drive_controller
+   wmx_ros2_package gripper_controller
+   wmx_ros2_package joint_state_broadcaster
+   wmx_ros2_package joint_trajectory_controller
    wmx_ros2_package wmx_core_motion_node
    wmx_ros2_package wmx_engine_node
    wmx_ros2_package wmx_ethercat_node
    wmx_ros2_package wmx_io_node
+
 
 
 Testing WMX ROS2
@@ -238,7 +241,7 @@ engine is communicating:
 For the complete list of services, topics, and message types exposed by the
 general nodes — engine control, axis motion, I/O, and EtherCAT — see the
 `WMX ROS2 General Nodes reference
-<https://github.com/movensys/wmx-ros2/blob/release/release-0.2-rc1/doc/reference_wmx_ros2_general_nodes.md>`_.
+<https://github.com/movensys/wmx-ros2/blob/main/doc/reference_wmx_ros2_general_nodes.md>`_.
 
 Shutdown
 ^^^^^^^^

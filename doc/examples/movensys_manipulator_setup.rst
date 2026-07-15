@@ -115,11 +115,11 @@ Verify the build by launching the robot description in RViz:
 
    mros ros2 launch movensys_manipulator_description movensys_manipulator_rviz.launch.py
 
-For HIL and Real modes, the manipulator is brought up with WMX ROS2 (see
+For SIL and Real modes, the manipulator is brought up with WMX ROS2 (see
 ``wmx-ros2/doc/launch_<MANIPULATOR_MODEL>_manipulator.md`` and
 :doc:`../getting_started/install_wmx3`).
 
 .. note:: **Isaac Sim scenes**
 
-   The Simulation and HIL modes load USD scenes in NVIDIA Isaac Sim. See
+   The Simulation and SIL modes load USD scenes in NVIDIA Isaac Sim. See
    :doc:`isaacsim_setup` for the Isaac Sim installation and the scene layout.

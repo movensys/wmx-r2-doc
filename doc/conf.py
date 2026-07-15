@@ -28,6 +28,17 @@ rst_prolog = """
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
+# -- Mermaid ----------------------------------------------------------------
+# Render diagrams at their natural size instead of clamping every SVG to the
+# content-column width (mermaid's default ``useMaxWidth: true``), which shrinks
+# wide graphs until the text is unreadable. With this off, the SVG carries
+# pixel width/height and custom.css lets it scroll horizontally when needed.
+mermaid_init_config = {
+    "startOnLoad": False,
+    "flowchart": {"useMaxWidth": False},
+    "sequence": {"useMaxWidth": False},
+}
+
 # -- Options for HTML output -------------------------------------------------
 html_theme = 'pydata_sphinx_theme'
 html_static_path = ['_static']

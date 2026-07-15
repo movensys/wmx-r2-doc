@@ -2,39 +2,85 @@ Computer Setup
 ==============
 
 WMX ROS2 needs a real-time Linux kernel, ROS 2, and Docker on the
-target computer before you install the WMX-ROS2 packages. 
+target computer before you install the WMX-ROS2 packages. This page lists the
+system requirements, then walks through preparing the computer step by step.
 
-Supported targets
------------------
+Hardware Requirements
+~~~~~~~~~~~~~~~~~~~~~~~
 
 .. list-table::
    :header-rows: 1
-   :widths: 32 14 20 34
+   :widths: 20 40 40
 
-   * - Target
-     - Arch
-     - Ubuntu
-     - Kernel source
-   * - General x86/amd64
-     - x86_64
-     - 22.04 / 24.04
-     - kernel.org vanilla + RT patch
-   * - Intel XPU (Panther Lake)
-     - x86_64
-     - 24.04
-     - Intel ``mainline-tracking`` (v6.17)
-   * - Jetson Orin NX
-     - arm64
-     - JetPack (L4T)
-     - NVIDIA L4T real-time kernel
-   * - Jetson Orin AGX
-     - arm64
-     - JetPack (L4T)
-     - NVIDIA L4T real-time kernel
-   * - Jetson Thor
-     - arm64
-     - JetPack (L4T)
-     - NVIDIA L4T real-time kernel
+   * - Component
+     - Minimum
+     - Recommended
+   * - CPU
+     - x86_64/amd64 or arm64
+     - Intel Core i7 or NVIDIA Jetson Orin/Thor
+   * - RAM
+     - 4 GB
+     - 8 GB or more
+   * - Storage
+     - 10 GB free
+     - 20 GB free (including ROS2 + MoveIt2)
+   * - GPU
+     - Not required for base operation
+     - NVIDIA GPU with CUDA for Isaac cuMotion
+   * - NPU
+     - Not required for base operation
+     - Intel NPU for OpenVINO inference applications
+
+Real-Time OS requirements
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+A servo drive needs a new command at a fixed interval, for example one
+every millisecond. Regular Linux is built to get as much work done as
+possible, not to hit that interval exactly, so it may pause the servo
+control loop for a few milliseconds to handle a network packet or a
+background job. When that happens the next command arrives late and
+misses its deadline. Even one missed deadline makes the motion jerk and
+lose both accuracy and speed, and on a production line it can trip the
+drives and stop the machine. A real-time OS, such as Linux with the
+PREEMPT_RT patch, makes sure the motion code always runs on time even
+when the computer is busy. That is why industrial motion systems run on
+one.
+
+Installing this real-time kernel is covered in the setup steps below,
+and configuring it for use (isolating CPU cores for the WMX real-time
+threads and tuning latency) is covered in :doc:`install_wmx_runtime`.
+
+WMX Motion Control Engine
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The WMX motion control engine is a high-performance, high-accuracy, real-time motion control
+platform developed by MOVENSYS. It provides deterministic servo control over
+EtherCAT fieldbus and serves as the hardware abstraction layer for physical servo drives.
+
+**Key features:**
+
+- **Real-time EtherCAT master** -- manages cyclic communication with servo
+  drives at deterministic update rates
+- **Multi-axis coordination** -- supports synchronized motion across 6+ servo
+  axes with cubic spline interpolation (``CSplinePos``)
+- **Shared-memory architecture** -- multiple ROS2 nodes connect to the same
+  WMX engine instance through independent device handles, bridging the
+  non-real-time ROS2 domain with the real-time WMX engine
+- **Hardware abstraction** -- provides a unified C++ API (``CoreMotion``,
+  ``AdvancedMotion``, ``Io``, ``Ecat``, ``WMX3Api``) so ROS2 nodes remain
+  robot-agnostic; only configuration files differ between robots
+
+The WMX runtime must be installed at ``/opt/wmx3/`` before building or
+running the WMX ROS2 packages. See :doc:`install_wmx_runtime` for installation and
+verification steps.
+
+.. note::
+
+   Root (sudo) access is required at runtime. The WMX motion control engine
+   and EtherCAT communication require kernel-level access to the network
+   interface.
+
+The C++ standard required is **C++17** (set in ``CMakeLists.txt``).
 
 1. Install the base OS
 ----------------------
@@ -183,6 +229,51 @@ Install a PREEMPT_RT kernel for your target.
          sudo dpkg -i ../linux-image-*${RTVER}*.deb ../linux-headers-*${RTVER}*.deb
          sudo update-grub
          sudo reboot
+
+      .. dropdown:: Fix the NVIDIA GPU driver (only if the target has an NVIDIA GPU)
+         :animate: fade-in-slide-down
+
+         NVIDIA's kernel-module build refuses to compile against a PREEMPT_RT
+         kernel: it aborts on a ``PREEMPT_RT`` presence check, so after booting
+         the RT kernel the GPU comes up with no driver (``nvidia-smi`` fails).
+         Rebuild the driver through DKMS with that check bypassed
+         (``IGNORE_PREEMPT_RT_PRESENCE=1``). Do this while booted into the RT
+         kernel, so ``uname -r`` reports it.
+
+         Install DKMS, the open NVIDIA driver (``-open``), and confirm the RT
+         kernel headers installed with the ``.deb`` packages above are present:
+
+         .. code-block:: bash
+
+            sudo apt install -y dkms
+            sudo apt install -y nvidia-driver-580-open   # open kernel modules
+            ls /lib/modules/$(uname -r)/build            # headers for the running RT kernel
+
+         The driver source lands in ``/usr/src/nvidia-<version>/``. Add the RT
+         bypass to the ``MAKE`` line of its ``dkms.conf``:
+
+         .. code-block:: bash
+
+            NVER=$(dpkg -l | grep -oP 'nvidia-kernel-source-\d+(-open)?\s+\K[0-9.]+' | head -1)
+            sudo sed -i 's|^MAKE=.*|MAKE="IGNORE_PREEMPT_RT_PRESENCE=1 make -j$(nproc) modules SYSSRC=${kernel_source_dir}"|' \
+                 /usr/src/nvidia-${NVER}/dkms.conf
+            grep IGNORE_PREEMPT_RT_PRESENCE /usr/src/nvidia-${NVER}/dkms.conf   # expect a match
+
+         Build and install the modules for the running RT kernel, then load and
+         verify:
+
+         .. code-block:: bash
+
+            sudo dkms add "nvidia/${NVER}" 2>/dev/null || true
+            sudo dkms install --force "nvidia/${NVER}" -k "$(uname -r)"
+            sudo modprobe nvidia nvidia-drm nvidia-uvm
+            nvidia-smi
+
+         .. note::
+
+            Secure Boot was disabled in the base OS step, so the freshly built
+            modules load unsigned. If you later re-enable Secure Boot, enroll a
+            MOK and sign the NVIDIA modules, or they will be refused at load.
 
    .. tab-item:: Intel XPU (Panther Lake)
 

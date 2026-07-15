@@ -8,114 +8,113 @@ the simplest navigation scenario and a good way to confirm the base, odometry
 autonomous navigation. See :doc:`examples` for the shared navigation setup. All
 commands run through ``nros``.
 
-Simulation
-----------
+.. tab-set::
 
-1. Open the scene:
+   .. tab-item:: Simulation
 
-   .. tab-set::
+      1. Open the scene:
 
-      .. tab-item:: Isaac Sim
-         :sync: isaacsim
+         .. tab-set::
 
-         Open
-         ``~/workspaces/movensys-simulation/<NAVIGATION_MODEL>/navigation_simulation.usd``
+            .. tab-item:: Isaac Sim
+               :sync: isaacsim
 
-      .. tab-item:: Gazebo
-         :sync: gazebo
+               Open
+               ``~/workspaces/movensys-simulation/<NAVIGATION_MODEL>/navigation_simulation.usd``
+
+            .. tab-item:: Gazebo
+               :sync: gazebo
+
+               .. code-block:: bash
+
+                  nros ros2 launch movensys_navigation_description gazebo_navigation_simulation.launch.py
+
+      2. Run the simulator bridge:
 
          .. code-block:: bash
 
-            nros ros2 launch movensys_navigation_description gazebo_navigation_simulation.launch.py
+            nros ros2 launch movensys_navigation_nav2_config sim_bridge.launch.py use_sim_time:=true
 
-2. Run the simulator bridge:
+      3. Run the EKF + robot state publisher:
 
-   .. code-block:: bash
+         .. code-block:: bash
 
-      nros ros2 launch movensys_navigation_nav2_config sim_bridge.launch.py use_sim_time:=true
+            nros ros2 launch movensys_navigation_nav2_config base.launch.py use_sim_time:=true
 
-3. Run the EKF + robot state publisher:
+         Add ``rsp:=false`` when using Gazebo (it already publishes the robot state).
 
-   .. code-block:: bash
+      4. Drive with the teleop keyboard:
 
-      nros ros2 launch movensys_navigation_nav2_config base.launch.py use_sim_time:=true
+         .. code-block:: bash
 
-   Add ``rsp:=false`` when using Gazebo (it already publishes the robot state).
+            nros ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args \
+                 -p turn:=0.5 \
+                 -p stamped:=true \
+                 -p frame_id:=base_link \
+                 -p use_sim_time:=true \
+                 -r cmd_vel:=/cmd_vel_safe
 
-4. Drive with the teleop keyboard:
+         Keep this terminal focused to send keystrokes to the base.
 
-   .. code-block:: bash
+   .. tab-item:: SIL
 
-      nros ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args \
-           -p turn:=0.5 \
-           -p stamped:=true \
-           -p frame_id:=base_link \
-           -p use_sim_time:=true \
-           -r cmd_vel:=/cmd_vel_safe
+      1. Open the scene:
 
-   Keep this terminal focused to send keystrokes to the base.
+         .. tab-set::
 
-HIL
----
+            .. tab-item:: Isaac Sim
+               :sync: isaacsim
 
-1. Open the scene:
+               Open
+               ``~/workspaces/movensys-simulation/<NAVIGATION_MODEL>/navigation_hil.usd``
 
-   .. tab-set::
+            .. tab-item:: Gazebo
+               :sync: gazebo
 
-      .. tab-item:: Isaac Sim
-         :sync: isaacsim
+               Not applicable for SIL.
 
-         Open
-         ``~/workspaces/movensys-simulation/<NAVIGATION_MODEL>/navigation_hil.usd``
+      2. Start WMX ROS2 for the navigation base (real WMX runtime) with
+         ``use_sim_time:=true`` (see
+         ``~/workspaces/movensys_ws/src/wmx-ros2/doc/launch_<NAVIGATION_MODEL>_navigation.md``).
 
-      .. tab-item:: Gazebo
-         :sync: gazebo
+      3. Run the EKF + robot state publisher:
 
-         Not applicable for HIL.
+         .. code-block:: bash
 
-2. Start WMX ROS2 for the navigation base (real WMX runtime) with
-   ``use_sim_time:=true``. See
-   ``wmx-ros2/doc/launch_<NAVIGATION_MODEL>_navigation.md``.
+            nros ros2 launch movensys_navigation_nav2_config base.launch.py use_sim_time:=true
 
-3. Run the EKF + robot state publisher:
+         Add ``rsp:=false`` when using Gazebo or ``ros2_control``.
 
-   .. code-block:: bash
+      4. Drive with the teleop keyboard:
 
-      nros ros2 launch movensys_navigation_nav2_config base.launch.py use_sim_time:=true
+         .. code-block:: bash
 
-   Add ``rsp:=false`` when using Gazebo or ``ros2_control``.
+            nros ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args \
+                 -p turn:=0.5 \
+                 -p stamped:=true \
+                 -p frame_id:=base_link \
+                 -p use_sim_time:=true \
+                 -r cmd_vel:=/cmd_vel_safe
 
-4. Drive with the teleop keyboard:
+   .. tab-item:: Real
 
-   .. code-block:: bash
+      1. Start WMX ROS2 for the navigation base on the robot (see
+         ``~/workspaces/movensys_ws/src/wmx-ros2/doc/launch_<NAVIGATION_MODEL>_navigation.md``).
 
-      nros ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args \
-           -p turn:=0.5 \
-           -p stamped:=true \
-           -p frame_id:=base_link \
-           -p use_sim_time:=true \
-           -r cmd_vel:=/cmd_vel_safe
+      2. Run the EKF + robot state publisher:
 
-Real
-----
+         .. code-block:: bash
 
-1. Start WMX ROS2 for the navigation base on the robot (no ``use_sim_time``).
-   See ``wmx-ros2/doc/launch_<NAVIGATION_MODEL>_navigation.md``.
+            nros ros2 launch movensys_navigation_nav2_config base.launch.py
 
-2. Run the EKF + robot state publisher (no ``use_sim_time``):
+         Add ``rsp:=false`` when using ``ros2_control``.
 
-   .. code-block:: bash
+      3. Drive with the teleop keyboard:
 
-      nros ros2 launch movensys_navigation_nav2_config base.launch.py
+         .. code-block:: bash
 
-   Add ``rsp:=false`` when using ``ros2_control``.
-
-3. Drive with the teleop keyboard:
-
-   .. code-block:: bash
-
-      nros ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args \
-           -p turn:=0.5 \
-           -p stamped:=true \
-           -p frame_id:=base_link \
-           -r cmd_vel:=/cmd_vel_safe
+            nros ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args \
+                 -p turn:=0.5 \
+                 -p stamped:=true \
+                 -p frame_id:=base_link \
+                 -r cmd_vel:=/cmd_vel_safe
