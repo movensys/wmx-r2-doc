@@ -1,8 +1,8 @@
 Computer Setup
 ==============
 
-WMX ROS2 needs a real-time Linux kernel, ROS 2, and Docker on the
-target computer before you install the WMX-ROS2 packages. This page lists the
+WMX R2 needs a real-time Linux kernel, ROS 2, and Docker on the
+target computer before you install the WMX R2 packages. This page lists the
 system requirements, then walks through preparing the computer step by step.
 
 Hardware Requirements
@@ -71,7 +71,7 @@ EtherCAT fieldbus and serves as the hardware abstraction layer for physical serv
   robot-agnostic; only configuration files differ between robots
 
 The WMX runtime must be installed at ``/opt/wmx3/`` before building or
-running the WMX ROS2 packages. See :doc:`install_wmx_runtime` for installation and
+running the WMX R2 packages. See :doc:`install_wmx_runtime` for installation and
 verification steps.
 
 .. note::
@@ -419,7 +419,7 @@ or power-management issues to chase (BIOS C-states, SpeedStep, Turbo).
 
 Install ROS 2 on the target, matching the Ubuntu version — **Jazzy** on Ubuntu
 24.04, **Humble** on Ubuntu 22.04. Follow the official installation guide, then
-add the CycloneDDS RMW that WMX ROS2 uses.
+add the CycloneDDS RMW that WMX R2 uses.
 
 .. tab-set::
 
@@ -448,7 +448,7 @@ add the CycloneDDS RMW that WMX ROS2 uses.
 6. Install Docker
 -----------------
 
-Docker is used to run the containerized WMX ROS2 and perception workloads.
+Docker is used to run the containerized WMX R2 and perception workloads.
 
 **Set up the Docker apt repository:**
 

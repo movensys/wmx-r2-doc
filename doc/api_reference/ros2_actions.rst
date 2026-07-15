@@ -1,7 +1,7 @@
 ROS2 Actions
 =============
 
-The WMX ROS2 application exposes one action server for trajectory execution,
+The WMX R2 application exposes one action server for trajectory execution,
 compatible with MoveIt2 and any ``FollowJointTrajectory`` action client. No
 custom ``.action`` files are defined -- the system uses the standard
 ``control_msgs`` action type.

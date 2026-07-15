@@ -1,13 +1,13 @@
 API Reference
 =============
 
-Complete reference for all ROS2 interfaces exposed by the WMX ROS2 packages.
-The interfaces are provided by the general nodes in ``wmx_ros2_package`` —
+Complete reference for all ROS2 interfaces exposed by the WMX R2 packages.
+The interfaces are provided by the general nodes in ``wmx_r2_package`` —
 ``wmx_engine_node``, ``wmx_core_motion_node``, ``wmx_ethercat_node``, and
 ``wmx_io_node`` — together with the manipulator controllers
 (joint state broadcaster, gripper controller, and joint trajectory
 controller). All custom message and service types are defined in
-``wmx_ros2_message``.
+``wmx_r2_message``.
 
 **ROS2 Services** documents the request/response interfaces:
 
@@ -43,5 +43,5 @@ robot via WMX spline interpolation.
    ros2_services
    ros2_topics
    ros2_actions
-   wmx_ros2_message
-   wmx_ros2_package
+   wmx_r2_message
+   wmx_r2_package

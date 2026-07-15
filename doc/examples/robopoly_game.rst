@@ -66,8 +66,8 @@ required services across terminals:
       
       .. code-block:: bash
 
-         # Terminal 1: launch WMX ROS2
-         ./run_robopoly.sh wmx-ros2
+         # Terminal 1: launch WMX R2
+         ./run_robopoly.sh wmx-r2
 
          # Terminal 2: build the containers for your accelerator
          ./run_robopoly.sh build_nvidia
@@ -79,8 +79,8 @@ required services across terminals:
       
       .. code-block:: bash
 
-         # Terminal 1: launch WMX ROS2
-         ./run_robopoly.sh wmx-ros2
+         # Terminal 1: launch WMX R2
+         ./run_robopoly.sh wmx-r2
 
          # Terminal 2: build the vision-language model
          ./run_robopoly.sh build_intel_vllm

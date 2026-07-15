@@ -4,9 +4,9 @@ Building Custom Applications
 Overview
 --------
 
-The WMX ROS2 packages expose standard ROS2 interfaces (actions, services, and
+The WMX R2 packages expose standard ROS2 interfaces (actions, services, and
 topics) that any ROS2 node can interact with. You can build custom applications
-in **Python** or **C++** that control the robot without modifying the WMX ROS2
+in **Python** or **C++** that control the robot without modifying the WMX R2
 source code.
 
 The system is designed for **generic 6-DOF robot arms** with EtherCAT servo
@@ -27,7 +27,7 @@ There are three approaches to controlling the robot:
 3. **Direct axis control** -- Publish velocity or position commands to
    individual axes via topics (used for low-level or real-time control)
 
-The examples below focus on approaches 2 and 3, which use the ``wmx_ros2_package``
+The examples below focus on approaches 2 and 3, which use the ``wmx_r2_package``
 interfaces directly.
 
 Prerequisites
@@ -35,9 +35,9 @@ Prerequisites
 
 Before building a custom application:
 
-- WMX ROS2 packages are installed and built
+- WMX R2 packages are installed and built
   (see :doc:`../getting_started/index`)
-- The WMX ROS2 nodes are running (either the manipulator launch or
+- The WMX R2 nodes are running (either the manipulator launch or
   the general launch)
 - Your workspace is sourced: ``source ~/workspaces/movensys_ws/install/setup.bash``
 - You have a basic understanding of ROS2 actions, services, and topics
@@ -70,7 +70,7 @@ Available Interfaces
      - ``std_srvs/srv/SetBool``
      - Open/close gripper
    * - ``/wmx/axis/set_on``
-     - ``wmx_ros2_message/srv/SetAxis``
+     - ``wmx_r2_message/srv/SetAxis``
      - Enable/disable servos
 
 .. list-table:: Key Topics
@@ -86,19 +86,19 @@ Available Interfaces
      - 500 Hz
      - Current joint positions and velocities
    * - ``/wmx/axis/state``
-     - ``wmx_ros2_message/msg/AxisState``
+     - ``wmx_r2_message/msg/AxisState``
      - 100 Hz
      - Detailed axis status (alarms, limits, torques)
    * - ``/wmx/axis/velocity``
-     - ``wmx_ros2_message/msg/AxisVelocity``
+     - ``wmx_r2_message/msg/AxisVelocity``
      - On demand
      - Velocity commands
    * - ``/wmx/axis/position``
-     - ``wmx_ros2_message/msg/AxisPose``
+     - ``wmx_r2_message/msg/AxisPose``
      - On demand
      - Absolute position commands
    * - ``/wmx/axis/position/relative``
-     - ``wmx_ros2_message/msg/AxisPose``
+     - ``wmx_r2_message/msg/AxisPose``
      - On demand
      - Relative position commands
 
@@ -115,7 +115,7 @@ position to the specified joint targets.
 .. code-block:: python
 
    #!/usr/bin/env python3
-   """Send a joint trajectory to the WMX ROS2 joint_trajectory_controller."""
+   """Send a joint trajectory to the WMX R2 joint_trajectory_controller."""
 
    import rclpy
    from rclpy.action import ActionClient
@@ -485,7 +485,7 @@ sends goals to the same ``FollowJointTrajectory`` action server.
        # package for your robot to be available.
        #
        # The typical workflow is:
-       # 1. Launch the WMX ROS2 manipulator nodes (provides /joint_states)
+       # 1. Launch the WMX R2 manipulator nodes (provides /joint_states)
        # 2. Launch MoveIt2 with your robot's config package
        # 3. Use MoveGroupInterface to plan and execute
        #
@@ -502,7 +502,7 @@ sends goals to the same ``FollowJointTrajectory`` action server.
 
        node.get_logger().info(
            'MoveIt2 integration requires:\n'
-           '  1. WMX ROS2 manipulator nodes running\n'
+           '  1. WMX R2 manipulator nodes running\n'
            '  2. MoveIt2 config package for your robot\n'
            '  3. MoveIt2 move_group node running\n'
            'See: ros2 launch <your_moveit_config> move_group.launch.py'
@@ -534,7 +534,7 @@ the ``wmx_core_motion_node`` to be running.
 
    import rclpy
    from rclpy.node import Node
-   from wmx_ros2_message.msg import AxisVelocity, AxisPose
+   from wmx_r2_message.msg import AxisVelocity, AxisPose
 
 
    class DirectAxisControl(Node):
@@ -629,7 +629,7 @@ the ``wmx_core_motion_node`` to be running.
 Adapting for Different 6-DOF Robots
 -------------------------------------
 
-The WMX ROS2 system is designed to be robot-agnostic. Supporting a new 6-DOF
+The WMX R2 system is designed to be robot-agnostic. Supporting a new 6-DOF
 manipulator with EtherCAT servo drives requires changes to configuration files
 only -- no source code modifications are needed.
 
@@ -648,7 +648,7 @@ Configuration files to create or modify
    * - **WMX XML parameters** (e.g., ``new_robot_wmx_parameters.xml``)
      - Define gear ratios, axis polarities, encoder modes, homing parameters,
        and limit switch settings for each servo axis
-   * - **Launch file** (e.g., ``wmx_ros2_new_robot.launch.py``)
+   * - **Launch file** (e.g., ``wmx_r2_new_robot.launch.py``)
      - Point to the new YAML config and launch the 3 standard nodes
    * - **ENI files** (in ``eni/`` directory)
      - Add EtherCAT Network Information files for any new servo drive models
@@ -695,8 +695,8 @@ What stays the same
   ``joint_trajectory_controller``, ``wmx_core_motion_node``)
 - All service and topic names
 - The ``FollowJointTrajectory`` action interface
-- The ``wmx_ros2_message`` custom message types
+- The ``wmx_r2_message`` custom message types
 - The build process
 
-See :doc:`../api_reference/wmx_ros2_package` for node and parameter details
-and :doc:`../api_reference/wmx_ros2_message` for the custom interface types.
+See :doc:`../api_reference/wmx_r2_package` for node and parameter details
+and :doc:`../api_reference/wmx_r2_message` for the custom interface types.

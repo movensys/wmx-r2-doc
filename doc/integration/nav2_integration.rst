@@ -10,7 +10,7 @@ for a wheeled base. The
 `movensys-navigation <https://github.com/movensys/movensys-navigation>`_
 repository provides the ``movensys_navigation_nav2_config`` package, which wraps
 Nav2 for a differential-drive base and executes the resulting velocity commands
-on the wheels through the WMX ROS2 stack.
+on the wheels through the WMX R2 stack.
 
 Nav2 produces a stream of velocity commands from a costmap-aware controller; WMX
 turns those into wheel motion on a deterministic real-time cycle over EtherCAT.
@@ -22,7 +22,7 @@ Architecture
 ------------
 
 .. mermaid::
-   :caption: Nav2 → WMX ROS2 velocity and odometry loop
+   :caption: Nav2 → WMX R2 velocity and odometry loop
    :zoom:
 
    flowchart LR
@@ -66,18 +66,18 @@ and publish the same encoder odometry, so the Nav2 side is identical either way.
 
    .. tab-item:: Native controller
 
-      ``wmx_ros2_package`` runs a native ``differential_drive_controller`` node
+      ``wmx_r2_package`` runs a native ``differential_drive_controller`` node
       that feeds velocity straight to the wheels, with the WMX ``StartVel``
       profile doing the acceleration and braking. This is the default used by
       the navigation examples.
 
       .. code-block:: bash
 
-         nros ros2 launch wmx_ros2_package wmx_ros2_diffbot_navigation.launch.py
+         nros ros2 launch wmx_r2_package wmx_r2_diffbot_navigation.launch.py
 
    .. tab-item:: ros2_control
 
-      ``wmx_ros2_control`` runs the standard
+      ``wmx_r2_control`` runs the standard
       ``diff_drive_controller/DiffDriveController`` on top of the
       ``WmxSystemHardware`` ``SystemInterface`` plugin. The controller is
       configured as a pure passthrough (velocity/acceleration/jerk limiters
@@ -85,7 +85,7 @@ and publish the same encoder odometry, so the Nav2 side is identical either way.
 
       .. code-block:: bash
 
-         nros ros2 launch wmx_ros2_control wmx_ros2_control_diffbot_navigation.launch.py
+         nros ros2 launch wmx_r2_control wmx_r2_control_diffbot_navigation.launch.py
 
 Setup
 -----
@@ -119,7 +119,7 @@ real base:
 .. code-block:: bash
 
    # WMX base (native controller shown; use_sim_time omitted for real hardware)
-   nros ros2 launch wmx_ros2_package wmx_ros2_diffbot_navigation.launch.py
+   nros ros2 launch wmx_r2_package wmx_r2_diffbot_navigation.launch.py
 
    # Nav2: map_server + AMCL + planner/controller/BT servers + EKF + RViz
    nros ros2 launch movensys_navigation_nav2_config navigation.launch.py
@@ -130,7 +130,7 @@ pass ``use_sim_time:=true`` to each command:
 .. code-block:: bash
 
    nros ros2 launch movensys_navigation_nav2_config sim_bridge.launch.py use_sim_time:=true
-   nros ros2 launch wmx_ros2_package wmx_ros2_diffbot_navigation.launch.py use_sim_time:=true
+   nros ros2 launch wmx_r2_package wmx_r2_diffbot_navigation.launch.py use_sim_time:=true
    nros ros2 launch movensys_navigation_nav2_config navigation.launch.py use_sim_time:=true
 
 To build a map instead of navigating a known one, launch ``mapping.launch.py``

@@ -4,9 +4,9 @@ Custom Planner Integration
 Overview
 --------
 
-The WMX ROS2 application supports any motion planner that can send
+The WMX R2 application supports any motion planner that can send
 trajectories via the standard ``FollowJointTrajectory`` action interface.
-This allows integration of custom planners without modifying the WMX ROS2
+This allows integration of custom planners without modifying the WMX R2
 nodes.
 
 The architecture is:
@@ -271,11 +271,11 @@ For applications that don't use trajectory-based planning, the
 ``wmx_core_motion_node`` provides direct axis control through:
 
 - **Velocity commands** via ``/wmx/axis/velocity``
-  (``wmx_ros2_message/msg/AxisVelocity``)
+  (``wmx_r2_message/msg/AxisVelocity``)
 - **Absolute position commands** via ``/wmx/axis/position``
-  (``wmx_ros2_message/msg/AxisPose``)
+  (``wmx_r2_message/msg/AxisPose``)
 - **Relative position commands** via ``/wmx/axis/position/relative``
-  (``wmx_ros2_message/msg/AxisPose``)
+  (``wmx_r2_message/msg/AxisPose``)
 
 These topics bypass the action server and control motors directly using
 ``CoreMotion::StartVel()``, ``CoreMotion::StartPos()``, and

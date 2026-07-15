@@ -1,19 +1,23 @@
-# WMX ROS2 Documentation
+# WMX R2 Documentation
 
-Technical documentation for the **WMX ROS2** robotic manipulator control system, built on the [MOVENSYS](https://www.movensys.com/) WMX3 motion control platform.
+**WMX R2™ — The Real-Time Execution Layer for Physical AI**
 
-**Documentation Site:** https://movensys.github.io/wmx-ros2-doc/
+Technical documentation for **WMX R2**, a real-time execution layer for Physical AI designed to work in ROS 2 environments, built on the [MOVENSYS](https://www.movensys.com/) WMX3 motion control platform. ("R2" stands for *Real-time Robotics*.)
+
+> ROS is a trademark of Open Robotics.
+
+**Documentation Site:** https://movensys.github.io/wmx-r2-doc/
 
 ## Overview
 
-WMX ROS2 bridges the MOVENSYS WMX3 EtherCAT-based motion controller with ROS2, enabling control of 6-DOF robotic manipulators (e.g., Dobot CR3A) with motion planning through MoveIt2 and NVIDIA Isaac cuMotion.
+WMX R2 bridges the MOVENSYS WMX3 EtherCAT-based motion controller with ROS2, enabling control of 6-DOF robotic manipulators (e.g., Dobot CR3A) with motion planning through MoveIt2 and NVIDIA Isaac cuMotion.
 
 ## Documentation Contents
 
 | Section | Description |
 |---------|-------------|
 | **Getting Started** | System requirements, ROS2 installation, workspace setup, mock & physical hardware, architecture |
-| **Packages** | `wmx_ros2_message` and `wmx_ros2_package` node documentation |
+| **Packages** | `wmx_r2_message` and `wmx_r2_package` node documentation |
 | **Integration** | MoveIt2, NVIDIA Isaac cuMotion, custom planner & application guides |
 | **API Reference** | ROS2 services, topics, and actions |
 | **Demo application** | NVIDIA Jetson Orin and Intel x86_64 setups |

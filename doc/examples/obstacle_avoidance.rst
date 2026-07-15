@@ -43,9 +43,9 @@ commands run through ``mros``.
       1. Open the Isaac Sim scene:
          ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/5b_obstacle_avoidance_hil.usd``
 
-      2. Start WMX ROS2 for the manipulator (real WMX runtime) with
+      2. Start WMX R2 for the manipulator (real WMX runtime) with
          ``use_sim_time:=true`` (see
-         ``~/workspaces/movensys_ws/src/wmx-ros2/doc/launch_<MANIPULATOR_MODEL>_manipulator.md``).
+         ``~/workspaces/movensys_ws/src/wmx-r2/doc/launch_<MANIPULATOR_MODEL>_manipulator.md``).
 
       3. Launch cuMotion + Nvblox:
 
@@ -67,8 +67,8 @@ commands run through ``mros``.
       1. Open the Isaac Sim scene:
          ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/5c_obstacle_avoidance_real.usd``
 
-      2. Start WMX ROS2 for the manipulator on the robot (see
-         ``~/workspaces/movensys_ws/src/wmx-ros2/doc/launch_<MANIPULATOR_MODEL>_manipulator.md``).
+      2. Start WMX R2 for the manipulator on the robot (see
+         ``~/workspaces/movensys_ws/src/wmx-r2/doc/launch_<MANIPULATOR_MODEL>_manipulator.md``).
 
       3. Launch cuMotion + Nvblox:
 

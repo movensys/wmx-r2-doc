@@ -116,8 +116,8 @@ Verify the build by launching the robot description in RViz:
 
    nros ros2 launch movensys_navigation_description movensys_navigation_rviz.launch.py
 
-For SIL and Real modes, the base is brought up with WMX ROS2 (see
-``wmx-ros2/doc/launch_<NAVIGATION_MODEL>_navigation.md`` and
+For SIL and Real modes, the base is brought up with WMX R2 (see
+``wmx-r2/doc/launch_<NAVIGATION_MODEL>_navigation.md`` and
 :doc:`../getting_started/install_wmx3`).
 
 .. note:: **Isaac Sim scenes**
