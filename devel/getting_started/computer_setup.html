@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Computer Setup &#8212; WMX ROS2 Documentation 1.0.0 documentation</title>
+    <title>Computer Setup &#8212; WMX R2 Documentation 1.0.0 documentation</title>
   
   
   
@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=4bf0b306" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=541d874a" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
@@ -55,7 +55,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Jul 15, 2026"/>
+    <meta name="docbuild:last-update" content="Jul 16, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -129,7 +129,7 @@
     <img src="../_static/movensys_logo.png" class="logo__image only-dark pst-js-only" alt=""/>
   
   
-    <p class="title logo__title">WMX ROS2 Documentation</p>
+    <p class="title logo__title">WMX R2 Documentation</p>
   
 </a></div>
     
@@ -168,7 +168,7 @@
           
           
           
-          <a href="https://github.com/movensys/wmx-ros2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+          <a href="https://github.com/movensys/wmx-r2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
 </ul></div>
       
@@ -231,7 +231,7 @@
           
           
           
-          <a href="https://github.com/movensys/wmx-ros2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+          <a href="https://github.com/movensys/wmx-r2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
 </ul></div>
         
@@ -250,7 +250,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Getting Started</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Computer Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="install_wmx_runtime.html">Install WMX Runtime</a></li>
-<li class="toctree-l2"><a class="reference internal" href="install_wmx3.html">Install WMX ROS2 Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install_wmx3.html">Install WMX R2 Package</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/examples.html">Example Applications</a><ul>
@@ -288,8 +288,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_services.html">ROS2 Services</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_topics.html">ROS2 Topics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_actions.html">ROS2 Actions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_ros2_message.html">wmx_ros2_message</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_ros2_package.html">wmx_ros2_package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_message.html">wmx_r2_message</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_package.html">wmx_r2_package</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../support.html">Support</a><ul>
@@ -382,8 +382,8 @@ document.addEventListener("DOMContentLoaded", function() {
                   
   <section id="computer-setup">
 <h1>Computer Setup<a class="headerlink" href="#computer-setup" title="Link to this heading">#</a></h1>
-<p>WMX ROS2 needs a real-time Linux kernel, ROS 2, and Docker on the
-target computer before you install the WMX-ROS2 packages. This page lists the
+<p>WMX R2 needs a real-time Linux kernel, ROS 2, and Docker on the
+target computer before you install the WMX R2 packages. This page lists the
 system requirements, then walks through preparing the computer step by step.</p>
 <section id="hardware-requirements">
 <h2>Hardware Requirements<a class="headerlink" href="#hardware-requirements" title="Link to this heading">#</a></h2>
@@ -424,6 +424,22 @@ system requirements, then walks through preparing the computer step by step.</p>
 </table>
 </div>
 </section>
+<section id="ethercat-communication">
+<h2>EtherCAT Communication<a class="headerlink" href="#ethercat-communication" title="Link to this heading">#</a></h2>
+<p>EtherCAT (Ethernet for Control Automation Technology) is a real-time
+industrial Ethernet fieldbus. It links the controller (the <em>master</em>) to the
+servo drives and I/O modules (the <em>slaves</em>) over a single daisy-chained cable.
+The master sends one frame down the chain. Each slave reads its own data and
+inserts its response as the frame passes through. This updates the whole axis
+network in a single pass. In an industrial EtherCAT carries the
+cyclic position and torque commands out to serovs and
+returns encoder feedback every control cycle. A typical cycle runs once every
+250 µs to 1 ms. The advantage is deterministic low-latency synchronization,
+distributed clocks align all axes to within nanoseconds, cycle jitter stays
+tiny, and multi-axis motion stays smooth and accurate. EtherCAT also runs over
+standard Ethernet hardware and ordinary cabling. This gives the performance at
+a lower wiring cost than legacy fieldbuses.</p>
+</section>
 <section id="real-time-os-requirements">
 <h2>Real-Time OS requirements<a class="headerlink" href="#real-time-os-requirements" title="Link to this heading">#</a></h2>
 <p>A servo drive needs a new command at a fixed interval, for example one
@@ -460,7 +476,7 @@ non-real-time ROS2 domain with the real-time WMX engine</p></li>
 robot-agnostic; only configuration files differ between robots</p></li>
 </ul>
 <p>The WMX runtime must be installed at <code class="docutils literal notranslate"><span class="pre">/opt/wmx3/</span></code> before building or
-running the WMX ROS2 packages. See <a class="reference internal" href="install_wmx_runtime.html"><span class="doc">Install WMX Runtime</span></a> for installation and
+running the WMX R2 packages. See <a class="reference internal" href="install_wmx_runtime.html"><span class="doc">Install WMX Runtime</span></a> for installation and
 verification steps.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -758,7 +774,7 @@ sudo<span class="w"> </span>reboot
 <h3>5. Install ROS 2<a class="headerlink" href="#install-ros-2" title="Link to this heading">#</a></h3>
 <p>Install ROS 2 on the target, matching the Ubuntu version — <strong>Jazzy</strong> on Ubuntu
 24.04, <strong>Humble</strong> on Ubuntu 22.04. Follow the official installation guide, then
-add the CycloneDDS RMW that WMX ROS2 uses.</p>
+add the CycloneDDS RMW that WMX R2 uses.</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-6" name="sd-tab-set-2" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-6">
@@ -784,7 +800,7 @@ CycloneDDS RMW:</p>
 </section>
 <section id="install-docker">
 <h3>6. Install Docker<a class="headerlink" href="#install-docker" title="Link to this heading">#</a></h3>
-<p>Docker is used to run the containerized WMX ROS2 and perception workloads.</p>
+<p>Docker is used to run the containerized WMX R2 and perception workloads.</p>
 <p><strong>Set up the Docker apt repository:</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt-get<span class="w"> </span>update
 sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ca-certificates<span class="w"> </span>curl<span class="w"> </span>gnupg
@@ -861,6 +877,7 @@ newgrp<span class="w"> </span>docker
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hardware-requirements">Hardware Requirements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ethercat-communication">EtherCAT Communication</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#real-time-os-requirements">Real-Time OS requirements</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wmx-motion-control-engine">WMX Motion Control Engine</a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-the-base-os">1. Install the base OS</a></li>
@@ -900,7 +917,7 @@ newgrp<span class="w"> </span>docker
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Jul 15, 2026</p>
+      <p>Last updated: Jul 16, 2026</p>
     
   </div>
   <div class="movensys-footer__links">

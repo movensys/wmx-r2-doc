@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Nav2 Navigation (Mobile Base) &#8212; WMX ROS2 Documentation 1.0.0 documentation</title>
+    <title>Nav2 Navigation (Mobile Base) &#8212; WMX R2 Documentation 1.0.0 documentation</title>
   
   
   
@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=4bf0b306" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=541d874a" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
@@ -572,7 +572,7 @@ window.runMermaid = runMermaid;</script>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Jul 15, 2026"/>
+    <meta name="docbuild:last-update" content="Jul 16, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -646,7 +646,7 @@ window.runMermaid = runMermaid;</script>
     <img src="../_static/movensys_logo.png" class="logo__image only-dark pst-js-only" alt=""/>
   
   
-    <p class="title logo__title">WMX ROS2 Documentation</p>
+    <p class="title logo__title">WMX R2 Documentation</p>
   
 </a></div>
     
@@ -685,7 +685,7 @@ window.runMermaid = runMermaid;</script>
           
           
           
-          <a href="https://github.com/movensys/wmx-ros2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+          <a href="https://github.com/movensys/wmx-r2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
 </ul></div>
       
@@ -748,7 +748,7 @@ window.runMermaid = runMermaid;</script>
           
           
           
-          <a href="https://github.com/movensys/wmx-ros2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+          <a href="https://github.com/movensys/wmx-r2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
 </ul></div>
         
@@ -767,7 +767,7 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../getting_started/computer_setup.html">Computer Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx_runtime.html">Install WMX Runtime</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx3.html">Install WMX ROS2 Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx3.html">Install WMX R2 Package</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/examples.html">Example Applications</a><ul>
@@ -805,8 +805,8 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_services.html">ROS2 Services</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_topics.html">ROS2 Topics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_actions.html">ROS2 Actions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_ros2_message.html">wmx_ros2_message</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_ros2_package.html">wmx_ros2_package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_message.html">wmx_r2_message</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_package.html">wmx_r2_package</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../support.html">Support</a><ul>
@@ -907,7 +907,7 @@ for a wheeled base. The
 <a class="reference external" href="https://github.com/movensys/movensys-navigation">movensys-navigation</a>
 repository provides the <code class="docutils literal notranslate"><span class="pre">movensys_navigation_nav2_config</span></code> package, which wraps
 Nav2 for a differential-drive base and executes the resulting velocity commands
-on the wheels through the WMX ROS2 stack.</p>
+on the wheels through the WMX R2 stack.</p>
 <p>Nav2 produces a stream of velocity commands from a costmap-aware controller; WMX
 turns those into wheel motion on a deterministic real-time cycle over EtherCAT.
 As with the manipulator, the same configuration drives three execution modes:
@@ -917,7 +917,7 @@ visuals with the real WMX runtime), and <strong>real</strong> base control.</p>
 <section id="architecture">
 <h2>Architecture<a class="headerlink" href="#architecture" title="Link to this heading">#</a></h2>
 <figure class="align-default" id="id3">
-<pre data-zoom-id="id-24d11557-675c-46d7-a8c5-17e9821f1a3e" class="mermaid">
+<pre data-zoom-id="id-b750594b-63af-4bc5-ba6a-bf29f0cede8c" class="mermaid">
         flowchart LR
     GOAL[&quot;Goal pose&lt;br/&gt;(RViz / action)&quot;]
     NAV2[&quot;Nav2 servers&lt;br/&gt;planner · controller · BT&quot;]
@@ -935,7 +935,7 @@ visuals with the real WMX runtime), and <strong>real</strong> base control.</p>
     EKF --&gt;|&quot;/odom&quot;| AMCL
     AMCL --&gt; NAV2
     </pre><figcaption>
-<p><span class="caption-text">Nav2 → WMX ROS2 velocity and odometry loop</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
+<p><span class="caption-text">Nav2 → WMX R2 velocity and odometry loop</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>The command path is one-way to the wheels and the odometry path closes the loop
@@ -961,23 +961,23 @@ and publish the same encoder odometry, so the Nav2 side is identical either way.
 <input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-0">
 Native controller</label><div class="sd-tab-content docutils">
-<p><code class="docutils literal notranslate"><span class="pre">wmx_ros2_package</span></code> runs a native <code class="docutils literal notranslate"><span class="pre">differential_drive_controller</span></code> node
+<p><code class="docutils literal notranslate"><span class="pre">wmx_r2_package</span></code> runs a native <code class="docutils literal notranslate"><span class="pre">differential_drive_controller</span></code> node
 that feeds velocity straight to the wheels, with the WMX <code class="docutils literal notranslate"><span class="pre">StartVel</span></code>
 profile doing the acceleration and braking. This is the default used by
 the navigation examples.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>wmx_ros2_package<span class="w"> </span>wmx_ros2_diffbot_navigation.launch.py
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>wmx_r2_package<span class="w"> </span>wmx_r2_diffbot_navigation.launch.py
 </pre></div>
 </div>
 </div>
 <input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-1">
 ros2_control</label><div class="sd-tab-content docutils">
-<p><code class="docutils literal notranslate"><span class="pre">wmx_ros2_control</span></code> runs the standard
+<p><code class="docutils literal notranslate"><span class="pre">wmx_r2_control</span></code> runs the standard
 <code class="docutils literal notranslate"><span class="pre">diff_drive_controller/DiffDriveController</span></code> on top of the
 <code class="docutils literal notranslate"><span class="pre">WmxSystemHardware</span></code> <code class="docutils literal notranslate"><span class="pre">SystemInterface</span></code> plugin. The controller is
 configured as a pure passthrough (velocity/acceleration/jerk limiters
 off) so the WMX profile still owns the timing.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>wmx_ros2_control<span class="w"> </span>wmx_ros2_control_diffbot_navigation.launch.py
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>wmx_r2_control<span class="w"> </span>wmx_r2_control_diffbot_navigation.launch.py
 </pre></div>
 </div>
 </div>
@@ -1018,7 +1018,7 @@ repository for the full host setup and container build, and
 <p>Bring up the WMX base (one of the execution modes above), then start Nav2. For a
 real base:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># WMX base (native controller shown; use_sim_time omitted for real hardware)</span>
-nros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>wmx_ros2_package<span class="w"> </span>wmx_ros2_diffbot_navigation.launch.py
+nros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>wmx_r2_package<span class="w"> </span>wmx_r2_diffbot_navigation.launch.py
 
 <span class="c1"># Nav2: map_server + AMCL + planner/controller/BT servers + EKF + RViz</span>
 nros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>movensys_navigation_nav2_config<span class="w"> </span>navigation.launch.py
@@ -1027,7 +1027,7 @@ nros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> <
 <p>For simulation or simulation-in-the-loop, start the simulator bridge first and
 pass <code class="docutils literal notranslate"><span class="pre">use_sim_time:=true</span></code> to each command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>movensys_navigation_nav2_config<span class="w"> </span>sim_bridge.launch.py<span class="w"> </span>use_sim_time:<span class="o">=</span><span class="nb">true</span>
-nros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>wmx_ros2_package<span class="w"> </span>wmx_ros2_diffbot_navigation.launch.py<span class="w"> </span>use_sim_time:<span class="o">=</span><span class="nb">true</span>
+nros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>wmx_r2_package<span class="w"> </span>wmx_r2_diffbot_navigation.launch.py<span class="w"> </span>use_sim_time:<span class="o">=</span><span class="nb">true</span>
 nros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>movensys_navigation_nav2_config<span class="w"> </span>navigation.launch.py<span class="w"> </span>use_sim_time:<span class="o">=</span><span class="nb">true</span>
 </pre></div>
 </div>
@@ -1176,7 +1176,7 @@ repository for the full base configuration and Nav2 tuning</p></li>
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Jul 15, 2026</p>
+      <p>Last updated: Jul 16, 2026</p>
     
   </div>
   <div class="movensys-footer__links">

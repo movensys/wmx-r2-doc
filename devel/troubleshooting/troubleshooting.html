@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Troubleshooting &#8212; WMX ROS2 Documentation 1.0.0 documentation</title>
+    <title>Troubleshooting &#8212; WMX R2 Documentation 1.0.0 documentation</title>
   
   
   
@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=4bf0b306" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=541d874a" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
@@ -55,7 +55,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Jul 15, 2026"/>
+    <meta name="docbuild:last-update" content="Jul 16, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -129,7 +129,7 @@
     <img src="../_static/movensys_logo.png" class="logo__image only-dark pst-js-only" alt=""/>
   
   
-    <p class="title logo__title">WMX ROS2 Documentation</p>
+    <p class="title logo__title">WMX R2 Documentation</p>
   
 </a></div>
     
@@ -168,7 +168,7 @@
           
           
           
-          <a href="https://github.com/movensys/wmx-ros2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+          <a href="https://github.com/movensys/wmx-r2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
 </ul></div>
       
@@ -231,7 +231,7 @@
           
           
           
-          <a href="https://github.com/movensys/wmx-ros2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+          <a href="https://github.com/movensys/wmx-r2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
 </ul></div>
         
@@ -250,7 +250,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../getting_started/computer_setup.html">Computer Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx_runtime.html">Install WMX Runtime</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx3.html">Install WMX ROS2 Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx3.html">Install WMX R2 Package</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/examples.html">Example Applications</a><ul>
@@ -288,8 +288,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_services.html">ROS2 Services</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_topics.html">ROS2 Topics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_actions.html">ROS2 Actions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_ros2_message.html">wmx_ros2_message</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_ros2_package.html">wmx_ros2_package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_message.html">wmx_r2_message</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_package.html">wmx_r2_package</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="../support.html">Support</a><ul class="current">
@@ -438,7 +438,7 @@ errors in the log)</p></li>
 <li><p>Verify <code class="docutils literal notranslate"><span class="pre">wmx_param_file_path</span></code> in the config YAML points to the correct
 WMX parameter XML file for your robot</p></li>
 <li><p>Clear alarms and re-enable servos:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axis/clear_alarm<span class="w"> </span>wmx_ros2_message/srv/SetAxis<span class="w"> </span><span class="se">\</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axis/clear_alarm<span class="w"> </span>wmx_r2_message/srv/SetAxis<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span><span class="s2">&quot;{index: [0,1,2,3,4,5], data: [0,0,0,0,0,0]}&quot;</span>
 </pre></div>
 </div>
@@ -452,7 +452,7 @@ rejected.</p>
 <p><strong>Solutions:</strong></p>
 <ul>
 <li><p>Clear alarms via the service:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axis/clear_alarm<span class="w"> </span>wmx_ros2_message/srv/SetAxis<span class="w"> </span><span class="se">\</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axis/clear_alarm<span class="w"> </span>wmx_r2_message/srv/SetAxis<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span><span class="s2">&quot;{index: [0,1,2,3,4,5], data: [0,0,0,0,0,0]}&quot;</span>
 </pre></div>
 </div>
@@ -492,8 +492,8 @@ does not move.</p>
 <p><strong>Symptom:</strong> <code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">pkg</span> <span class="pre">list</span> <span class="pre">|</span> <span class="pre">grep</span> <span class="pre">wmx</span></code> returns nothing.</p>
 <p><strong>Solutions:</strong></p>
 <ul class="simple">
-<li><p>Source the workspace: <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">~/wmx_ros2_ws/install/setup.bash</span></code></p></li>
-<li><p>Rebuild if needed: <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">~/wmx_ros2_ws</span> <span class="pre">&amp;&amp;</span> <span class="pre">colcon</span> <span class="pre">build</span></code></p></li>
+<li><p>Source the workspace: <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">~/wmx_r2_ws/install/setup.bash</span></code></p></li>
+<li><p>Rebuild if needed: <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">~/wmx_r2_ws</span> <span class="pre">&amp;&amp;</span> <span class="pre">colcon</span> <span class="pre">build</span></code></p></li>
 <li><p>Check the two-stage build was done correctly (message package first).
 See <a class="reference internal" href="../getting_started/index.html"><span class="doc">Getting Started</span></a>.</p></li>
 </ul>
@@ -511,7 +511,7 @@ other WMX libraries.</p>
 </div>
 </li>
 <li><p>Install missing ROS2 dependencies:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/wmx_ros2_ws
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/wmx_r2_ws
 rosdep<span class="w"> </span>install<span class="w"> </span>--from-paths<span class="w"> </span>src<span class="w"> </span>--ignore-src<span class="w"> </span>-y
 </pre></div>
 </div>
@@ -611,7 +611,7 @@ issue on the project repository.</p>
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Jul 15, 2026</p>
+      <p>Last updated: Jul 16, 2026</p>
     
   </div>
   <div class="movensys-footer__links">

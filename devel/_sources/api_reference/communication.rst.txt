@@ -1,7 +1,7 @@
 Communication Overview
 ======================
 
-The WMX ROS2 application uses three communication layers:
+The WMX R2 application uses three communication layers:
 
 - **ROS2 DDS** (CycloneDDS) -- All inter-node communication via topics, services,
   and actions over the ROS2 middleware.
@@ -20,7 +20,7 @@ The WMX ROS2 application uses three communication layers:
 The diagram below shows how the three layers stack and which libraries and buses connect them:
 
 .. mermaid::
-   :caption: WMX ROS2 — three-layer communication architecture
+   :caption: WMX R2 — three-layer communication architecture
    :zoom:
 
    %%{init: {"theme": "base", "themeVariables": {"primaryColor": "#1a73e8", "primaryTextColor": "#fff", "primaryBorderColor": "#1558b0", "lineColor": "#555"}}}%%

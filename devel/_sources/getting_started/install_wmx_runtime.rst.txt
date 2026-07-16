@@ -41,7 +41,7 @@ The engine is built on MOVENSYS's proprietary Soft Motion technology and holds
 the highest EtherCAT master. It exposes more than 200
 APIs for trajectory conversion, EtherCAT and fieldbus communication, digital and
 analog I/O, and engine control. Users can build applications in C, C++, C#, or
-Python. This is the same engine that WMX ROS2 drives underneath the ROS2 layer.
+Python. This is the same engine that WMX R2 drives underneath the ROS2 layer.
 Planner output such as MoveIt2 and Nav2 trajectories is handed to the engine,
 and the engine turns it into the precisely timed servo commands that the drives
 execute on a fixed cycle.

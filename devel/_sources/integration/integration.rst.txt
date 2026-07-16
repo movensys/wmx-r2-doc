@@ -1,7 +1,7 @@
 Integration Scenarios
 =====================
 
-WMX ROS2 supports motion-planning backends for both robot arms (MoveIt2, Isaac
+WMX R2 supports motion-planning backends for both robot arms (MoveIt2, Isaac
 cuMotion) and mobile bases (Nav2), and can be extended with custom planners and
 standalone applications.
 

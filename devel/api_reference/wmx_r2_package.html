@@ -1,0 +1,1746 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>wmx_r2_package &#8212; WMX R2 Documentation 1.0.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=541d874a" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
+
+    <script src="../_static/documentation_options.js?v=8d563738"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs";
+
+
+
+
+
+const initStyles = () => {
+    const defaultStyle = document.createElement('style');
+    defaultStyle.textContent = `pre.mermaid {
+    /* Same as .mermaid-container > pre */
+    display: block;
+    width: 100%;
+}
+
+pre.mermaid > svg {
+    /* Same as .mermaid-container > pre > svg */
+    height: 500px;
+    width: 100%;
+    max-width: 100% !important;
+}`;
+    document.head.appendChild(defaultStyle);
+
+    const fullscreenStyle = document.createElement('style');
+    fullscreenStyle.textContent = `.mermaid-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.mermaid-container > pre {
+    display: block;
+    width: 100%;
+}
+
+.mermaid-container > pre > svg {
+    height: 500px;
+    width: 100%;
+    max-width: 100% !important;
+}
+
+.mermaid-fullscreen-btn {
+    width: 28px;
+    height: 28px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    line-height: 1;
+    padding: 0;
+    color: #333;
+}
+
+.mermaid-fullscreen-btn:hover {
+    opacity: 100% !important;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    transform: scale(1.1);
+}
+
+.mermaid-fullscreen-btn.dark-theme {
+    background: rgba(50, 50, 50, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #e0e0e0;
+}
+
+.mermaid-fullscreen-btn.dark-theme:hover {
+    background: rgba(60, 60, 60, 1);
+    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.2);
+}
+
+.mermaid-fullscreen-modal {
+    display: none;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 95vw;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.98);
+    z-index: 9999;
+    padding: 20px;
+    overflow: auto;
+}
+
+.mermaid-fullscreen-modal.dark-theme {
+    background: rgba(0, 0, 0, 0.98);
+}
+
+.mermaid-fullscreen-modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mermaid-container-fullscreen {
+    position: relative;
+    width: 95vw;
+    height: 90vh;
+    max-width: 95vw;
+    max-height: 90vh;
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mermaid-container-fullscreen.dark-theme {
+    background: #1a1a1a;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+}
+
+.mermaid-container-fullscreen pre.mermaid {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mermaid-container-fullscreen .mermaid svg {
+    height: 100% !important;
+    width: 100% !important;
+    cursor: grab;
+}
+
+.mermaid-fullscreen-close {
+    position: fixed !important;
+    top: 20px !important;
+    right: 20px !important;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s;
+    font-size: 24px;
+    line-height: 1;
+    color: #333;
+}
+
+.mermaid-fullscreen-close:hover {
+    background: white;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    transform: scale(1.1);
+}
+
+.mermaid-fullscreen-close.dark-theme {
+    background: rgba(50, 50, 50, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #e0e0e0;
+}
+
+.mermaid-fullscreen-close.dark-theme:hover {
+    background: rgba(60, 60, 60, 1);
+    box-shadow: 0 6px 16px rgba(255, 255, 255, 0.2);
+}
+
+.mermaid-fullscreen-modal .mermaid-fullscreen-btn {
+    display: none !important;
+}`;
+    document.head.appendChild(fullscreenStyle);
+}
+
+// Detect if page has dark background
+const isDarkTheme = () => {
+    // We use a set of heuristics:
+    // 1. Check for common dark mode classes or attributes
+    // 2. Check computed background color brightness
+    if (document.documentElement.classList.contains('dark') ||
+        document.documentElement.getAttribute('data-theme') === 'dark' ||
+        document.body.classList.contains('dark') ||
+        document.body.getAttribute('data-theme') === 'dark') {
+        // console.log("Dark theme detected via class/attribute");
+        return true;
+    }
+    if (document.documentElement.classList.contains('light') ||
+        document.documentElement.getAttribute('data-theme') === 'light' ||
+        document.body.classList.contains('light') ||
+        document.body.getAttribute('data-theme') === 'light') {
+        // console.log("Light theme detected via class/attribute");
+        return false;
+    }
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        // console.log("Dark theme detected via prefers-color-scheme");
+        return true;
+    }
+    const bgColor = window.getComputedStyle(document.body).backgroundColor;
+    const match = bgColor.match(/rgb\((\d+),\s*(\d+),\s*(\d+)/);
+    if (match) {
+        const r = parseInt(match[1]);
+        const g = parseInt(match[2]);
+        const b = parseInt(match[3]);
+        const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+        // console.log("Background color brightness:", brightness);
+        return brightness < 128;
+    }
+    // console.log("No dark or light theme detected, defaulting to light theme");
+    return false;
+};
+
+let darkTheme = isDarkTheme();
+let modal = null;
+let modalContent = null;
+let previousScrollOffset = [window.scrollX, window.scrollY];
+let _lazyObserver = null;
+let _renderQueue = Promise.resolve();
+
+// Apply d3 zoom to each SVG. Idempotent: an SVG already wrapped is skipped,
+// so this is safe to call both for the initial batch and for diagrams that
+// render lazily once they become visible.
+const addZoomToSvgs = (svgs) => {
+    svgs.each(function() {
+        if (this.getAttribute('data-zoom-applied') === 'true') return;
+        var svg = d3.select(this);
+        svg.html("<g class='wrapper'>" + svg.html() + "</g>");
+        var inner = svg.select("g");
+        var zoom = d3.zoom().on("zoom", function(event) {
+            inner.attr("transform", event.transform);
+        });
+        svg.call(zoom);
+        this.setAttribute('data-zoom-applied', 'true');
+    });
+};
+
+const runMermaid = async (rerun) => {
+    console.log("Running mermaid diagrams, rerun =", rerun);
+    // clear all existing mermaid charts
+    let all_mermaids = document.querySelectorAll(".mermaid");
+
+    if (rerun) {
+        // Disconnect any previous lazy rendering observer
+        if (_lazyObserver) {
+            _lazyObserver.disconnect();
+            _lazyObserver = null;
+        }
+
+        all_mermaids.forEach((el) => {
+            el.removeAttribute('data-mermaid-deferred');
+            el.removeAttribute('data-mermaid-render-failed');
+            if(!el.hasAttribute("data-original-code")) {
+                // store original code
+                // console.log(`Storing original code for first run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+            if(el.getAttribute("data-processed") === "true") {
+                // remove and restore original
+                el.removeAttribute("data-processed");
+                // console.log(`Restoring original code for re-run: `, el.getAttribute('data-original-code'));
+                el.innerHTML = el.getAttribute('data-original-code');
+            } else {
+                // store original code
+                // console.log(`Storing original code for re-run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+        });
+
+        // Separate visible and hidden elements. Mermaid's layout engine measures
+        // text dimensions via the DOM, which fails for elements hidden by a parent
+        // (e.g., Reveal.js non-active slides, sphinx-design unopened tabs),
+        // producing broken SVGs. Render visible elements now, defer hidden ones.
+        const visible = [];
+        const hidden = [];
+        all_mermaids.forEach((el) => {
+            // offsetParent is null for display:none ancestors.
+            // getClientRects().length > 0 catches position:fixed elements
+            // (which also have null offsetParent but are still visible).
+            if (el.offsetParent !== null || el.getClientRects().length > 0) {
+                visible.push(el);
+            } else {
+                hidden.push(el);
+                el.setAttribute('data-mermaid-deferred', 'true');
+            }
+        });
+
+        if (visible.length > 0) {
+            try {
+                await mermaid.run({ nodes: visible });
+            } catch (e) {
+                console.error("Mermaid rendering failed:", e);
+            }
+        }
+
+        // Lazily render hidden elements when they become visible.
+        // Uses a promise chain (_renderQueue) to serialize rendering,
+        // since IntersectionObserver may report multiple entries at once
+        // and mermaid.run() is not safe to call concurrently.
+        if (hidden.length > 0) {
+            if (typeof IntersectionObserver === 'undefined') {
+                console.warn("IntersectionObserver not available; hidden mermaid diagrams will not render.");
+            } else {
+                _renderQueue = Promise.resolve();
+                _lazyObserver = new IntersectionObserver((entries) => {
+                    for (const entry of entries) {
+                        if (entry.isIntersecting && entry.target.getAttribute("data-processed") !== "true") {
+                            _lazyObserver.unobserve(entry.target);
+                            const el = entry.target;
+                            _renderQueue = _renderQueue.then(async () => {
+                                try {
+                                    await mermaid.run({ nodes: [el] });
+                                    el.removeAttribute('data-mermaid-deferred');
+                                    // Apply zoom to the now-rendered diagram, matching
+                                    // the decoration visible diagrams receive.
+                                    if ("False" === "True") {
+                                        addZoomToSvgs(d3.selectAll(""));
+                                    }
+                                } catch (e) {
+                                    console.error("Mermaid deferred rendering failed:", e);
+                                    el.removeAttribute('data-mermaid-deferred');
+                                    el.setAttribute('data-mermaid-render-failed', 'true');
+                                }
+                            });
+                        }
+                    }
+                });
+                hidden.forEach((el) => _lazyObserver.observe(el));
+            }
+        }
+    }
+
+    all_mermaids = document.querySelectorAll(".mermaid");
+    // Exclude deferred (hidden) and render-failed elements from completion checks
+    const mermaids_active = document.querySelectorAll(".mermaid:not([data-mermaid-deferred]):not([data-mermaid-render-failed])");
+    const mermaids_processed = document.querySelectorAll(".mermaid:not([data-mermaid-deferred]):not([data-mermaid-render-failed])[data-processed='true']");
+
+    if ("False" === "True") {
+        const mermaids_to_add_zoom = -1 === -1 ? mermaids_active.length : -1;
+        if(mermaids_to_add_zoom > 0) {
+            var svgs = d3.selectAll("");
+            // Wait until every active (visible) diagram has rendered. Deferred
+            // diagrams are excluded, so a fixed d3_node_count that counts a
+            // hidden diagram no longer loops forever waiting for its SVG.
+            if(mermaids_active.length !== mermaids_processed.length) {
+                setTimeout(() => runMermaid(false), 200);
+                return;
+            }
+            addZoomToSvgs(svgs);
+        }
+    } else if(mermaids_active.length !== mermaids_processed.length) {
+        // Wait for mermaid to process all diagrams
+        setTimeout(() => runMermaid(false), 200);
+        return;
+    }
+
+    // Stop here if not adding fullscreen capability
+    if ("True" !== "True") return;
+
+    if (modal !== null ) {
+        // Destroy existing modal
+        modal.remove();
+        modal = null;
+        modalContent = null;
+    }
+
+    modal = document.createElement('div');
+    modal.className = 'mermaid-fullscreen-modal' + (darkTheme ? ' dark-theme' : '');
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-label', 'Fullscreen diagram viewer');
+    modal.innerHTML = `
+        <button class="mermaid-fullscreen-close${darkTheme ? ' dark-theme' : ''}" aria-label="Close fullscreen">✕</button>
+        <div class="mermaid-container-fullscreen${darkTheme ? ' dark-theme' : ''}"></div>
+    `;
+    document.body.appendChild(modal);
+
+    modalContent = modal.querySelector('.mermaid-container-fullscreen');
+    const closeBtn = modal.querySelector('.mermaid-fullscreen-close');
+
+    const closeModal = () => {
+        modal.classList.remove('active');
+        modalContent.innerHTML = '';
+        document.body.style.overflow = ''
+        window.scrollTo({left: previousScrollOffset[0], top: previousScrollOffset[1], behavior: 'instant'});
+    };
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+
+    document.querySelectorAll('.mermaid').forEach((mermaidDiv) => {
+        if (mermaidDiv.parentNode.classList.contains('mermaid-container') ||
+            mermaidDiv.closest('.mermaid-fullscreen-modal')) {
+            // Already processed, adjust button class if needed
+            const existingBtn = mermaidDiv.parentNode.querySelector('.mermaid-fullscreen-btn');
+            if (existingBtn) {
+                existingBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+            }
+            return;
+        }
+
+        const container = document.createElement('div');
+        container.className = 'mermaid-container';
+        mermaidDiv.parentNode.insertBefore(container, mermaidDiv);
+        container.appendChild(mermaidDiv);
+
+        const fullscreenBtn = document.createElement('button');
+        fullscreenBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+        fullscreenBtn.setAttribute('aria-label', 'View diagram in fullscreen');
+        fullscreenBtn.textContent = '⛶';
+        fullscreenBtn.style.opacity = '50%';
+
+        // Calculate dynamic position based on diagram's margin and padding
+        const diagramStyle = window.getComputedStyle(mermaidDiv);
+        const marginTop = parseFloat(diagramStyle.marginTop) || 0;
+        const marginRight = parseFloat(diagramStyle.marginRight) || 0;
+        const paddingTop = parseFloat(diagramStyle.paddingTop) || 0;
+        const paddingRight = parseFloat(diagramStyle.paddingRight) || 0;
+        fullscreenBtn.style.top = `${marginTop + paddingTop + 4}px`;
+        fullscreenBtn.style.right = `${marginRight + paddingRight + 4}px`;
+
+        fullscreenBtn.addEventListener('click', () => {
+            previousScrollOffset = [window.scroll, window.scrollY];
+            const clone = mermaidDiv.cloneNode(true);
+            modalContent.innerHTML = '';
+            modalContent.appendChild(clone);
+
+            const svg = clone.querySelector('svg');
+            if (svg) {
+                svg.removeAttribute('width');
+                svg.removeAttribute('height');
+                svg.style.width = '100%';
+                svg.style.height = 'auto';
+                svg.style.maxWidth = '100%';
+                svg.style.sdisplay = 'block';
+
+                if ("False" === "True") {
+                    setTimeout(() => {
+                        const g = svg.querySelector('g');
+                        if (g) {
+                            var svgD3 = d3.select(svg);
+                            svgD3.html("<g class='wrapper'>" + svgD3.html() + "</g>");
+                            var inner = svgD3.select("g");
+                            var zoom = d3.zoom().on("zoom", function(event) {
+                                inner.attr("transform", event.transform);
+                            });
+                            svgD3.call(zoom);
+                        }
+                    }, 100);
+                }
+            }
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        container.appendChild(fullscreenBtn);
+    });
+};
+
+const load = async () => {
+    initStyles();
+
+    await runMermaid(true);
+
+    const reRunIfThemeChanges = async () => {
+        const newDarkTheme = isDarkTheme();
+        if (newDarkTheme !== darkTheme) {
+            darkTheme = newDarkTheme;
+            console.log("Theme change detected, re-running mermaid with", darkTheme ? "dark" : "default", "theme");
+            await mermaid.initialize(
+                {...JSON.parse(
+                    `{"startOnLoad": false, "flowchart": {"useMaxWidth": false}, "sequence": {"useMaxWidth": false}}`
+                ),
+                ...{ darkMode: darkTheme, theme: darkTheme ? 'dark' : 'default' },
+                }
+            );
+            await runMermaid(true);
+        }
+    };
+
+    // Update theme classes when theme changes
+    const themeObserver = new MutationObserver(reRunIfThemeChanges);
+    themeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+    themeObserver.observe(document.body, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+};
+
+
+
+
+
+console.log("Initializing mermaid with", darkTheme ? "dark" : "default", "theme");
+mermaid.initialize(
+    {...JSON.parse(
+        `{"startOnLoad": false, "flowchart": {"useMaxWidth": false}, "sequence": {"useMaxWidth": false}}`
+    ),
+    ...{ darkMode: darkTheme, theme: darkTheme ? 'dark' : 'default' },
+    }
+);
+
+window.addEventListener("load", load);
+window.runMermaid = runMermaid;</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api_reference/wmx_r2_package';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="icon" href="../_static/movensys_logo.png"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Support" href="../support.html" />
+    <link rel="prev" title="wmx_r2_message" href="wmx_r2_message.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="Jul 16, 2026"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="light">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../_static/movensys_logo.png" class="logo__image only-light" alt=""/>
+    <img src="../_static/movensys_logo.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">WMX R2 Documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/movensys/wmx-r2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/movensys/wmx-r2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item"><div class="sidebar-toc-header">
+  <p class="sidebar-toc-title">Table of Contents</p>
+  <p class="sidebar-toc-subtitle">Contents</p>
+</div></div>
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links" aria-label="Section Navigation">
+  <div class="bd-toc-item navbar-nav">
+    <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/computer_setup.html">Computer Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx_runtime.html">Install WMX Runtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx3.html">Install WMX R2 Package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/examples.html">Example Applications</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/isaacsim_setup.html">NVIDIA Isaac ROS Setup (Optional)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator.html">movensys-manipulator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/trajectory_planning.html">Trajectory Planning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/apriltag_pick_and_place.html">AprilTag Pick-and-Place</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/obstacle_avoidance.html">Nvblox Obstacle Avoidance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/yolo_pick_and_place.html">YOLO Pick-and-Place</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/apriltag_obstacle_avoidance.html">AprilTag + Obstacle Avoidance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/robopoly_game.html">Robopoly Game (VLM / LLM)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/movensys_navigation.html">movensys-navigation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples/movensys_navigation_setup.html">movensys-navigation Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/manual_driving.html">Manual Driving</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/slam_mapping.html">SLAM Mapping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/autonomous_navigation.html">Autonomous Navigation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../integration/integration.html">Integration Scenarios</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../integration/moveit2_integration.html">MoveIt2 Motion Planning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/cumotion_integration.html">Isaac cuMotion Accelerated Planning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/nav2_integration.html">Nav2 Navigation (Mobile Base)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/custom_planner.html">Custom Planner Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/custom_application.html">Building Custom Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/intelligence_integration.html">Natural-Language and Vision Control (VLM / LLM)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="api_reference.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="communication.html">Communication Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ros2_services.html">ROS2 Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ros2_topics.html">ROS2 Topics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ros2_actions.html">ROS2 Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wmx_r2_message.html">wmx_r2_message</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">wmx_r2_package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support.html">Support</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About Us</a></li>
+</ul>
+
+  </div>
+</nav>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var navItems = document.querySelectorAll(".bd-docs-nav li");
+  navItems.forEach(function(li) {
+    var subList = li.querySelector(":scope > ul");
+    if (subList) {
+      var toggle = document.createElement("span");
+      toggle.className = "toc-toggle";
+      var isCurrent = li.classList.contains("current");
+      toggle.textContent = isCurrent ? "−" : "+";
+      if (!isCurrent) {
+        subList.classList.add("toc-collapsed");
+      }
+      toggle.addEventListener("click", function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        subList.classList.toggle("toc-collapsed");
+        toggle.textContent = subList.classList.contains("toc-collapsed") ? "+" : "−";
+      });
+      li.style.position = "relative";
+      var link = li.querySelector(":scope > a");
+      if (link) {
+        link.after(toggle);
+      }
+    }
+  });
+});
+</script></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="api_reference.html" class="nav-link">API Reference</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">wmx_r2_package</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="wmx-r2-package">
+<h1>wmx_r2_package<a class="headerlink" href="#wmx-r2-package" title="Link to this heading">#</a></h1>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">wmx_r2_package</span></code> is the main application package of the WMX R2
+system. It contains all executable nodes, launch files, and configuration
+files for driving robots — such as the Dobot CR3A and CR5A manipulators —
+through the WMX motion control engine over EtherCAT.</p>
+<p>The package provides two groups of nodes:</p>
+<ul class="simple">
+<li><p><strong>General nodes</strong> – <code class="docutils literal notranslate"><span class="pre">wmx_engine_node</span></code>, <code class="docutils literal notranslate"><span class="pre">wmx_core_motion_node</span></code>,
+<code class="docutils literal notranslate"><span class="pre">wmx_io_node</span></code>, and <code class="docutils literal notranslate"><span class="pre">wmx_ethercat_node</span></code> expose the WMX engine, axis,
+I/O, and EtherCAT interfaces as ROS2 services and topics. They are
+robot-agnostic.</p></li>
+<li><p><strong>Manipulator controllers</strong> – <code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code>,
+<code class="docutils literal notranslate"><span class="pre">joint_trajectory_controller</span></code>, and <code class="docutils literal notranslate"><span class="pre">gripper_controller</span></code> add joint-state
+feedback, MoveIt2 trajectory execution, and gripper control for a specific
+robot, configured from a per-robot YAML file.</p></li>
+</ul>
+<p><strong>Package Metadata:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 75.0%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Package Name</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_package</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Version</strong></p></td>
+<td><p>0.1.0</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>License</strong></p></td>
+<td><p>MIT</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Build Type</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ament_cmake</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>C++ Standard</strong></p></td>
+<td><p>C++17</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="package-structure">
+<h2>Package Structure<a class="headerlink" href="#package-structure" title="Link to this heading">#</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>wmx_r2_package/
+├── CMakeLists.txt
+├── package.xml
+├── include/
+│   ├── wmx_engine_node.hpp               # WmxEngineNode class definition
+│   ├── wmx_core_motion_node.hpp          # WmxCoreMotionNode class definition
+│   ├── wmx_io_node.hpp                   # WmxIoNode class definition
+│   └── wmx_ethercat_node.hpp             # WmxEtherCatNode class definition
+├── src/
+│   ├── wmx_engine_node.cpp               # Engine lifecycle node
+│   ├── wmx_core_motion_node.cpp          # Axis control + parameter node
+│   ├── wmx_io_node.cpp                   # Digital I/O node
+│   ├── wmx_ethercat_node.cpp             # EtherCAT diagnostics node
+│   ├── joint_state_broadcaster.cpp       # Joint state publisher node
+│   ├── joint_trajectory_controller.cpp   # FollowJointTrajectory action node
+│   └── gripper_controller.cpp            # Gripper control node
+├── launch/
+│   ├── wmx_r2_general_nodes.launch.py
+│   ├── wmx_r2_cr3a_manipulator.launch.py
+│   └── wmx_r2_cr5a_manipulator.launch.py
+├── config/
+│   ├── cr3a_manipulator_config.yaml
+│   ├── cr3a_wmx_parameters.xml           # WMX3 axis params for CR3A
+│   ├── cr5a_manipulator_config.yaml
+│   ├── cr5a_wmx_parameters.xml           # WMX3 axis params for CR5A
+│   └── diffbot_wmx_parameters.xml        # WMX3 axis params for a diff-drive base
+└── test/
+</pre></div>
+</div>
+</section>
+<section id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Link to this heading">#</a></h2>
+<section id="package-dependencies-package-xml">
+<h3>Package Dependencies (package.xml)<a class="headerlink" href="#package-dependencies-package-xml" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 35.0%" />
+<col style="width: 20.0%" />
+<col style="width: 45.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Dependency</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Purpose</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ament_cmake</span></code></p></td>
+<td><p>buildtool</p></td>
+<td><p>CMake build system</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">rclcpp</span></code></p></td>
+<td><p>depend</p></td>
+<td><p>ROS2 C++ client library</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">rclcpp_action</span></code></p></td>
+<td><p>depend</p></td>
+<td><p>Action server support (FollowJointTrajectory)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">std_srvs</span></code></p></td>
+<td><p>depend</p></td>
+<td><p>Standard service types (<code class="docutils literal notranslate"><span class="pre">SetBool</span></code>, <code class="docutils literal notranslate"><span class="pre">Trigger</span></code>)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">std_msgs</span></code></p></td>
+<td><p>depend</p></td>
+<td><p>Standard message types (<code class="docutils literal notranslate"><span class="pre">Bool</span></code>, <code class="docutils literal notranslate"><span class="pre">Float64MultiArray</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">sensor_msgs</span></code></p></td>
+<td><p>depend</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">JointState</span></code> messages</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">control_msgs</span></code></p></td>
+<td><p>depend</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">FollowJointTrajectory</span></code> action type</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">trajectory_msgs</span></code></p></td>
+<td><p>depend</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">JointTrajectory</span></code> messages</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message</span></code></p></td>
+<td><p>depend</p></td>
+<td><p>Custom message and service definitions</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ros2launch</span></code></p></td>
+<td><p>exec</p></td>
+<td><p>Launch system</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">joint_state_publisher</span></code></p></td>
+<td><p>exec</p></td>
+<td><p>Joint state publishing utilities</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">robot_state_publisher</span></code></p></td>
+<td><p>exec</p></td>
+<td><p>Robot TF broadcasting</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">rviz2</span></code></p></td>
+<td><p>exec</p></td>
+<td><p>Visualization</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">xacro</span></code></p></td>
+<td><p>exec</p></td>
+<td><p>URDF preprocessing</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="cmake-dependencies-find-package">
+<h3>CMake Dependencies (find_package)<a class="headerlink" href="#cmake-dependencies-find-package" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">ament_cmake</span></code>, <code class="docutils literal notranslate"><span class="pre">rclcpp</span></code>, <code class="docutils literal notranslate"><span class="pre">rclcpp_action</span></code>, <code class="docutils literal notranslate"><span class="pre">std_msgs</span></code>, <code class="docutils literal notranslate"><span class="pre">std_srvs</span></code>,
+<code class="docutils literal notranslate"><span class="pre">sensor_msgs</span></code>, <code class="docutils literal notranslate"><span class="pre">control_msgs</span></code>, <code class="docutils literal notranslate"><span class="pre">trajectory_msgs</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">wmx_r2_message</span></code>.</p>
+</section>
+<section id="wmx-libraries-external">
+<h3>WMX Libraries (External)<a class="headerlink" href="#wmx-libraries-external" title="Link to this heading">#</a></h3>
+<p>Executables link against the WMX shared libraries at <code class="docutils literal notranslate"><span class="pre">/opt/wmx3/lib/</span></code>.
+Each node links only the libraries it needs:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 32.0%" />
+<col style="width: 40.0%" />
+<col style="width: 28.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Library</p></th>
+<th class="head"><p>Executable(s)</p></th>
+<th class="head"><p>Purpose</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">libwmx3api.so</span></code> / <code class="docutils literal notranslate"><span class="pre">libimdll.so</span></code></p></td>
+<td><p>All nodes</p></td>
+<td><p>Core WMX device/engine management (and internal dependency)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">libcoremotionapi.so</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_core_motion_node</span></code>, <code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code>,
+<code class="docutils literal notranslate"><span class="pre">joint_trajectory_controller</span></code>, <code class="docutils literal notranslate"><span class="pre">gripper_controller</span></code></p></td>
+<td><p>Position, velocity, and axis control</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">libadvancedmotionapi.so</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">joint_trajectory_controller</span></code></p></td>
+<td><p>Cubic spline trajectory execution</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">libioapi.so</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_io_node</span></code>, <code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code>, <code class="docutils literal notranslate"><span class="pre">gripper_controller</span></code></p></td>
+<td><p>Digital I/O (gripper control)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">libecapi.so</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_engine_node</span></code>, <code class="docutils literal notranslate"><span class="pre">wmx_ethercat_node</span></code></p></td>
+<td><p>EtherCAT network scan and diagnostics</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="node-coordination">
+<h2>Node Coordination<a class="headerlink" href="#node-coordination" title="Link to this heading">#</a></h2>
+<p>Nodes start up in a fixed order, coordinated by two <code class="docutils literal notranslate"><span class="pre">ready</span></code> heartbeat
+topics so that dependent nodes only activate once the engine and motion
+layers are live:</p>
+<figure class="align-default" id="id1">
+<pre data-zoom-id="id-75fdf544-8ca6-4319-bb75-e1a75e2996cd" class="mermaid">
+        sequenceDiagram
+    participant E as wmx_engine_node
+    participant C as wmx_core_motion_node
+    participant I as wmx_io_node / wmx_ethercat_node
+    participant M as manipulator controllers
+
+    E-&gt;&gt;E: CreateDevice + StartCommunication
+    E--&gt;&gt;C: /wmx/engine/ready (Bool)
+    E--&gt;&gt;I: /wmx/engine/ready (Bool)
+    E--&gt;&gt;M: /wmx/engine/ready (Bool)
+    C--&gt;&gt;M: /wmx/core_motion/ready (Bool)
+    Note over M: joint_state_broadcaster waits on&lt;br/&gt;/wmx/core_motion/ready before publishing
+    </pre><figcaption>
+<p><span class="caption-text">Node startup coordination via ready signals</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">wmx_engine_node</span></code> creates the WMX device, starts EtherCAT communication,
+and publishes <code class="docutils literal notranslate"><span class="pre">/wmx/engine/ready</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">wmx_core_motion_node</span></code>, <code class="docutils literal notranslate"><span class="pre">wmx_io_node</span></code>, <code class="docutils literal notranslate"><span class="pre">wmx_ethercat_node</span></code>,
+<code class="docutils literal notranslate"><span class="pre">gripper_controller</span></code>, and <code class="docutils literal notranslate"><span class="pre">joint_trajectory_controller</span></code> wait for
+<code class="docutils literal notranslate"><span class="pre">/wmx/engine/ready</span></code> before activating.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">wmx_core_motion_node</span></code> publishes <code class="docutils literal notranslate"><span class="pre">/wmx/core_motion/ready</span></code>;
+<code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code> waits for it before loading parameters and
+publishing joint feedback.</p></li>
+</ul>
+</section>
+<section id="general-nodes">
+<h2>General Nodes<a class="headerlink" href="#general-nodes" title="Link to this heading">#</a></h2>
+<section id="wmx-engine-node">
+<h3>wmx_engine_node<a class="headerlink" href="#wmx-engine-node" title="Link to this heading">#</a></h3>
+<p>Manages the WMX device lifecycle: creates the device, starts/stops EtherCAT
+communication, and publishes a ready signal to coordinate dependent nodes.
+On startup it automatically calls <code class="docutils literal notranslate"><span class="pre">CreateDevice</span></code> and <code class="docutils literal notranslate"><span class="pre">StartCommunication</span></code>,
+and also exposes manual-override services.</p>
+<p><strong>Source:</strong> <code class="docutils literal notranslate"><span class="pre">src/wmx_engine_node.cpp</span></code> — <strong>Node name:</strong> <code class="docutils literal notranslate"><span class="pre">wmx_engine_node</span></code></p>
+<div class="pst-scrollable-table-container"><table class="table" id="id2">
+<caption><span class="caption-text">Services</span><a class="headerlink" href="#id2" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 35.0%" />
+<col style="width: 35.0%" />
+<col style="width: 30.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Service</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/engine/set_device</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/SetEngine</span></code></p></td>
+<td><p>Create or close the WMX device handle</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/engine/set_comm</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">std_srvs/srv/SetBool</span></code></p></td>
+<td><p>Start or stop EtherCAT communication</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/engine/get_status</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">std_srvs/srv/Trigger</span></code></p></td>
+<td><p>Query engine state (Idle/Running/Communicating/Shutdown)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/engine/scan_network</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">std_srvs/srv/Trigger</span></code></p></td>
+<td><p>Trigger EtherCAT network scan to discover slaves</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Publishes <code class="docutils literal notranslate"><span class="pre">/wmx/engine/ready</span></code> (<code class="docutils literal notranslate"><span class="pre">std_msgs/msg/Bool</span></code>) — <code class="docutils literal notranslate"><span class="pre">true</span></code> when
+communication is active, <code class="docutils literal notranslate"><span class="pre">false</span></code> on shutdown.</p>
+</section>
+<section id="wmx-core-motion-node">
+<h3>wmx_core_motion_node<a class="headerlink" href="#wmx-core-motion-node" title="Link to this heading">#</a></h3>
+<p>Provides service-based axis control, XML parameter load/get, topic-based
+motion commands, and per-axis state publishing. Waits for
+<code class="docutils literal notranslate"><span class="pre">/wmx/engine/ready</span></code> before activating.</p>
+<p><strong>Source:</strong> <code class="docutils literal notranslate"><span class="pre">src/wmx_core_motion_node.cpp</span></code> — <strong>Node name:</strong> <code class="docutils literal notranslate"><span class="pre">wmx_core_motion_node</span></code></p>
+<div class="pst-scrollable-table-container"><table class="table" id="id3">
+<caption><span class="caption-text">Services</span><a class="headerlink" href="#id3" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 35.0%" />
+<col style="width: 35.0%" />
+<col style="width: 30.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Service</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/axis/set_on</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/SetAxis</span></code></p></td>
+<td><p>Enable/disable servo drives</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/axis/clear_alarm</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/SetAxis</span></code></p></td>
+<td><p>Clear amplifier faults</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/axis/set_mode</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/SetAxis</span></code></p></td>
+<td><p>Set position (0) or velocity (1) mode</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/axis/set_polarity</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/SetAxis</span></code></p></td>
+<td><p>Set rotation direction (1 or -1)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/axis/set_gear_ratio</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/SetAxisGearRatio</span></code></p></td>
+<td><p>Configure encoder gear ratio</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/axis/homing</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/SetAxis</span></code></p></td>
+<td><p>Set current position as home (zero)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/params/load</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/LoadWmxParams</span></code></p></td>
+<td><p>Load axis parameters from a WMX3 XML file</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/params/get</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/GetWmxParams</span></code></p></td>
+<td><p>Retrieve active axis parameters as text</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Published topic:</strong> <code class="docutils literal notranslate"><span class="pre">/wmx/axis/state</span></code> (<code class="docutils literal notranslate"><span class="pre">wmx_r2_message/msg/AxisState</span></code>,
+100 Hz) — full per-axis status.</p>
+<p><strong>Subscribed topics:</strong> <code class="docutils literal notranslate"><span class="pre">/wmx/axis/velocity</span></code> (<code class="docutils literal notranslate"><span class="pre">AxisVelocity</span></code> →
+<code class="docutils literal notranslate"><span class="pre">CoreMotion::StartVel()</span></code>), <code class="docutils literal notranslate"><span class="pre">/wmx/axis/position</span></code> (<code class="docutils literal notranslate"><span class="pre">AxisPose</span></code> →
+<code class="docutils literal notranslate"><span class="pre">CoreMotion::StartPos()</span></code>), <code class="docutils literal notranslate"><span class="pre">/wmx/axis/position/relative</span></code> (<code class="docutils literal notranslate"><span class="pre">AxisPose</span></code> →
+<code class="docutils literal notranslate"><span class="pre">CoreMotion::StartMov()</span></code>). Also publishes <code class="docutils literal notranslate"><span class="pre">/wmx/core_motion/ready</span></code>.</p>
+</section>
+<section id="wmx-io-node">
+<h3>wmx_io_node<a class="headerlink" href="#wmx-io-node" title="Link to this heading">#</a></h3>
+<p>Service-based access to EtherCAT digital I/O. Waits for <code class="docutils literal notranslate"><span class="pre">/wmx/engine/ready</span></code>.</p>
+<p><strong>Source:</strong> <code class="docutils literal notranslate"><span class="pre">src/wmx_io_node.cpp</span></code> — <strong>Node name:</strong> <code class="docutils literal notranslate"><span class="pre">wmx_io_node</span></code></p>
+<div class="pst-scrollable-table-container"><table class="table" id="id4">
+<caption><span class="caption-text">Services</span><a class="headerlink" href="#id4" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 35.0%" />
+<col style="width: 35.0%" />
+<col style="width: 30.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Service</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/io/get_input_bit</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/GetIoBit</span></code></p></td>
+<td><p>Read a single digital input bit</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/io/get_output_bit</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/GetIoBit</span></code></p></td>
+<td><p>Read back a digital output bit</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/io/get_input_bytes</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/GetIoBytes</span></code></p></td>
+<td><p>Read a block of digital input bytes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/io/get_output_bytes</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/GetIoBytes</span></code></p></td>
+<td><p>Read a block of digital output bytes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/io/set_output_bit</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/SetIoBit</span></code></p></td>
+<td><p>Write a single digital output bit</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/io/set_output_bytes</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/SetIoBytes</span></code></p></td>
+<td><p>Write a block of digital output bytes</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="wmx-ethercat-node">
+<h3>wmx_ethercat_node<a class="headerlink" href="#wmx-ethercat-node" title="Link to this heading">#</a></h3>
+<p>EtherCAT diagnostic services for network monitoring and debugging. Waits for
+<code class="docutils literal notranslate"><span class="pre">/wmx/engine/ready</span></code>.</p>
+<p><strong>Source:</strong> <code class="docutils literal notranslate"><span class="pre">src/wmx_ethercat_node.cpp</span></code> — <strong>Node name:</strong> <code class="docutils literal notranslate"><span class="pre">wmx_ethercat_node</span></code></p>
+<div class="pst-scrollable-table-container"><table class="table" id="id5">
+<caption><span class="caption-text">Services</span><a class="headerlink" href="#id5" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 35.0%" />
+<col style="width: 40.0%" />
+<col style="width: 25.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Service</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/ecat/get_network_state</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/EcatGetNetworkState</span></code></p></td>
+<td><p>Full network state: master + all slaves</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/ecat/register_read</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/EcatRegisterRead</span></code></p></td>
+<td><p>Read raw EtherCAT register from a slave</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/ecat/reset_statistics</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/EcatResetStatistics</span></code></p></td>
+<td><p>Reset packet loss / timing counters</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/ecat/start_hotconnect</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/EcatStartHotconnect</span></code></p></td>
+<td><p>Initiate hot-connect for dynamic slave addition</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="manipulator-controllers">
+<h2>Manipulator Controllers<a class="headerlink" href="#manipulator-controllers" title="Link to this heading">#</a></h2>
+<section id="joint-state-broadcaster">
+<h3>joint_state_broadcaster<a class="headerlink" href="#joint-state-broadcaster" title="Link to this heading">#</a></h3>
+<p>Loads the robot’s WMX axis parameters and publishes encoder feedback as
+<code class="docutils literal notranslate"><span class="pre">JointState</span></code> (plus simulator mirrors). Waits for <code class="docutils literal notranslate"><span class="pre">/wmx/core_motion/ready</span></code>
+before publishing.</p>
+<p><strong>Source:</strong> <code class="docutils literal notranslate"><span class="pre">src/joint_state_broadcaster.cpp</span></code> — <strong>Node name:</strong> <code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code></p>
+<div class="pst-scrollable-table-container"><table class="table" id="id6">
+<caption><span class="caption-text">Parameters</span><a class="headerlink" href="#id6" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 32.0%" />
+<col style="width: 16.0%" />
+<col style="width: 52.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">joint_axes</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int[]</span></code></p></td>
+<td><p>WMX axis indices for the robot joints (e.g. <code class="docutils literal notranslate"><span class="pre">[0,1,2,3,4,5]</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">joint_feedback_rate</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p>Encoder publish rate in Hz</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">gripper_open_value</span></code> / <code class="docutils literal notranslate"><span class="pre">gripper_close_value</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">double</span></code></p></td>
+<td><p>Joint position reported when the gripper is open / closed</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">joint_name</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string[]</span></code></p></td>
+<td><p>Joint names for the JointState message</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">gripper_joint_name</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string[]</span></code></p></td>
+<td><p>Gripper finger joint names (e.g. <code class="docutils literal notranslate"><span class="pre">picker_1_joint</span></code>, <code class="docutils literal notranslate"><span class="pre">picker_2_joint</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">gripper_address</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int[]</span></code></p></td>
+<td><p>I/O <code class="docutils literal notranslate"><span class="pre">[byte,</span> <span class="pre">bit]</span></code> address read for gripper state</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">encoder_joint_topic</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>Primary joint state topic (typically <code class="docutils literal notranslate"><span class="pre">/joint_states</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">isaacsim_joint_topic</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>Isaac Sim joint command topic</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">gazebo_joint_topic</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>Gazebo position controller topic</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">wmx_param_file_path</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>Absolute path to the WMX axis parameter XML (resolved at launch)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table" id="id7">
+<caption><span class="caption-text">Published Topics</span><a class="headerlink" href="#id7" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 35.0%" />
+<col style="width: 35.0%" />
+<col style="width: 30.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Topic (param)</p></th>
+<th class="head"><p>Message Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">encoder_joint_topic</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sensor_msgs/msg/JointState</span></code></p></td>
+<td><p>Joint positions + gripper state</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">isaacsim_joint_topic</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sensor_msgs/msg/JointState</span></code></p></td>
+<td><p>Mirror for Isaac Sim</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">gazebo_joint_topic</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">std_msgs/msg/Float64MultiArray</span></code></p></td>
+<td><p>Joint positions for Gazebo</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="joint-trajectory-controller">
+<h3>joint_trajectory_controller<a class="headerlink" href="#joint-trajectory-controller" title="Link to this heading">#</a></h3>
+<p>Action server that executes MoveIt2-planned trajectories on the robot using
+WMX cubic spline interpolation. Waits for <code class="docutils literal notranslate"><span class="pre">/wmx/engine/ready</span></code>.</p>
+<p><strong>Source:</strong> <code class="docutils literal notranslate"><span class="pre">src/joint_trajectory_controller.cpp</span></code> — <strong>Node name:</strong> <code class="docutils literal notranslate"><span class="pre">joint_trajectory_controller</span></code></p>
+<div class="pst-scrollable-table-container"><table class="table" id="id8">
+<caption><span class="caption-text">Parameters</span><a class="headerlink" href="#id8" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 32.0%" />
+<col style="width: 16.0%" />
+<col style="width: 52.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">joint_axes</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int[]</span></code></p></td>
+<td><p>WMX axis indices (sets the spline <code class="docutils literal notranslate"><span class="pre">dimensionCount</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">joint_trajectory_action</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>Action server name for <code class="docutils literal notranslate"><span class="pre">FollowJointTrajectory</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Hosts the <code class="docutils literal notranslate"><span class="pre">FollowJointTrajectory</span></code> action
+(<code class="docutils literal notranslate"><span class="pre">control_msgs/action/FollowJointTrajectory</span></code>). See
+<a class="reference internal" href="ros2_actions.html"><span class="doc">ROS2 Actions</span></a> for the full execution details.</p>
+</section>
+<section id="gripper-controller">
+<h3>gripper_controller<a class="headerlink" href="#gripper-controller" title="Link to this heading">#</a></h3>
+<p>Controls the pneumatic gripper via EtherCAT digital I/O. Waits for
+<code class="docutils literal notranslate"><span class="pre">/wmx/engine/ready</span></code>.</p>
+<p><strong>Source:</strong> <code class="docutils literal notranslate"><span class="pre">src/gripper_controller.cpp</span></code> — <strong>Node name:</strong> <code class="docutils literal notranslate"><span class="pre">gripper_controller</span></code></p>
+<div class="pst-scrollable-table-container"><table class="table" id="id9">
+<caption><span class="caption-text">Parameters</span><a class="headerlink" href="#id9" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 32.0%" />
+<col style="width: 16.0%" />
+<col style="width: 52.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">wmx_gripper_topic</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>Service name for gripper open/close (typically <code class="docutils literal notranslate"><span class="pre">/wmx/set_gripper</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">gripper_address</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int[]</span></code></p></td>
+<td><p>I/O <code class="docutils literal notranslate"><span class="pre">[byte,</span> <span class="pre">bit]</span></code> address written to actuate the gripper</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The gripper service is a <code class="docutils literal notranslate"><span class="pre">std_srvs/srv/SetBool</span></code> (<code class="docutils literal notranslate"><span class="pre">true</span></code> = close,
+<code class="docutils literal notranslate"><span class="pre">false</span></code> = open) backed by <code class="docutils literal notranslate"><span class="pre">Io::SetOutBit</span></code>.</p>
+</section>
+</section>
+<section id="launch-files">
+<h2>Launch Files<a class="headerlink" href="#launch-files" title="Link to this heading">#</a></h2>
+<section id="wmx-r2-general-nodes-launch-py">
+<h3>wmx_r2_general_nodes.launch.py<a class="headerlink" href="#wmx-r2-general-nodes-launch-py" title="Link to this heading">#</a></h3>
+<p>Starts the four general nodes for standalone axis/IO/EtherCAT control without
+manipulator controllers.</p>
+<p><strong>Nodes launched:</strong> <code class="docutils literal notranslate"><span class="pre">wmx_engine_node</span></code>, <code class="docutils literal notranslate"><span class="pre">wmx_core_motion_node</span></code>,
+<code class="docutils literal notranslate"><span class="pre">wmx_io_node</span></code>, <code class="docutils literal notranslate"><span class="pre">wmx_ethercat_node</span></code>.</p>
+<p><strong>Arguments:</strong> <code class="docutils literal notranslate"><span class="pre">use_sim_time</span></code> (default <code class="docutils literal notranslate"><span class="pre">false</span></code>). <strong>Config:</strong> none.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>wmx_r2_package<span class="w"> </span>wmx_r2_general_nodes.launch.py
+</pre></div>
+</div>
+</section>
+<section id="wmx-r2-cr3a-manipulator-launch-py">
+<h3>wmx_r2_cr3a_manipulator.launch.py<a class="headerlink" href="#wmx-r2-cr3a-manipulator-launch-py" title="Link to this heading">#</a></h3>
+<p>Full Dobot CR3A manipulator launch. Includes
+<code class="docutils literal notranslate"><span class="pre">wmx_r2_general_nodes.launch.py</span></code> and then starts the manipulator
+controllers.</p>
+<p><strong>Nodes launched:</strong> the four general nodes (via include), plus
+<code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code>, <code class="docutils literal notranslate"><span class="pre">joint_trajectory_controller</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">gripper_controller</span></code>.</p>
+<p><strong>Arguments:</strong> <code class="docutils literal notranslate"><span class="pre">use_sim_time</span></code> (default <code class="docutils literal notranslate"><span class="pre">false</span></code>).
+<strong>Config:</strong> <code class="docutils literal notranslate"><span class="pre">config/cr3a_manipulator_config.yaml</span></code> and
+<code class="docutils literal notranslate"><span class="pre">config/cr3a_wmx_parameters.xml</span></code> (the WMX parameter path is resolved at
+launch time).</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>wmx_r2_package<span class="w"> </span>wmx_r2_cr3a_manipulator.launch.py<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>use_sim_time:<span class="o">=</span><span class="nb">false</span>
+</pre></div>
+</div>
+</section>
+<section id="wmx-r2-cr5a-manipulator-launch-py">
+<h3>wmx_r2_cr5a_manipulator.launch.py<a class="headerlink" href="#wmx-r2-cr5a-manipulator-launch-py" title="Link to this heading">#</a></h3>
+<p>Full Dobot CR5A manipulator launch. Includes the general nodes and starts
+<code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code> and <code class="docutils literal notranslate"><span class="pre">joint_trajectory_controller</span></code>.</p>
+<p><strong>Arguments:</strong> <code class="docutils literal notranslate"><span class="pre">use_sim_time</span></code> (default <code class="docutils literal notranslate"><span class="pre">false</span></code>).
+<strong>Config:</strong> <code class="docutils literal notranslate"><span class="pre">config/cr5a_manipulator_config.yaml</span></code> and
+<code class="docutils literal notranslate"><span class="pre">config/cr5a_wmx_parameters.xml</span></code>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>wmx_r2_package<span class="w"> </span>wmx_r2_cr5a_manipulator.launch.py<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>use_sim_time:<span class="o">=</span><span class="nb">false</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The launch commands above assume the workspace is already sourced. On real
+hardware the nodes require <code class="docutils literal notranslate"><span class="pre">sudo</span></code> with the ROS2 environment preserved —
+see <a class="reference internal" href="../getting_started/install_wmx3.html"><span class="doc">Install WMX R2 Package</span></a> for the full <code class="docutils literal notranslate"><span class="pre">sudo</span>
+<span class="pre">--preserve-env</span></code> invocation.</p>
+</div>
+</section>
+</section>
+<section id="configuration-files">
+<h2>Configuration Files<a class="headerlink" href="#configuration-files" title="Link to this heading">#</a></h2>
+<section id="cr3a-manipulator-config-yaml">
+<h3>cr3a_manipulator_config.yaml<a class="headerlink" href="#cr3a-manipulator-config-yaml" title="Link to this heading">#</a></h3>
+<p>Parameters for the Dobot CR3A manipulator, shared by the three manipulator
+controllers:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">joint_state_broadcaster</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">joint_feedback_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class="w">    </span><span class="nt">gripper_open_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.00</span>
+<span class="w">    </span><span class="nt">gripper_close_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.045</span>
+<span class="w">    </span><span class="nt">joint_axes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">2</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">3</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">4</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">5</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">joint_name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;joint1&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;joint2&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;joint3&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;joint4&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;joint5&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;joint6&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">gripper_joint_name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;picker_1_joint&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;picker_2_joint&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">gripper_address</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">encoder_joint_topic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/joint_states</span>
+<span class="w">    </span><span class="nt">isaacsim_joint_topic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/isaacsim/joint_command</span>
+<span class="w">    </span><span class="nt">gazebo_joint_topic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/gazebo_position_controller/commands</span>
+<span class="w">    </span><span class="nt">wmx_param_file_path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w">   </span><span class="c1"># resolved at launch via get_package_share_directory</span>
+
+<span class="nt">joint_trajectory_controller</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">joint_axes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">2</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">3</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">4</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">5</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">joint_trajectory_action</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/movensys_manipulator_arm_controller/follow_joint_trajectory</span>
+
+<span class="nt">gripper_controller</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">wmx_gripper_topic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/wmx/set_gripper</span>
+<span class="w">    </span><span class="nt">gripper_address</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+</section>
+<section id="cr5a-manipulator-config-yaml">
+<h3>cr5a_manipulator_config.yaml<a class="headerlink" href="#cr5a-manipulator-config-yaml" title="Link to this heading">#</a></h3>
+<p>The CR5A equivalent of the CR3A config, used by the CR5A launch file. It
+configures <code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code> and <code class="docutils literal notranslate"><span class="pre">joint_trajectory_controller</span></code> for
+the CR5A robot.</p>
+</section>
+<section id="wmx-parameter-xml-files">
+<h3>WMX Parameter XML Files<a class="headerlink" href="#wmx-parameter-xml-files" title="Link to this heading">#</a></h3>
+<p>Robot-specific WMX parameter files define per-axis motor configuration (gear
+ratios, polarities, limits, home positions):</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cr3a_wmx_parameters.xml</span></code> – Dobot CR3A manipulator (6 joints)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cr5a_wmx_parameters.xml</span></code> – Dobot CR5A manipulator (6 joints)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">diffbot_wmx_parameters.xml</span></code> – differential-drive base axes</p></li>
+</ul>
+<p>These files are loaded at runtime via
+<code class="docutils literal notranslate"><span class="pre">CoreMotion::config-&gt;ImportAndSetAll(path)</span></code>.</p>
+</section>
+</section>
+<section id="building-the-package">
+<h2>Building the Package<a class="headerlink" href="#building-the-package" title="Link to this heading">#</a></h2>
+<p>This package depends on <code class="docutils literal notranslate"><span class="pre">wmx_r2_message</span></code> and must be built after it:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/workspaces/movensys_ws
+
+<span class="c1"># Stage 1: Build message package</span>
+colcon<span class="w"> </span>build<span class="w"> </span>--packages-select<span class="w"> </span>wmx_r2_message
+<span class="nb">source</span><span class="w"> </span>install/setup.bash
+
+<span class="c1"># Stage 2: Build application package</span>
+colcon<span class="w"> </span>build<span class="w"> </span>--packages-select<span class="w"> </span>wmx_r2_package
+<span class="nb">source</span><span class="w"> </span>install/setup.bash
+</pre></div>
+</div>
+<p>Verify executables are available:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>pkg<span class="w"> </span>executables<span class="w"> </span>wmx_r2_package
+</pre></div>
+</div>
+<p>Expected:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>wmx_r2_package gripper_controller
+wmx_r2_package joint_state_broadcaster
+wmx_r2_package joint_trajectory_controller
+wmx_r2_package wmx_core_motion_node
+wmx_r2_package wmx_engine_node
+wmx_r2_package wmx_ethercat_node
+wmx_r2_package wmx_io_node
+</pre></div>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="wmx_r2_message.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">wmx_r2_message</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../support.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Support</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#package-structure">Package Structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dependencies">Dependencies</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#package-dependencies-package-xml">Package Dependencies (package.xml)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cmake-dependencies-find-package">CMake Dependencies (find_package)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wmx-libraries-external">WMX Libraries (External)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#node-coordination">Node Coordination</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#general-nodes">General Nodes</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wmx-engine-node">wmx_engine_node</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wmx-core-motion-node">wmx_core_motion_node</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wmx-io-node">wmx_io_node</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wmx-ethercat-node">wmx_ethercat_node</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#manipulator-controllers">Manipulator Controllers</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#joint-state-broadcaster">joint_state_broadcaster</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#joint-trajectory-controller">joint_trajectory_controller</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gripper-controller">gripper_controller</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#launch-files">Launch Files</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wmx-r2-general-nodes-launch-py">wmx_r2_general_nodes.launch.py</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wmx-r2-cr3a-manipulator-launch-py">wmx_r2_cr3a_manipulator.launch.py</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wmx-r2-cr5a-manipulator-launch-py">wmx_r2_cr5a_manipulator.launch.py</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuration-files">Configuration Files</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cr3a-manipulator-config-yaml">cr3a_manipulator_config.yaml</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cr5a-manipulator-config-yaml">cr5a_manipulator_config.yaml</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wmx-parameter-xml-files">WMX Parameter XML Files</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-the-package">Building the Package</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5"></script>
+
+<footer class="bd-footer">
+<div class="movensys-footer">
+  <div class="movensys-footer__logo">
+    <a href="https://www.movensys.com" target="_blank" rel="noopener">
+      <img src="../_static/movensys_wordmark.png" alt="Movensys" />
+    </a>
+  </div>
+  <div class="movensys-footer__info">
+    <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
+    
+      <p>Last updated: Jul 16, 2026</p>
+    
+  </div>
+  <div class="movensys-footer__links">
+    <a href="https://www.movensys.com" target="_blank" rel="noopener">MOVENSYS.com</a>
+    <a href="https://www.movensys.com/privacy" target="_blank" rel="noopener">Privacy Policy</a>
+  </div>
+</div>
+</footer>
+  </body>
+</html>

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Building Custom Applications &#8212; WMX ROS2 Documentation 1.0.0 documentation</title>
+    <title>Building Custom Applications &#8212; WMX R2 Documentation 1.0.0 documentation</title>
   
   
   
@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=4bf0b306" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=541d874a" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
@@ -55,7 +55,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Jul 15, 2026"/>
+    <meta name="docbuild:last-update" content="Jul 16, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -129,7 +129,7 @@
     <img src="../_static/movensys_logo.png" class="logo__image only-dark pst-js-only" alt=""/>
   
   
-    <p class="title logo__title">WMX ROS2 Documentation</p>
+    <p class="title logo__title">WMX R2 Documentation</p>
   
 </a></div>
     
@@ -168,7 +168,7 @@
           
           
           
-          <a href="https://github.com/movensys/wmx-ros2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+          <a href="https://github.com/movensys/wmx-r2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
 </ul></div>
       
@@ -231,7 +231,7 @@
           
           
           
-          <a href="https://github.com/movensys/wmx-ros2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+          <a href="https://github.com/movensys/wmx-r2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
 </ul></div>
         
@@ -250,7 +250,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../getting_started/computer_setup.html">Computer Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx_runtime.html">Install WMX Runtime</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx3.html">Install WMX ROS2 Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx3.html">Install WMX R2 Package</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/examples.html">Example Applications</a><ul>
@@ -288,8 +288,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_services.html">ROS2 Services</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_topics.html">ROS2 Topics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_actions.html">ROS2 Actions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_ros2_message.html">wmx_ros2_message</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_ros2_package.html">wmx_ros2_package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_message.html">wmx_r2_message</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_package.html">wmx_r2_package</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../support.html">Support</a><ul>
@@ -384,9 +384,9 @@ document.addEventListener("DOMContentLoaded", function() {
 <h1>Building Custom Applications<a class="headerlink" href="#building-custom-applications" title="Link to this heading">#</a></h1>
 <section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
-<p>The WMX ROS2 packages expose standard ROS2 interfaces (actions, services, and
+<p>The WMX R2 packages expose standard ROS2 interfaces (actions, services, and
 topics) that any ROS2 node can interact with. You can build custom applications
-in <strong>Python</strong> or <strong>C++</strong> that control the robot without modifying the WMX ROS2
+in <strong>Python</strong> or <strong>C++</strong> that control the robot without modifying the WMX R2
 source code.</p>
 <p>The system is designed for <strong>generic 6-DOF robot arms</strong> with EtherCAT servo
 drives. The ROS2 interface layer is independent of the specific robot model –
@@ -405,16 +405,16 @@ planners)</p></li>
 <li><p><strong>Direct axis control</strong> – Publish velocity or position commands to
 individual axes via topics (used for low-level or real-time control)</p></li>
 </ol>
-<p>The examples below focus on approaches 2 and 3, which use the <code class="docutils literal notranslate"><span class="pre">wmx_ros2_package</span></code>
+<p>The examples below focus on approaches 2 and 3, which use the <code class="docutils literal notranslate"><span class="pre">wmx_r2_package</span></code>
 interfaces directly.</p>
 </section>
 <section id="prerequisites">
 <h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">#</a></h2>
 <p>Before building a custom application:</p>
 <ul class="simple">
-<li><p>WMX ROS2 packages are installed and built
+<li><p>WMX R2 packages are installed and built
 (see <a class="reference internal" href="../getting_started/index.html"><span class="doc">Getting Started</span></a>)</p></li>
-<li><p>The WMX ROS2 nodes are running (either the manipulator launch or
+<li><p>The WMX R2 nodes are running (either the manipulator launch or
 the general launch)</p></li>
 <li><p>Your workspace is sourced: <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">~/workspaces/movensys_ws/install/setup.bash</span></code></p></li>
 <li><p>You have a basic understanding of ROS2 actions, services, and topics</p></li>
@@ -466,7 +466,7 @@ the general launch)</p></li>
 <td><p>Open/close gripper</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/axis/set_on</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">wmx_ros2_message/srv/SetAxis</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/SetAxis</span></code></p></td>
 <td><p>Enable/disable servos</p></td>
 </tr>
 </tbody>
@@ -494,22 +494,22 @@ the general launch)</p></li>
 <td><p>Current joint positions and velocities</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/axis/state</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">wmx_ros2_message/msg/AxisState</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/msg/AxisState</span></code></p></td>
 <td><p>100 Hz</p></td>
 <td><p>Detailed axis status (alarms, limits, torques)</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/axis/velocity</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">wmx_ros2_message/msg/AxisVelocity</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/msg/AxisVelocity</span></code></p></td>
 <td><p>On demand</p></td>
 <td><p>Velocity commands</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/axis/position</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">wmx_ros2_message/msg/AxisPose</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/msg/AxisPose</span></code></p></td>
 <td><p>On demand</p></td>
 <td><p>Absolute position commands</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/axis/position/relative</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">wmx_ros2_message/msg/AxisPose</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/msg/AxisPose</span></code></p></td>
 <td><p>On demand</p></td>
 <td><p>Relative position commands</p></td>
 </tr>
@@ -525,7 +525,7 @@ the general launch)</p></li>
 the <code class="docutils literal notranslate"><span class="pre">FollowJointTrajectory</span></code> action server. The robot moves from the current
 position to the specified joint targets.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
-<span class="sd">&quot;&quot;&quot;Send a joint trajectory to the WMX ROS2 joint_trajectory_controller.&quot;&quot;&quot;</span>
+<span class="sd">&quot;&quot;&quot;Send a joint trajectory to the WMX R2 joint_trajectory_controller.&quot;&quot;&quot;</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">rclpy</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">rclpy.action</span><span class="w"> </span><span class="kn">import</span> <span class="n">ActionClient</span>
@@ -877,7 +877,7 @@ sends goals to the same <code class="docutils literal notranslate"><span class="
     <span class="c1"># package for your robot to be available.</span>
     <span class="c1">#</span>
     <span class="c1"># The typical workflow is:</span>
-    <span class="c1"># 1. Launch the WMX ROS2 manipulator nodes (provides /joint_states)</span>
+    <span class="c1"># 1. Launch the WMX R2 manipulator nodes (provides /joint_states)</span>
     <span class="c1"># 2. Launch MoveIt2 with your robot&#39;s config package</span>
     <span class="c1"># 3. Use MoveGroupInterface to plan and execute</span>
     <span class="c1">#</span>
@@ -894,7 +894,7 @@ sends goals to the same <code class="docutils literal notranslate"><span class="
 
     <span class="n">node</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
         <span class="s1">&#39;MoveIt2 integration requires:</span><span class="se">\n</span><span class="s1">&#39;</span>
-        <span class="s1">&#39;  1. WMX ROS2 manipulator nodes running</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="s1">&#39;  1. WMX R2 manipulator nodes running</span><span class="se">\n</span><span class="s1">&#39;</span>
         <span class="s1">&#39;  2. MoveIt2 config package for your robot</span><span class="se">\n</span><span class="s1">&#39;</span>
         <span class="s1">&#39;  3. MoveIt2 move_group node running</span><span class="se">\n</span><span class="s1">&#39;</span>
         <span class="s1">&#39;See: ros2 launch &lt;your_moveit_config&gt; move_group.launch.py&#39;</span>
@@ -923,7 +923,7 @@ the <code class="docutils literal notranslate"><span class="pre">wmx_core_motion
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">rclpy</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">rclpy.node</span><span class="w"> </span><span class="kn">import</span> <span class="n">Node</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">wmx_ros2_message.msg</span><span class="w"> </span><span class="kn">import</span> <span class="n">AxisVelocity</span><span class="p">,</span> <span class="n">AxisPose</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">wmx_r2_message.msg</span><span class="w"> </span><span class="kn">import</span> <span class="n">AxisVelocity</span><span class="p">,</span> <span class="n">AxisPose</span>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">DirectAxisControl</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
@@ -1019,7 +1019,7 @@ commands bypass MoveIt2 collision checking.</p>
 </section>
 <section id="adapting-for-different-6-dof-robots">
 <h2>Adapting for Different 6-DOF Robots<a class="headerlink" href="#adapting-for-different-6-dof-robots" title="Link to this heading">#</a></h2>
-<p>The WMX ROS2 system is designed to be robot-agnostic. Supporting a new 6-DOF
+<p>The WMX R2 system is designed to be robot-agnostic. Supporting a new 6-DOF
 manipulator with EtherCAT servo drives requires changes to configuration files
 only – no source code modifications are needed.</p>
 <section id="configuration-files-to-create-or-modify">
@@ -1043,7 +1043,7 @@ gripper values, topic names, and <code class="docutils literal notranslate"><spa
 <td><p>Define gear ratios, axis polarities, encoder modes, homing parameters,
 and limit switch settings for each servo axis</p></td>
 </tr>
-<tr class="row-even"><td><p><strong>Launch file</strong> (e.g., <code class="docutils literal notranslate"><span class="pre">wmx_ros2_new_robot.launch.py</span></code>)</p></td>
+<tr class="row-even"><td><p><strong>Launch file</strong> (e.g., <code class="docutils literal notranslate"><span class="pre">wmx_r2_new_robot.launch.py</span></code>)</p></td>
 <td><p>Point to the new YAML config and launch the 3 standard nodes</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>ENI files</strong> (in <code class="docutils literal notranslate"><span class="pre">eni/</span></code> directory)</p></td>
@@ -1092,11 +1092,11 @@ collision geometry.</p></li>
 <code class="docutils literal notranslate"><span class="pre">joint_trajectory_controller</span></code>, <code class="docutils literal notranslate"><span class="pre">wmx_core_motion_node</span></code>)</p></li>
 <li><p>All service and topic names</p></li>
 <li><p>The <code class="docutils literal notranslate"><span class="pre">FollowJointTrajectory</span></code> action interface</p></li>
-<li><p>The <code class="docutils literal notranslate"><span class="pre">wmx_ros2_message</span></code> custom message types</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">wmx_r2_message</span></code> custom message types</p></li>
 <li><p>The build process</p></li>
 </ul>
-<p>See <a class="reference internal" href="../api_reference/wmx_ros2_package.html"><span class="doc">wmx_ros2_package</span></a> for node and parameter details
-and <a class="reference internal" href="../api_reference/wmx_ros2_message.html"><span class="doc">wmx_ros2_message</span></a> for the custom interface types.</p>
+<p>See <a class="reference internal" href="../api_reference/wmx_r2_package.html"><span class="doc">wmx_r2_package</span></a> for node and parameter details
+and <a class="reference internal" href="../api_reference/wmx_r2_message.html"><span class="doc">wmx_r2_message</span></a> for the custom interface types.</p>
 </section>
 </section>
 </section>
@@ -1192,7 +1192,7 @@ and <a class="reference internal" href="../api_reference/wmx_ros2_message.html">
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Jul 15, 2026</p>
+      <p>Last updated: Jul 16, 2026</p>
     
   </div>
   <div class="movensys-footer__links">

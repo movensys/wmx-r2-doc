@@ -1,17 +1,23 @@
-WMX ROS2 Documentation
+WMX R2 Documentation
 =======================
 
-WMX ROS2 brings industrial deterministic real-time motion control into the
-ROS2 ecosystem. WMX ROS2 is a set of ROS2 packages that drive
-industrial servos through the WMX motion control engine over EtherCAT. It turns
-planner output such as MoveIt2 and Nav2 trajectories into the precisely timed
-servo motion that industrial and physical AI applications demand, such as
-semiconductor equipment, manufacturing automation, and precision robotics.
+**WMX R2: The Real-Time Execution Layer for Physical AI.**
+
+WMX R2 brings industrial deterministic real-time robotics motion control into the
+ROS 2 ecosystem. WMX R2 is a set of ROS 2 packages that drive
+industrial servos through the WMX motion control engine over EtherCAT, a
+real-time industrial Ethernet network that links the controller to servo drives
+and I/O over a single cable.
+
+WMX R2 turns planner output such as MoveIt2 and Nav2 trajectories into the precisely timed
+servo motion that industrial and Physical AI applications demand.
+In the *See–Think–Act* flow of Physical AI, WMX R2 is the layer that turns an
+AI's judgment (*Think*) into a robot's real-world motion (*Act*), in real time. 
 
 The entire stack runs on a single edge device with no separate external motion
 controller, combining perception and deterministic motion into edge physical AI.
 
-WMX ROS2 integrates with widely used projects in the ROS2 ecosystem:
+WMX R2 integrates with widely used projects in the ROS2 ecosystem:
 
 * `MoveIt2 <https://moveit.ai/>`_ for manipulator motion planning
 * `Nav2 <https://nav2.org/>`_ for mobile robot navigation
@@ -28,14 +34,14 @@ WMX ROS2 integrates with widely used projects in the ROS2 ecosystem:
 
 
 
-.. figure:: /_static/images/wmx-ros2_overview.drawio.png
-   :alt: WMX ROS2 architecture overview
+.. figure:: /_static/images/wmx-r2_overview.drawio.png
+   :alt: WMX R2 architecture overview
    :align: center
    :width: 100%
 
-   WMX ROS2 architecture overview.
+   WMX R2 architecture overview.
 
-Why WMX ROS2?
+Why WMX R2?
 ----------------------------------------
 
 A planner such as MoveIt2 or Nav2 produces a trajectory that must become the
@@ -44,7 +50,7 @@ ROS2 setups bridge this execution gap with a closed industrial
 controller over TCP/IP, which adds latency the planner can never
 recover. The other common option sends raw EtherCAT commands and leaves
 smoothing and coordination to ROS2, which is not built for hard
-real-time system. WMX ROS2 closes this gap by bringing the WMX motion control engine into ROS2
+real-time system. WMX R2 closes this gap by bringing the WMX motion control engine into ROS2
 so planner output runs as smooth deterministic motion in one single edge device.
 
 .. figure:: /_static/images/one_ipc.png
@@ -62,7 +68,7 @@ compact footprint suits robots and mobile machines where space and payload are
 tight.
 
 
-WMX ROS2 is an open source MIT-licensed ROS2 package with
+WMX R2 is an open source MIT-licensed ROS2 package with
 timing-sensitive step: smoothing trajectories, coordinating joints, and
 emitting commands at the rate servo drivers expect. 
 It is built on the WMX motion control engine, which keeps motion on a
@@ -84,7 +90,7 @@ Performance comparison
          :width: 100%
 
          Representative run: joint-angle tracking for the reference, the
-         traditional external controller, and the proposed WMX ROS2.
+         traditional external controller, and the proposed WMX R2.
 
    .. grid-item::
 
@@ -96,7 +102,7 @@ Performance comparison
 
 We executed the same trajectory ten times. The left panel shows a representative run,
 and the right panel presents the per-sample mean absolute tracking error (MAE).
-The overall MAE corresponds to the time average of this curve. WMX ROS2 reduced
+The overall MAE corresponds to the time average of this curve. WMX R2 reduced
 the MAE by 85% relative to the conventional external controller, thanks to lower
 communication latency from removing the TCP/IP hop and a redundant control stage.
 
@@ -119,6 +125,7 @@ Where to go next
 * See :doc:`integration/integration` for the supported motion-planning and application integrations.
 * Refer to the :doc:`api_reference/api_reference` for ROS2 services, topics, and actions.
 * Consult :doc:`support` for common issues and their resolutions.
+
 
 
 

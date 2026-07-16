@@ -2,7 +2,7 @@ Example Applications
 ====================
 
 This section provides complete examples that you can run from start to finish
-on the WMX ROS2 stack. The **manipulator scenarios** come from the
+on the WMX R2 stack. The **manipulator scenarios** come from the
 `movensys-manipulator <https://github.com/movensys/movensys-manipulator>`_
 repository (Dobot CR3A / CR5A arms with MoveIt2 / Isaac cuMotion planning and
 Nvblox / YOLO / AprilTag perception). The **navigation scenarios** come from the
@@ -30,7 +30,7 @@ Every manipulator and navigation scenario runs in three execution modes:
 Common Requirements
 -------------------
 
-- The core WMX ROS2 packages built and the WMX Runtime at ``/opt/wmx3/``
+- The core WMX R2 packages built and the WMX Runtime at ``/opt/wmx3/``
   (see :doc:`../getting_started/index`)
 - Docker with ``docker compose`` (the examples run inside containers)
 - An NVIDIA GPU and Isaac ROS prerequisites for the ``isaac-ros_*`` images
