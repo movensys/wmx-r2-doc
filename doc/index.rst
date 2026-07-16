@@ -1,18 +1,18 @@
 WMX R2 Documentation
 =======================
 
-**WMX R2™ — The Real-Time Execution Layer for Physical AI.**
+**WMX R2: The Real-Time Execution Layer for Physical AI.**
 
-WMX R2 brings industrial deterministic real-time motion control into the
-ROS 2 [#ros_tm]_ ecosystem. WMX R2 is a set of ROS 2 packages that drive
-industrial servos through the WMX motion control engine over EtherCAT. It turns
-planner output such as MoveIt2 and Nav2 trajectories into the precisely timed
-servo motion that industrial and Physical AI applications demand, such as
-semiconductor equipment, manufacturing automation, and precision robotics.
+WMX R2 brings industrial deterministic real-time robotics motion control into the
+ROS 2 ecosystem. WMX R2 is a set of ROS 2 packages that drive
+industrial servos through the WMX motion control engine over EtherCAT, a
+real-time industrial Ethernet network that links the controller to servo drives
+and I/O over a single cable.
+
+WMX R2 turns planner output such as MoveIt2 and Nav2 trajectories into the precisely timed
+servo motion that industrial and Physical AI applications demand.
 In the *See–Think–Act* flow of Physical AI, WMX R2 is the layer that turns an
-AI's judgment (*Think*) into a robot's real-world motion (*Act*), in real time —
-bringing WMX's real-time control into the world of robotics. ("R2" stands for
-*Real-time Robotics*.)
+AI's judgment (*Think*) into a robot's real-world motion (*Act*), in real time. 
 
 The entire stack runs on a single edge device with no separate external motion
 controller, combining perception and deterministic motion into edge physical AI.
@@ -126,9 +126,6 @@ Where to go next
 * Refer to the :doc:`api_reference/api_reference` for ROS2 services, topics, and actions.
 * Consult :doc:`support` for common issues and their resolutions.
 
-.. rubric:: Footnotes
-
-.. [#ros_tm] ROS is a trademark of Open Robotics.
 
 
 

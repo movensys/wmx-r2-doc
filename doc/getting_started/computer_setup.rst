@@ -31,6 +31,24 @@ Hardware Requirements
      - Not required for base operation
      - Intel NPU for OpenVINO inference applications
 
+EtherCAT Communication
+~~~~~~~~~~~~~~~~~~~~~~~
+
+EtherCAT (Ethernet for Control Automation Technology) is a real-time
+industrial Ethernet fieldbus. It links the controller (the *master*) to the
+servo drives and I/O modules (the *slaves*) over a single daisy-chained cable.
+The master sends one frame down the chain. Each slave reads its own data and
+inserts its response as the frame passes through. This updates the whole axis
+network in a single pass. In an industrial EtherCAT carries the  
+cyclic position and torque commands out to serovs and
+returns encoder feedback every control cycle. A typical cycle runs once every
+250 µs to 1 ms. The advantage is deterministic low-latency synchronization,
+distributed clocks align all axes to within nanoseconds, Cycle jitter stays
+tiny, and multi-axis motion stays smooth and accurate. EtherCAT also runs over
+standard Ethernet hardware and ordinary cabling. This gives the performance at
+a lower wiring cost than legacy fieldbuses. 
+
+
 Real-Time OS requirements
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
