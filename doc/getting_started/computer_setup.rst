@@ -43,7 +43,7 @@ network in a single pass. In an industrial EtherCAT carries the
 cyclic position and torque commands out to serovs and
 returns encoder feedback every control cycle. A typical cycle runs once every
 250 µs to 1 ms. The advantage is deterministic low-latency synchronization,
-distributed clocks align all axes to within nanoseconds, Cycle jitter stays
+distributed clocks align all axes to within nanoseconds, cycle jitter stays
 tiny, and multi-axis motion stays smooth and accurate. EtherCAT also runs over
 standard Ethernet hardware and ordinary cabling. This gives the performance at
 a lower wiring cost than legacy fieldbuses. 
