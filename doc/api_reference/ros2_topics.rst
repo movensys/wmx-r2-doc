@@ -1,7 +1,7 @@
 ROS2 Topics
 ============
 
-The WMX ROS2 application uses topics for real-time data streaming: encoder
+The WMX R2 application uses topics for real-time data streaming: encoder
 feedback from the robot and motion commands to the WMX engine. Topics are
 divided into published (output) and subscribed (input) categories.
 
@@ -35,22 +35,22 @@ divided into published (output) and subscribed (input) categories.
      - 500 Hz
      - ``joint_state_broadcaster``
    * - ``/wmx/axis/state``
-     - ``wmx_ros2_message/AxisState``
+     - ``wmx_r2_message/AxisState``
      - Published
      - 100 Hz
      - ``wmx_core_motion_node``
    * - ``/wmx/axis/velocity``
-     - ``wmx_ros2_message/AxisVelocity``
+     - ``wmx_r2_message/AxisVelocity``
      - Subscribed
      - On demand
      - ``wmx_core_motion_node``
    * - ``/wmx/axis/position``
-     - ``wmx_ros2_message/AxisPose``
+     - ``wmx_r2_message/AxisPose``
      - Subscribed
      - On demand
      - ``wmx_core_motion_node``
    * - ``/wmx/axis/position/relative``
-     - ``wmx_ros2_message/AxisPose``
+     - ``wmx_r2_message/AxisPose``
      - Subscribed
      - On demand
      - ``wmx_core_motion_node``
@@ -63,9 +63,9 @@ Custom Message Types
 --------------------
 
 Before reviewing the topics, here are the custom message type definitions
-from ``wmx_ros2_message``.
+from ``wmx_r2_message``.
 
-**wmx_ros2_message/msg/AxisState**
+**wmx_r2_message/msg/AxisState**
 
 .. code-block:: text
 
@@ -83,7 +83,7 @@ from ``wmx_ros2_message``.
    float64[] actual_velocity # Actual velocity per axis (rad/s)
    float64[] actual_torque   # Actual torque per axis (Nm)
 
-**wmx_ros2_message/msg/AxisPose**
+**wmx_r2_message/msg/AxisPose**
 
 .. code-block:: text
 
@@ -93,7 +93,7 @@ from ``wmx_ros2_message``.
    float64[] acc         # Acceleration per axis (rad/s^2)
    float64[] dec         # Deceleration per axis (rad/s^2)
 
-**wmx_ros2_message/msg/AxisVelocity**
+**wmx_r2_message/msg/AxisVelocity**
 
 .. code-block:: text
 
@@ -295,7 +295,7 @@ Axis State Monitoring
    :widths: 25 75
 
    * - **Message Type**
-     - ``wmx_ros2_message/msg/AxisState``
+     - ``wmx_r2_message/msg/AxisState``
    * - **Publisher**
      - ``wmx_core_motion_node``
    * - **Rate**
@@ -394,7 +394,7 @@ to these topics directly controls the WMX engine and moves real motors.
    :widths: 25 75
 
    * - **Message Type**
-     - ``wmx_ros2_message/msg/AxisVelocity``
+     - ``wmx_r2_message/msg/AxisVelocity``
    * - **Subscriber**
      - ``wmx_core_motion_node``
    * - **Callback**
@@ -416,14 +416,14 @@ The axis must be in velocity mode (see :doc:`ros2_services` for
 
 .. code-block:: bash
 
-   ros2 topic pub --once /wmx/axis/velocity wmx_ros2_message/msg/AxisVelocity \
+   ros2 topic pub --once /wmx/axis/velocity wmx_r2_message/msg/AxisVelocity \
      "{index: [0], velocity: [1.0], acc: [10.0], dec: [10.0]}"
 
 **Example -- Stop axis 0:**
 
 .. code-block:: bash
 
-   ros2 topic pub --once /wmx/axis/velocity wmx_ros2_message/msg/AxisVelocity \
+   ros2 topic pub --once /wmx/axis/velocity wmx_r2_message/msg/AxisVelocity \
      "{index: [0], velocity: [0.0], acc: [10.0], dec: [10.0]}"
 
 /wmx/axis/position
@@ -433,7 +433,7 @@ The axis must be in velocity mode (see :doc:`ros2_services` for
    :widths: 25 75
 
    * - **Message Type**
-     - ``wmx_ros2_message/msg/AxisPose``
+     - ``wmx_r2_message/msg/AxisPose``
    * - **Subscriber**
      - ``wmx_core_motion_node``
    * - **Callback**
@@ -456,7 +456,7 @@ position.
 
 .. code-block:: bash
 
-   ros2 topic pub --once /wmx/axis/position wmx_ros2_message/msg/AxisPose \
+   ros2 topic pub --once /wmx/axis/position wmx_r2_message/msg/AxisPose \
      "{index: [0], target: [1.5], velocity: [5.0], acc: [10.0], dec: [10.0]}"
 
 /wmx/axis/position/relative
@@ -466,7 +466,7 @@ position.
    :widths: 25 75
 
    * - **Message Type**
-     - ``wmx_ros2_message/msg/AxisPose``
+     - ``wmx_r2_message/msg/AxisPose``
    * - **Subscriber**
      - ``wmx_core_motion_node``
    * - **Callback**
@@ -489,7 +489,7 @@ position.
 
 .. code-block:: bash
 
-   ros2 topic pub --once /wmx/axis/position/relative wmx_ros2_message/msg/AxisPose \
+   ros2 topic pub --once /wmx/axis/position/relative wmx_r2_message/msg/AxisPose \
      "{index: [0], target: [0.5], velocity: [5.0], acc: [10.0], dec: [10.0]}"
 
 Differential Drive Topics (Optional)
@@ -592,5 +592,5 @@ See Also
 
 - :doc:`ros2_services` -- Service API for engine management and axis control
 - :doc:`ros2_actions` -- FollowJointTrajectory action for MoveIt2 integration
-- :doc:`wmx_ros2_message` -- Custom message type definitions
-- :doc:`wmx_ros2_package` -- Node documentation with parameters
+- :doc:`wmx_r2_message` -- Custom message type definitions
+- :doc:`wmx_r2_package` -- Node documentation with parameters

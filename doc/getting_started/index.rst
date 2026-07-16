@@ -2,7 +2,7 @@ Getting Started
 ===============
 
 This guide walks you through the complete setup — from system requirements to
-launching your first robot control session with WMX ROS2.
+launching your first robot control session with WMX R2.
 
 Follow the steps in order. At step 6 choose the path that matches your setup
 (simulation or physical robot).

@@ -240,7 +240,7 @@
         <mxCell id="d21y8DsIsaZPVJZqbn7h-57" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;rotation=0;" value="&lt;font style=&quot;font-size: 20px;&quot; face=&quot;Verdana&quot;&gt;&lt;b style=&quot;&quot;&gt;WMX3 API&amp;nbsp;&lt;/b&gt;&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 20px;&quot; face=&quot;Verdana&quot;&gt;&lt;b style=&quot;&quot;&gt;Interface&lt;/b&gt;&lt;/font&gt;&lt;/div&gt;" vertex="1">
           <mxGeometry height="87.5" width="185" x="642" y="-87" as="geometry" />
         </mxCell>
-        <mxCell id="acd9z6QOcjjqrvEydww3-50" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;rotation=-90;" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;&lt;b style=&quot;&quot;&gt;WMX ROS2 Package Nodes&lt;/b&gt;&lt;/font&gt;" vertex="1">
+        <mxCell id="acd9z6QOcjjqrvEydww3-50" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;rotation=-90;" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;&lt;b style=&quot;&quot;&gt;WMX R2 Package Nodes&lt;/b&gt;&lt;/font&gt;" vertex="1">
           <mxGeometry height="30" width="250" x="25" y="145" as="geometry" />
         </mxCell>
         <mxCell id="nkiwBAqX3veEcMmO3Tcv-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;&lt;b&gt;ROS2 Bridge&lt;/b&gt;&lt;/font&gt;" vertex="1">

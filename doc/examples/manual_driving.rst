@@ -73,9 +73,9 @@ commands run through ``nros``.
 
                Not applicable for SIL.
 
-      2. Start WMX ROS2 for the navigation base (real WMX runtime) with
+      2. Start WMX R2 for the navigation base (real WMX runtime) with
          ``use_sim_time:=true`` (see
-         ``~/workspaces/movensys_ws/src/wmx-ros2/doc/launch_<NAVIGATION_MODEL>_navigation.md``).
+         ``~/workspaces/movensys_ws/src/wmx-r2/doc/launch_<NAVIGATION_MODEL>_navigation.md``).
 
       3. Run the EKF + robot state publisher:
 
@@ -98,8 +98,8 @@ commands run through ``nros``.
 
    .. tab-item:: Real
 
-      1. Start WMX ROS2 for the navigation base on the robot (see
-         ``~/workspaces/movensys_ws/src/wmx-ros2/doc/launch_<NAVIGATION_MODEL>_navigation.md``).
+      1. Start WMX R2 for the navigation base on the robot (see
+         ``~/workspaces/movensys_ws/src/wmx-r2/doc/launch_<NAVIGATION_MODEL>_navigation.md``).
 
       2. Run the EKF + robot state publisher:
 

@@ -1,5 +1,5 @@
 # -- Project information -----------------------------------------------------
-project = 'WMX ROS2 Documentation'
+project = 'WMX R2 Documentation'
 copyright = '2026, MOVENSYS'
 author = 'MOVENSYS'
 release = '1.0.0'
@@ -52,12 +52,12 @@ html_last_updated_fmt = '%b %d, %Y'
 
 html_theme_options = {
     "logo": {
-        "text": "WMX ROS2 Documentation",
+        "text": "WMX R2 Documentation",
     },
     "icon_links": [
         {
             "name": "GitHub",
-            "url": "https://github.com/movensys/wmx-ros2-doc",
+            "url": "https://github.com/movensys/wmx-r2-doc",
             "icon": "fa-brands fa-github",
             "type": "fontawesome",
         },

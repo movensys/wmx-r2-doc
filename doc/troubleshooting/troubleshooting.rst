@@ -66,7 +66,7 @@ Joint States All Zero
 
   .. code-block:: bash
 
-     ros2 service call /wmx/axis/clear_alarm wmx_ros2_message/srv/SetAxis \
+     ros2 service call /wmx/axis/clear_alarm wmx_r2_message/srv/SetAxis \
        "{index: [0,1,2,3,4,5], data: [0,0,0,0,0,0]}"
 
 Servo Alarm Errors
@@ -81,7 +81,7 @@ rejected.
 
   .. code-block:: bash
 
-     ros2 service call /wmx/axis/clear_alarm wmx_ros2_message/srv/SetAxis \
+     ros2 service call /wmx/axis/clear_alarm wmx_r2_message/srv/SetAxis \
        "{index: [0,1,2,3,4,5], data: [0,0,0,0,0,0]}"
 
 - Check for physical obstructions or overcurrent conditions on the robot
@@ -123,8 +123,8 @@ Nodes Not Found
 
 **Solutions:**
 
-- Source the workspace: ``source ~/wmx_ros2_ws/install/setup.bash``
-- Rebuild if needed: ``cd ~/wmx_ros2_ws && colcon build``
+- Source the workspace: ``source ~/wmx_r2_ws/install/setup.bash``
+- Rebuild if needed: ``cd ~/wmx_r2_ws && colcon build``
 - Check the two-stage build was done correctly (message package first).
   See :doc:`../getting_started/index`.
 
@@ -147,7 +147,7 @@ other WMX libraries.
 
   .. code-block:: bash
 
-     cd ~/wmx_ros2_ws
+     cd ~/wmx_r2_ws
      rosdep install --from-paths src --ignore-src -y
 
 Getting Help

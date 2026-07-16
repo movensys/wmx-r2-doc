@@ -1,16 +1,16 @@
 import os
 
-base = os.path.expanduser("~/wmx_ros2_doc/doc")
+base = os.path.expanduser("~/wmx_r2_doc/doc")
 
 files = {
 
-"index.rst": """WMX ROS2 Driver Documentation
+"index.rst": """WMX R2 Driver Documentation
 ===============================
 
 Overview
 --------
 
-Welcome to the WMX ROS2 Driver documentation. This project provides
+Welcome to the WMX R2 Driver documentation. This project provides
 ROS2 packages for controlling Dobot collaborative robots (CR series)
 with MoveIt2 motion planning integration.
 
@@ -202,7 +202,7 @@ This guide walks through installing ROS2 on Ubuntu.
 "quick_start/quick_start.rst": """Quick Start
 ===========
 
-This guide will help you get up and running with the WMX ROS2 Driver.
+This guide will help you get up and running with the WMX R2 Driver.
 
 .. note::
 
@@ -293,7 +293,7 @@ TODO: Add network setup
 "packages/packages.rst": """Packages
 ========
 
-Overview of the WMX ROS2 packages.
+Overview of the WMX R2 packages.
 
 .. toctree::
    :maxdepth: 2
@@ -478,7 +478,7 @@ TODO: Add setup and usage instructions
 Overview
 --------
 
-The WMX ROS2 Driver supports pluggable motion planners.
+The WMX R2 Driver supports pluggable motion planners.
 
 TODO: Add instructions for integrating custom planners
 """,
@@ -731,8 +731,8 @@ Future Installation
 
 .. code-block:: bash
 
-   docker pull your-org/wmx-ros2:humble
-   docker run --gpus all --net=host your-org/wmx-ros2:humble
+   docker pull your-org/wmx-r2:humble
+   docker run --gpus all --net=host your-org/wmx-r2:humble
 """,
 
 "troubleshooting/troubleshooting.rst": """Troubleshooting

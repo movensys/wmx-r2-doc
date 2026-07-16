@@ -1,8 +1,8 @@
-Install WMX ROS2 Package
+Install WMX R2 Package
 ========================
 
 With the :doc:`computer_setup` complete (real-time kernel, ROS 2, and the WMX
-runtime in place), build the WMX ROS2 packages.
+runtime in place), build the WMX R2 packages.
 
 Configure the environment
 -------------------------
@@ -53,7 +53,7 @@ Create Workspace and Build
 
    mkdir -p ~/workspaces/movensys_ws/src
    cd ~/workspaces/movensys_ws/src && \
-   git clone https://github.com/movensys/wmx-ros2.git
+   git clone https://github.com/movensys/wmx-r2.git
 
 **Rosdep update**
 
@@ -64,7 +64,7 @@ Create Workspace and Build
    cd ~/workspaces/movensys_ws
    rosdep install --from-paths src --ignore-src -y
 
-**Build** (``wmx_ros2_package`` depends on ``wmx_ros2_message``, so build the
+**Build** (``wmx_r2_package`` depends on ``wmx_r2_message``, so build the
 message package first):
 
 .. code-block:: bash
@@ -72,7 +72,7 @@ message package first):
    cd ~/workspaces/movensys_ws
 
    # Stage 1: build the message package first
-   colcon build --packages-select wmx_ros2_message
+   colcon build --packages-select wmx_r2_message
    source install/setup.bash
 
    # Stage 2: build all remaining packages
@@ -85,34 +85,34 @@ Verify Installation
 
 .. code-block:: bash
 
-   ros2 pkg list | grep wmx && ros2 pkg executables wmx_ros2_package
+   ros2 pkg list | grep wmx && ros2 pkg executables wmx_r2_package
 
 Expected:
 
 .. code-block:: text
 
-   wmx_ros2_control
-   wmx_ros2_message
-   wmx_ros2_package
-   wmx_ros2_package differential_drive_controller
-   wmx_ros2_package gripper_controller
-   wmx_ros2_package joint_state_broadcaster
-   wmx_ros2_package joint_trajectory_controller
-   wmx_ros2_package wmx_core_motion_node
-   wmx_ros2_package wmx_engine_node
-   wmx_ros2_package wmx_ethercat_node
-   wmx_ros2_package wmx_io_node
+   wmx_r2_control
+   wmx_r2_message
+   wmx_r2_package
+   wmx_r2_package differential_drive_controller
+   wmx_r2_package gripper_controller
+   wmx_r2_package joint_state_broadcaster
+   wmx_r2_package joint_trajectory_controller
+   wmx_r2_package wmx_core_motion_node
+   wmx_r2_package wmx_engine_node
+   wmx_r2_package wmx_ethercat_node
+   wmx_r2_package wmx_io_node
 
 
 
-Testing WMX ROS2
+Testing WMX R2
 ----------------
 
-Once WMX ROS2 is installed and built, you can validate it in two ways: in
+Once WMX R2 is installed and built, you can validate it in two ways: in
 simulation (no physical hardware required) or against real EtherCAT hardware.
 Start with simulation to verify basic behavior, then move to real hardware.
 
-The WMX ROS2 nodes communicate directly with the WMX engine over EtherCAT —
+The WMX R2 nodes communicate directly with the WMX engine over EtherCAT —
 there is no built-in mock hardware mode. The mode is selected in
 ``/opt/wmx3/Module.ini`` by enabling either the simulation or the EtherCAT
 platform. Select your mode below, then continue with the common test steps
@@ -154,7 +154,7 @@ that follow.
 
       **Prerequisites**
 
-      - The WMX ROS2 workspace is built and sourced
+      - The WMX R2 workspace is built and sourced
       - The WMX Runtime is installed at ``/opt/wmx3/``
       - EtherCAT cable is connected between compute platform and first EtherCAT device
       - The hardware and all servo drives are powered on
@@ -193,7 +193,7 @@ that follow.
          NumOfMaster = 1
          disable = 1
 
-Test the WMX ROS2 General Nodes (Standalone)
+Test the WMX R2 General Nodes (Standalone)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: bash
@@ -209,7 +209,7 @@ Test the WMX ROS2 General Nodes (Standalone)
      --preserve-env=ROS_DOMAIN_ID \
      --preserve-env=RMW_IMPLEMENTATION \
      bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash && source $HOME/workspaces/movensys_ws/install/setup.bash && \
-     ros2 launch wmx_ros2_package wmx_ros2_general_nodes.launch.py"
+     ros2 launch wmx_r2_package wmx_r2_general_nodes.launch.py"
 
 Startup Sequence
 ^^^^^^^^^^^^^^^^
@@ -223,7 +223,7 @@ When launched, four nodes initialize in parallel:
 5. **Servo enable** -- All 6 joint servos cleared and enabled
 6. **Ready** -- All nodes report ready
 
-Testing WMX ROS2 Services and Topics
+Testing WMX R2 Services and Topics
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The general nodes expose the WMX engine, axis, I/O, and EtherCAT control
@@ -236,12 +236,12 @@ engine is communicating:
    ros2 topic list | grep /wmx                                    # Available WMX topics
    ros2 service call /wmx/engine/get_status std_srvs/srv/Trigger  # Expect: "Communicating"
    ros2 service call /wmx/ecat/get_network_state \
-        wmx_ros2_message/srv/EcatGetNetworkState                  # EtherCAT master/slave status
+        wmx_r2_message/srv/EcatGetNetworkState                  # EtherCAT master/slave status
 
 For the complete list of services, topics, and message types exposed by the
 general nodes — engine control, axis motion, I/O, and EtherCAT — see the
-`WMX ROS2 General Nodes reference
-<https://github.com/movensys/wmx-ros2/blob/main/doc/reference_wmx_ros2_general_nodes.md>`_.
+`WMX R2 General Nodes reference
+<https://github.com/movensys/wmx-r2/blob/main/doc/reference_wmx_r2_general_nodes.md>`_.
 
 Shutdown
 ^^^^^^^^
