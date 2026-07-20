@@ -151,7 +151,7 @@ accelerator with the ``XPU_CORE`` environment variable
    COMPOSE_PROFILES=$XPU_CORE docker compose -f vllm.yaml up -d --build
 
    # 2. Start the vector-DB memory
-   COMPOSE_PROFILES=$CPU_ARCH docker compose -f vectordb.yaml up -d --build
+   COMPOSE_PROFILES=$XPU_CORE docker compose -f vectordb.yaml up -d --build
 
    # 3. Start the FastAPI service (+ Whisper)
    COMPOSE_PROFILES=$XPU_CORE docker compose -f movensys_vlm.yaml up -d --build

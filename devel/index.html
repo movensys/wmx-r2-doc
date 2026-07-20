@@ -54,7 +54,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Jul 16, 2026"/>
+    <meta name="docbuild:last-update" content="Jul 20, 2026"/>
   
     
     <script src="_static/searchtools.js"></script>
@@ -366,6 +366,10 @@ and I/O over a single cable.</p>
 servo motion that industrial and Physical AI applications demand.
 In the <em>See–Think–Act</em> flow of Physical AI, WMX R2 is the layer that turns an
 AI’s judgment (<em>Think</em>) into a robot’s real-world motion (<em>Act</em>), in real time.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/wmx-r2_pai.png"><img alt="WMX R2 for physical AI" src="_images/wmx-r2_pai.png" style="width: 100%;" />
+</a>
+</figure>
 <p>The entire stack runs on a single edge device with no separate external motion
 controller, combining perception and deterministic motion into edge physical AI.</p>
 <p>WMX R2 integrates with widely used projects in the ROS2 ecosystem:</p>
@@ -383,6 +387,28 @@ accelerated perception and control</p></li>
 <li><p>Multimodal large language models (LLMs) and vision language models
 (VLMs) for natural language task specification and high level reasoning</p></li>
 </ul>
+<p>See WMX R2 in action:</p>
+<div style="position: relative; width: 100%; max-width: 800px; margin: 1em auto; aspect-ratio: 16 / 9;">
+  <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
+          src="https://www.youtube-nocookie.com/embed/h-G9vtAGAIU"
+          title="WMX R2 demo video"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen></iframe>
+</div><p>To show how these pieces fit together, four companion repositories are provided
+as working examples and reference implementations built on WMX R2:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/movensys/movensys-manipulator">movensys-manipulator</a> :
+manipulator scenarios (Dobot CR3A / CR5A) with MoveIt2 / Isaac cuMotion
+planning and Nvblox / YOLO / AprilTag perception</p></li>
+<li><p><a class="reference external" href="https://github.com/movensys/movensys-navigation">movensys-navigation</a> :
+a differential-drive mobile base with Nav2 planning, EKF odometry, and SLAM mapping</p></li>
+<li><p><a class="reference external" href="https://github.com/movensys/movensys-intelligence">movensys-intelligence</a> :
+a voice-driven VLM/LLM application (the Robopoly game) built on top of the
+manipulator stack</p></li>
+<li><p><a class="reference external" href="https://github.com/movensys/movensys-simulation">movensys-simulation</a> :
+the Isaac Sim scenes used by the manipulator and navigation scenarios</p></li>
+</ul>
+<p>See <a class="reference internal" href="examples/examples.html"><span class="doc">Example Applications</span></a> to run these scenarios from start to finish.</p>
 <figure class="align-center" id="id1">
 <a class="reference internal image-reference" href="_images/wmx-r2_overview.drawio.png"><img alt="WMX R2 architecture overview" src="_images/wmx-r2_overview.drawio.png" style="width: 100%;" />
 </a>
@@ -530,7 +556,7 @@ communication latency from removing the TCP/IP hop and a redundant control stage
 <li class="toctree-l3"><a class="reference internal" href="integration/custom_application.html#python-example-monitor-axis-state-and-control-gripper">Python Example: Monitor Axis State and Control Gripper</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integration/custom_application.html#using-with-moveit2-python-api">Using with MoveIt2 Python API</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integration/custom_application.html#direct-axis-control">Direct Axis Control</a></li>
-<li class="toctree-l3"><a class="reference internal" href="integration/custom_application.html#adapting-for-different-6-dof-robots">Adapting for Different 6-DOF Robots</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integration/custom_application.html#adapting-for-different-robots">Adapting for Different Robots</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="integration/intelligence_integration.html">Natural-Language and Vision Control (VLM / LLM)</a><ul>
@@ -688,7 +714,7 @@ communication latency from removing the TCP/IP hop and a redundant control stage
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Jul 16, 2026</p>
+      <p>Last updated: Jul 20, 2026</p>
     
   </div>
   <div class="movensys-footer__links">
