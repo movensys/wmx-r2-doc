@@ -10,7 +10,7 @@ Technical documentation for **WMX R2**, a real-time execution layer for Physical
 
 ## Overview
 
-WMX R2 bridges the MOVENSYS WMX3 EtherCAT-based motion controller with ROS2, enabling control of 6-DOF robotic manipulators (e.g., Dobot CR3A) with motion planning through MoveIt2 and NVIDIA Isaac cuMotion.
+WMX R2 bridges the MOVENSYS WMX3 EtherCAT-based motion controller with ROS2, enabling control of robotic manipulators (e.g., Dobot CR3A) with motion planning through MoveIt2 and NVIDIA Isaac cuMotion.
 
 ## Documentation Contents
 

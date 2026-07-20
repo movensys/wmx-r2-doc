@@ -9,7 +9,7 @@ topics) that any ROS2 node can interact with. You can build custom applications
 in **Python** or **C++** that control the robot without modifying the WMX R2
 source code.
 
-The system is designed for **generic 6-DOF robot arms** with EtherCAT servo
+The system is designed for EtherCAT servo
 drives. The ROS2 interface layer is independent of the specific robot model --
 only the configuration files and WMX parameter files are robot-specific.
 
@@ -626,10 +626,10 @@ the ``wmx_core_motion_node`` to be running.
    Publishing to motion topics causes **immediate physical motion**. These
    commands bypass MoveIt2 collision checking.
 
-Adapting for Different 6-DOF Robots
+Adapting for Different Robots
 -------------------------------------
 
-The WMX R2 system is designed to be robot-agnostic. Supporting a new 6-DOF
+The WMX R2 system is designed to be robot-agnostic. Supporting a new 
 manipulator with EtherCAT servo drives requires changes to configuration files
 only -- no source code modifications are needed.
 

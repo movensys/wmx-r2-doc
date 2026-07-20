@@ -26,8 +26,8 @@ limited.
 
 The motion runs in software on a real-time kernel instead of on fixed controller
 hardware. This lets it scale far beyond a conventional controller. A typical
-hardware controller handles up to 32 axes on a 250 µs to 1 ms cycle. WMX
-software motion drives up to 128 axes on a 31.25 µs to 1 ms cycle and keeps
+hardware controller handles up to 32 axes on a 250 µs to 1 ms cycle depending the hardware. 
+WMX software motion drives up to 128 axes on a 31.25 µs to 1 ms cycle and keeps
 deterministic real-time performance.
 
 .. figure:: /_static/images/soft_motion.png
@@ -35,7 +35,7 @@ deterministic real-time performance.
    :width: 100%
 
    Conventional hardware control handles up to 32 axes on a 250 µs to 1 ms cycle.
-   WMX software motion drives up to 128 axes on a 31.25 µs to 1 ms cycle.
+   WMX software motion drives up to 128 axes on a 31.25 µs to 1 ms cycle depending the hardware.
 
 The engine is built on MOVENSYS's proprietary Soft Motion technology and holds
 the highest EtherCAT master. It exposes more than 200

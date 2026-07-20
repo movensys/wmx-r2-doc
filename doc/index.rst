@@ -14,6 +14,11 @@ servo motion that industrial and Physical AI applications demand.
 In the *See–Think–Act* flow of Physical AI, WMX R2 is the layer that turns an
 AI's judgment (*Think*) into a robot's real-world motion (*Act*), in real time. 
 
+.. figure:: /_static/images/wmx-r2_pai.png
+   :alt: WMX R2 for physical AI
+   :align: center
+   :width: 100%
+
 The entire stack runs on a single edge device with no separate external motion
 controller, combining perception and deterministic motion into edge physical AI.
 
@@ -31,6 +36,34 @@ WMX R2 integrates with widely used projects in the ROS2 ecosystem:
 * `YOLO <https://docs.ultralytics.com/>`_ for real time object detection
 * Multimodal large language models (LLMs) and vision language models
   (VLMs) for natural language task specification and high level reasoning
+
+See WMX R2 in action:
+
+.. raw:: html
+
+   <div style="position: relative; width: 100%; max-width: 800px; margin: 1em auto; aspect-ratio: 16 / 9;">
+     <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
+             src="https://www.youtube-nocookie.com/embed/h-G9vtAGAIU"
+             title="WMX R2 demo video"
+             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+             allowfullscreen></iframe>
+   </div>
+
+To show how these pieces fit together, four companion repositories are provided
+as working examples and reference implementations built on WMX R2:
+
+* `movensys-manipulator <https://github.com/movensys/movensys-manipulator>`_ :
+  manipulator scenarios (Dobot CR3A / CR5A) with MoveIt2 / Isaac cuMotion
+  planning and Nvblox / YOLO / AprilTag perception
+* `movensys-navigation <https://github.com/movensys/movensys-navigation>`_ :
+  a differential-drive mobile base with Nav2 planning, EKF odometry, and SLAM mapping
+* `movensys-intelligence <https://github.com/movensys/movensys-intelligence>`_ :
+  a voice-driven VLM/LLM application (the Robopoly game) built on top of the
+  manipulator stack
+* `movensys-simulation <https://github.com/movensys/movensys-simulation>`_ :
+  the Isaac Sim scenes used by the manipulator and navigation scenarios
+
+See :doc:`examples/examples` to run these scenarios from start to finish.
 
 
 
