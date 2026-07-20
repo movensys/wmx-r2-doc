@@ -6,6 +6,30 @@ cuMotion. See :doc:`examples` for the shared manipulator setup. All commands
 run through ``mros``. For the programmatic ``/wmx/moveit2/*`` service API, see
 :doc:`../integration/moveit2_integration`.
 
+Demo videos
+-----------
+
+Simulation
+~~~~~~~~~~
+
+.. figure:: /_static/videos/basic_motion/basic_motion_sim.gif
+   :alt: Trajectory planning in simulation
+   :width: 640px
+   :align: center
+
+   Trajectory planning in simulation.
+
+
+Real-world scenario
+~~~~~~~~~~~~~~~~~~~~
+
+.. figure:: /_static/videos/basic_motion/basic_motion_real.gif
+   :alt: Trajectory planning on the real robot
+   :width: 640px
+   :align: center
+
+   Trajectory planning on the real robot.
+
 .. tab-set::
 
    .. tab-item:: Simulation

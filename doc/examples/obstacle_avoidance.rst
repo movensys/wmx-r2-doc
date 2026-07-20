@@ -5,6 +5,30 @@ Collision-aware planning with Isaac cuMotion against a live Nvblox depth
 reconstruction. See :doc:`examples` for the shared manipulator setup. All
 commands run through ``mros``.
 
+Demo videos
+-----------
+
+Simulation
+~~~~~~~~~~
+
+.. figure:: /_static/videos/nvblox/nvblox_sim.gif
+   :alt: Nvblox obstacle avoidance in simulation
+   :width: 640px
+   :align: center
+
+   Obstacle avoidance in simulation.
+
+
+Real-world scenario
+~~~~~~~~~~~~~~~~~~~~
+
+.. figure:: /_static/videos/nvblox/nvblox_real.gif
+   :alt: Nvblox obstacle avoidance on the real robot
+   :width: 640px
+   :align: center
+
+   Obstacle avoidance on the real robot.
+
 .. tab-set::
 
    .. tab-item:: Simulation

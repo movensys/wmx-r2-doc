@@ -6,6 +6,31 @@ cuMotion plans collision-free motion against a live Nvblox reconstruction while
 Isaac ROS AprilTag locates the target. See :doc:`examples` for the shared
 manipulator setup. All commands run through ``mros``.
 
+Demo videos
+-----------
+
+Simulation
+~~~~~~~~~~
+
+.. figure:: /_static/videos/pnp_oa/pnp_oa_sim.gif
+   :alt: AprilTag pick-and-place with obstacle avoidance in simulation
+   :width: 640px
+   :align: center
+
+   AprilTag pick-and-place with obstacle avoidance in simulation.
+
+
+Real-world scenario
+~~~~~~~~~~~~~~~~~~~~
+
+.. figure:: /_static/videos/pnp_oa/pnp_oa_real.gif
+   :alt: AprilTag pick-and-place with obstacle avoidance on the real robot
+   :width: 640px
+   :align: center
+
+   AprilTag pick-and-place with obstacle avoidance on the real robot.
+
+
 .. tab-set::
 
    .. tab-item:: Simulation

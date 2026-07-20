@@ -6,6 +6,31 @@ OpenCV AprilTag (with MoveIt2 OMPL) or Isaac ROS AprilTag (with cuMotion). See
 :doc:`examples` for the shared manipulator setup. All commands run through
 ``mros``.
 
+Demo videos
+-----------
+
+Simulation
+~~~~~~~~~~
+
+.. figure:: /_static/videos/pnp/pnp_sim.gif
+   :alt: AprilTag pick-and-place in simulation
+   :width: 640px
+   :align: center
+
+   AprilTag pick-and-place in simulation.
+
+
+Real-world scenario
+~~~~~~~~~~~~~~~~~~~~
+
+.. figure:: /_static/videos/pnp/pnp_real.gif
+   :alt: AprilTag pick-and-place on the real robot
+   :width: 640px
+   :align: center
+
+   AprilTag pick-and-place on the real robot.
+
+
 .. tab-set::
 
    .. tab-item:: Simulation
