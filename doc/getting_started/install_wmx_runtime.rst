@@ -91,8 +91,8 @@ the tab that matches your hardware.
          cd Ubuntu24.04_linux6.15.2_rt2
          sudo dpkg -i *wmx3-installer.deb
 
-   .. tab-item:: ARM-based PC
-      :sync: arm
+   .. tab-item:: arm64 (Jetson)
+      :sync: jetson
 
       **Download the WMX3 installer:**
 
