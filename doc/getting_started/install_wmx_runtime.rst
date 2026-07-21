@@ -227,6 +227,9 @@ a NIC-driver DLL. Pick the driver that matches your transport:
    * - ``ndd_dpdk.so``
      - DPDK poll-mode driver (kernel bypass)
      - Hugepages, NIC bound to ``vfio-pci``/``uio``
+   * - ``ndd_af_xdp.so``
+     - AF_XDP socket / XSK (kernel fast path)
+     - ``CAP_NET_RAW`` + ``CAP_NET_ADMIN``/``CAP_BPF`` (root)
    * - ``ndd_vnw.so``
      - Virtual network (no hardware)
      - None
@@ -283,10 +286,38 @@ the driver; each driver reads its own keys from the same section.
          dpdk_port=0
          eal=-a 0000:03:00.0     ; allowlist the exact device, becomes port 0
          rxprio=97               ; RX thread SCHED_FIFO priority
-         rxcore=3                ; pin RX poll loop to an ISOLATED core
+         rxcore=2                ; pin RX poll loop to an ISOLATED core
 
       Binding does not survive a reboot, so re-run ``modprobe`` and the bind
       after each boot or automate them.
+
+   .. tab-item:: af_xdp
+
+      AF_XDP is a kernel fast path: the NIC keeps its normal kernel driver (no
+      vfio bind, no hugepages). Bind to a kernel interface and a single RX
+      queue. AF_XDP receives only on the bound queue, so collapse the NIC to one
+      queue first:
+
+      .. code-block:: bash
+
+         sudo ethtool -L enp3s0 combined 1     # one queue -> use queue=0
+
+      Configure the port in ``PrtTcpip.ini``:
+
+      .. code-block:: ini
+
+         [rtnd0]
+         UseNicDrvDll=ndd_af_xdp.so
+         ifname=enp3s0            ; kernel interface to bind (required)
+         queue=0                  ; XSK binds to this RX queue
+         xdpmode=skb             ; skb=generic | drv=native | zerocopy=native+ZC
+         rxprio=97               ; RX thread SCHED_FIFO priority
+         rxcore=2                ; pin RX poll loop to an ISOLATED core
+         rxbusy=0                ; 0 = poll()/sleep (safe on a shared core)
+                                 ; 1 = busy-poll (needs a dedicated isolated core)
+
+      Creating the XSK needs ``CAP_NET_RAW`` + ``CAP_NET_ADMIN`` (``CAP_BPF`` on
+      newer kernels), so run the nodes as root.
 
    .. tab-item:: vnw
 
