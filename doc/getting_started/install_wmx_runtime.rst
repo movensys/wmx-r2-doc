@@ -91,8 +91,8 @@ the tab that matches your hardware.
          cd Ubuntu24.04_linux6.15.2_rt2
          sudo dpkg -i *wmx3-installer.deb
 
-   .. tab-item:: ARM-based PC
-      :sync: arm
+   .. tab-item:: arm64 (Jetson)
+      :sync: jetson
 
       **Download the WMX3 installer:**
 
@@ -132,44 +132,78 @@ or contact your MOVENSYS representative.
 ------------------------
 
 Determinism comes from dedicating CPU cores to the WMX real-time threads and
-keeping housekeeping work off them. Add the isolation parameters to
-``/etc/default/grub`` for your platform:
+keeping housekeeping work off them. Add the isolation parameters to the boot
+configuration for your platform. The examples below reserve core ``3`` for the
+control loop and core ``2`` for the universal NIC kernel driver, so both cores
+are isolated on every platform.
 
 .. tab-set::
 
-   .. tab-item:: General x86/amd64 & Jetson
+   .. tab-item:: General x86/amd64
 
-      Set ``GRUB_CMDLINE_LINUX`` (example: reserve core ``3`` for the control
-      loop and leave cores ``0,1,2`` for housekeeping):
+      Edit ``/etc/default/grub`` and set ``GRUB_CMDLINE_LINUX``:
 
       .. code-block:: text
 
-         GRUB_CMDLINE_LINUX="quiet splash isolcpus=3 nohz_full=3 rcu_nocbs=3 irqaffinity=0,1,2 acpi_irq_nobalance noirqbalance"
+         GRUB_CMDLINE_LINUX="quiet splash isolcpus=2,3 nohz_full=2,3 rcu_nocbs=2,3 irqaffinity=0,1 acpi_irq_nobalance noirqbalance"
+
+      Apply the change and reboot:
+
+      .. code-block:: bash
+
+         sudo update-grub
+         sudo reboot
+
+   .. tab-item:: arm64 (Jetson)
+
+      The Jetson boards boot via U-Boot/extlinux, not GRUB. Append the same
+      isolation parameters to the ``APPEND`` line in
+      ``/boot/extlinux/extlinux.conf``:
+
+      .. code-block:: text
+
+         isolcpus=2,3 nohz_full=2,3 rcu_nocbs=2,3 irqaffinity=0,1 acpi_irq_nobalance noirqbalance
+
+      Then reboot:
+
+      .. code-block:: bash
+
+         sudo reboot
 
    .. tab-item:: Intel XPU (Panther Lake)
 
-      Set ``GRUB_CMDLINE_LINUX_DEFAULT``:
+      Edit ``/etc/default/grub`` and set ``GRUB_CMDLINE_LINUX_DEFAULT``:
 
       .. code-block:: text
 
-         GRUB_CMDLINE_LINUX_DEFAULT="isolcpus=managed_irq,domain,<rt_cpus> nohz_full=<rt_cpus> rcu_nocbs=<rt_cpus> irqaffinity=<housekeeping_cpus> intel_pstate=disable processor.max_cstate=1 idle=poll"
+         GRUB_CMDLINE_LINUX_DEFAULT="isolcpus=managed_irq,domain,2,3 nohz_full=2,3 rcu_nocbs=2,3 irqaffinity=0,1 intel_pstate=disable processor.max_cstate=1 idle=poll"
 
-      - Replace ``<rt_cpus>`` with the cores reserved for the control loop (for
-        example ``2,3``) and ``<housekeeping_cpus>`` with the remaining cores.
+      - Cores ``2,3`` are reserved for WMX — the control loop plus the universal
+        NIC kernel driver — and cores ``0,1`` handle housekeeping.
       - ``idle=poll`` trades power for latency; measure with ``cyclictest`` to
         confirm it helps on your hardware.
       - On hybrid Intel silicon (Panther Lake mixes P-cores, E-cores, and
         LP-E-cores), pin the control loop to isolated **P-cores** for the most
         consistent latency.
 
-Then apply the change and reboot:
+      Apply the change and reboot:
 
-.. code-block:: bash
+      .. code-block:: bash
 
-   sudo update-grub
-   sudo reboot
+         sudo update-grub
+         sudo reboot
 
-Pin the WMX control loop to the isolated cores; pin AI workloads such as VLM,
+**Pin the WMX engine to the isolated core.** Isolating the core keeps other work
+off it; you still have to tell the WMX engine to run there. Edit
+``/opt/wmx3/Module.ini`` and set ``CpuAffinity`` to a hexadecimal bit mask where
+each bit selects a core. Core 3 is bit 3 — ``0b00001000`` — which is ``0x08`` in
+hexadecimal, so use ``08``:
+
+.. code-block:: ini
+
+   CpuAffinity = 08
+
+Pin the WMX control loop to the isolated core; pin AI workloads such as VLM,
 Whisper, or OpenVINO to the remaining cores. A cgroup v2 slice (``cpuset`` +
 ``cpu.weight``) keeps the AI stack off the control cores while keeping GPU/NPU
 access simple.
@@ -193,6 +227,9 @@ a NIC-driver DLL. Pick the driver that matches your transport:
    * - ``ndd_dpdk.so``
      - DPDK poll-mode driver (kernel bypass)
      - Hugepages, NIC bound to ``vfio-pci``/``uio``
+   * - ``ndd_af_xdp.so``
+     - AF_XDP socket / XSK (kernel fast path)
+     - ``CAP_NET_RAW`` + ``CAP_NET_ADMIN``/``CAP_BPF`` (root)
    * - ``ndd_vnw.so``
      - Virtual network (no hardware)
      - None
@@ -249,10 +286,38 @@ the driver; each driver reads its own keys from the same section.
          dpdk_port=0
          eal=-a 0000:03:00.0     ; allowlist the exact device, becomes port 0
          rxprio=97               ; RX thread SCHED_FIFO priority
-         rxcore=3                ; pin RX poll loop to an ISOLATED core
+         rxcore=2                ; pin RX poll loop to an ISOLATED core
 
       Binding does not survive a reboot, so re-run ``modprobe`` and the bind
       after each boot or automate them.
+
+   .. tab-item:: af_xdp
+
+      AF_XDP is a kernel fast path: the NIC keeps its normal kernel driver (no
+      vfio bind, no hugepages). Bind to a kernel interface and a single RX
+      queue. AF_XDP receives only on the bound queue, so collapse the NIC to one
+      queue first:
+
+      .. code-block:: bash
+
+         sudo ethtool -L enp3s0 combined 1     # one queue -> use queue=0
+
+      Configure the port in ``PrtTcpip.ini``:
+
+      .. code-block:: ini
+
+         [rtnd0]
+         UseNicDrvDll=ndd_af_xdp.so
+         ifname=enp3s0            ; kernel interface to bind (required)
+         queue=0                  ; XSK binds to this RX queue
+         xdpmode=skb             ; skb=generic | drv=native | zerocopy=native+ZC
+         rxprio=97               ; RX thread SCHED_FIFO priority
+         rxcore=2                ; pin RX poll loop to an ISOLATED core
+         rxbusy=0                ; 0 = poll()/sleep (safe on a shared core)
+                                 ; 1 = busy-poll (needs a dedicated isolated core)
+
+      Creating the XSK needs ``CAP_NET_RAW`` + ``CAP_NET_ADMIN`` (``CAP_BPF`` on
+      newer kernels), so run the nodes as root.
 
    .. tab-item:: vnw
 
