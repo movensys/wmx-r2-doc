@@ -132,23 +132,46 @@ or contact your MOVENSYS representative.
 ------------------------
 
 Determinism comes from dedicating CPU cores to the WMX real-time threads and
-keeping housekeeping work off them. Add the isolation parameters to
-``/etc/default/grub`` for your platform:
+keeping housekeeping work off them. Add the isolation parameters to the boot
+configuration for your platform. The examples below reserve core ``3`` for the
+control loop.
 
 .. tab-set::
 
-   .. tab-item:: General x86/amd64 & Jetson
+   .. tab-item:: General x86/amd64
 
-      Set ``GRUB_CMDLINE_LINUX`` (example: reserve core ``3`` for the control
-      loop and leave cores ``0,1,2`` for housekeeping):
+      Edit ``/etc/default/grub`` and set ``GRUB_CMDLINE_LINUX``:
 
       .. code-block:: text
 
          GRUB_CMDLINE_LINUX="quiet splash isolcpus=3 nohz_full=3 rcu_nocbs=3 irqaffinity=0,1,2 acpi_irq_nobalance noirqbalance"
 
+      Apply the change and reboot:
+
+      .. code-block:: bash
+
+         sudo update-grub
+         sudo reboot
+
+   .. tab-item:: arm64 (Jetson)
+
+      The Jetson boards boot via U-Boot/extlinux, not GRUB. Append the same
+      isolation parameters to the ``APPEND`` line in
+      ``/boot/extlinux/extlinux.conf``:
+
+      .. code-block:: text
+
+         isolcpus=3 nohz_full=3 rcu_nocbs=3 irqaffinity=0,1,2 acpi_irq_nobalance noirqbalance
+
+      Then reboot:
+
+      .. code-block:: bash
+
+         sudo reboot
+
    .. tab-item:: Intel XPU (Panther Lake)
 
-      Set ``GRUB_CMDLINE_LINUX_DEFAULT``:
+      Edit ``/etc/default/grub`` and set ``GRUB_CMDLINE_LINUX_DEFAULT``:
 
       .. code-block:: text
 
@@ -162,14 +185,24 @@ keeping housekeeping work off them. Add the isolation parameters to
         LP-E-cores), pin the control loop to isolated **P-cores** for the most
         consistent latency.
 
-Then apply the change and reboot:
+      Apply the change and reboot:
 
-.. code-block:: bash
+      .. code-block:: bash
 
-   sudo update-grub
-   sudo reboot
+         sudo update-grub
+         sudo reboot
 
-Pin the WMX control loop to the isolated cores; pin AI workloads such as VLM,
+**Pin the WMX engine to the isolated core.** Isolating the core keeps other work
+off it; you still have to tell the WMX engine to run there. Edit
+``/opt/wmx3/Module.ini`` and set ``CpuAffinity`` to a hexadecimal bit mask where
+each bit selects a core. Core 3 is bit 3 — ``0b00001000`` — which is ``0x08`` in
+hexadecimal, so use ``08``:
+
+.. code-block:: ini
+
+   CpuAffinity = 08
+
+Pin the WMX control loop to the isolated core; pin AI workloads such as VLM,
 Whisper, or OpenVINO to the remaining cores. A cgroup v2 slice (``cpuset`` +
 ``cpu.weight``) keeps the AI stack off the control cores while keeping GPU/NPU
 access simple.
