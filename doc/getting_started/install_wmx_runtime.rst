@@ -134,7 +134,8 @@ or contact your MOVENSYS representative.
 Determinism comes from dedicating CPU cores to the WMX real-time threads and
 keeping housekeeping work off them. Add the isolation parameters to the boot
 configuration for your platform. The examples below reserve core ``3`` for the
-control loop.
+control loop and core ``2`` for the universal NIC kernel driver, so both cores
+are isolated on every platform.
 
 .. tab-set::
 
@@ -144,7 +145,7 @@ control loop.
 
       .. code-block:: text
 
-         GRUB_CMDLINE_LINUX="quiet splash isolcpus=3 nohz_full=3 rcu_nocbs=3 irqaffinity=0,1,2 acpi_irq_nobalance noirqbalance"
+         GRUB_CMDLINE_LINUX="quiet splash isolcpus=2,3 nohz_full=2,3 rcu_nocbs=2,3 irqaffinity=0,1 acpi_irq_nobalance noirqbalance"
 
       Apply the change and reboot:
 
@@ -161,7 +162,7 @@ control loop.
 
       .. code-block:: text
 
-         isolcpus=3 nohz_full=3 rcu_nocbs=3 irqaffinity=0,1,2 acpi_irq_nobalance noirqbalance
+         isolcpus=2,3 nohz_full=2,3 rcu_nocbs=2,3 irqaffinity=0,1 acpi_irq_nobalance noirqbalance
 
       Then reboot:
 
@@ -175,10 +176,10 @@ control loop.
 
       .. code-block:: text
 
-         GRUB_CMDLINE_LINUX_DEFAULT="isolcpus=managed_irq,domain,<rt_cpus> nohz_full=<rt_cpus> rcu_nocbs=<rt_cpus> irqaffinity=<housekeeping_cpus> intel_pstate=disable processor.max_cstate=1 idle=poll"
+         GRUB_CMDLINE_LINUX_DEFAULT="isolcpus=managed_irq,domain,2,3 nohz_full=2,3 rcu_nocbs=2,3 irqaffinity=0,1 intel_pstate=disable processor.max_cstate=1 idle=poll"
 
-      - Replace ``<rt_cpus>`` with the cores reserved for the control loop (for
-        example ``2,3``) and ``<housekeeping_cpus>`` with the remaining cores.
+      - Cores ``2,3`` are reserved for WMX — the control loop plus the universal
+        NIC kernel driver — and cores ``0,1`` handle housekeeping.
       - ``idle=poll`` trades power for latency; measure with ``cyclictest`` to
         confirm it helps on your hardware.
       - On hybrid Intel silicon (Panther Lake mixes P-cores, E-cores, and
