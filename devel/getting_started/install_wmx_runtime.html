@@ -55,7 +55,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Jul 20, 2026"/>
+    <meta name="docbuild:last-update" content="Jul 21, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -463,8 +463,8 @@ sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </spa
 </div>
 </div>
 <input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
-<label class="sd-tab-label" data-sync-group="tab" data-sync-id="arm" for="sd-tab-item-1">
-ARM-based PC</label><div class="sd-tab-content docutils">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="jetson" for="sd-tab-item-1">
+arm64 (Jetson)</label><div class="sd-tab-content docutils">
 <p><strong>Download the WMX3 installer:</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>--user<span class="o">=</span>guest<span class="w"> </span>--password<span class="o">=</span>guest<span class="w"> </span>http://download.movensys.com:8111/webdav/WMX3_Installer/Linux/wmx3_arm64_installers.zip
 unzip<span class="w"> </span>wmx3_arm64_installers.zip
@@ -496,42 +496,70 @@ or contact your MOVENSYS representative.</p>
 <section id="isolate-cores-for-wmx">
 <span id="computer-setup-isolate"></span><h2>2. Isolate cores for WMX<a class="headerlink" href="#isolate-cores-for-wmx" title="Link to this heading">#</a></h2>
 <p>Determinism comes from dedicating CPU cores to the WMX real-time threads and
-keeping housekeeping work off them. Add the isolation parameters to
-<code class="docutils literal notranslate"><span class="pre">/etc/default/grub</span></code> for your platform:</p>
+keeping housekeeping work off them. Add the isolation parameters to the boot
+configuration for your platform. The examples below reserve core <code class="docutils literal notranslate"><span class="pre">3</span></code> for the
+control loop and core <code class="docutils literal notranslate"><span class="pre">2</span></code> for the universal NIC kernel driver, so both cores
+are isolated on every platform.</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-2" name="sd-tab-set-1" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-2">
-General x86/amd64 &amp; Jetson</label><div class="sd-tab-content docutils">
-<p>Set <code class="docutils literal notranslate"><span class="pre">GRUB_CMDLINE_LINUX</span></code> (example: reserve core <code class="docutils literal notranslate"><span class="pre">3</span></code> for the control
-loop and leave cores <code class="docutils literal notranslate"><span class="pre">0,1,2</span></code> for housekeeping):</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>GRUB_CMDLINE_LINUX=&quot;quiet splash isolcpus=3 nohz_full=3 rcu_nocbs=3 irqaffinity=0,1,2 acpi_irq_nobalance noirqbalance&quot;
+General x86/amd64</label><div class="sd-tab-content docutils">
+<p>Edit <code class="docutils literal notranslate"><span class="pre">/etc/default/grub</span></code> and set <code class="docutils literal notranslate"><span class="pre">GRUB_CMDLINE_LINUX</span></code>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>GRUB_CMDLINE_LINUX=&quot;quiet splash isolcpus=2,3 nohz_full=2,3 rcu_nocbs=2,3 irqaffinity=0,1 acpi_irq_nobalance noirqbalance&quot;
+</pre></div>
+</div>
+<p>Apply the change and reboot:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>update-grub
+sudo<span class="w"> </span>reboot
 </pre></div>
 </div>
 </div>
 <input id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-3">
+arm64 (Jetson)</label><div class="sd-tab-content docutils">
+<p>The Jetson boards boot via U-Boot/extlinux, not GRUB. Append the same
+isolation parameters to the <code class="docutils literal notranslate"><span class="pre">APPEND</span></code> line in
+<code class="docutils literal notranslate"><span class="pre">/boot/extlinux/extlinux.conf</span></code>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>isolcpus=2,3 nohz_full=2,3 rcu_nocbs=2,3 irqaffinity=0,1 acpi_irq_nobalance noirqbalance
+</pre></div>
+</div>
+<p>Then reboot:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>reboot
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-4" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-4">
 Intel XPU (Panther Lake)</label><div class="sd-tab-content docutils">
-<p>Set <code class="docutils literal notranslate"><span class="pre">GRUB_CMDLINE_LINUX_DEFAULT</span></code>:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>GRUB_CMDLINE_LINUX_DEFAULT=&quot;isolcpus=managed_irq,domain,&lt;rt_cpus&gt; nohz_full=&lt;rt_cpus&gt; rcu_nocbs=&lt;rt_cpus&gt; irqaffinity=&lt;housekeeping_cpus&gt; intel_pstate=disable processor.max_cstate=1 idle=poll&quot;
+<p>Edit <code class="docutils literal notranslate"><span class="pre">/etc/default/grub</span></code> and set <code class="docutils literal notranslate"><span class="pre">GRUB_CMDLINE_LINUX_DEFAULT</span></code>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>GRUB_CMDLINE_LINUX_DEFAULT=&quot;isolcpus=managed_irq,domain,2,3 nohz_full=2,3 rcu_nocbs=2,3 irqaffinity=0,1 intel_pstate=disable processor.max_cstate=1 idle=poll&quot;
 </pre></div>
 </div>
 <ul class="simple">
-<li><p>Replace <code class="docutils literal notranslate"><span class="pre">&lt;rt_cpus&gt;</span></code> with the cores reserved for the control loop (for
-example <code class="docutils literal notranslate"><span class="pre">2,3</span></code>) and <code class="docutils literal notranslate"><span class="pre">&lt;housekeeping_cpus&gt;</span></code> with the remaining cores.</p></li>
+<li><p>Cores <code class="docutils literal notranslate"><span class="pre">2,3</span></code> are reserved for WMX — the control loop plus the universal
+NIC kernel driver — and cores <code class="docutils literal notranslate"><span class="pre">0,1</span></code> handle housekeeping.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">idle=poll</span></code> trades power for latency; measure with <code class="docutils literal notranslate"><span class="pre">cyclictest</span></code> to
 confirm it helps on your hardware.</p></li>
 <li><p>On hybrid Intel silicon (Panther Lake mixes P-cores, E-cores, and
 LP-E-cores), pin the control loop to isolated <strong>P-cores</strong> for the most
 consistent latency.</p></li>
 </ul>
-</div>
-</div>
-<p>Then apply the change and reboot:</p>
+<p>Apply the change and reboot:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>update-grub
 sudo<span class="w"> </span>reboot
 </pre></div>
 </div>
-<p>Pin the WMX control loop to the isolated cores; pin AI workloads such as VLM,
+</div>
+</div>
+<p><strong>Pin the WMX engine to the isolated core.</strong> Isolating the core keeps other work
+off it; you still have to tell the WMX engine to run there. Edit
+<code class="docutils literal notranslate"><span class="pre">/opt/wmx3/Module.ini</span></code> and set <code class="docutils literal notranslate"><span class="pre">CpuAffinity</span></code> to a hexadecimal bit mask where
+each bit selects a core. Core 3 is bit 3 — <code class="docutils literal notranslate"><span class="pre">0b00001000</span></code> — which is <code class="docutils literal notranslate"><span class="pre">0x08</span></code> in
+hexadecimal, so use <code class="docutils literal notranslate"><span class="pre">08</span></code>:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="na">CpuAffinity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">08</span>
+</pre></div>
+</div>
+<p>Pin the WMX control loop to the isolated core; pin AI workloads such as VLM,
 Whisper, or OpenVINO to the remaining cores. A cgroup v2 slice (<code class="docutils literal notranslate"><span class="pre">cpuset</span></code> +
 <code class="docutils literal notranslate"><span class="pre">cpu.weight</span></code>) keeps the AI stack off the control cores while keeping GPU/NPU
 access simple.</p>
@@ -561,7 +589,11 @@ a NIC-driver DLL. Pick the driver that matches your transport:</p>
 <td><p>DPDK poll-mode driver (kernel bypass)</p></td>
 <td><p>Hugepages, NIC bound to <code class="docutils literal notranslate"><span class="pre">vfio-pci</span></code>/<code class="docutils literal notranslate"><span class="pre">uio</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ndd_vnw.so</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ndd_af_xdp.so</span></code></p></td>
+<td><p>AF_XDP socket / XSK (kernel fast path)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">CAP_NET_RAW</span></code> + <code class="docutils literal notranslate"><span class="pre">CAP_NET_ADMIN</span></code>/<code class="docutils literal notranslate"><span class="pre">CAP_BPF</span></code> (root)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ndd_vnw.so</span></code></p></td>
 <td><p>Virtual network (no hardware)</p></td>
 <td><p>None</p></td>
 </tr>
@@ -573,8 +605,8 @@ a NIC-driver DLL. Pick the driver that matches your transport:</p>
 <code class="docutils literal notranslate"><span class="pre">/opt/wmx3/platform/ethercat/PrtTcpip.ini</span></code>. The <code class="docutils literal notranslate"><span class="pre">UseNicDrvDll</span></code> key selects
 the driver; each driver reads its own keys from the same section.</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="sd-tab-item-4" name="sd-tab-set-2" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-4">
+<input checked="checked" id="sd-tab-item-5" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-5">
 sock_raw</label><div class="sd-tab-content docutils">
 <p>Bind the driver to a kernel network interface. <code class="docutils literal notranslate"><span class="pre">ifname</span></code> is required (the
 <code class="docutils literal notranslate"><span class="pre">NIC_DRV_DLL_IFNAME</span></code> environment variable overrides it):</p>
@@ -586,8 +618,8 @@ sock_raw</label><div class="sd-tab-content docutils">
 </div>
 <p>Opening the raw socket needs <code class="docutils literal notranslate"><span class="pre">CAP_NET_RAW</span></code>, so run the nodes as root.</p>
 </div>
-<input id="sd-tab-item-5" name="sd-tab-set-2" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-5">
+<input id="sd-tab-item-6" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-6">
 dpdk</label><div class="sd-tab-content docutils">
 <p>DPDK bypasses the kernel network stack, so reserve hugepages and bind the
 NIC to a userspace driver <strong>before</strong> starting the WMX3 engine.</p>
@@ -610,14 +642,39 @@ chosen by id, pinned deterministically with an EAL allowlist:</p>
 <span class="na">dpdk_port</span><span class="o">=</span><span class="s">0</span>
 <span class="na">eal</span><span class="o">=</span><span class="s">-a 0000:03:00.0</span><span class="w">     </span><span class="c1">; allowlist the exact device, becomes port 0</span>
 <span class="na">rxprio</span><span class="o">=</span><span class="s">97</span><span class="w">               </span><span class="c1">; RX thread SCHED_FIFO priority</span>
-<span class="na">rxcore</span><span class="o">=</span><span class="s">3</span><span class="w">                </span><span class="c1">; pin RX poll loop to an ISOLATED core</span>
+<span class="na">rxcore</span><span class="o">=</span><span class="s">2</span><span class="w">                </span><span class="c1">; pin RX poll loop to an ISOLATED core</span>
 </pre></div>
 </div>
 <p>Binding does not survive a reboot, so re-run <code class="docutils literal notranslate"><span class="pre">modprobe</span></code> and the bind
 after each boot or automate them.</p>
 </div>
-<input id="sd-tab-item-6" name="sd-tab-set-2" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-6">
+<input id="sd-tab-item-7" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-7">
+af_xdp</label><div class="sd-tab-content docutils">
+<p>AF_XDP is a kernel fast path: the NIC keeps its normal kernel driver (no
+vfio bind, no hugepages). Bind to a kernel interface and a single RX
+queue. AF_XDP receives only on the bound queue, so collapse the NIC to one
+queue first:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>ethtool<span class="w"> </span>-L<span class="w"> </span>enp3s0<span class="w"> </span>combined<span class="w"> </span><span class="m">1</span><span class="w">     </span><span class="c1"># one queue -&gt; use queue=0</span>
+</pre></div>
+</div>
+<p>Configure the port in <code class="docutils literal notranslate"><span class="pre">PrtTcpip.ini</span></code>:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[rtnd0]</span>
+<span class="na">UseNicDrvDll</span><span class="o">=</span><span class="s">ndd_af_xdp.so</span>
+<span class="na">ifname</span><span class="o">=</span><span class="s">enp3s0</span><span class="w">            </span><span class="c1">; kernel interface to bind (required)</span>
+<span class="na">queue</span><span class="o">=</span><span class="s">0</span><span class="w">                  </span><span class="c1">; XSK binds to this RX queue</span>
+<span class="na">xdpmode</span><span class="o">=</span><span class="s">skb</span><span class="w">             </span><span class="c1">; skb=generic | drv=native | zerocopy=native+ZC</span>
+<span class="na">rxprio</span><span class="o">=</span><span class="s">97</span><span class="w">               </span><span class="c1">; RX thread SCHED_FIFO priority</span>
+<span class="na">rxcore</span><span class="o">=</span><span class="s">2</span><span class="w">                </span><span class="c1">; pin RX poll loop to an ISOLATED core</span>
+<span class="na">rxbusy</span><span class="o">=</span><span class="s">0</span><span class="w">                </span><span class="c1">; 0 = poll()/sleep (safe on a shared core)</span>
+<span class="w">                        </span><span class="c1">; 1 = busy-poll (needs a dedicated isolated core)</span>
+</pre></div>
+</div>
+<p>Creating the XSK needs <code class="docutils literal notranslate"><span class="pre">CAP_NET_RAW</span></code> + <code class="docutils literal notranslate"><span class="pre">CAP_NET_ADMIN</span></code> (<code class="docutils literal notranslate"><span class="pre">CAP_BPF</span></code> on
+newer kernels), so run the nodes as root.</p>
+</div>
+<input id="sd-tab-item-8" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-8">
 vnw</label><div class="sd-tab-content docutils">
 <p>The virtual-network driver needs no hardware and takes no transport keys.
 The engine reads its virtual slave list from the same section:</p>
@@ -729,7 +786,7 @@ sudo<span class="w"> </span>./wmx3-stop-engine<span class="w">      </span><span
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Jul 20, 2026</p>
+      <p>Last updated: Jul 21, 2026</p>
     
   </div>
   <div class="movensys-footer__links">
