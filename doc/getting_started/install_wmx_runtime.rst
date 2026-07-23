@@ -208,8 +208,57 @@ Whisper, or OpenVINO to the remaining cores. A cgroup v2 slice (``cpuset`` +
 ``cpu.weight``) keeps the AI stack off the control cores while keeping GPU/NPU
 access simple.
 
-3. Configure the EtherCAT NIC
------------------------------
+3. Set the WMX3 platform
+----------------------------
+
+WMX3 loads a *platform* that decides whether the engine drives real hardware
+over EtherCAT or runs against a simulated bus. The platforms are declared in
+``/opt/wmx3/Module.ini``; enable the one you want with ``disable = 0`` and turn
+the other off with ``disable = 1``. Select the tab that matches how you want to
+run the engine.
+
+.. tab-set::
+
+   .. tab-item:: EtherCAT
+
+      Drive real servo drives over EtherCAT — enable the EtherCAT platform and
+      disable the simulation platform:
+
+      .. code-block:: ini
+
+         [Platform 0]
+         Location = ./platform/ethercat
+         DllName = ec_platform.so
+         NumOfMaster = 1
+         disable = 0
+
+         [Platform 1]
+         Location = ./platform/simu
+         DllName = simu_platform.so
+         NumOfMaster = 1
+         disable = 1
+
+   .. tab-item:: Simulation
+
+      Run the engine against a simulated bus with no hardware attached — enable
+      the simulation platform and disable the EtherCAT platform:
+
+      .. code-block:: ini
+
+         [Platform 0]
+         Location = ./platform/ethercat
+         DllName = ec_platform.so
+         NumOfMaster = 1
+         disable = 1
+
+         [Platform 1]
+         Location = ./platform/simu
+         DllName = simu_platform.so
+         NumOfMaster = 1
+         disable = 0
+
+4. Configure the EtherCAT NIC
+---------------------------------
 
 WMX3's EtherCAT platform (``ec_platform.so``) sends and receives frames through
 a NIC-driver DLL. Pick the driver that matches your transport:
@@ -275,6 +324,7 @@ the driver; each driver reads its own keys from the same section.
 
          sudo modprobe vfio-pci
          sudo dpdk-devbind.py --bind=vfio-pci 0000:03:00.0
+         dpdk-devbind.py --status 
 
       Select the port in ``PrtTcpip.ini``. ``ifname`` is ignored; the port is
       chosen by id, pinned deterministically with an EAL allowlist:
@@ -283,8 +333,7 @@ the driver; each driver reads its own keys from the same section.
 
          [rtnd0]
          UseNicDrvDll=ndd_dpdk.so
-         dpdk_port=0
-         eal=-a 0000:03:00.0     ; allowlist the exact device, becomes port 0
+         dpdk_dev=0000:03:00.0     ; allowlist the exact device, becomes port 0
          rxprio=97               ; RX thread SCHED_FIFO priority
          rxcore=2                ; pin RX poll loop to an ISOLATED core
 
@@ -328,10 +377,10 @@ the driver; each driver reads its own keys from the same section.
 
          [rtnd0]
          UseNicDrvDll=ndd_vnw.so
-         numofslaves=6           ; number of virtual slaves (0 = empty network)
+         numofslaves=1           ; number of virtual slaves (0 = empty network)
 
-4. Test the WMX runtime
------------------------
+5. Test the WMX runtime
+---------------------------
 
 Connect the EtherCAT slave hardware (a single servo drive is recommended for a
 first bring-up) to the configured NIC, power it on, then run the WMX3 command
@@ -348,3 +397,11 @@ line tools to bring the engine up, scan the bus, and enable the servo:
    sudo ./wmx3-servo-on         # enable the servos
    sudo ./wmx3-axis-state 0     # show the state of axis 0
    sudo ./wmx3-stop-engine      # stop the engine when done
+
+
+6. Uninstall WMX runtime
+---------------------------
+
+.. code-block:: bash
+
+   sudo dpkg --purge wmx3-installer
