@@ -24,12 +24,12 @@ Hardware Requirements
    * - Storage
      - 10 GB free
      - 20 GB free (including ROS2 + MoveIt2)
-   * - GPU
-     - Not required for base operation
-     - NVIDIA GPU with CUDA for Isaac cuMotion
    * - NPU
      - Not required for base operation
      - Intel NPU for OpenVINO inference applications
+   * - GPU
+     - Not required for base operation
+     - NVIDIA GPU with CUDA for Isaac cuMotion
 
 EtherCAT Communication
 ~~~~~~~~~~~~~~~~~~~~~~~

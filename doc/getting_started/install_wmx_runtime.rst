@@ -154,22 +154,6 @@ are isolated on every platform.
          sudo update-grub
          sudo reboot
 
-   .. tab-item:: arm64 (Jetson)
-
-      The Jetson boards boot via U-Boot/extlinux, not GRUB. Append the same
-      isolation parameters to the ``APPEND`` line in
-      ``/boot/extlinux/extlinux.conf``:
-
-      .. code-block:: text
-
-         isolcpus=2,3 nohz_full=2,3 rcu_nocbs=2,3 irqaffinity=0,1 acpi_irq_nobalance noirqbalance
-
-      Then reboot:
-
-      .. code-block:: bash
-
-         sudo reboot
-
    .. tab-item:: Intel XPU (Panther Lake)
 
       Edit ``/etc/default/grub`` and set ``GRUB_CMDLINE_LINUX_DEFAULT``:
@@ -191,6 +175,22 @@ are isolated on every platform.
       .. code-block:: bash
 
          sudo update-grub
+         sudo reboot
+
+   .. tab-item:: arm64 (Jetson)
+
+      The Jetson boards boot via U-Boot/extlinux, not GRUB. Append the same
+      isolation parameters to the ``APPEND`` line in
+      ``/boot/extlinux/extlinux.conf``:
+
+      .. code-block:: text
+
+         isolcpus=2,3 nohz_full=2,3 rcu_nocbs=2,3 irqaffinity=0,1 acpi_irq_nobalance noirqbalance
+
+      Then reboot:
+
+      .. code-block:: bash
+
          sudo reboot
 
 **Pin the WMX engine to the isolated core.** Isolating the core keeps other work
@@ -273,12 +273,12 @@ a NIC-driver DLL. Pick the driver that matches your transport:
    * - ``ndd_sock_raw.so``
      - Linux ``AF_PACKET`` / ``SOCK_RAW`` socket
      - ``CAP_NET_RAW`` (typically root)
-   * - ``ndd_dpdk.so``
-     - DPDK poll-mode driver (kernel bypass)
-     - Hugepages, NIC bound to ``vfio-pci``/``uio``
    * - ``ndd_af_xdp.so``
      - AF_XDP socket / XSK (kernel fast path)
      - ``CAP_NET_RAW`` + ``CAP_NET_ADMIN``/``CAP_BPF`` (root)
+   * - ``ndd_dpdk.so``
+     - DPDK poll-mode driver (kernel bypass)
+     - Hugepages, NIC bound to ``vfio-pci``/``uio``
    * - ``ndd_vnw.so``
      - Virtual network (no hardware)
      - None
@@ -304,6 +304,34 @@ the driver; each driver reads its own keys from the same section.
 
       Opening the raw socket needs ``CAP_NET_RAW``, so run the nodes as root.
 
+   .. tab-item:: af_xdp
+
+      AF_XDP is a kernel fast path: the NIC keeps its normal kernel driver (no
+      vfio bind, no hugepages). Bind to a kernel interface and a single RX
+      queue. AF_XDP receives only on the bound queue, so collapse the NIC to one
+      queue first:
+
+      .. code-block:: bash
+
+         sudo ethtool -L enp3s0 combined 1     # one queue -> use queue=0
+
+      Configure the port in ``PrtTcpip.ini``:
+
+      .. code-block:: ini
+
+         [rtnd0]
+         UseNicDrvDll=ndd_af_xdp.so
+         ifname=enp3s0            ; kernel interface to bind (required)
+         queue=0                  ; XSK binds to this RX queue
+         xdpmode=skb             ; skb=generic | drv=native | zerocopy=native+ZC
+         rxprio=97               ; RX thread SCHED_FIFO priority
+         rxcore=2                ; pin RX poll loop to an ISOLATED core
+         rxbusy=0                ; 0 = poll()/sleep (safe on a shared core)
+                                 ; 1 = busy-poll (needs a dedicated isolated core)
+
+      Creating the XSK needs ``CAP_NET_RAW`` + ``CAP_NET_ADMIN`` (``CAP_BPF`` on
+      newer kernels), so run the nodes as root.
+      
    .. tab-item:: dpdk
 
       DPDK bypasses the kernel network stack, so reserve hugepages and bind the
@@ -339,34 +367,6 @@ the driver; each driver reads its own keys from the same section.
 
       Binding does not survive a reboot, so re-run ``modprobe`` and the bind
       after each boot or automate them.
-
-   .. tab-item:: af_xdp
-
-      AF_XDP is a kernel fast path: the NIC keeps its normal kernel driver (no
-      vfio bind, no hugepages). Bind to a kernel interface and a single RX
-      queue. AF_XDP receives only on the bound queue, so collapse the NIC to one
-      queue first:
-
-      .. code-block:: bash
-
-         sudo ethtool -L enp3s0 combined 1     # one queue -> use queue=0
-
-      Configure the port in ``PrtTcpip.ini``:
-
-      .. code-block:: ini
-
-         [rtnd0]
-         UseNicDrvDll=ndd_af_xdp.so
-         ifname=enp3s0            ; kernel interface to bind (required)
-         queue=0                  ; XSK binds to this RX queue
-         xdpmode=skb             ; skb=generic | drv=native | zerocopy=native+ZC
-         rxprio=97               ; RX thread SCHED_FIFO priority
-         rxcore=2                ; pin RX poll loop to an ISOLATED core
-         rxbusy=0                ; 0 = poll()/sleep (safe on a shared core)
-                                 ; 1 = busy-poll (needs a dedicated isolated core)
-
-      Creating the XSK needs ``CAP_NET_RAW`` + ``CAP_NET_ADMIN`` (``CAP_BPF`` on
-      newer kernels), so run the nodes as root.
 
    .. tab-item:: vnw
 
