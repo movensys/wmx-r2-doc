@@ -53,6 +53,9 @@ commands run through ``mros``.
 
             mros ros2 launch movensys_manipulator_isaac_ros_config isaac_cumotion_nvblox.launch.py use_sim_time:=true
 
+         Add ``rsp:=false`` if using Gazebo or ``ros2_control`` -- both already
+         publish ``/robot_description``.
+
       4. Run obstacle avoidance:
 
          .. code-block:: bash
@@ -75,6 +78,9 @@ commands run through ``mros``.
          .. code-block:: bash
 
             mros ros2 launch movensys_manipulator_isaac_ros_config isaac_cumotion_nvblox.launch.py
+
+         Add ``rsp:=false`` if using Gazebo or ``ros2_control`` -- both already
+         publish ``/robot_description``.
 
       4. Run obstacle avoidance:
 

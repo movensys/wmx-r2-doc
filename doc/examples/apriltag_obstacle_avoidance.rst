@@ -11,7 +11,7 @@ manipulator setup. All commands run through ``mros``.
    .. tab-item:: Simulation
 
       1. Open the Isaac Sim scene:
-         ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/7a_apriltag_obstacle_avoidance_simulation.usd``
+         ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/6a_apriltag_obstacle_avoidance_simulation.usd``
 
       2. Run the simulator bridge:
 
@@ -42,7 +42,7 @@ manipulator setup. All commands run through ``mros``.
    .. tab-item:: SIL
 
       1. Open the Isaac Sim scene:
-         ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/7b_apriltag_obstacle_avoidance_hil.usd``
+         ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/6b_apriltag_obstacle_avoidance_hil.usd``
 
       2. Start WMX R2 for the manipulator (real WMX runtime) with
          ``use_sim_time:=true`` (see
@@ -53,6 +53,9 @@ manipulator setup. All commands run through ``mros``.
          .. code-block:: bash
 
             mros ros2 launch movensys_manipulator_isaac_ros_config isaac_cumotion_nvblox.launch.py use_sim_time:=true
+
+         Add ``rsp:=false`` if using Gazebo or ``ros2_control`` -- both already
+         publish ``/robot_description``.
 
       4. Launch Isaac AprilTag:
 
@@ -70,7 +73,7 @@ manipulator setup. All commands run through ``mros``.
    .. tab-item:: Real
 
       1. Open the Isaac Sim scene:
-         ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/7c_apriltag_obstacle_avoidance_real.usd``
+         ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/6c_apriltag_obstacle_avoidance_real.usd``
 
       2. Start WMX R2 for the manipulator on the robot (see
          ``~/workspaces/movensys_ws/src/wmx-r2/doc/launch_<MANIPULATOR_MODEL>_manipulator.md``).
@@ -80,6 +83,9 @@ manipulator setup. All commands run through ``mros``.
          .. code-block:: bash
 
             mros ros2 launch movensys_manipulator_isaac_ros_config isaac_cumotion_nvblox.launch.py
+
+         Add ``rsp:=false`` if using Gazebo or ``ros2_control`` -- both already
+         publish ``/robot_description``.
 
       4. Launch Isaac AprilTag:
 

@@ -65,7 +65,16 @@ run through ``mros``. For the programmatic ``/wmx/moveit2/*`` service API, see
 
                   mros ros2 launch movensys_manipulator_isaac_ros_config isaac_cumotion.launch.py use_sim_time:=true
 
-      4. (optional) Execute the trajectory or coverage test:
+         Add ``rsp:=false`` if using Gazebo or ``ros2_control`` -- both already
+         publish ``/robot_description``.
+
+      4. (optional) Jog the arm from the keyboard (see :ref:`keyboard-jogging`):
+
+         .. code-block:: bash
+
+            mros ros2 run movensys_manipulator_moveit_config keyboard_teleop
+
+      5. (optional) Execute the trajectory or coverage test:
 
          .. code-block:: bash
 
@@ -113,7 +122,16 @@ run through ``mros``. For the programmatic ``/wmx/moveit2/*`` service API, see
 
                   mros ros2 launch movensys_manipulator_isaac_ros_config isaac_cumotion.launch.py use_sim_time:=true
 
-      4. (optional) Execute the trajectory or coverage test:
+         Add ``rsp:=false`` if using Gazebo or ``ros2_control`` -- both already
+         publish ``/robot_description``.
+
+      4. (optional) Jog the arm from the keyboard (see :ref:`keyboard-jogging`):
+
+         .. code-block:: bash
+
+            mros ros2 run movensys_manipulator_moveit_config keyboard_teleop
+
+      5. (optional) Execute the trajectory or coverage test:
 
          .. code-block:: bash
 
@@ -160,9 +178,55 @@ run through ``mros``. For the programmatic ``/wmx/moveit2/*`` service API, see
 
                   mros ros2 launch movensys_manipulator_isaac_ros_config isaac_cumotion.launch.py
 
-      4. (optional) Execute the trajectory or coverage test:
+         Add ``rsp:=false`` if using Gazebo or ``ros2_control`` -- both already
+         publish ``/robot_description``.
+
+      4. (optional) Jog the arm from the keyboard (see :ref:`keyboard-jogging`):
+
+         .. code-block:: bash
+
+            mros ros2 run movensys_manipulator_moveit_config keyboard_teleop
+
+      5. (optional) Execute the trajectory or coverage test:
 
          .. code-block:: bash
 
             mros ros2 launch movensys_manipulator_moveit_config trajectory_test.launch.py
             mros ros2 launch movensys_manipulator_moveit_config coverage_pose.launch.py
+
+.. _keyboard-jogging:
+
+Keyboard Jogging
+----------------
+
+``keyboard_teleop`` drives the ``servo_node`` started by ``moveit.launch.py``,
+so it works in any of the three modes once the planner is up. Pick a mode first
+(``j`` / ``t`` / ``p``), then jog:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 20 80
+
+   * - Key
+     - Action
+   * - ``j``
+     - **JOINT** mode -- keys ``1``…``6`` jog joint 1…6
+   * - ``t``
+     - **TWIST** mode -- Cartesian end-effector jog
+   * - ``p``
+     - **POSE** mode -- nudge an absolute end-effector target pose
+   * - ``↑`` / ``↓``
+     - X (+ / −) -- twist jog, or pose-target nudge
+   * - ``←`` / ``→``
+     - Y (− / +) -- twist jog, or pose-target nudge
+   * - ``.`` / ``;``
+     - Z (− / +) -- twist jog, or pose-target nudge
+   * - ``1`` … ``6``
+     - Joint jog for joint 1 … 6 (JOINT mode)
+   * - ``w`` / ``e``
+     - Frame for TWIST jog **and** POSE nudge = base (``world_manipulator``) /
+       eef (``Link6``)
+   * - ``r``
+     - Reverse jog direction (twist / joint)
+   * - ``q``
+     - Quit

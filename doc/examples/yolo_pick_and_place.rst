@@ -11,7 +11,7 @@ setup. All commands run through ``mros``.
    .. tab-item:: Simulation
 
       1. Open the Isaac Sim scene:
-         ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/6a_robopoly_simulation.usd``
+         ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/8a_yolo_pick_and_place_simulation.usd``
 
       2. Run the simulator bridge:
 
@@ -38,11 +38,12 @@ setup. All commands run through ``mros``.
 
                   mros ros2 launch movensys_manipulator_isaac_ros_config isaac_cumotion.launch.py use_sim_time:=true
 
-      4. Launch the YOLO cube and dice detector:
+      4. Launch the YOLO cube detector (the simulation scene contains cubes
+         only):
 
          .. code-block:: bash
 
-            mros ros2 launch movensys_manipulator_perception yolo_dice_and_cube_detector.launch.py use_sim_time:=true
+            mros ros2 launch movensys_manipulator_perception yolo_cube_detector.launch.py use_sim_time:=true
 
       5. Execute the YOLO pick-and-place:
 
@@ -56,13 +57,12 @@ setup. All commands run through ``mros``.
 
          .. code-block:: bash
 
-            ros2 run rqt_image_view rqt_image_view /yolo_dice_detector/debug_image
             ros2 run rqt_image_view rqt_image_view /yolo_cube_detector/debug_image
 
    .. tab-item:: SIL
 
       1. Open the Isaac Sim scene:
-         ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/6b_robopoly_hil.usd``
+         ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/8b_yolo_pick_and_place_hil.usd``
 
       2. Start WMX R2 for the manipulator (real WMX runtime) with
          ``use_sim_time:=true`` (see
@@ -86,7 +86,10 @@ setup. All commands run through ``mros``.
 
                   mros ros2 launch movensys_manipulator_isaac_ros_config isaac_cumotion.launch.py use_sim_time:=true
 
-      4. Launch the YOLO detector:
+         Add ``rsp:=false`` if using Gazebo or ``ros2_control`` -- both already
+         publish ``/robot_description``.
+
+      4. Launch the YOLO cube and dice detector:
 
          .. code-block:: bash
 
@@ -101,7 +104,7 @@ setup. All commands run through ``mros``.
    .. tab-item:: Real
 
       1. Open the Isaac Sim scene:
-         ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/6c_robopoly_real.usd``
+         ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/8c_yolo_pick_and_place_real.usd``
 
       2. Start WMX R2 for the manipulator on the robot (see
          ``~/workspaces/movensys_ws/src/wmx-r2/doc/launch_<MANIPULATOR_MODEL>_manipulator.md``).
@@ -123,6 +126,9 @@ setup. All commands run through ``mros``.
                .. code-block:: bash
 
                   mros ros2 launch movensys_manipulator_isaac_ros_config isaac_cumotion.launch.py
+
+         Add ``rsp:=false`` if using Gazebo or ``ros2_control`` -- both already
+         publish ``/robot_description``.
 
       4. Launch the YOLO cube and dice detector:
 
