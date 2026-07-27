@@ -41,7 +41,8 @@ commands run through ``nros``.
 
             nros ros2 launch movensys_navigation_nav2_config base.launch.py use_sim_time:=true
 
-         Add ``rsp:=false`` when using Gazebo (it already publishes the robot state).
+         Add ``rsp:=false`` if using Gazebo or ``ros2_control`` -- both already
+         publish ``/robot_description``.
 
       4. Drive with the teleop keyboard:
 
@@ -83,7 +84,8 @@ commands run through ``nros``.
 
             nros ros2 launch movensys_navigation_nav2_config base.launch.py use_sim_time:=true
 
-         Add ``rsp:=false`` when using Gazebo or ``ros2_control``.
+         Add ``rsp:=false`` if using Gazebo or ``ros2_control`` -- both already
+         publish ``/robot_description``.
 
       4. Drive with the teleop keyboard:
 
@@ -107,7 +109,8 @@ commands run through ``nros``.
 
             nros ros2 launch movensys_navigation_nav2_config base.launch.py
 
-         Add ``rsp:=false`` when using ``ros2_control``.
+         Add ``rsp:=false`` if using Gazebo or ``ros2_control`` -- both already
+         publish ``/robot_description``.
 
       3. Drive with the teleop keyboard:
 

@@ -55,7 +55,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Jul 21, 2026"/>
+    <meta name="docbuild:last-update" content="Jul 27, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -391,7 +391,7 @@ setup. All commands run through <code class="docutils literal notranslate"><span
 Simulation</label><div class="sd-tab-content docutils">
 <ol class="arabic">
 <li><p>Open the Isaac Sim scene:
-<code class="docutils literal notranslate"><span class="pre">~/workspaces/movensys-simulation/&lt;MANIPULATOR_MODEL&gt;/6a_robopoly_simulation.usd</span></code></p></li>
+<code class="docutils literal notranslate"><span class="pre">~/workspaces/movensys-simulation/&lt;MANIPULATOR_MODEL&gt;/8a_yolo_pick_and_place_simulation.usd</span></code></p></li>
 <li><p>Run the simulator bridge:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>movensys_manipulator_moveit_config<span class="w"> </span>sim_bridge.launch.py<span class="w"> </span><span class="se">\</span>
 <span class="w">     </span>simulator:<span class="o">=</span>isaacsim<span class="w"> </span>use_sim_time:<span class="o">=</span><span class="nb">true</span>
@@ -416,8 +416,9 @@ Isaac cuMotion</label><div class="sd-tab-content docutils">
 </div>
 </div>
 </li>
-<li><p>Launch the YOLO cube and dice detector:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>movensys_manipulator_perception<span class="w"> </span>yolo_dice_and_cube_detector.launch.py<span class="w"> </span>use_sim_time:<span class="o">=</span><span class="nb">true</span>
+<li><p>Launch the YOLO cube detector (the simulation scene contains cubes
+only):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>movensys_manipulator_perception<span class="w"> </span>yolo_cube_detector.launch.py<span class="w"> </span>use_sim_time:<span class="o">=</span><span class="nb">true</span>
 </pre></div>
 </div>
 </li>
@@ -427,8 +428,7 @@ Isaac cuMotion</label><div class="sd-tab-content docutils">
 </div>
 <p>(Pick/drop poses are loaded from <code class="docutils literal notranslate"><span class="pre">config/&lt;MANIPULATOR_MODEL&gt;/yolo_trajectory.yaml</span></code>.)</p>
 <p>Debug the detections (optional):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>rqt_image_view<span class="w"> </span>rqt_image_view<span class="w"> </span>/yolo_dice_detector/debug_image
-ros2<span class="w"> </span>run<span class="w"> </span>rqt_image_view<span class="w"> </span>rqt_image_view<span class="w"> </span>/yolo_cube_detector/debug_image
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>rqt_image_view<span class="w"> </span>rqt_image_view<span class="w"> </span>/yolo_cube_detector/debug_image
 </pre></div>
 </div>
 </li>
@@ -439,7 +439,7 @@ ros2<span class="w"> </span>run<span class="w"> </span>rqt_image_view<span class
 SIL</label><div class="sd-tab-content docutils">
 <ol class="arabic">
 <li><p>Open the Isaac Sim scene:
-<code class="docutils literal notranslate"><span class="pre">~/workspaces/movensys-simulation/&lt;MANIPULATOR_MODEL&gt;/6b_robopoly_hil.usd</span></code></p></li>
+<code class="docutils literal notranslate"><span class="pre">~/workspaces/movensys-simulation/&lt;MANIPULATOR_MODEL&gt;/8b_yolo_pick_and_place_hil.usd</span></code></p></li>
 <li><p>Start WMX R2 for the manipulator (real WMX runtime) with
 <code class="docutils literal notranslate"><span class="pre">use_sim_time:=true</span></code> (see
 <code class="docutils literal notranslate"><span class="pre">~/workspaces/movensys_ws/src/wmx-r2/doc/launch_&lt;MANIPULATOR_MODEL&gt;_manipulator.md</span></code>).</p></li>
@@ -460,8 +460,10 @@ Isaac cuMotion</label><div class="sd-tab-content docutils">
 </div>
 </div>
 </div>
+<p>Add <code class="docutils literal notranslate"><span class="pre">rsp:=false</span></code> if using Gazebo or <code class="docutils literal notranslate"><span class="pre">ros2_control</span></code> – both already
+publish <code class="docutils literal notranslate"><span class="pre">/robot_description</span></code>.</p>
 </li>
-<li><p>Launch the YOLO detector:</p>
+<li><p>Launch the YOLO cube and dice detector:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>movensys_manipulator_perception<span class="w"> </span>yolo_dice_and_cube_detector.launch.py<span class="w"> </span>use_sim_time:<span class="o">=</span><span class="nb">true</span>
 </pre></div>
 </div>
@@ -478,7 +480,7 @@ Isaac cuMotion</label><div class="sd-tab-content docutils">
 Real</label><div class="sd-tab-content docutils">
 <ol class="arabic">
 <li><p>Open the Isaac Sim scene:
-<code class="docutils literal notranslate"><span class="pre">~/workspaces/movensys-simulation/&lt;MANIPULATOR_MODEL&gt;/6c_robopoly_real.usd</span></code></p></li>
+<code class="docutils literal notranslate"><span class="pre">~/workspaces/movensys-simulation/&lt;MANIPULATOR_MODEL&gt;/8c_yolo_pick_and_place_real.usd</span></code></p></li>
 <li><p>Start WMX R2 for the manipulator on the robot (see
 <code class="docutils literal notranslate"><span class="pre">~/workspaces/movensys_ws/src/wmx-r2/doc/launch_&lt;MANIPULATOR_MODEL&gt;_manipulator.md</span></code>).</p></li>
 <li><p>Launch the planner and service API:</p>
@@ -498,6 +500,8 @@ Isaac cuMotion</label><div class="sd-tab-content docutils">
 </div>
 </div>
 </div>
+<p>Add <code class="docutils literal notranslate"><span class="pre">rsp:=false</span></code> if using Gazebo or <code class="docutils literal notranslate"><span class="pre">ros2_control</span></code> – both already
+publish <code class="docutils literal notranslate"><span class="pre">/robot_description</span></code>.</p>
 </li>
 <li><p>Launch the YOLO cube and dice detector:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>movensys_manipulator_perception<span class="w"> </span>yolo_dice_and_cube_detector.launch.py
@@ -583,7 +587,7 @@ ros2<span class="w"> </span>run<span class="w"> </span>rqt_image_view<span class
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Jul 21, 2026</p>
+      <p>Last updated: Jul 27, 2026</p>
     
   </div>
   <div class="movensys-footer__links">

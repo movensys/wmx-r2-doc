@@ -55,7 +55,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Jul 21, 2026"/>
+    <meta name="docbuild:last-update" content="Jul 27, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -418,7 +418,8 @@ Gazebo</label><div class="sd-tab-content docutils">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>movensys_navigation_nav2_config<span class="w"> </span>base.launch.py<span class="w"> </span>use_sim_time:<span class="o">=</span><span class="nb">true</span>
 </pre></div>
 </div>
-<p>Add <code class="docutils literal notranslate"><span class="pre">rsp:=false</span></code> when using Gazebo (it already publishes the robot state).</p>
+<p>Add <code class="docutils literal notranslate"><span class="pre">rsp:=false</span></code> if using Gazebo or <code class="docutils literal notranslate"><span class="pre">ros2_control</span></code> – both already
+publish <code class="docutils literal notranslate"><span class="pre">/robot_description</span></code>.</p>
 </li>
 <li><p>Drive with the teleop keyboard:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nros<span class="w"> </span>ros2<span class="w"> </span>run<span class="w"> </span>teleop_twist_keyboard<span class="w"> </span>teleop_twist_keyboard<span class="w"> </span>--ros-args<span class="w"> </span><span class="se">\</span>
@@ -459,7 +460,8 @@ Gazebo</label><div class="sd-tab-content docutils">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>movensys_navigation_nav2_config<span class="w"> </span>base.launch.py<span class="w"> </span>use_sim_time:<span class="o">=</span><span class="nb">true</span>
 </pre></div>
 </div>
-<p>Add <code class="docutils literal notranslate"><span class="pre">rsp:=false</span></code> when using Gazebo or <code class="docutils literal notranslate"><span class="pre">ros2_control</span></code>.</p>
+<p>Add <code class="docutils literal notranslate"><span class="pre">rsp:=false</span></code> if using Gazebo or <code class="docutils literal notranslate"><span class="pre">ros2_control</span></code> – both already
+publish <code class="docutils literal notranslate"><span class="pre">/robot_description</span></code>.</p>
 </li>
 <li><p>Drive with the teleop keyboard:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nros<span class="w"> </span>ros2<span class="w"> </span>run<span class="w"> </span>teleop_twist_keyboard<span class="w"> </span>teleop_twist_keyboard<span class="w"> </span>--ros-args<span class="w"> </span><span class="se">\</span>
@@ -483,7 +485,8 @@ Real</label><div class="sd-tab-content docutils">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>movensys_navigation_nav2_config<span class="w"> </span>base.launch.py
 </pre></div>
 </div>
-<p>Add <code class="docutils literal notranslate"><span class="pre">rsp:=false</span></code> when using <code class="docutils literal notranslate"><span class="pre">ros2_control</span></code>.</p>
+<p>Add <code class="docutils literal notranslate"><span class="pre">rsp:=false</span></code> if using Gazebo or <code class="docutils literal notranslate"><span class="pre">ros2_control</span></code> – both already
+publish <code class="docutils literal notranslate"><span class="pre">/robot_description</span></code>.</p>
 </li>
 <li><p>Drive with the teleop keyboard:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nros<span class="w"> </span>ros2<span class="w"> </span>run<span class="w"> </span>teleop_twist_keyboard<span class="w"> </span>teleop_twist_keyboard<span class="w"> </span>--ros-args<span class="w"> </span><span class="se">\</span>
@@ -558,7 +561,7 @@ Real</label><div class="sd-tab-content docutils">
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Jul 21, 2026</p>
+      <p>Last updated: Jul 27, 2026</p>
     
   </div>
   <div class="movensys-footer__links">

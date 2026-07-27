@@ -17,7 +17,7 @@ model, and define the ``mros`` helper used to run commands inside the container.
 
    export ROS_DOMAIN_ID=73                         # use any number
    export ROS_DISTRO=jazzy                         # {jazzy, humble}
-   export MOVENSYS_ROS_VERSION=isaac-ros_4.1       # {isaac-ros_4.1, isaac-ros_3.2, general}
+   export MOVENSYS_ROS_VERSION=isaac-ros_4.1       # {intel-xpu, isaac-ros_4.1, isaac-ros_3.2, general}
    export CPU_ARCH=amd64                           # {amd64, arm64}
    export MANIPULATOR_MODEL=dobot_cr3a             # {dobot_cr3a, dobot_cr5a}
 

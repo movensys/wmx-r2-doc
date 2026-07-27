@@ -55,7 +55,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Jul 21, 2026"/>
+    <meta name="docbuild:last-update" content="Jul 27, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -441,23 +441,10 @@ the tab that matches your hardware.</p>
 <input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" data-sync-group="tab" data-sync-id="x86" for="sd-tab-item-0">
 x86/amd64-based PC</label><div class="sd-tab-content docutils">
-<p><strong>Download the WMX3 installer</strong> — pick the archive that matches your
-Ubuntu version:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ubuntu 22.04</span>
-wget<span class="w"> </span>--user<span class="o">=</span>guest<span class="w"> </span>--password<span class="o">=</span>guest<span class="w"> </span>http://download.movensys.com:8111/webdav/WMX3_Installer/Linux/Ubuntu22.04_linux5.19.0_rt10.zip
-<span class="c1"># Ubuntu 24.04</span>
-wget<span class="w"> </span>--user<span class="o">=</span>guest<span class="w"> </span>--password<span class="o">=</span>guest<span class="w"> </span>http://download.movensys.com:8111/webdav/WMX3_Installer/Linux/Ubuntu24.04_linux6.15.2_rt2.zip
-</pre></div>
-</div>
+<p><a class="reference external" href="https://softservogroup.sharepoint.com/:u:/s/Storage/IQCyN66D6ZtqQJ7NDFmjzrTpAUmDKoB3T3LC5OFh_Cc-x0w?e=COgGmT">Download WMX3 for x86/amd64</a></p>
 <p><strong>Install WMX3</strong> — extract the archive and run the installer:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ubuntu 22.04</span>
-unzip<span class="w"> </span>Ubuntu22.04_linux5.19.0_rt10.zip
-<span class="nb">cd</span><span class="w"> </span>Ubuntu22.04_linux5.19.0_rt10
-sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>*wmx3-installer.deb
-
-<span class="c1"># Ubuntu 24.04</span>
-unzip<span class="w"> </span>Ubuntu24.04_linux6.15.2_rt2.zip
-<span class="nb">cd</span><span class="w"> </span>Ubuntu24.04_linux6.15.2_rt2
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>unzip<span class="w"> </span>20260727_WMX3_v3.7_Linux_x86.zip
+<span class="nb">cd</span><span class="w"> </span>20260727_WMX3_v3.7_Linux_x86/
 sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>*wmx3-installer.deb
 </pre></div>
 </div>
@@ -465,20 +452,11 @@ sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </spa
 <input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" data-sync-group="tab" data-sync-id="jetson" for="sd-tab-item-1">
 arm64 (Jetson)</label><div class="sd-tab-content docutils">
-<p><strong>Download the WMX3 installer:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>--user<span class="o">=</span>guest<span class="w"> </span>--password<span class="o">=</span>guest<span class="w"> </span>http://download.movensys.com:8111/webdav/WMX3_Installer/Linux/wmx3_arm64_installers.zip
-unzip<span class="w"> </span>wmx3_arm64_installers.zip
-</pre></div>
-</div>
-<p><strong>Install the package for your board:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># NVIDIA Jetson Orin NX Developer Kit (Advantech MIC-713), Ubuntu 20.04</span>
-sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>20260403_Ubuntu20.04_linux-5.10.120-rt70-jetson-orin-nx-mic-713-wmx3-installer.deb
-
-<span class="c1"># NVIDIA Jetson Orin AGX Developer Kit (Advantech MIC-733ao), Ubuntu 22.04</span>
-sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>20260403_Ubuntu22.04_linux-5.15.148-rt-jetson-agx-orin-mic-733ao-wmx3-installer.deb
-
-<span class="c1"># NVIDIA Jetson Thor Developer Kit (Advantech MIC-743), Ubuntu 24.04</span>
-sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>20260403_Ubuntu24.04_linux-6.8.12-rt-jetson-thor-mic-743-wmx3-installer.deb
+<p><a class="reference external" href="https://softservogroup.sharepoint.com/:u:/s/Storage/IQA1tj_1ST26TreJ2HfYSPkmAWf0tEW_1O6rNWqxB0plycQ?e=wZD2cc">Download WMX3 for jetson/arm64</a></p>
+<p><strong>Install WMX3</strong> — extract the archive and run the installer:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>unzip<span class="w"> </span>20260727_WMX3_v3.7_Linux_ARM64.zip
+<span class="nb">cd</span><span class="w"> </span>20260727_WMX3_v3.7_Linux_ARM64/
+sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>*wmx3-installer.deb
 </pre></div>
 </div>
 </div>
@@ -516,20 +494,6 @@ sudo<span class="w"> </span>reboot
 </div>
 <input id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-3">
-arm64 (Jetson)</label><div class="sd-tab-content docutils">
-<p>The Jetson boards boot via U-Boot/extlinux, not GRUB. Append the same
-isolation parameters to the <code class="docutils literal notranslate"><span class="pre">APPEND</span></code> line in
-<code class="docutils literal notranslate"><span class="pre">/boot/extlinux/extlinux.conf</span></code>:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>isolcpus=2,3 nohz_full=2,3 rcu_nocbs=2,3 irqaffinity=0,1 acpi_irq_nobalance noirqbalance
-</pre></div>
-</div>
-<p>Then reboot:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>reboot
-</pre></div>
-</div>
-</div>
-<input id="sd-tab-item-4" name="sd-tab-set-1" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-4">
 Intel XPU (Panther Lake)</label><div class="sd-tab-content docutils">
 <p>Edit <code class="docutils literal notranslate"><span class="pre">/etc/default/grub</span></code> and set <code class="docutils literal notranslate"><span class="pre">GRUB_CMDLINE_LINUX_DEFAULT</span></code>:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>GRUB_CMDLINE_LINUX_DEFAULT=&quot;isolcpus=managed_irq,domain,2,3 nohz_full=2,3 rcu_nocbs=2,3 irqaffinity=0,1 intel_pstate=disable processor.max_cstate=1 idle=poll&quot;
@@ -550,6 +514,20 @@ sudo<span class="w"> </span>reboot
 </pre></div>
 </div>
 </div>
+<input id="sd-tab-item-4" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-4">
+arm64 (Jetson)</label><div class="sd-tab-content docutils">
+<p>The Jetson boards boot via U-Boot/extlinux, not GRUB. Append the same
+isolation parameters to the <code class="docutils literal notranslate"><span class="pre">APPEND</span></code> line in
+<code class="docutils literal notranslate"><span class="pre">/boot/extlinux/extlinux.conf</span></code>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>isolcpus=2,3 nohz_full=2,3 rcu_nocbs=2,3 irqaffinity=0,1 acpi_irq_nobalance noirqbalance
+</pre></div>
+</div>
+<p>Then reboot:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>reboot
+</pre></div>
+</div>
+</div>
 </div>
 <p><strong>Pin the WMX engine to the isolated core.</strong> Isolating the core keeps other work
 off it; you still have to tell the WMX engine to run there. Edit
@@ -564,8 +542,56 @@ Whisper, or OpenVINO to the remaining cores. A cgroup v2 slice (<code class="doc
 <code class="docutils literal notranslate"><span class="pre">cpu.weight</span></code>) keeps the AI stack off the control cores while keeping GPU/NPU
 access simple.</p>
 </section>
+<section id="set-the-wmx3-platform">
+<h2>3. Set the WMX3 platform<a class="headerlink" href="#set-the-wmx3-platform" title="Link to this heading">#</a></h2>
+<p>WMX3 loads a <em>platform</em> that decides whether the engine drives real hardware
+over EtherCAT or runs against a simulated bus. The platforms are declared in
+<code class="docutils literal notranslate"><span class="pre">/opt/wmx3/Module.ini</span></code>; enable the one you want with <code class="docutils literal notranslate"><span class="pre">disable</span> <span class="pre">=</span> <span class="pre">0</span></code> and turn
+the other off with <code class="docutils literal notranslate"><span class="pre">disable</span> <span class="pre">=</span> <span class="pre">1</span></code>. Select the tab that matches how you want to
+run the engine.</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-5" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-5">
+EtherCAT</label><div class="sd-tab-content docutils">
+<p>Drive real servo drives over EtherCAT — enable the EtherCAT platform and
+disable the simulation platform:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[Platform 0]</span>
+<span class="na">Location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">./platform/ethercat</span>
+<span class="na">DllName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">ec_platform.so</span>
+<span class="na">NumOfMaster</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">1</span>
+<span class="na">disable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">0</span>
+
+<span class="k">[Platform 1]</span>
+<span class="na">Location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">./platform/simu</span>
+<span class="na">DllName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">simu_platform.so</span>
+<span class="na">NumOfMaster</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">1</span>
+<span class="na">disable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">1</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-6" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-6">
+Simulation</label><div class="sd-tab-content docutils">
+<p>Run the engine against a simulated bus with no hardware attached — enable
+the simulation platform and disable the EtherCAT platform:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[Platform 0]</span>
+<span class="na">Location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">./platform/ethercat</span>
+<span class="na">DllName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">ec_platform.so</span>
+<span class="na">NumOfMaster</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">1</span>
+<span class="na">disable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">1</span>
+
+<span class="k">[Platform 1]</span>
+<span class="na">Location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">./platform/simu</span>
+<span class="na">DllName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">simu_platform.so</span>
+<span class="na">NumOfMaster</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">1</span>
+<span class="na">disable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">0</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 <section id="configure-the-ethercat-nic">
-<h2>3. Configure the EtherCAT NIC<a class="headerlink" href="#configure-the-ethercat-nic" title="Link to this heading">#</a></h2>
+<h2>4. Configure the EtherCAT NIC<a class="headerlink" href="#configure-the-ethercat-nic" title="Link to this heading">#</a></h2>
 <p>WMX3’s EtherCAT platform (<code class="docutils literal notranslate"><span class="pre">ec_platform.so</span></code>) sends and receives frames through
 a NIC-driver DLL. Pick the driver that matches your transport:</p>
 <div class="pst-scrollable-table-container"><table class="table">
@@ -585,13 +611,13 @@ a NIC-driver DLL. Pick the driver that matches your transport:</p>
 <td><p>Linux <code class="docutils literal notranslate"><span class="pre">AF_PACKET</span></code> / <code class="docutils literal notranslate"><span class="pre">SOCK_RAW</span></code> socket</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">CAP_NET_RAW</span></code> (typically root)</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ndd_dpdk.so</span></code></p></td>
-<td><p>DPDK poll-mode driver (kernel bypass)</p></td>
-<td><p>Hugepages, NIC bound to <code class="docutils literal notranslate"><span class="pre">vfio-pci</span></code>/<code class="docutils literal notranslate"><span class="pre">uio</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ndd_af_xdp.so</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ndd_af_xdp.so</span></code></p></td>
 <td><p>AF_XDP socket / XSK (kernel fast path)</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">CAP_NET_RAW</span></code> + <code class="docutils literal notranslate"><span class="pre">CAP_NET_ADMIN</span></code>/<code class="docutils literal notranslate"><span class="pre">CAP_BPF</span></code> (root)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ndd_dpdk.so</span></code></p></td>
+<td><p>DPDK poll-mode driver (kernel bypass)</p></td>
+<td><p>Hugepages, NIC bound to <code class="docutils literal notranslate"><span class="pre">vfio-pci</span></code>/<code class="docutils literal notranslate"><span class="pre">uio</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ndd_vnw.so</span></code></p></td>
 <td><p>Virtual network (no hardware)</p></td>
@@ -605,8 +631,8 @@ a NIC-driver DLL. Pick the driver that matches your transport:</p>
 <code class="docutils literal notranslate"><span class="pre">/opt/wmx3/platform/ethercat/PrtTcpip.ini</span></code>. The <code class="docutils literal notranslate"><span class="pre">UseNicDrvDll</span></code> key selects
 the driver; each driver reads its own keys from the same section.</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="sd-tab-item-5" name="sd-tab-set-2" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-5">
+<input checked="checked" id="sd-tab-item-7" name="sd-tab-set-3" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-7">
 sock_raw</label><div class="sd-tab-content docutils">
 <p>Bind the driver to a kernel network interface. <code class="docutils literal notranslate"><span class="pre">ifname</span></code> is required (the
 <code class="docutils literal notranslate"><span class="pre">NIC_DRV_DLL_IFNAME</span></code> environment variable overrides it):</p>
@@ -618,38 +644,8 @@ sock_raw</label><div class="sd-tab-content docutils">
 </div>
 <p>Opening the raw socket needs <code class="docutils literal notranslate"><span class="pre">CAP_NET_RAW</span></code>, so run the nodes as root.</p>
 </div>
-<input id="sd-tab-item-6" name="sd-tab-set-2" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-6">
-dpdk</label><div class="sd-tab-content docutils">
-<p>DPDK bypasses the kernel network stack, so reserve hugepages and bind the
-NIC to a userspace driver <strong>before</strong> starting the WMX3 engine.</p>
-<p>Reserve hugepages (2 GB as 1024 pages of 2 MB):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="m">1024</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages
-grep<span class="w"> </span>-i<span class="w"> </span>hugepages_<span class="w"> </span>/proc/meminfo<span class="w">         </span><span class="c1"># expect HugePages_Total: 1024</span>
-</pre></div>
-</div>
-<p>Bind the EtherCAT NIC to <code class="docutils literal notranslate"><span class="pre">vfio-pci</span></code> (find the PCI address with
-<code class="docutils literal notranslate"><span class="pre">dpdk-devbind.py</span> <span class="pre">--status</span></code>; pick a port that is not your management
-link, because the bound interface disappears from the kernel):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>modprobe<span class="w"> </span>vfio-pci
-sudo<span class="w"> </span>dpdk-devbind.py<span class="w"> </span>--bind<span class="o">=</span>vfio-pci<span class="w"> </span><span class="m">0000</span>:03:00.0
-</pre></div>
-</div>
-<p>Select the port in <code class="docutils literal notranslate"><span class="pre">PrtTcpip.ini</span></code>. <code class="docutils literal notranslate"><span class="pre">ifname</span></code> is ignored; the port is
-chosen by id, pinned deterministically with an EAL allowlist:</p>
-<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[rtnd0]</span>
-<span class="na">UseNicDrvDll</span><span class="o">=</span><span class="s">ndd_dpdk.so</span>
-<span class="na">dpdk_port</span><span class="o">=</span><span class="s">0</span>
-<span class="na">eal</span><span class="o">=</span><span class="s">-a 0000:03:00.0</span><span class="w">     </span><span class="c1">; allowlist the exact device, becomes port 0</span>
-<span class="na">rxprio</span><span class="o">=</span><span class="s">97</span><span class="w">               </span><span class="c1">; RX thread SCHED_FIFO priority</span>
-<span class="na">rxcore</span><span class="o">=</span><span class="s">2</span><span class="w">                </span><span class="c1">; pin RX poll loop to an ISOLATED core</span>
-</pre></div>
-</div>
-<p>Binding does not survive a reboot, so re-run <code class="docutils literal notranslate"><span class="pre">modprobe</span></code> and the bind
-after each boot or automate them.</p>
-</div>
-<input id="sd-tab-item-7" name="sd-tab-set-2" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-7">
+<input id="sd-tab-item-8" name="sd-tab-set-3" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-8">
 af_xdp</label><div class="sd-tab-content docutils">
 <p>AF_XDP is a kernel fast path: the NIC keeps its normal kernel driver (no
 vfio bind, no hugepages). Bind to a kernel interface and a single RX
@@ -673,21 +669,51 @@ queue first:</p>
 <p>Creating the XSK needs <code class="docutils literal notranslate"><span class="pre">CAP_NET_RAW</span></code> + <code class="docutils literal notranslate"><span class="pre">CAP_NET_ADMIN</span></code> (<code class="docutils literal notranslate"><span class="pre">CAP_BPF</span></code> on
 newer kernels), so run the nodes as root.</p>
 </div>
-<input id="sd-tab-item-8" name="sd-tab-set-2" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-8">
+<input id="sd-tab-item-9" name="sd-tab-set-3" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-9">
+dpdk</label><div class="sd-tab-content docutils">
+<p>DPDK bypasses the kernel network stack, so reserve hugepages and bind the
+NIC to a userspace driver <strong>before</strong> starting the WMX3 engine.</p>
+<p>Reserve hugepages (2 GB as 1024 pages of 2 MB):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="m">1024</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages
+grep<span class="w"> </span>-i<span class="w"> </span>hugepages_<span class="w"> </span>/proc/meminfo<span class="w">         </span><span class="c1"># expect HugePages_Total: 1024</span>
+</pre></div>
+</div>
+<p>Bind the EtherCAT NIC to <code class="docutils literal notranslate"><span class="pre">vfio-pci</span></code> (find the PCI address with
+<code class="docutils literal notranslate"><span class="pre">dpdk-devbind.py</span> <span class="pre">--status</span></code>; pick a port that is not your management
+link, because the bound interface disappears from the kernel):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>modprobe<span class="w"> </span>vfio-pci
+sudo<span class="w"> </span>dpdk-devbind.py<span class="w"> </span>--bind<span class="o">=</span>vfio-pci<span class="w"> </span><span class="m">0000</span>:03:00.0
+dpdk-devbind.py<span class="w"> </span>--status
+</pre></div>
+</div>
+<p>Select the port in <code class="docutils literal notranslate"><span class="pre">PrtTcpip.ini</span></code>. <code class="docutils literal notranslate"><span class="pre">ifname</span></code> is ignored; the port is
+chosen by id, pinned deterministically with an EAL allowlist:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[rtnd0]</span>
+<span class="na">UseNicDrvDll</span><span class="o">=</span><span class="s">ndd_dpdk.so</span>
+<span class="na">dpdk_dev</span><span class="o">=</span><span class="s">0000:03:00.0</span><span class="w">     </span><span class="c1">; allowlist the exact device, becomes port 0</span>
+<span class="na">rxprio</span><span class="o">=</span><span class="s">97</span><span class="w">               </span><span class="c1">; RX thread SCHED_FIFO priority</span>
+<span class="na">rxcore</span><span class="o">=</span><span class="s">2</span><span class="w">                </span><span class="c1">; pin RX poll loop to an ISOLATED core</span>
+</pre></div>
+</div>
+<p>Binding does not survive a reboot, so re-run <code class="docutils literal notranslate"><span class="pre">modprobe</span></code> and the bind
+after each boot or automate them.</p>
+</div>
+<input id="sd-tab-item-10" name="sd-tab-set-3" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-10">
 vnw</label><div class="sd-tab-content docutils">
 <p>The virtual-network driver needs no hardware and takes no transport keys.
 The engine reads its virtual slave list from the same section:</p>
 <div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[rtnd0]</span>
 <span class="na">UseNicDrvDll</span><span class="o">=</span><span class="s">ndd_vnw.so</span>
-<span class="na">numofslaves</span><span class="o">=</span><span class="s">6</span><span class="w">           </span><span class="c1">; number of virtual slaves (0 = empty network)</span>
+<span class="na">numofslaves</span><span class="o">=</span><span class="s">1</span><span class="w">           </span><span class="c1">; number of virtual slaves (0 = empty network)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 <section id="test-the-wmx-runtime">
-<h2>4. Test the WMX runtime<a class="headerlink" href="#test-the-wmx-runtime" title="Link to this heading">#</a></h2>
+<h2>5. Test the WMX runtime<a class="headerlink" href="#test-the-wmx-runtime" title="Link to this heading">#</a></h2>
 <p>Connect the EtherCAT slave hardware (a single servo drive is recommended for a
 first bring-up) to the configured NIC, power it on, then run the WMX3 command
 line tools to bring the engine up, scan the bus, and enable the servo:</p>
@@ -700,6 +726,12 @@ sudo<span class="w"> </span>./wmx3-clear-alarm<span class="w">      </span><span
 sudo<span class="w"> </span>./wmx3-servo-on<span class="w">         </span><span class="c1"># enable the servos</span>
 sudo<span class="w"> </span>./wmx3-axis-state<span class="w"> </span><span class="m">0</span><span class="w">     </span><span class="c1"># show the state of axis 0</span>
 sudo<span class="w"> </span>./wmx3-stop-engine<span class="w">      </span><span class="c1"># stop the engine when done</span>
+</pre></div>
+</div>
+</section>
+<section id="uninstall-wmx-runtime">
+<h2>6. Uninstall WMX runtime<a class="headerlink" href="#uninstall-wmx-runtime" title="Link to this heading">#</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>dpkg<span class="w"> </span>--purge<span class="w"> </span>wmx3-installer
 </pre></div>
 </div>
 </section>
@@ -755,8 +787,10 @@ sudo<span class="w"> </span>./wmx3-stop-engine<span class="w">      </span><span
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-wmx-motion-engine">What is WMX Motion Engine?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-the-wmx-runtime">1. Install the WMX runtime</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isolate-cores-for-wmx">2. Isolate cores for WMX</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configure-the-ethercat-nic">3. Configure the EtherCAT NIC</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-the-wmx-runtime">4. Test the WMX runtime</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-the-wmx3-platform">3. Set the WMX3 platform</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configure-the-ethercat-nic">4. Configure the EtherCAT NIC</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-the-wmx-runtime">5. Test the WMX runtime</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#uninstall-wmx-runtime">6. Uninstall WMX runtime</a></li>
 </ul>
   </nav></div>
 
@@ -786,7 +820,7 @@ sudo<span class="w"> </span>./wmx3-stop-engine<span class="w">      </span><span
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Jul 21, 2026</p>
+      <p>Last updated: Jul 27, 2026</p>
     
   </div>
   <div class="movensys-footer__links">

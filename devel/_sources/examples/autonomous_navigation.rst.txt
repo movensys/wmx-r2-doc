@@ -40,7 +40,8 @@ commands run through ``nros``.
 
             nros ros2 launch movensys_navigation_nav2_config navigation.launch.py use_sim_time:=true
 
-         Add ``rsp:=false`` when using Gazebo.
+         Add ``rsp:=false`` if using Gazebo or ``ros2_control`` -- both already
+         publish ``/robot_description``.
 
       4. Set the initial pose: in RViz, click **2D Pose Estimate** and click the map
          at the robot's current position and heading.
@@ -80,7 +81,9 @@ commands run through ``nros``.
 
             nros ros2 launch movensys_navigation_nav2_config navigation.launch.py use_sim_time:=true
 
-         Add ``rsp:=false`` when using Gazebo.
+         Add ``rsp:=false`` if using Gazebo or ``ros2_control`` -- both already
+         publish ``/robot_description``.
+
 
       4. Set the initial pose: in RViz, click **2D Pose Estimate** and click the map
          at the robot's current position and heading.
@@ -103,6 +106,9 @@ commands run through ``nros``.
          .. code-block:: bash
 
             nros ros2 launch movensys_navigation_nav2_config navigation.launch.py
+
+         Add ``rsp:=false`` if using Gazebo or ``ros2_control`` -- both already
+         publish ``/robot_description``.
 
       3. Set the initial pose: in RViz, click **2D Pose Estimate** and click the map
          at the robot's current position and heading.

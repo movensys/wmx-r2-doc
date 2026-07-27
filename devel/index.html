@@ -54,7 +54,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Jul 21, 2026"/>
+    <meta name="docbuild:last-update" content="Jul 27, 2026"/>
   
     
     <script src="_static/searchtools.js"></script>
@@ -358,8 +358,8 @@ document.addEventListener("DOMContentLoaded", function() {
 <h1>WMX R2 Documentation<a class="headerlink" href="#wmx-r2-documentation" title="Link to this heading">#</a></h1>
 <p><strong>WMX R2: The Real-Time Execution Layer for Physical AI.</strong></p>
 <p>WMX R2 brings industrial deterministic real-time robotics motion control into the
-ROS 2 ecosystem. WMX R2 is a set of ROS 2 packages that drive
-industrial servos through the WMX motion control engine over EtherCAT, a
+ROS 2 ecosystem. WMX R2 is a solution that integrates a ROS 2 interface with
+the WMX motion engine. It drives industrial servos over EtherCAT, a
 real-time industrial Ethernet network that links the controller to servo drives
 and I/O over a single cable.</p>
 <p>WMX R2 turns planner output such as MoveIt2 and Nav2 trajectories into the precisely timed
@@ -439,12 +439,11 @@ from a single edge device over the field network.</span><a class="headerlink" hr
 the system is smaller, lighter, and efficient while performing better. That
 compact footprint suits robots and mobile machines where space and payload are
 tight.</p>
-<p>WMX R2 is an open source MIT-licensed ROS2 package with
-timing-sensitive step: smoothing trajectories, coordinating joints, and
-emitting commands at the rate servo drivers expect.
-It is built on the WMX motion control engine, which keeps motion on a
-deterministic cycle and exposes more than 200 APIs for trajectory
-conversion, EtherCAT, I/O, and engine control. WMX runs free in
+<p>WMX R2’s open source MIT-licensed ROS 2 interface handles the timing-sensitive
+step: smoothing trajectories, coordinating joints, and emitting commands at the
+rate servo drivers expect. It runs with WMX motion engine, which keeps
+motion on a deterministic cycle and exposes more than 200 APIs for trajectory
+conversion, EtherCAT, I/O, and engine control. The WMX engine runs free in
 renewable 6-hour sessions that you extend by restarting the engine, and a
 commercial license removes the limit for production.</p>
 <section id="performance-comparison">
@@ -714,7 +713,7 @@ communication latency from removing the TCP/IP hop and a redundant control stage
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Jul 21, 2026</p>
+      <p>Last updated: Jul 27, 2026</p>
     
   </div>
   <div class="movensys-footer__links">

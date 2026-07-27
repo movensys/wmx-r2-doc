@@ -4,8 +4,8 @@ WMX R2 Documentation
 **WMX R2: The Real-Time Execution Layer for Physical AI.**
 
 WMX R2 brings industrial deterministic real-time robotics motion control into the
-ROS 2 ecosystem. WMX R2 is a set of ROS 2 packages that drive
-industrial servos through the WMX motion control engine over EtherCAT, a
+ROS 2 ecosystem. WMX R2 is a solution that integrates a ROS 2 interface with
+the WMX motion engine. It drives industrial servos over EtherCAT, a
 real-time industrial Ethernet network that links the controller to servo drives
 and I/O over a single cable.
 
@@ -101,12 +101,11 @@ compact footprint suits robots and mobile machines where space and payload are
 tight.
 
 
-WMX R2 is an open source MIT-licensed ROS2 package with
-timing-sensitive step: smoothing trajectories, coordinating joints, and
-emitting commands at the rate servo drivers expect. 
-It is built on the WMX motion control engine, which keeps motion on a
-deterministic cycle and exposes more than 200 APIs for trajectory
-conversion, EtherCAT, I/O, and engine control. WMX runs free in
+WMX R2's open source MIT-licensed ROS 2 interface handles the timing-sensitive
+step: smoothing trajectories, coordinating joints, and emitting commands at the
+rate servo drivers expect. It runs with WMX motion engine, which keeps
+motion on a deterministic cycle and exposes more than 200 APIs for trajectory
+conversion, EtherCAT, I/O, and engine control. The WMX engine runs free in
 renewable 6-hour sessions that you extend by restarting the engine, and a
 commercial license removes the limit for production.
 
