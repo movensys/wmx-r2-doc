@@ -67,28 +67,18 @@ the tab that matches your hardware.
    .. tab-item:: x86/amd64-based PC
       :sync: x86
 
-      **Download the WMX3 installer** — pick the archive that matches your
-      Ubuntu version:
+      **Download the WMX3 installer**
 
       .. code-block:: bash
 
-         # Ubuntu 22.04
-         wget --user=guest --password=guest http://download.movensys.com:8111/webdav/WMX3_Installer/Linux/Ubuntu22.04_linux5.19.0_rt10.zip
-         # Ubuntu 24.04
-         wget --user=guest --password=guest http://download.movensys.com:8111/webdav/WMX3_Installer/Linux/Ubuntu24.04_linux6.15.2_rt2.zip
+         wget --user=guest --password=guest http://download.movensys.com:8111/webdav/WMX3_Installer/Linux/20260727_x86_wmx3-installer.zip
 
       **Install WMX3** — extract the archive and run the installer:
 
       .. code-block:: bash
 
-         # Ubuntu 22.04
-         unzip Ubuntu22.04_linux5.19.0_rt10.zip
-         cd Ubuntu22.04_linux5.19.0_rt10
-         sudo dpkg -i *wmx3-installer.deb
-
-         # Ubuntu 24.04
-         unzip Ubuntu24.04_linux6.15.2_rt2.zip
-         cd Ubuntu24.04_linux6.15.2_rt2
+         unzip 20260727_x86_wmx3-installer.zip
+         cd 20260727_x86_wmx3-installer/
          sudo dpkg -i *wmx3-installer.deb
 
    .. tab-item:: arm64 (Jetson)
@@ -98,21 +88,15 @@ the tab that matches your hardware.
 
       .. code-block:: bash
 
-         wget --user=guest --password=guest http://download.movensys.com:8111/webdav/WMX3_Installer/Linux/wmx3_arm64_installers.zip
-         unzip wmx3_arm64_installers.zip
+         wget --user=guest --password=guest http://download.movensys.com:8111/webdav/WMX3_Installer/Linux/20260727_jetson_wmx3-installer.zip
 
-      **Install the package for your board:**
+      **Install WMX3** — extract the archive and run the installer:
 
       .. code-block:: bash
 
-         # NVIDIA Jetson Orin NX Developer Kit (Advantech MIC-713), Ubuntu 20.04
-         sudo dpkg -i 20260403_Ubuntu20.04_linux-5.10.120-rt70-jetson-orin-nx-mic-713-wmx3-installer.deb
-
-         # NVIDIA Jetson Orin AGX Developer Kit (Advantech MIC-733ao), Ubuntu 22.04
-         sudo dpkg -i 20260403_Ubuntu22.04_linux-5.15.148-rt-jetson-agx-orin-mic-733ao-wmx3-installer.deb
-
-         # NVIDIA Jetson Thor Developer Kit (Advantech MIC-743), Ubuntu 24.04
-         sudo dpkg -i 20260403_Ubuntu24.04_linux-6.8.12-rt-jetson-thor-mic-743-wmx3-installer.deb
+         unzip 20260727_jetson_wmx3-installer.zip
+         cd 20260727_jetson_wmx3-installer
+         sudo dpkg -i *wmx3-installer.deb
 
 The installer places the WMX3 runtime at ``/opt/wmx3/``. Confirm the required
 headers and libraries are present:
