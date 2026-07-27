@@ -72,6 +72,9 @@ OpenCV AprilTag (with MoveIt2 OMPL) or Isaac ROS AprilTag (with cuMotion). See
 
                   mros ros2 launch movensys_manipulator_isaac_ros_config isaac_cumotion_apriltag.launch.py use_sim_time:=true
 
+         Add ``rsp:=false`` if using Gazebo or ``ros2_control`` -- both already
+         publish ``/robot_description``.
+
       4. Run the pick-and-place:
 
          .. code-block:: bash
@@ -104,6 +107,9 @@ OpenCV AprilTag (with MoveIt2 OMPL) or Isaac ROS AprilTag (with cuMotion). See
                .. code-block:: bash
 
                   mros ros2 launch movensys_manipulator_isaac_ros_config isaac_cumotion_apriltag.launch.py
+
+         Add ``rsp:=false`` if using Gazebo or ``ros2_control`` -- both already
+         publish ``/robot_description``.
 
       4. Run the pick-and-place (``target_spawn:=true`` spawns the target on the real
          setup):

@@ -2,7 +2,7 @@
 
 **WMX R2™ — The Real-Time Execution Layer for Physical AI**
 
-Technical documentation for **WMX R2**, a real-time execution layer for Physical AI designed to work in ROS 2 environments, built on the [MOVENSYS](https://www.movensys.com/) WMX3 motion control platform. ("R2" stands for *Real-time Robotics*.)
+Technical documentation for **WMX R2**, a complete real-time robotics solution for Physical AI that integrate a ROS 2 interface with the [MOVENSYS](https://www.movensys.com/) WMX3 motion engine it runs on. ("R2" stands for *Real-time Robotics*.)
 
 > ROS is a trademark of Open Robotics.
 
@@ -10,7 +10,7 @@ Technical documentation for **WMX R2**, a real-time execution layer for Physical
 
 ## Overview
 
-WMX R2 bridges the MOVENSYS WMX3 EtherCAT-based motion controller with ROS2, enabling control of robotic manipulators (e.g., Dobot CR3A) with motion planning through MoveIt2 and NVIDIA Isaac cuMotion.
+WMX R2 combines a ROS 2 interface with the MOVENSYS WMX3 EtherCAT-based motion engine in a single solution, enabling control of robotic manipulators (e.g., Dobot CR3A) with motion planning through MoveIt2 and NVIDIA Isaac cuMotion.
 
 ## Documentation Contents
 

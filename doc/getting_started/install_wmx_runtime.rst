@@ -67,52 +67,30 @@ the tab that matches your hardware.
    .. tab-item:: x86/amd64-based PC
       :sync: x86
 
-      **Download the WMX3 installer** — pick the archive that matches your
-      Ubuntu version:
-
-      .. code-block:: bash
-
-         # Ubuntu 22.04
-         wget --user=guest --password=guest http://download.movensys.com:8111/webdav/WMX3_Installer/Linux/Ubuntu22.04_linux5.19.0_rt10.zip
-         # Ubuntu 24.04
-         wget --user=guest --password=guest http://download.movensys.com:8111/webdav/WMX3_Installer/Linux/Ubuntu24.04_linux6.15.2_rt2.zip
+      `Download WMX3 for x86/amd64
+      <https://softservogroup.sharepoint.com/:u:/s/Storage/IQCyN66D6ZtqQJ7NDFmjzrTpAUmDKoB3T3LC5OFh_Cc-x0w?e=COgGmT>`_
 
       **Install WMX3** — extract the archive and run the installer:
 
       .. code-block:: bash
 
-         # Ubuntu 22.04
-         unzip Ubuntu22.04_linux5.19.0_rt10.zip
-         cd Ubuntu22.04_linux5.19.0_rt10
-         sudo dpkg -i *wmx3-installer.deb
-
-         # Ubuntu 24.04
-         unzip Ubuntu24.04_linux6.15.2_rt2.zip
-         cd Ubuntu24.04_linux6.15.2_rt2
+         unzip 20260727_WMX3_v3.7_Linux_x86.zip
+         cd 20260727_WMX3_v3.7_Linux_x86/
          sudo dpkg -i *wmx3-installer.deb
 
    .. tab-item:: arm64 (Jetson)
       :sync: jetson
 
-      **Download the WMX3 installer:**
+      `Download WMX3 for jetson/arm64
+      <https://softservogroup.sharepoint.com/:u:/s/Storage/IQA1tj_1ST26TreJ2HfYSPkmAWf0tEW_1O6rNWqxB0plycQ?e=wZD2cc>`_
+
+      **Install WMX3** — extract the archive and run the installer:
 
       .. code-block:: bash
 
-         wget --user=guest --password=guest http://download.movensys.com:8111/webdav/WMX3_Installer/Linux/wmx3_arm64_installers.zip
-         unzip wmx3_arm64_installers.zip
-
-      **Install the package for your board:**
-
-      .. code-block:: bash
-
-         # NVIDIA Jetson Orin NX Developer Kit (Advantech MIC-713), Ubuntu 20.04
-         sudo dpkg -i 20260403_Ubuntu20.04_linux-5.10.120-rt70-jetson-orin-nx-mic-713-wmx3-installer.deb
-
-         # NVIDIA Jetson Orin AGX Developer Kit (Advantech MIC-733ao), Ubuntu 22.04
-         sudo dpkg -i 20260403_Ubuntu22.04_linux-5.15.148-rt-jetson-agx-orin-mic-733ao-wmx3-installer.deb
-
-         # NVIDIA Jetson Thor Developer Kit (Advantech MIC-743), Ubuntu 24.04
-         sudo dpkg -i 20260403_Ubuntu24.04_linux-6.8.12-rt-jetson-thor-mic-743-wmx3-installer.deb
+         unzip 20260727_WMX3_v3.7_Linux_ARM64.zip
+         cd 20260727_WMX3_v3.7_Linux_ARM64/
+         sudo dpkg -i *wmx3-installer.deb
 
 The installer places the WMX3 runtime at ``/opt/wmx3/``. Confirm the required
 headers and libraries are present:
@@ -154,22 +132,6 @@ are isolated on every platform.
          sudo update-grub
          sudo reboot
 
-   .. tab-item:: arm64 (Jetson)
-
-      The Jetson boards boot via U-Boot/extlinux, not GRUB. Append the same
-      isolation parameters to the ``APPEND`` line in
-      ``/boot/extlinux/extlinux.conf``:
-
-      .. code-block:: text
-
-         isolcpus=2,3 nohz_full=2,3 rcu_nocbs=2,3 irqaffinity=0,1 acpi_irq_nobalance noirqbalance
-
-      Then reboot:
-
-      .. code-block:: bash
-
-         sudo reboot
-
    .. tab-item:: Intel XPU (Panther Lake)
 
       Edit ``/etc/default/grub`` and set ``GRUB_CMDLINE_LINUX_DEFAULT``:
@@ -193,6 +155,22 @@ are isolated on every platform.
          sudo update-grub
          sudo reboot
 
+   .. tab-item:: arm64 (Jetson)
+
+      The Jetson boards boot via U-Boot/extlinux, not GRUB. Append the same
+      isolation parameters to the ``APPEND`` line in
+      ``/boot/extlinux/extlinux.conf``:
+
+      .. code-block:: text
+
+         isolcpus=2,3 nohz_full=2,3 rcu_nocbs=2,3 irqaffinity=0,1 acpi_irq_nobalance noirqbalance
+
+      Then reboot:
+
+      .. code-block:: bash
+
+         sudo reboot
+
 **Pin the WMX engine to the isolated core.** Isolating the core keeps other work
 off it; you still have to tell the WMX engine to run there. Edit
 ``/opt/wmx3/Module.ini`` and set ``CpuAffinity`` to a hexadecimal bit mask where
@@ -208,8 +186,57 @@ Whisper, or OpenVINO to the remaining cores. A cgroup v2 slice (``cpuset`` +
 ``cpu.weight``) keeps the AI stack off the control cores while keeping GPU/NPU
 access simple.
 
-3. Configure the EtherCAT NIC
------------------------------
+3. Set the WMX3 platform
+----------------------------
+
+WMX3 loads a *platform* that decides whether the engine drives real hardware
+over EtherCAT or runs against a simulated bus. The platforms are declared in
+``/opt/wmx3/Module.ini``; enable the one you want with ``disable = 0`` and turn
+the other off with ``disable = 1``. Select the tab that matches how you want to
+run the engine.
+
+.. tab-set::
+
+   .. tab-item:: EtherCAT
+
+      Drive real servo drives over EtherCAT — enable the EtherCAT platform and
+      disable the simulation platform:
+
+      .. code-block:: ini
+
+         [Platform 0]
+         Location = ./platform/ethercat
+         DllName = ec_platform.so
+         NumOfMaster = 1
+         disable = 0
+
+         [Platform 1]
+         Location = ./platform/simu
+         DllName = simu_platform.so
+         NumOfMaster = 1
+         disable = 1
+
+   .. tab-item:: Simulation
+
+      Run the engine against a simulated bus with no hardware attached — enable
+      the simulation platform and disable the EtherCAT platform:
+
+      .. code-block:: ini
+
+         [Platform 0]
+         Location = ./platform/ethercat
+         DllName = ec_platform.so
+         NumOfMaster = 1
+         disable = 1
+
+         [Platform 1]
+         Location = ./platform/simu
+         DllName = simu_platform.so
+         NumOfMaster = 1
+         disable = 0
+
+4. Configure the EtherCAT NIC
+---------------------------------
 
 WMX3's EtherCAT platform (``ec_platform.so``) sends and receives frames through
 a NIC-driver DLL. Pick the driver that matches your transport:
@@ -224,12 +251,12 @@ a NIC-driver DLL. Pick the driver that matches your transport:
    * - ``ndd_sock_raw.so``
      - Linux ``AF_PACKET`` / ``SOCK_RAW`` socket
      - ``CAP_NET_RAW`` (typically root)
-   * - ``ndd_dpdk.so``
-     - DPDK poll-mode driver (kernel bypass)
-     - Hugepages, NIC bound to ``vfio-pci``/``uio``
    * - ``ndd_af_xdp.so``
      - AF_XDP socket / XSK (kernel fast path)
      - ``CAP_NET_RAW`` + ``CAP_NET_ADMIN``/``CAP_BPF`` (root)
+   * - ``ndd_dpdk.so``
+     - DPDK poll-mode driver (kernel bypass)
+     - Hugepages, NIC bound to ``vfio-pci``/``uio``
    * - ``ndd_vnw.so``
      - Virtual network (no hardware)
      - None
@@ -254,42 +281,6 @@ the driver; each driver reads its own keys from the same section.
          rxprio=97               ; RX thread SCHED_FIFO priority (<=0 = default sched)
 
       Opening the raw socket needs ``CAP_NET_RAW``, so run the nodes as root.
-
-   .. tab-item:: dpdk
-
-      DPDK bypasses the kernel network stack, so reserve hugepages and bind the
-      NIC to a userspace driver **before** starting the WMX3 engine.
-
-      Reserve hugepages (2 GB as 1024 pages of 2 MB):
-
-      .. code-block:: bash
-
-         echo 1024 | sudo tee /sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages
-         grep -i hugepages_ /proc/meminfo         # expect HugePages_Total: 1024
-
-      Bind the EtherCAT NIC to ``vfio-pci`` (find the PCI address with
-      ``dpdk-devbind.py --status``; pick a port that is not your management
-      link, because the bound interface disappears from the kernel):
-
-      .. code-block:: bash
-
-         sudo modprobe vfio-pci
-         sudo dpdk-devbind.py --bind=vfio-pci 0000:03:00.0
-
-      Select the port in ``PrtTcpip.ini``. ``ifname`` is ignored; the port is
-      chosen by id, pinned deterministically with an EAL allowlist:
-
-      .. code-block:: ini
-
-         [rtnd0]
-         UseNicDrvDll=ndd_dpdk.so
-         dpdk_port=0
-         eal=-a 0000:03:00.0     ; allowlist the exact device, becomes port 0
-         rxprio=97               ; RX thread SCHED_FIFO priority
-         rxcore=2                ; pin RX poll loop to an ISOLATED core
-
-      Binding does not survive a reboot, so re-run ``modprobe`` and the bind
-      after each boot or automate them.
 
    .. tab-item:: af_xdp
 
@@ -318,6 +309,42 @@ the driver; each driver reads its own keys from the same section.
 
       Creating the XSK needs ``CAP_NET_RAW`` + ``CAP_NET_ADMIN`` (``CAP_BPF`` on
       newer kernels), so run the nodes as root.
+      
+   .. tab-item:: dpdk
+
+      DPDK bypasses the kernel network stack, so reserve hugepages and bind the
+      NIC to a userspace driver **before** starting the WMX3 engine.
+
+      Reserve hugepages (2 GB as 1024 pages of 2 MB):
+
+      .. code-block:: bash
+
+         echo 1024 | sudo tee /sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages
+         grep -i hugepages_ /proc/meminfo         # expect HugePages_Total: 1024
+
+      Bind the EtherCAT NIC to ``vfio-pci`` (find the PCI address with
+      ``dpdk-devbind.py --status``; pick a port that is not your management
+      link, because the bound interface disappears from the kernel):
+
+      .. code-block:: bash
+
+         sudo modprobe vfio-pci
+         sudo dpdk-devbind.py --bind=vfio-pci 0000:03:00.0
+         dpdk-devbind.py --status 
+
+      Select the port in ``PrtTcpip.ini``. ``ifname`` is ignored; the port is
+      chosen by id, pinned deterministically with an EAL allowlist:
+
+      .. code-block:: ini
+
+         [rtnd0]
+         UseNicDrvDll=ndd_dpdk.so
+         dpdk_dev=0000:03:00.0     ; allowlist the exact device, becomes port 0
+         rxprio=97               ; RX thread SCHED_FIFO priority
+         rxcore=2                ; pin RX poll loop to an ISOLATED core
+
+      Binding does not survive a reboot, so re-run ``modprobe`` and the bind
+      after each boot or automate them.
 
    .. tab-item:: vnw
 
@@ -328,10 +355,10 @@ the driver; each driver reads its own keys from the same section.
 
          [rtnd0]
          UseNicDrvDll=ndd_vnw.so
-         numofslaves=6           ; number of virtual slaves (0 = empty network)
+         numofslaves=1           ; number of virtual slaves (0 = empty network)
 
-4. Test the WMX runtime
------------------------
+5. Test the WMX runtime
+---------------------------
 
 Connect the EtherCAT slave hardware (a single servo drive is recommended for a
 first bring-up) to the configured NIC, power it on, then run the WMX3 command
@@ -348,3 +375,11 @@ line tools to bring the engine up, scan the bus, and enable the servo:
    sudo ./wmx3-servo-on         # enable the servos
    sudo ./wmx3-axis-state 0     # show the state of axis 0
    sudo ./wmx3-stop-engine      # stop the engine when done
+
+
+6. Uninstall WMX runtime
+---------------------------
+
+.. code-block:: bash
+
+   sudo dpkg --purge wmx3-installer
