@@ -15,7 +15,7 @@ commands run through ``mros``.
          :align: center
          :width: 100%
 
-         Collision-aware Planning on simulation
+         Collision-aware planning on simulation
    
    .. tab-item:: SIL
 
@@ -25,7 +25,7 @@ commands run through ``mros``.
          :align: center
          :width: 100%
 
-         Collision-aware Planning on simulation-in-loop (SIL).
+         Collision-aware planning on simulation-in-loop (SIL).
 
    .. tab-item:: Real
 
@@ -35,7 +35,7 @@ commands run through ``mros``.
          :align: center
          :width: 60%
 
-         Collision-aware Planning on real-world scenario.
+         Collision-aware planning on real-world scenario.
 
 .. tab-set::
 

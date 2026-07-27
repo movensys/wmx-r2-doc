@@ -16,7 +16,7 @@ manipulator setup. All commands run through ``mros``.
          :align: center
          :width: 100%
 
-         AprilTag based Obstacle Avoidance on simulation
+         AprilTag based obstacle avoidance on simulation
    
    .. tab-item:: SIL
 
@@ -26,7 +26,7 @@ manipulator setup. All commands run through ``mros``.
          :align: center
          :width: 100%
 
-         AprilTag based Obstacle Avoidance on simulation-in-loop (SIL).
+         AprilTag based obstacle avoidance on simulation-in-loop (SIL).
 
    .. tab-item:: Real
 
@@ -36,7 +36,7 @@ manipulator setup. All commands run through ``mros``.
          :align: center
          :width: 100%
 
-         AprilTag based Obstacle Avoidance on real-world scenario.
+         AprilTag based obstacle avoidance on real-world scenario.
 
 .. tab-set::
 

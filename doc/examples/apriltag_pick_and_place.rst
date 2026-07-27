@@ -11,12 +11,12 @@ OpenCV AprilTag (with MoveIt2 OMPL) or Isaac ROS AprilTag (with cuMotion). See
    .. tab-item:: Simulation
 
       .. figure:: https://softservogroup.sharepoint.com/:i:/s/Storage/IQCB1lM577qcRpSUZcgT0-BaAfLORo1zAq44SypAFNvkGmA?e=IijcRD&download=1
-         :alt: AprilTag based Pick-and-Place
+         :alt: AprilTag based pick-and-place
          :target: https://softservogroup.sharepoint.com/:i:/s/Storage/IQCB1lM577qcRpSUZcgT0-BaAfLORo1zAq44SypAFNvkGmA?e=IijcRD&download=1
          :align: center
          :width: 100%
 
-         AprilTag based Pick-and-Place on simulation
+         AprilTag based pick-and-place on simulation
    
    .. tab-item:: SIL
 
@@ -26,7 +26,7 @@ OpenCV AprilTag (with MoveIt2 OMPL) or Isaac ROS AprilTag (with cuMotion). See
          :align: center
          :width: 100%
 
-         AprilTag based Pick-and-Place on simulation-in-loop (SIL).
+         AprilTag based pick-and-place on simulation-in-loop (SIL).
 
    .. tab-item:: Real
 
@@ -36,7 +36,7 @@ OpenCV AprilTag (with MoveIt2 OMPL) or Isaac ROS AprilTag (with cuMotion). See
          :align: center
          :width: 100%
 
-         AprilTag based Pick-and-Place on real-world scenario.
+         AprilTag based pick-and-place on real-world scenario.
 
 .. tab-set::
 
