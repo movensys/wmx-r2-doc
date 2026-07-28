@@ -4,7 +4,7 @@ NVIDIA Isaac ROS Setup (Optional)
 This setup is optional. It is needed for two NVIDIA components used by the examples:
 
 - **Isaac Sim** — the desktop simulator that renders the robot for the
-  Simulation and SIL modes. Set up :ref:`isaac-sim-desktop` if you run any
+  Simulation and HIL modes. Set up :ref:`isaac-sim-desktop` if you run any
   ``*_simulation`` or ``*_hil`` scene.
 - **Isaac ROS** — the GPU-accelerated perception base images used by the
   ``isaac-ros_*`` build flavors (cuMotion, Nvblox, YOLO). Set up
@@ -211,8 +211,8 @@ driven:
      - simulation
      - Pure Isaac Sim — no physical hardware needed
    * - ``b``
-     - sil
-     - Simulation-in-the-loop — simulation with the WMX runtime
+     - hil
+     - Hardware-in-the-loop — simulation with the WMX runtime
    * - ``c``
      - real
      - Visualization against the real robot

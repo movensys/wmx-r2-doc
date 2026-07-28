@@ -18,7 +18,7 @@ manipulator setup. All commands run through ``mros``.
 
          AprilTag based obstacle avoidance on simulation
    
-   .. tab-item:: SIL
+   .. tab-item:: HIL
 
       .. figure:: https://softservogroup.sharepoint.com/:i:/s/Storage/IQA9AvezFL6rRqAk2lkE2t2pAVITAVf0p90ZtDtATjCjM4g?e=pU18j7&download=1
          :alt: AprilTag based Obstacle Avoidance
@@ -26,7 +26,7 @@ manipulator setup. All commands run through ``mros``.
          :align: center
          :width: 100%
 
-         AprilTag based obstacle avoidance on simulation-in-loop (SIL).
+         AprilTag based obstacle avoidance on hardware-in-the-loop (HIL).
 
    .. tab-item:: Real
 
@@ -71,7 +71,7 @@ manipulator setup. All commands run through ``mros``.
             mros ros2 launch movensys_manipulator_moveit_config apriltag_pick_and_place.launch.py \
                  use_sim_time:=true target_spawn:=false
 
-   .. tab-item:: SIL
+   .. tab-item:: HIL
 
       1. Open the Isaac Sim scene:
          ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/7b_apriltag_obstacle_avoidance_hil.usd``

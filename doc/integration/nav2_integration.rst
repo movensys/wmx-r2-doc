@@ -15,7 +15,7 @@ on the wheels through the WMX R2 stack.
 Nav2 produces a stream of velocity commands from a costmap-aware controller; WMX
 turns those into wheel motion on a deterministic real-time cycle over EtherCAT.
 As with the manipulator, the same configuration drives three execution modes:
-pure **simulation** (Isaac Sim or Gazebo), **simulation-in-the-loop** (simulator
+pure **simulation** (Isaac Sim or Gazebo), **hardware-in-the-loop** (simulator
 visuals with the real WMX runtime), and **real** base control.
 
 Architecture
@@ -124,7 +124,7 @@ real base:
    # Nav2: map_server + AMCL + planner/controller/BT servers + EKF + RViz
    nros ros2 launch movensys_navigation_nav2_config navigation.launch.py
 
-For simulation or simulation-in-the-loop, start the simulator bridge first and
+For simulation or hardware-in-the-loop, start the simulator bridge first and
 pass ``use_sim_time:=true`` to each command:
 
 .. code-block:: bash

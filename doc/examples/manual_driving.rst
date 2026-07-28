@@ -56,7 +56,7 @@ commands run through ``nros``.
 
          Keep this terminal focused to send keystrokes to the base.
 
-   .. tab-item:: SIL
+   .. tab-item:: HIL
 
       1. Open the scene:
 
@@ -71,7 +71,7 @@ commands run through ``nros``.
             .. tab-item:: Gazebo
                :sync: gazebo
 
-               Not applicable for SIL.
+               Not applicable for HIL.
 
       2. Start WMX R2 for the navigation base (real WMX runtime) with
          ``use_sim_time:=true`` (see

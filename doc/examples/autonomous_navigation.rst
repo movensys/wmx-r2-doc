@@ -53,7 +53,7 @@ commands run through ``nros``.
               "'{pose: {header: {frame_id: map}, pose: {position: {x: 8.0, y: 0.0, z: 0.0}, \
               orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}}}}'"
 
-   .. tab-item:: SIL
+   .. tab-item:: HIL
 
       1. Open the scene:
 
@@ -68,7 +68,7 @@ commands run through ``nros``.
             .. tab-item:: Gazebo
                :sync: gazebo
 
-               Not applicable for SIL.
+               Not applicable for HIL.
 
       2. Start WMX R2 for the navigation base (real WMX runtime) with
          ``use_sim_time:=true`` (see
