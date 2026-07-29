@@ -1,0 +1,555 @@
+Robot Parameter Configuration and Validation
+============================================
+
+.. warning::
+
+   The parameters on this page decide how far and in which direction each
+   joint moves. An incorrect gear ratio, encoder resolution, joint direction,
+   or home offset causes unexpected motion even when every node reports
+   success. Review and verify all of them in simulation and SIL before
+   powering a physical robot. See :ref:`simulation-first-workflow`.
+
+Where the parameters live
+-------------------------
+
+A working robot configuration is spread over four files. They must agree with
+each other; nothing in the stack checks that they do.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 30 24 46
+
+   * - File
+     - Owned by
+     - Defines
+   * - ``<robot>_wmx_parameters.xml``
+
+       (``wmx_r2_package/config/``)
+     - WMX engine
+     - Gear ratio, encoder resolution, axis polarity, command mode, torque and
+       motor-speed limits, homing, soft limits, limit-switch and E-stop
+       configuration — everything the motion engine needs, **per WMX axis
+       index**.
+   * - ``<robot>_<application>_config.yaml``
+
+       (``wmx_r2_package/config/``)
+     - WMX R2 nodes
+     - The mapping from ROS 2 joint names to WMX axis indices
+       (``joint_name`` ↔ ``joint_axes``), feedback rate, topic and action
+       names, gripper I/O addresses and open/close values.
+   * - ``<robot>.xacro`` / ``.urdf``
+
+       (``movensys_manipulator_description`` /
+       ``movensys_navigation_description``)
+     - ROS 2 / MoveIt / Nav2
+     - Link geometry, joint axes and origins, and the position, velocity, and
+       effort limits used for planning and collision checking.
+   * - ``joint_limits.yaml``
+
+       (``movensys_manipulator_moveit_config/config/<model>/``)
+     - MoveIt 2
+     - Velocity and acceleration limits that override or augment the URDF for
+       trajectory generation.
+
+.. note::
+
+   The WMX parameter file is applied by the node that owns the axes. The
+   manipulator controllers call ``Config::ImportAndSetAll`` on the path in
+   ``wmx_param_file_path`` at startup; the ``ros2_control`` hardware plugin
+   does the same with the ``wmx_param_file`` hardware parameter from
+   ``<robot>.wmx.ros2_control.xacro``. Both resolve the path at launch time
+   through ``get_package_share_directory``, so an edit to the file in
+   ``src/`` only takes effect after a rebuild (or an install-space edit).
+
+Mapping between ROS 2 joint names and physical axes
+---------------------------------------------------
+
+The ROS 2 joint name is bound to a WMX axis index by position in two lists in
+the application YAML — ``joint_name[i]`` is driven by ``joint_axes[i]``:
+
+.. code-block:: yaml
+
+   joint_state_broadcaster:
+     ros__parameters:
+       joint_axes: [0, 1, 2, 3, 4, 5]
+       joint_name: ["joint1", "joint2", "joint3", "joint4", "joint5", "joint6"]
+
+The WMX axis index is in turn the position of the servo drive in the EtherCAT
+daisy chain, as discovered by the network scan. The chain order is physical
+wiring, not configuration.
+
+.. list-table:: Shipped mapping (CR3A and CR5A)
+   :header-rows: 1
+   :widths: 20 20 30 30
+
+   * - ROS 2 joint
+     - WMX axis
+     - EtherCAT position
+     - Physical joint
+   * - ``joint1``
+     - 0
+     - 1st drive in the chain
+     - Base rotation
+   * - ``joint2``
+     - 1
+     - 2nd drive
+     - Shoulder
+   * - ``joint3``
+     - 2
+     - 3rd drive
+     - Elbow
+   * - ``joint4``
+     - 3
+     - 4th drive
+     - Wrist 1
+   * - ``joint5``
+     - 4
+     - 5th drive
+     - Wrist 2
+   * - ``joint6``
+     - 5
+     - 6th drive
+     - Wrist 3
+
+For the differential-drive base, ``diffbot_navigation_config.yaml`` binds the
+axes twice — once for feedback and once for the drive controller — and both
+must agree:
+
+.. code-block:: yaml
+
+   differential_drive_controller:
+     ros__parameters:
+       left_axis: 0
+       right_axis: 1
+
+   joint_state_broadcaster:
+     ros__parameters:
+       joint_axes: [0, 1]
+       joint_name: ["drivewheel_left_joint", "drivewheel_right_joint"]
+
+.. warning:: **Verify the mapping physically, one axis at a time.**
+
+   Nothing in the stack detects a swapped mapping. If two drives are chained
+   in an order different from the one assumed here, commanding ``joint2`` will
+   move a different physical joint, and the planner's collision checking will
+   be reasoning about the wrong link. Confirm the mapping with the single-axis
+   jog procedure in :doc:`first_motion` before enabling multi-axis motion.
+
+Encoder resolution and unit conversion
+---------------------------------------
+
+WMX works in *user units*. The conversion from encoder counts to user units is
+the axis gear ratio:
+
+.. code-block:: text
+
+   AxisGearRatioNumerator     encoder counts per revolution of the joint output
+   ─────────────────────── =  ────────────────────────────────────────────────
+   AxisGearRatioDenominator                 user units per revolution
+
+Every shipped parameter file sets:
+
+.. code-block:: xml
+
+   <AxisGearRatioDenominator>6.283185307179586</AxisGearRatioDenominator>
+
+That denominator is 2π, which makes **one WMX user unit equal to one radian**.
+This is the only reason the ROS 2 interface can pass positions straight
+through: ``joint_state_broadcaster`` publishes ``actualPos`` into
+``/joint_states`` with no scaling, and ``/wmx/axis/position`` targets are
+consumed as radians.
+
+.. important::
+
+   The "radians" stated throughout the :doc:`../api_reference/api_reference`
+   are a *consequence* of ``AxisGearRatioDenominator = 2π``, not a property of
+   the software. If you author a parameter file with a different denominator,
+   every position, velocity, and acceleration on every WMX topic and service
+   silently changes units, and the joint states published to MoveIt or Nav2
+   become wrong by that factor.
+
+The numerator is the number of encoder counts in one full revolution of the
+**joint output**, which is the motor encoder resolution multiplied by the gear
+ratio:
+
+.. code-block:: text
+
+   AxisGearRatioNumerator = encoder counts per motor revolution × gear ratio
+
+Gear ratios and encoder resolution — shipped values
+----------------------------------------------------
+
+.. list-table:: ``cr3a_wmx_parameters.xml``
+   :header-rows: 1
+   :widths: 14 12 26 22 26
+
+   * - ROS 2 joint
+     - WMX axis
+     - ``AxisGearRatioNumerator``
+     - Counts per rad
+     - Consistent with
+   * - ``joint1``
+     - 0
+     - 52 953 088
+     - 8 427 746
+     - 2\ :sup:`19` counts × 101:1
+   * - ``joint2``
+     - 1
+     - 52 953 088
+     - 8 427 746
+     - 2\ :sup:`19` counts × 101:1
+   * - ``joint3``
+     - 2
+     - 42 467 328
+     - 6 758 885
+     - 2\ :sup:`19` counts × 81:1
+   * - ``joint4``
+     - 3
+     - 42 467 328
+     - 6 758 885
+     - 2\ :sup:`19` counts × 81:1
+   * - ``joint5``
+     - 4
+     - 42 467 328
+     - 6 758 885
+     - 2\ :sup:`19` counts × 81:1
+   * - ``joint6``
+     - 5
+     - 42 467 328
+     - 6 758 885
+     - 2\ :sup:`19` counts × 81:1
+
+``cr5a_wmx_parameters.xml`` uses the same two values with a different split:
+axes 0, 1, and 2 use 52 953 088; axes 3, 4, and 5 use 42 467 328.
+
+``diffbot_wmx_parameters.xml`` uses 4 915 200 counts per wheel revolution on
+both drive axes (782 278 counts per radian), consistent with a
+2\ :sup:`16`-count encoder and a 75:1 reduction.
+
+.. note::
+
+   The "consistent with" column is a factorization of the shipped numerator,
+   not a value read from the drive. Confirm the encoder resolution and the
+   reducer ratio against your drive's datasheet and the robot's mechanical
+   specification — a numerator that is wrong by the reducer ratio produces
+   motion that is wrong by roughly two orders of magnitude.
+
+Joint direction and sign conventions
+-------------------------------------
+
+``AxisPolarity`` inverts the direction of both the command and the feedback
+for one axis. It takes ``+1`` or ``-1``. The shipped values differ per robot
+because the motors are mounted in different orientations:
+
+.. list-table:: ``AxisPolarity`` by axis
+   :header-rows: 1
+   :widths: 28 12 12 12 12 12 12
+
+   * - Parameter file
+     - ax 0
+     - ax 1
+     - ax 2
+     - ax 3
+     - ax 4
+     - ax 5
+   * - ``cr3a_wmx_parameters.xml``
+     - −1
+     - −1
+     - +1
+     - −1
+     - −1
+     - −1
+   * - ``cr5a_wmx_parameters.xml``
+     - +1
+     - +1
+     - +1
+     - +1
+     - +1
+     - +1
+   * - ``diffbot_wmx_parameters.xml``
+     - −1
+     - −1
+     -
+     -
+     -
+     -
+
+The sign convention that ``AxisPolarity`` has to satisfy is set by the URDF:
+each joint's ``<axis xyz="…"/>`` and the parent ``<origin rpy="…"/>`` together
+define which physical rotation is positive. On the differential-drive base,
+for example, the two wheel joints are mirrored — the left wheel has
+``rpy="-1.57 0 0"`` with ``axis xyz="0 0 1"`` and the right wheel
+``rpy="1.57 0 0"`` with ``axis xyz="0 0 -1"`` — so a naive "both wheels
+forward" assumption about the drives is not enough.
+
+.. warning::
+
+   Polarity is the single most common cause of a robot that runs away on its
+   first commanded move. With the wrong sign, a closed-loop correction drives
+   the joint further from the target instead of toward it. Verify polarity one
+   axis at a time, at low speed, with a small step, using the procedure in
+   :doc:`first_motion`.
+
+Home positions and encoder offsets
+-----------------------------------
+
+All three shipped parameter files use absolute encoders and no offset:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 34 16 50
+
+   * - Parameter
+     - Shipped
+     - Meaning
+   * - ``AbsoluteEncoderMode``
+     - ``1``
+     - Absolute encoder. Position is known at power-on; no homing move is
+       required.
+   * - ``AbsoluteEncoderHomeOffset``
+     - ``0.0``
+     - Offset added to the raw absolute position. ``0`` means the ROS 2 zero
+       for the joint is exactly the drive's absolute zero.
+   * - ``HomePosition`` (``HomeParam``)
+     - ``0.0``
+     - Position written to the axis when a homing sequence completes.
+   * - ``HomeType`` / ``HomeDir``
+     - ``0`` / ``0``
+     - Homing method and direction. Unused while the absolute encoder supplies
+       the position.
+   * - ``ClearHomeDoneOnCommStop``
+     - ``1``
+     - The "home done" flag is cleared when EtherCAT communication stops.
+
+.. important::
+
+   ``AbsoluteEncoderHomeOffset = 0`` is a claim about **your** robot's
+   mechanical zero, not a safe default. It asserts that the drive's absolute
+   zero coincides with the zero pose in the URDF. If your robot's encoders
+   were zeroed at a different mechanical position — a replaced motor, a
+   re-indexed reducer, a different build of the same model — this value is
+   wrong and every joint will be offset by a constant. Verify it by moving
+   each joint to a known mechanical reference and comparing the reported
+   position (see :doc:`first_motion`).
+
+Position, velocity, and acceleration limits
+--------------------------------------------
+
+Limits are enforced in more than one place, and the shipped configuration does
+**not** enforce position limits in the motion engine.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 24 26 50
+
+   * - Limit
+     - Where it is enforced
+     - Shipped configuration
+   * - Joint position
+     - URDF ``<limit lower= upper=>`` — checked by MoveIt during planning
+     - CR3A: ``joint1`` ±3.0, ``joint2`` −1.57…1.1, ``joint3`` −2.55…0.2,
+       ``joint4`` ±2.5, ``joint5`` −0.1…3.0, ``joint6`` ±3.0 rad.
+
+       CR5A: ``joint1`` −1.57…4.71239, ``joint2`` ±1.57, ``joint3``
+       −0.2…2.55, ``joint4`` ±2.5, ``joint5`` −3.14…0.1, ``joint6`` ±3.14 rad.
+   * - Joint position (engine)
+     - WMX ``SoftLimitType`` in ``LimitParam``
+     - **Disabled** (``SoftLimitType = 0``, both soft-limit positions ``0.0``)
+       on every axis of every shipped file.
+   * - Joint velocity
+     - URDF ``velocity`` attribute; MoveIt ``joint_limits.yaml``
+     - URDF: 3.0 rad/s (both arms). MoveIt: CR3A 2.0 rad/s, CR5A 1.0 rad/s —
+       the MoveIt value is the one that bounds planned trajectories.
+   * - Joint acceleration
+     - MoveIt ``joint_limits.yaml``
+     - CR3A 2.0 rad/s², CR5A 1.0 rad/s². Not expressed in the URDF.
+   * - Motor speed
+     - WMX ``MaxMotorSpeed``
+     - 3000 rpm on every axis.
+   * - Torque
+     - WMX ``MaxTrqLimit`` / ``PositiveTrqLimit`` / ``NegativeTrqLimit``
+     - 300 (% of rated) on every axis.
+   * - Deceleration on stop
+     - WMX ``QuickStopDec`` and ``EStopDec``
+     - 100 000 user units/s² (rad/s²) on every axis.
+
+.. warning:: **Soft limits are off in the shipped parameter files.**
+
+   With ``SoftLimitType = 0``, the WMX engine will accept and execute a
+   position command outside the robot's mechanical range. The only thing
+   keeping motion inside the joint limits is MoveIt's planning-time check
+   against the URDF — which does not apply to direct ``/wmx/axis/position``
+   commands, to ``keyboard_teleop`` jogging, or to anything else that
+   bypasses the planner.
+
+   Before running a physical robot, either enable WMX soft limits with the
+   mechanical range of your robot, or treat every direct axis command as
+   unbounded and hold to the low-speed, small-step procedure in
+   :doc:`first_motion`.
+
+EtherCAT axis mapping
+---------------------
+
+The WMX axis index is assigned by the EtherCAT network scan in daisy-chain
+order, so it follows the wiring. Confirm the discovered network before
+trusting any axis index:
+
+.. code-block:: bash
+
+   ros2 service call /wmx/ecat/get_network_state \
+        wmx_r2_message/srv/EcatGetNetworkState
+
+The scan matches each discovered slave against the EtherCAT Network
+Information files in ``wmx-r2/eni/``. A drive whose ENI file is missing will
+fail the scan, and a chain that is re-cabled in a different order shifts every
+axis index after the change — silently, from ROS 2's point of view.
+
+The gripper I/O module is part of the same chain. Its bit addresses are
+configured separately in the application YAML, not by axis index:
+
+.. code-block:: yaml
+
+   gripper_controller:
+     ros__parameters:
+       gripper_address: [0, 0]      # [byte, bit] of the gripper output
+
+Consistency between URDF, MoveIt, and WMX
+------------------------------------------
+
+Each row below is a value that appears in more than one file. All of them have
+to agree, and none of them is checked automatically.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 26 37 37
+
+   * - Must agree
+     - Source A
+     - Source B
+   * - Joint names
+     - URDF ``<joint name=…>``
+     - ``joint_name`` in the application YAML, and the joint names in the
+       SRDF planning group
+   * - Joint count and order
+     - ``joint_axes`` in the application YAML
+     - The number of ``<joint>`` entries in
+       ``<robot>.wmx.ros2_control.xacro``, each with its ``axis`` parameter
+   * - Rotation direction
+     - URDF ``<axis xyz>`` plus the joint ``<origin rpy>``
+     - ``AxisPolarity`` in the WMX parameter file
+   * - Units
+     - URDF (radians, by ROS convention)
+     - ``AxisGearRatioDenominator = 2π`` in the WMX parameter file
+   * - Zero pose
+     - URDF zero configuration
+     - ``AbsoluteEncoderHomeOffset`` and ``HomePosition``
+   * - Velocity limits
+     - URDF ``velocity`` attribute
+     - MoveIt ``joint_limits.yaml`` ``max_velocity``
+   * - Wheel geometry (diffbot)
+     - URDF wheel ``<cylinder radius>`` = 0.095 m and wheel joint origins
+       ``y = ±0.275`` m
+     - ``wheel_radius: 0.095`` and ``wheel_to_wheel: 0.55`` in
+       ``diffbot_navigation_config.yaml``
+
+Source of each parameter, and how to verify it
+-----------------------------------------------
+
+.. list-table::
+   :header-rows: 1
+   :widths: 26 36 38
+
+   * - Parameter
+     - Where the value comes from
+     - How to verify
+   * - Joint ↔ axis mapping
+     - EtherCAT wiring order, recorded in the application YAML
+     - Jog one axis at a time and watch which physical joint moves
+       (:doc:`first_motion`)
+   * - Encoder resolution
+     - Servo drive / motor datasheet
+     - Command one full revolution of the motor and compare the count delta
+       reported by ``/wmx/axis/state``
+   * - Gear ratio
+     - Robot mechanical specification (reducer ratio per joint)
+     - Command a known joint angle and measure the physical rotation with an
+       inclinometer or a marked reference
+   * - Joint direction
+     - URDF axis convention plus the motor mounting orientation
+     - Command a small positive step; confirm the joint moves in the URDF's
+       positive direction and that RViz agrees with the physical robot
+   * - Home offset
+     - Robot mechanical zero versus drive absolute zero
+     - Move each joint to a known mechanical reference and compare the
+       reported position
+   * - Position limits
+     - Robot mechanical specification
+     - Compare against the URDF; approach each end of travel at low speed
+   * - Velocity / acceleration limits
+     - Application requirement, bounded by the drive and mechanics
+     - Time a known move and compare against the commanded profile
+   * - Torque limits
+     - Motor rated torque and the robot's payload rating
+     - Read ``actual_torque`` from ``/wmx/axis/state`` during a representative
+       move
+
+Reading back what the engine actually loaded
+---------------------------------------------
+
+The values that matter are the ones in the running engine, not the ones in the
+file. Two mechanisms expose them.
+
+**1. The parameter dump service.** ``/wmx/params/get`` returns the gear ratio,
+axis unit, polarity, command mode, torque limits, motor speed, and the homing
+parameters that the engine currently holds, per axis:
+
+.. code-block:: bash
+
+   ros2 service call /wmx/params/get wmx_r2_message/srv/GetWmxParams \
+        "{index: [0,1,2,3,4,5]}"
+
+Compare the ``GearRatio``, ``AxisPolarity``, and ``CommandMode`` lines in the
+response against the table you built for your robot. This is the definitive
+check — it reflects the engine state after the parameter file was applied.
+
+**2. The controller startup log.** ``joint_trajectory_controller`` logs the
+numerator, denominator, polarity, absolute-encoder mode, and command mode for
+each configured axis at startup, and logs ``Success to set WMX params`` when
+``ImportAndSetAll`` succeeds. If the import fails, it logs the failing field
+for every axis, which identifies the offending parameter directly.
+
+.. note::
+
+   ``Success to set WMX params`` means the file was syntactically valid and
+   accepted by the engine. It says nothing about whether the values describe
+   your robot.
+
+Changing parameters at runtime
+-------------------------------
+
+Two services change axis parameters without editing the file. Both take effect
+immediately on a live engine.
+
+.. code-block:: bash
+
+   # Load a different parameter file wholesale
+   ros2 service call /wmx/params/load wmx_r2_message/srv/LoadWmxParams \
+        "{file_path: '/abs/path/to/<robot>_wmx_parameters.xml'}"
+
+   # Override the gear ratio on selected axes
+   ros2 service call /wmx/axis/set_gear_ratio \
+        wmx_r2_message/srv/SetAxisGearRatio \
+        "{index: [0], numerator: [52953088.0], denominator: [6.283185307179586]}"
+
+   # Override the polarity on selected axes (+1 or -1)
+   ros2 service call /wmx/axis/set_polarity wmx_r2_message/srv/SetAxis \
+        "{index: [0], data: [-1]}"
+
+.. warning::
+
+   Changing a gear ratio or polarity while an axis is enabled changes the
+   meaning of the current position and of every subsequent command. Do this
+   only with the axis stopped, and re-verify with a low-speed single-axis jog
+   afterwards. Runtime overrides are not written back to the XML file — they
+   are lost on the next engine restart, which means a robot that behaved
+   correctly during a tuning session can behave differently after a reboot.
