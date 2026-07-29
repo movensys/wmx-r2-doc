@@ -22,17 +22,17 @@ divided into published (output) and subscribed (input) categories.
    * - ``/joint_states``
      - ``sensor_msgs/JointState``
      - Published
-     - 500 Hz
+     - 100 Hz
      - ``joint_state_broadcaster``
    * - ``/isaacsim/joint_command``
      - ``sensor_msgs/JointState``
      - Published
-     - 500 Hz
+     - 100 Hz
      - ``joint_state_broadcaster``
    * - ``/gazebo_.../commands``
      - ``std_msgs/Float64MultiArray``
      - Published
-     - 500 Hz
+     - 100 Hz
      - ``joint_state_broadcaster``
    * - ``/wmx/axis/state``
      - ``wmx_r2_message/AxisState``
@@ -102,6 +102,25 @@ from ``wmx_r2_message``.
    float64[] acc         # Acceleration per axis (rad/s^2)
    float64[] dec         # Deceleration per axis (rad/s^2)
 
+.. important:: **Where the radians come from**
+
+   The WMX engine works in *user units*, not radians. Positions, velocities,
+   and accelerations on these topics are radians only because every shipped
+   parameter file sets ``AxisGearRatioDenominator`` to 2π, which makes one
+   user unit equal one radian. A parameter file with a different denominator
+   silently rescales every value on every WMX topic and service. See
+   :doc:`../commissioning/robot_parameters`.
+
+.. danger::
+
+   ``/wmx/axis/velocity``, ``/wmx/axis/position``, and
+   ``/wmx/axis/position/relative`` command the drives directly. They bypass
+   MoveIt, so no planning-time joint-limit check and no collision check
+   applies — and WMX soft limits are **disabled** in the shipped parameter
+   files. The velocity and acceleration values in the examples below
+   illustrate the message format; they are not safe commissioning values. See
+   :doc:`../commissioning/first_motion`.
+
 Published Topics
 ----------------
 
@@ -147,7 +166,7 @@ Joint State Feedback
    * - **Publisher**
      - ``joint_state_broadcaster``
    * - **Rate**
-     - 500 Hz (configurable via ``joint_feedback_rate`` parameter)
+     - 100 Hz (set by the ``joint_feedback_rate`` parameter)
    * - **Configurable**
      - Topic name set via ``encoder_joint_topic`` parameter
    * - **Source**
@@ -201,7 +220,7 @@ closed (bit=1), they report the ``gripper_close_value`` parameter (default
 
    ros2 topic hz /joint_states
 
-Expected: approximately 500 Hz.
+Expected: approximately 100 Hz (the configured ``joint_feedback_rate``).
 
 **Example -- View only joint positions:**
 
@@ -223,7 +242,7 @@ Simulator Integration Topics
    * - **Publisher**
      - ``joint_state_broadcaster``
    * - **Rate**
-     - 500 Hz (same timer as ``/joint_states``)
+     - 100 Hz (same timer as ``/joint_states``)
    * - **Configurable**
      - Topic name set via ``isaacsim_joint_topic`` parameter
    * - **Platform**
@@ -257,7 +276,7 @@ Same data content as ``/joint_states`` (8 joint names, positions, velocities).
    * - **Publisher**
      - ``joint_state_broadcaster``
    * - **Rate**
-     - 500 Hz (same timer as ``/joint_states``)
+     - 100 Hz (same timer as ``/joint_states``)
    * - **Configurable**
      - Topic name set via ``gazebo_joint_topic`` parameter
    * - **Platform**
@@ -492,35 +511,35 @@ position.
    ros2 topic pub --once /wmx/axis/position/relative wmx_r2_message/msg/AxisPose \
      "{index: [0], target: [0.5], velocity: [5.0], acc: [10.0], dec: [10.0]}"
 
-Differential Drive Topics (Optional)
+Differential Drive Topics
 --------------------------------------
 
-The ``diff_drive_controller`` node provides topics for mobile base control.
-This node is currently disabled in the build (commented out in
-``CMakeLists.txt``).
+The ``differential_drive_controller`` node drives a two-wheel mobile base. It
+is built and installed by default, and launched by
+``wmx_r2_diffbot_navigation.launch.py`` with
+``diffbot_navigation_config.yaml``.
 
-.. note::
+The wheel axes must be in velocity mode. ``diffbot_wmx_parameters.xml`` sets
+``AxisCommandMode = 1`` on axes 0 and 1 for this reason — see
+:doc:`../commissioning/robot_parameters`.
 
-   The differential drive controller is not built by default. It must be
-   enabled in ``CMakeLists.txt`` to use these topics.
-
-/cmd_vel (Subscribed)
-^^^^^^^^^^^^^^^^^^^^^^
+/cmd_vel_safe (Subscribed)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. list-table::
    :widths: 25 75
 
    * - **Message Type**
-     - ``geometry_msgs/msg/Twist``
+     - ``geometry_msgs/msg/TwistStamped``
    * - **Subscriber**
-     - ``diff_drive_controller``
+     - ``differential_drive_controller``
    * - **Configurable**
-     - Topic name set via ``cmd_vel_topic`` parameter
+     - Topic name set via ``cmd_vel_topic`` parameter (default
+       ``/cmd_vel_safe``)
    * - **Purpose**
      - Receive linear/angular velocity commands for the mobile base
 
-The ``cmdCallback()`` stores the incoming Twist message and republishes it.
-The ``cmdVelStep()`` timer (at ``rate`` Hz) then:
+The control timer (at ``rate`` Hz, default 100) then:
 
 1. Checks engine state is ``Communicating``
 2. Checks for amplifier alarms and servo status on both wheel axes
@@ -531,23 +550,14 @@ The ``cmdVelStep()`` timer (at ``rate`` Hz) then:
 
 4. Calls ``CoreMotion::StartVel()`` for each wheel axis
 
-/cmd_vel_check (Published)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. note::
 
-.. list-table::
-   :widths: 25 75
+   ``cmd_vel_timeout`` (default 0.25 s) zeroes the wheels when no command
+   arrives within the window. This is a functional stale-command timer, not a
+   safety function — see :doc:`../commissioning/safety`.
 
-   * - **Message Type**
-     - ``geometry_msgs/msg/Twist``
-   * - **Publisher**
-     - ``diff_drive_controller``
-   * - **Configurable**
-     - Topic name set via ``encoder_vel_topic`` parameter
-   * - **Purpose**
-     - Echo the received ``/cmd_vel`` for debugging
-
-/velocity_controller/commands (Published)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/omega_enc (Published)
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. list-table::
    :widths: 25 75
@@ -555,7 +565,7 @@ The ``cmdVelStep()`` timer (at ``rate`` Hz) then:
    * - **Message Type**
      - ``std_msgs/msg/Float64MultiArray``
    * - **Publisher**
-     - ``diff_drive_controller``
+     - ``differential_drive_controller``
    * - **Configurable**
      - Topic name set via ``encoder_omega_topic`` parameter
    * - **Purpose**
@@ -573,19 +583,45 @@ Publishes 2 values: ``[left_velocity, right_velocity]`` read from the
    * - **Message Type**
      - ``nav_msgs/msg/Odometry``
    * - **Publisher**
-     - ``diff_drive_controller``
+     - ``differential_drive_controller``
    * - **Configurable**
      - Topic name set via ``encoder_odometry_topic`` parameter
    * - **Purpose**
-     - Publish encoder-based odometry (velocity only)
+     - Publish encoder-based odometry (pose and twist), dead-reckoned from
+       encoder position deltas
 
-Computes odometry from wheel angular velocities:
+Twist is computed from the wheel angular velocities:
 
 - ``linear_vel = (right_omega * wheel_radius + left_omega * wheel_radius) / 2``
 - ``angular_vel = (right_omega * wheel_radius - left_omega * wheel_radius) / wheel_to_wheel``
 
-Publishes in ``twist.twist.linear.x`` and ``twist.twist.angular.z``. The
-``pose`` fields are not populated.
+Pose is integrated from per-cycle encoder position deltas and published in
+``pose.pose.position`` and ``pose.pose.orientation``. ``pos_unit_scale``
+converts ``actualPos`` to wheel radians and is ``1.0`` when the WMX parameter
+file already scales to radians. A jump guard (``jump_guard_tol``, default
+0.5 rad) re-baselines the integration when a position delta disagrees with the
+measured velocity, rejecting homing and encoder-rollover jumps.
+
+TF (``odom`` → ``base_link``) is published only when ``publish_tf`` is
+``true``. It defaults to ``false`` so the localization EKF owns the transform.
+
+/odom_deltas and /odom_accel (Published)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. list-table::
+   :widths: 25 75
+
+   * - **Message Types**
+     - ``geometry_msgs/msg/TwistStamped`` (``/odom_deltas``),
+       ``geometry_msgs/msg/AccelStamped`` (``/odom_accel``)
+   * - **Publisher**
+     - ``differential_drive_controller``
+   * - **Configurable**
+     - ``odom_deltas_topic`` / ``odom_accel_topic``
+   * - **Purpose**
+     - Per-cycle pose deltas, and a rate-limited, low-pass-filtered
+       acceleration estimate (``accel_publish_rate`` default 10 Hz,
+       ``accel_alpha`` default 0.3)
 
 See Also
 --------

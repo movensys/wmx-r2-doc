@@ -18,6 +18,21 @@ Every manipulator and navigation scenario runs in three execution modes:
 - **SIL** -- simulation-in-the-loop: simulator visuals with the real WMX runtime
 - **Real** -- the real robot via WMX over EtherCAT
 
+.. warning:: **Run the modes in order Simulation, then SIL, then Real.**
+
+   The three modes are a safety sequence, not a convenience. Incorrect gear
+   ratios, encoder resolution, joint directions, or home offsets cause
+   unexpected motion even when the software is working correctly, and
+   Simulation and SIL are where those errors are cheap to find.
+
+   Before the **Real** tab of any scenario, complete
+   :doc:`../commissioning/index`: verify the robot parameters
+   (:doc:`../commissioning/robot_parameters`), run the low-speed single-axis
+   procedure (:doc:`../commissioning/first_motion`), and put the separate
+   safety measures in :doc:`../commissioning/safety` in place. Check
+   :doc:`../commissioning/validated_hardware` for what has actually been
+   validated on your robot.
+
 .. toctree::
    :maxdepth: 2
    :hidden:
@@ -47,6 +62,15 @@ Development Roadmap
 
 The examples are under active development. Planned and in-progress work is
 tracked below.
+
+.. note::
+
+   This roadmap covers example applications and platform support only. It is
+   not a commitment to provide safety functionality equivalent to a certified
+   industrial robot controller. Planned safety-related material — recommended
+   safety architectures, STO and safety-PLC integration examples, and
+   commissioning guidance — is listed separately in
+   :doc:`../commissioning/safety`.
 
 .. list-table::
    :header-rows: 1

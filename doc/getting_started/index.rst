@@ -13,6 +13,18 @@ Follow the steps in order. At step 6 choose the path that matches your setup
 
    Getting Started — step-by-step flow
 
+.. warning:: **This guide stops at "the software runs".**
+
+   Completing these steps means the WMX runtime, the ROS 2 packages, and the
+   EtherCAT bus are working. It does **not** mean the robot will move the way
+   you intend. The gear ratios, encoder resolution, joint directions, and home
+   offsets that decide the actual motion still have to be configured and
+   verified, and the safety functions of the robot manufacturer's original
+   controller are not available once that controller is bypassed.
+
+   Before commanding motion on a physical robot, continue with
+   :doc:`../commissioning/index`.
+
 .. toctree::
    :maxdepth: 1
    :hidden:

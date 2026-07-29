@@ -30,7 +30,8 @@ The package provides two groups of nodes:
    * - **Version**
      - 0.1.0
    * - **License**
-     - MIT
+     - MIT (source code only; the WMX engine and SDK it links against are
+       proprietary — see :doc:`../licensing`)
    * - **Build Type**
      - ``ament_cmake``
    * - **C++ Standard**
@@ -573,7 +574,18 @@ ratios, polarities, limits, home positions):
 - ``diffbot_wmx_parameters.xml`` -- differential-drive base axes
 
 These files are loaded at runtime via
-``CoreMotion::config->ImportAndSetAll(path)``.
+``CoreMotion::config->ImportAndSetAll(path)``, by the controller that owns the
+axes — ``joint_trajectory_controller`` or ``differential_drive_controller``,
+using the ``wmx_param_file_path`` parameter. The four general nodes load no
+parameter file.
+
+.. warning::
+
+   These are the parameters that decide how far and in which direction each
+   joint moves. A shipped file describes the robot MOVENSYS commissioned, not
+   your unit. For what every field means, where its value comes from, and how
+   to verify it against the running engine, see
+   :doc:`../commissioning/robot_parameters`.
 
 Building the Package
 --------------------
@@ -602,10 +614,13 @@ Expected:
 
 .. code-block:: text
 
+   wmx_r2_package differential_drive_controller
    wmx_r2_package gripper_controller
+   wmx_r2_package joint_position_controller
    wmx_r2_package joint_state_broadcaster
    wmx_r2_package joint_trajectory_controller
    wmx_r2_package wmx_core_motion_node
    wmx_r2_package wmx_engine_node
    wmx_r2_package wmx_ethercat_node
+   wmx_r2_package wmx_io_node
    wmx_r2_package wmx_io_node

@@ -16,7 +16,7 @@ The architecture is:
    ┌──────────────────────────┐
    │   Your Custom Planner    │
    │                          │
-   │  1. Read /joint_states   │──── sensor_msgs/JointState (500 Hz)
+   │  1. Read /joint_states   │──── sensor_msgs/JointState (100 Hz)
    │  2. Compute trajectory   │
    │  3. Send action goal     │──── FollowJointTrajectory
    │  4. Wait for result      │
@@ -43,7 +43,7 @@ that implements the following two-step pattern can control the robot:
 
 1. **Read current joint state** from ``/joint_states``
    (``sensor_msgs/msg/JointState``) -- published by ``joint_state_broadcaster``
-   at 500 Hz
+   at 100 Hz
 
 2. **Send trajectory goals** to the ``FollowJointTrajectory`` action server
    at ``/movensys_manipulator_arm_controller/follow_joint_trajectory``

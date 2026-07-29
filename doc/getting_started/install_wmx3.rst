@@ -96,6 +96,7 @@ Expected:
    wmx_r2_package
    wmx_r2_package differential_drive_controller
    wmx_r2_package gripper_controller
+   wmx_r2_package joint_position_controller
    wmx_r2_package joint_state_broadcaster
    wmx_r2_package joint_trajectory_controller
    wmx_r2_package wmx_core_motion_node
@@ -193,6 +194,13 @@ that follow.
          NumOfMaster = 1
          disable = 1
 
+.. warning:: **Real Hardware mode moves a physical machine.**
+
+   Start with the Simulation platform. Before switching to EtherCAT and
+   enabling servos on a robot, complete :doc:`../commissioning/index` —
+   parameter validation, the low-speed single-axis procedure, and the separate
+   safety measures described in :doc:`../commissioning/safety`.
+
 Test the WMX R2 General Nodes (Standalone)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -214,14 +222,42 @@ Test the WMX R2 General Nodes (Standalone)
 Startup Sequence
 ^^^^^^^^^^^^^^^^
 
-When launched, four nodes initialize in parallel:
+``wmx_r2_general_nodes.launch.py`` starts four robot-agnostic nodes —
+``wmx_engine_node``, ``wmx_core_motion_node``, ``wmx_io_node``, and
+``wmx_ethercat_node``:
 
-1. **Device creation** -- Each node creates a WMX device handle
-2. **EtherCAT scan** -- Network scan discovers all servo drives
-3. **Communication start** -- Real-time EtherCAT communication begins
-4. **Parameter loading** -- Gear ratios and axis polarities loaded from XML
-5. **Servo enable** -- All 6 joint servos cleared and enabled
-6. **Ready** -- All nodes report ready
+1. **Device creation** -- ``wmx_engine_node`` creates the WMX device handle,
+   retrying up to five times if another application holds the lock
+   (error 297). The remaining nodes then attach to that device.
+2. **Communication start** -- ``StartCommunication`` brings up the real-time
+   EtherCAT cycle, which discovers the drives on the bus.
+3. **Ready** -- each node publishes on its ``ready`` topic and begins serving
+   its services and topics.
+
+.. warning:: **The general nodes load no robot parameters and enable no
+   servos.**
+
+   These four nodes are robot-agnostic by design. They do **not** apply a
+   ``<robot>_wmx_parameters.xml`` file, so the gear ratios, polarities,
+   command modes, and limits in the engine are whatever was left there by a
+   previous session — not your robot's values. They also do not enable the
+   servos; that is an explicit ``/wmx/axis/set_on`` call.
+
+   Robot parameters are applied by the per-robot launches
+   (``wmx_r2_<robot>_manipulator.launch.py`` and
+   ``wmx_r2_diffbot_navigation.launch.py``), which pass
+   ``wmx_param_file_path`` to their controllers, or by the ``ros2_control``
+   hardware plugin. If you command motion from the general nodes alone, load
+   the parameters first:
+
+   .. code-block:: bash
+
+      ros2 service call /wmx/params/load wmx_r2_message/srv/LoadWmxParams \
+           "{file_path: '/abs/path/to/<robot>_wmx_parameters.xml'}"
+      ros2 service call /wmx/params/get wmx_r2_message/srv/GetWmxParams \
+           "{index: [0,1,2,3,4,5]}"
+
+   See :doc:`../commissioning/robot_parameters`.
 
 Testing WMX R2 Services and Topics
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
