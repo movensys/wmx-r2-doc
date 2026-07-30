@@ -43,8 +43,19 @@ See WMX R2 in action:
 
    <div style="position: relative; width: 100%; max-width: 800px; margin: 1em auto; aspect-ratio: 16 / 9;">
      <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
+             src="https://www.youtube-nocookie.com/embed/YSqfW-ECzHU"
+             title="WMX R2 demo video for Intel Edge Day"
+             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+             allowfullscreen></iframe>
+   </div>
+
+
+.. raw:: html
+
+   <div style="position: relative; width: 100%; max-width: 800px; margin: 1em auto; aspect-ratio: 16 / 9;">
+     <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
              src="https://www.youtube-nocookie.com/embed/h-G9vtAGAIU"
-             title="WMX R2 demo video"
+             title="WMX R2 demo video for GTC conference"
              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
              allowfullscreen></iframe>
    </div>

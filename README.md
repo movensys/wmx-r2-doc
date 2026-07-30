@@ -48,6 +48,14 @@ make clean
 make html
 ```
 
+### Webserver 
+- Youtube link is broken when you try to see index.html file to web browser directly.
+
+```bash
+cd doc/_build/html
+python3 -m http.server 8000
+```
+
 Open `doc/_build/html/index.html` in your browser to view the documentation.
 
 ## Deployment
