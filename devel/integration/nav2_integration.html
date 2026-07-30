@@ -206,7 +206,7 @@ const runMermaid = async (rerun) => {
                                     // Apply zoom to the now-rendered diagram, matching
                                     // the decoration visible diagrams receive.
                                     if (true) {
-                                        addZoomToSvgs(d3.selectAll(".mermaid[data-zoom-id=id-06ff6a04-004b-4d56-89b7-f9728201c7b7]").select(function() {
+                                        addZoomToSvgs(d3.selectAll(".mermaid[data-zoom-id=id-dd9e1a05-417b-4c6b-9f00-15bb5236dc23]").select(function() {
                                             return this.querySelector("svg");
                                         }));
                                     }
@@ -232,7 +232,7 @@ const runMermaid = async (rerun) => {
     if (true) {
         const mermaids_to_add_zoom = 1 === -1 ? mermaids_active.length : 1;
         if(mermaids_to_add_zoom > 0) {
-            var svgs = d3.selectAll(".mermaid[data-zoom-id=id-06ff6a04-004b-4d56-89b7-f9728201c7b7]").select(function() {
+            var svgs = d3.selectAll(".mermaid[data-zoom-id=id-dd9e1a05-417b-4c6b-9f00-15bb5236dc23]").select(function() {
                 return this.querySelector("svg");
             });
             // Wait until every active (visible) diagram has rendered. Deferred
@@ -765,7 +765,7 @@ visuals with the real WMX runtime), and <strong>real</strong> base control.</p>
 <section id="architecture">
 <h2>Architecture<a class="headerlink" href="#architecture" title="Link to this heading">#</a></h2>
 <figure class="align-default" id="id3">
-<pre data-zoom-id="id-06ff6a04-004b-4d56-89b7-f9728201c7b7" class="mermaid">
+<pre data-zoom-id="id-dd9e1a05-417b-4c6b-9f00-15bb5236dc23" class="mermaid">
         flowchart LR
     GOAL[&quot;Goal pose&lt;br/&gt;(RViz / action)&quot;]
     NAV2[&quot;Nav2 servers&lt;br/&gt;planner · controller · BT&quot;]

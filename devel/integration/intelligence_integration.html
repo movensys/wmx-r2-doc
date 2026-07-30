@@ -206,7 +206,7 @@ const runMermaid = async (rerun) => {
                                     // Apply zoom to the now-rendered diagram, matching
                                     // the decoration visible diagrams receive.
                                     if (true) {
-                                        addZoomToSvgs(d3.selectAll(".mermaid[data-zoom-id=id-d94f01b1-9175-4a2a-a6ef-7cae8295474f]").select(function() {
+                                        addZoomToSvgs(d3.selectAll(".mermaid[data-zoom-id=id-28366b4f-93bb-487f-934d-25896b1d4511]").select(function() {
                                             return this.querySelector("svg");
                                         }));
                                     }
@@ -232,7 +232,7 @@ const runMermaid = async (rerun) => {
     if (true) {
         const mermaids_to_add_zoom = 1 === -1 ? mermaids_active.length : 1;
         if(mermaids_to_add_zoom > 0) {
-            var svgs = d3.selectAll(".mermaid[data-zoom-id=id-d94f01b1-9175-4a2a-a6ef-7cae8295474f]").select(function() {
+            var svgs = d3.selectAll(".mermaid[data-zoom-id=id-28366b4f-93bb-487f-934d-25896b1d4511]").select(function() {
                 return this.querySelector("svg");
             });
             // Wait until every active (visible) diagram has rendered. Deferred
@@ -759,7 +759,7 @@ backend. It runs above a planning backend (MoveIt2) and calls the
 <section id="architecture">
 <h2>Architecture<a class="headerlink" href="#architecture" title="Link to this heading">#</a></h2>
 <figure class="align-default" id="id1">
-<pre data-zoom-id="id-d94f01b1-9175-4a2a-a6ef-7cae8295474f" class="mermaid">
+<pre data-zoom-id="id-28366b4f-93bb-487f-934d-25896b1d4511" class="mermaid">
         flowchart LR
     USER[&quot;Voice / text&lt;br/&gt;instruction&quot;]
     WHISPER[&quot;Whisper STT&quot;]

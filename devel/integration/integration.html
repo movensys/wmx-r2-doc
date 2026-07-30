@@ -206,7 +206,7 @@ const runMermaid = async (rerun) => {
                                     // Apply zoom to the now-rendered diagram, matching
                                     // the decoration visible diagrams receive.
                                     if (true) {
-                                        addZoomToSvgs(d3.selectAll(".mermaid[data-zoom-id=id-4739576a-fab0-440f-931d-08764ffad23c]").select(function() {
+                                        addZoomToSvgs(d3.selectAll(".mermaid[data-zoom-id=id-295f8250-dd43-47be-8956-9e86902a186f]").select(function() {
                                             return this.querySelector("svg");
                                         }));
                                     }
@@ -232,7 +232,7 @@ const runMermaid = async (rerun) => {
     if (true) {
         const mermaids_to_add_zoom = 1 === -1 ? mermaids_active.length : 1;
         if(mermaids_to_add_zoom > 0) {
-            var svgs = d3.selectAll(".mermaid[data-zoom-id=id-4739576a-fab0-440f-931d-08764ffad23c]").select(function() {
+            var svgs = d3.selectAll(".mermaid[data-zoom-id=id-295f8250-dd43-47be-8956-9e86902a186f]").select(function() {
                 return this.querySelector("svg");
             });
             // Wait until every active (visible) diagram has rendered. Deferred
@@ -747,7 +747,7 @@ standalone applications.</p>
 <p>Use the decision tree below to find the right integration for your use case,
 then follow the corresponding guide.</p>
 <figure class="align-default" id="id1">
-<pre data-zoom-id="id-4739576a-fab0-440f-931d-08764ffad23c" class="mermaid">
+<pre data-zoom-id="id-295f8250-dd43-47be-8956-9e86902a186f" class="mermaid">
         %%{init: {&quot;theme&quot;: &quot;base&quot;, &quot;themeVariables&quot;: {&quot;primaryColor&quot;: &quot;#2563eb&quot;, &quot;primaryTextColor&quot;: &quot;#0f172a&quot;, &quot;primaryBorderColor&quot;: &quot;#1e40af&quot;, &quot;lineColor&quot;: &quot;#475569&quot;, &quot;fontSize&quot;: &quot;14px&quot;, &quot;edgeLabelBackground&quot;: &quot;#f1f5f9&quot;, &quot;tertiaryColor&quot;: &quot;#f1f5f9&quot;}}}%%
 flowchart TD
     START([&quot; What do I need? &quot;])
