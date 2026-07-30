@@ -59,7 +59,7 @@ setup. All commands run through ``mros``.
 
             ros2 run rqt_image_view rqt_image_view /yolo_cube_detector/debug_image
 
-   .. tab-item:: SIL
+   .. tab-item:: HIL
 
       1. Open the Isaac Sim scene:
          ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/8b_yolo_pick_and_place_hil.usd``

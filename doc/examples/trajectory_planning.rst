@@ -10,6 +10,40 @@ run through ``mros``. For the programmatic ``/wmx/moveit2/*`` service API, see
 
    .. tab-item:: Simulation
 
+      .. figure:: https://softservogroup.sharepoint.com/:i:/s/Storage/IQDynSNIn4y0RZB2aSh7GFiCAawZCSJEu-CmLk9Lqay0a7Y?e=mViWWa&download=1
+         :alt: Manipulator executing a planned trajectory
+         :target: https://softservogroup.sharepoint.com/:i:/s/Storage/IQDynSNIn4y0RZB2aSh7GFiCAawZCSJEu-CmLk9Lqay0a7Y?e=mViWWa&download=1
+         :align: center
+         :width: 100%
+
+         Basic movements on simulation
+   
+   .. tab-item:: HIL
+
+      .. figure:: https://softservogroup.sharepoint.com/:i:/s/Storage/IQDynSNIn4y0RZB2aSh7GFiCAawZCSJEu-CmLk9Lqay0a7Y?e=mViWWa&download=1
+         :alt: Manipulator executing a planned trajectory
+         :target: https://softservogroup.sharepoint.com/:i:/s/Storage/IQDynSNIn4y0RZB2aSh7GFiCAawZCSJEu-CmLk9Lqay0a7Y?e=mViWWa&download=1
+         :align: center
+         :width: 100%
+
+         Basic movements on hardware-in-the-loop (HIL).
+
+   .. tab-item:: Real
+
+      .. figure:: https://softservogroup.sharepoint.com/:i:/s/Storage/IQDcGyFQvgSLQ7O3YVlRJ6TCAYXHtwsd6oNHRKCT5Sx57j0?e=vu6Y1Y&download=1
+         :alt: Manipulator executing a planned trajectory
+         :target: https://softservogroup.sharepoint.com/:i:/s/Storage/IQDcGyFQvgSLQ7O3YVlRJ6TCAYXHtwsd6oNHRKCT5Sx57j0?e=vu6Y1Y&download=1
+         :align: center
+         :width: 100%
+
+         Basic movements on real-world scenario.
+
+
+
+.. tab-set::
+
+   .. tab-item:: Simulation
+
       1. Open the scene:
 
          .. tab-set::
@@ -81,7 +115,7 @@ run through ``mros``. For the programmatic ``/wmx/moveit2/*`` service API, see
             mros ros2 launch movensys_manipulator_moveit_config trajectory_test.launch.py use_sim_time:=true
             mros ros2 launch movensys_manipulator_moveit_config coverage_pose.launch.py use_sim_time:=true
 
-   .. tab-item:: SIL
+   .. tab-item:: HIL
 
       1. Open the scene:
 
