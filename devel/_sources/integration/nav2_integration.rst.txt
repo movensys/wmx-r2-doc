@@ -170,8 +170,15 @@ Provided by the WMX ``differential_drive_controller`` (``diffbot`` defaults:
      - ``nav_msgs/Odometry``
      - EKF-fused odometry that Nav2 and AMCL consume
 
-A stale-command safety timeout (``cmd_vel_timeout``, default 0.25 s) zeroes the
+A stale-command timeout (``cmd_vel_timeout``, default 0.25 s) zeroes the
 wheels if no velocity command arrives, so a stalled planner stops the base.
+
+.. warning::
+
+   This is a functional software timer, not a safety function. It runs in a
+   non-real-time ROS 2 node and has no redundancy, no monitoring, and no
+   guaranteed stopping time. A physical base needs a separate emergency stop
+   that removes drive power — see :doc:`../commissioning/safety`.
 
 See Also
 --------

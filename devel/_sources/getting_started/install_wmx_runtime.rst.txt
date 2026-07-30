@@ -67,29 +67,35 @@ the tab that matches your hardware.
    .. tab-item:: x86/amd64-based PC
       :sync: x86
 
-      `Download WMX3 for x86/amd64
-      <https://softservogroup.sharepoint.com/:u:/s/Storage/IQCyN66D6ZtqQJ7NDFmjzrTpAUmDKoB3T3LC5OFh_Cc-x0w?e=COgGmT>`_
+      .. button-link:: https://softservogroup.sharepoint.com/:u:/s/Storage/IQDy5FzTpMdZRbs52-K1JE7QAdB_nPu0NeG03dkZpDxBYgQ?e=u9hmQB
+         :color: primary
+         :shadow:
+         :class: wmx-download-btn
+
+         Download WMX3 for x86/amd64
 
       **Install WMX3** — extract the archive and run the installer:
 
       .. code-block:: bash
 
-         unzip 20260727_WMX3_v3.7_Linux_x86.zip
-         cd 20260727_WMX3_v3.7_Linux_x86/
+         unzip 20260729_WMX3_v3.7_Linux_x86.zip
          sudo dpkg -i *wmx3-installer.deb
 
    .. tab-item:: arm64 (Jetson)
       :sync: jetson
 
-      `Download WMX3 for jetson/arm64
-      <https://softservogroup.sharepoint.com/:u:/s/Storage/IQA1tj_1ST26TreJ2HfYSPkmAWf0tEW_1O6rNWqxB0plycQ?e=wZD2cc>`_
+      .. button-link:: https://softservogroup.sharepoint.com/:u:/s/Storage/IQCoAJZFNxnkQqnT-9YB6QffAXztaavZH7li6n_nWI6YnwY?e=DA5UKp
+         :color: primary
+         :shadow:
+         :class: wmx-download-btn
+
+         Download WMX3 for jetson/arm64
 
       **Install WMX3** — extract the archive and run the installer:
 
       .. code-block:: bash
 
-         unzip 20260727_WMX3_v3.7_Linux_ARM64.zip
-         cd 20260727_WMX3_v3.7_Linux_ARM64/
+         unzip 20260729_WMX3_v3.7_Linux_ARM64.zip
          sudo dpkg -i *wmx3-installer.deb
 
 The installer places the WMX3 runtime at ``/opt/wmx3/``. Confirm the required
@@ -235,7 +241,24 @@ run the engine.
          NumOfMaster = 1
          disable = 0
 
-4. Configure the EtherCAT NIC
+4. Change the cyclic period
+----------------------------------
+
+Modify ``/opt/wmx3/platform/ethercat/ec_network.def``:
+
+.. code-block:: ini
+
+   [Master 0]
+   CommCycle=1000 #milliseconds
+
+.. note::
+
+   **Jetson developer kit (arm64).**
+
+   Several Jetson developer kit NICs have been tested and cannot sustain the
+   shortest cycles; the minimum period on that hardware is ``CommCycle=2000``.
+
+5. Configure the EtherCAT NIC
 ---------------------------------
 
 WMX3's EtherCAT platform (``ec_platform.so``) sends and receives frames through
@@ -279,6 +302,7 @@ the driver; each driver reads its own keys from the same section.
          UseNicDrvDll=ndd_sock_raw.so
          ifname=enp3s0            ; kernel interface to bind (required)
          rxprio=97               ; RX thread SCHED_FIFO priority (<=0 = default sched)
+         rxcore=2 
 
       Opening the raw socket needs ``CAP_NET_RAW``, so run the nodes as root.
 
@@ -357,7 +381,7 @@ the driver; each driver reads its own keys from the same section.
          UseNicDrvDll=ndd_vnw.so
          numofslaves=1           ; number of virtual slaves (0 = empty network)
 
-5. Test the WMX runtime
+6. Test the WMX runtime
 ---------------------------
 
 Connect the EtherCAT slave hardware (a single servo drive is recommended for a
@@ -377,7 +401,7 @@ line tools to bring the engine up, scan the bus, and enable the servo:
    sudo ./wmx3-stop-engine      # stop the engine when done
 
 
-6. Uninstall WMX runtime
+7. Uninstall WMX runtime
 ---------------------------
 
 .. code-block:: bash

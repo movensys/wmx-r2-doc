@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=541d874a" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=cd36b759" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
@@ -283,6 +283,13 @@
 <li class="toctree-l2"><a class="reference internal" href="../integration/intelligence_integration.html">Natural-Language and Vision Control (VLM / LLM)</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../commissioning/index.html">Commissioning</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../commissioning/robot_parameters.html">Robot Parameter Configuration and Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commissioning/first_motion.html">Commissioning and First Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commissioning/safety.html">Safety Functions and Responsibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commissioning/validated_hardware.html">Hardware Compatibility and Validation</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../api_reference/api_reference.html">API Reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/communication.html">Communication Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_services.html">ROS2 Services</a></li>
@@ -296,6 +303,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../troubleshooting/troubleshooting.html">Troubleshooting</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../licensing.html">Licensing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../about.html">About Us</a></li>
 </ul>
 
@@ -457,6 +465,7 @@ wmx_r2_message
 wmx_r2_package
 wmx_r2_package differential_drive_controller
 wmx_r2_package gripper_controller
+wmx_r2_package joint_position_controller
 wmx_r2_package joint_state_broadcaster
 wmx_r2_package joint_trajectory_controller
 wmx_r2_package wmx_core_motion_node
@@ -544,6 +553,14 @@ disable the simulation platform:</p>
 </div>
 </div>
 </div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>Real Hardware mode moves a physical machine.</strong></p>
+<p>Start with the Simulation platform. Before switching to EtherCAT and
+enabling servos on a robot, complete <a class="reference internal" href="../commissioning/index.html"><span class="doc">Commissioning</span></a> —
+parameter validation, the low-speed single-axis procedure, and the separate
+safety measures described in <a class="reference internal" href="../commissioning/safety.html"><span class="doc">Safety Functions and Responsibility</span></a>.</p>
+</div>
 <section id="test-the-wmx-r2-general-nodes-standalone">
 <h3>Test the WMX R2 General Nodes (Standalone)<a class="headerlink" href="#test-the-wmx-r2-general-nodes-standalone" title="Link to this heading">#</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>--preserve-env<span class="o">=</span>PATH<span class="w"> </span><span class="se">\</span>
@@ -563,15 +580,41 @@ disable the simulation platform:</p>
 </section>
 <section id="startup-sequence">
 <h3>Startup Sequence<a class="headerlink" href="#startup-sequence" title="Link to this heading">#</a></h3>
-<p>When launched, four nodes initialize in parallel:</p>
+<p><code class="docutils literal notranslate"><span class="pre">wmx_r2_general_nodes.launch.py</span></code> starts four robot-agnostic nodes —
+<code class="docutils literal notranslate"><span class="pre">wmx_engine_node</span></code>, <code class="docutils literal notranslate"><span class="pre">wmx_core_motion_node</span></code>, <code class="docutils literal notranslate"><span class="pre">wmx_io_node</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">wmx_ethercat_node</span></code>:</p>
 <ol class="arabic simple">
-<li><p><strong>Device creation</strong> – Each node creates a WMX device handle</p></li>
-<li><p><strong>EtherCAT scan</strong> – Network scan discovers all servo drives</p></li>
-<li><p><strong>Communication start</strong> – Real-time EtherCAT communication begins</p></li>
-<li><p><strong>Parameter loading</strong> – Gear ratios and axis polarities loaded from XML</p></li>
-<li><p><strong>Servo enable</strong> – All 6 joint servos cleared and enabled</p></li>
-<li><p><strong>Ready</strong> – All nodes report ready</p></li>
+<li><p><strong>Device creation</strong> – <code class="docutils literal notranslate"><span class="pre">wmx_engine_node</span></code> creates the WMX device handle,
+retrying up to five times if another application holds the lock
+(error 297). The remaining nodes then attach to that device.</p></li>
+<li><p><strong>Communication start</strong> – <code class="docutils literal notranslate"><span class="pre">StartCommunication</span></code> brings up the real-time
+EtherCAT cycle, which discovers the drives on the bus.</p></li>
+<li><p><strong>Ready</strong> – each node publishes on its <code class="docutils literal notranslate"><span class="pre">ready</span></code> topic and begins serving
+its services and topics.</p></li>
 </ol>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>The general nodes load no robot parameters and enable no
+servos.</strong></p>
+<p>These four nodes are robot-agnostic by design. They do <strong>not</strong> apply a
+<code class="docutils literal notranslate"><span class="pre">&lt;robot&gt;_wmx_parameters.xml</span></code> file, so the gear ratios, polarities,
+command modes, and limits in the engine are whatever was left there by a
+previous session — not your robot’s values. They also do not enable the
+servos; that is an explicit <code class="docutils literal notranslate"><span class="pre">/wmx/axis/set_on</span></code> call.</p>
+<p>Robot parameters are applied by the per-robot launches
+(<code class="docutils literal notranslate"><span class="pre">wmx_r2_&lt;robot&gt;_manipulator.launch.py</span></code> and
+<code class="docutils literal notranslate"><span class="pre">wmx_r2_diffbot_navigation.launch.py</span></code>), which pass
+<code class="docutils literal notranslate"><span class="pre">wmx_param_file_path</span></code> to their controllers, or by the <code class="docutils literal notranslate"><span class="pre">ros2_control</span></code>
+hardware plugin. If you command motion from the general nodes alone, load
+the parameters first:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/params/load<span class="w"> </span>wmx_r2_message/srv/LoadWmxParams<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span><span class="s2">&quot;{file_path: &#39;/abs/path/to/&lt;robot&gt;_wmx_parameters.xml&#39;}&quot;</span>
+ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/params/get<span class="w"> </span>wmx_r2_message/srv/GetWmxParams<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span><span class="s2">&quot;{index: [0,1,2,3,4,5]}&quot;</span>
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="../commissioning/robot_parameters.html"><span class="doc">Robot Parameter Configuration and Validation</span></a>.</p>
+</div>
 </section>
 <section id="testing-wmx-r2-services-and-topics">
 <h3>Testing WMX R2 Services and Topics<a class="headerlink" href="#testing-wmx-r2-services-and-topics" title="Link to this heading">#</a></h3>

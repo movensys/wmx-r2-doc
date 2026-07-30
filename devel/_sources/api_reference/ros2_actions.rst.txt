@@ -180,8 +180,13 @@ Expected:
 
 .. warning::
 
-   This action moves real motors. Ensure the robot workspace is clear and
-   all safety precautions are in place before sending trajectory goals.
+   This action moves real motors. Before sending trajectory goals, confirm
+   that the robot parameters have been verified
+   (:doc:`../commissioning/robot_parameters`), that the robot has passed the
+   first-motion procedure (:doc:`../commissioning/first_motion`), that the
+   workspace is clear, and that the separate safety measures in
+   :doc:`../commissioning/safety` are in place. Cancelling a goal is a
+   controlled stop, not an emergency stop.
 
 MoveIt2 Integration
 ^^^^^^^^^^^^^^^^^^^^
@@ -194,7 +199,7 @@ The typical workflow is:
 3. MoveIt2 sends the trajectory as a ``FollowJointTrajectory`` goal
 4. The ``joint_trajectory_controller`` executes it via WMX cubic spline
 5. The ``joint_state_broadcaster`` node publishes real-time encoder feedback back
-   to ``/joint_states`` at 500 Hz
+   to ``/joint_states`` at 100 Hz
 
 The action server name must match the controller configuration in MoveIt2.
 The default name ``/movensys_manipulator_arm_controller/follow_joint_trajectory``

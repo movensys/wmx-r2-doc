@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=541d874a" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=cd36b759" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
@@ -283,6 +283,13 @@
 <li class="toctree-l2"><a class="reference internal" href="../integration/intelligence_integration.html">Natural-Language and Vision Control (VLM / LLM)</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../commissioning/index.html">Commissioning</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../commissioning/robot_parameters.html">Robot Parameter Configuration and Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commissioning/first_motion.html">Commissioning and First Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commissioning/safety.html">Safety Functions and Responsibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commissioning/validated_hardware.html">Hardware Compatibility and Validation</a></li>
+</ul>
+</li>
 <li class="toctree-l1 current"><a class="reference internal" href="api_reference.html">API Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="communication.html">Communication Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ros2_services.html">ROS2 Services</a></li>
@@ -296,6 +303,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../troubleshooting/troubleshooting.html">Troubleshooting</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../licensing.html">Licensing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../about.html">About Us</a></li>
 </ul>
 
@@ -412,19 +420,19 @@ divided into published (output) and subscribed (input) categories.</p>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/joint_states</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">sensor_msgs/JointState</span></code></p></td>
 <td><p>Published</p></td>
-<td><p>500 Hz</p></td>
+<td><p>100 Hz</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/isaacsim/joint_command</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">sensor_msgs/JointState</span></code></p></td>
 <td><p>Published</p></td>
-<td><p>500 Hz</p></td>
+<td><p>100 Hz</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/gazebo_.../commands</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">std_msgs/Float64MultiArray</span></code></p></td>
 <td><p>Published</p></td>
-<td><p>500 Hz</p></td>
+<td><p>100 Hz</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/axis/state</span></code></p></td>
@@ -460,7 +468,7 @@ divided into published (output) and subscribed (input) categories.</p>
 <li><p><a class="reference internal" href="#custom-message-types" id="id5">Custom Message Types</a></p></li>
 <li><p><a class="reference internal" href="#published-topics" id="id6">Published Topics</a></p></li>
 <li><p><a class="reference internal" href="#subscribed-topics-motion-commands" id="id7">Subscribed Topics (Motion Commands)</a></p></li>
-<li><p><a class="reference internal" href="#differential-drive-topics-optional" id="id8">Differential Drive Topics (Optional)</a></p></li>
+<li><p><a class="reference internal" href="#differential-drive-topics" id="id8">Differential Drive Topics</a></p></li>
 <li><p><a class="reference internal" href="#see-also" id="id9">See Also</a></p></li>
 </ul>
 </nav>
@@ -498,6 +506,26 @@ float64[] velocity    # Target velocity per axis (rad/s)
 float64[] acc         # Acceleration per axis (rad/s^2)
 float64[] dec         # Deceleration per axis (rad/s^2)
 </pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><strong>Where the radians come from</strong></p>
+<p>The WMX engine works in <em>user units</em>, not radians. Positions, velocities,
+and accelerations on these topics are radians only because every shipped
+parameter file sets <code class="docutils literal notranslate"><span class="pre">AxisGearRatioDenominator</span></code> to 2π, which makes one
+user unit equal one radian. A parameter file with a different denominator
+silently rescales every value on every WMX topic and service. See
+<a class="reference internal" href="../commissioning/robot_parameters.html"><span class="doc">Robot Parameter Configuration and Validation</span></a>.</p>
+</div>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p><code class="docutils literal notranslate"><span class="pre">/wmx/axis/velocity</span></code>, <code class="docutils literal notranslate"><span class="pre">/wmx/axis/position</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">/wmx/axis/position/relative</span></code> command the drives directly. They bypass
+MoveIt, so no planning-time joint-limit check and no collision check
+applies — and WMX soft limits are <strong>disabled</strong> in the shipped parameter
+files. The velocity and acceleration values in the examples below
+illustrate the message format; they are not safe commissioning values. See
+<a class="reference internal" href="../commissioning/first_motion.html"><span class="doc">Commissioning and First Motion</span></a>.</p>
 </div>
 </section>
 <section id="published-topics">
@@ -553,7 +581,7 @@ float64[] dec         # Deceleration per axis (rad/s^2)
 <td><p><code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>Rate</strong></p></td>
-<td><p>500 Hz (configurable via <code class="docutils literal notranslate"><span class="pre">joint_feedback_rate</span></code> parameter)</p></td>
+<td><p>100 Hz (set by the <code class="docutils literal notranslate"><span class="pre">joint_feedback_rate</span></code> parameter)</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Configurable</strong></p></td>
 <td><p>Topic name set via <code class="docutils literal notranslate"><span class="pre">encoder_joint_topic</span></code> parameter</p></td>
@@ -621,7 +649,7 @@ closed (bit=1), they report the <code class="docutils literal notranslate"><span
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>topic<span class="w"> </span>hz<span class="w"> </span>/joint_states
 </pre></div>
 </div>
-<p>Expected: approximately 500 Hz.</p>
+<p>Expected: approximately 100 Hz (the configured <code class="docutils literal notranslate"><span class="pre">joint_feedback_rate</span></code>).</p>
 <p><strong>Example – View only joint positions:</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/joint_states<span class="w"> </span>--field<span class="w"> </span>position
 </pre></div>
@@ -645,7 +673,7 @@ closed (bit=1), they report the <code class="docutils literal notranslate"><span
 <td><p><code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>Rate</strong></p></td>
-<td><p>500 Hz (same timer as <code class="docutils literal notranslate"><span class="pre">/joint_states</span></code>)</p></td>
+<td><p>100 Hz (same timer as <code class="docutils literal notranslate"><span class="pre">/joint_states</span></code>)</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Configurable</strong></p></td>
 <td><p>Topic name set via <code class="docutils literal notranslate"><span class="pre">isaacsim_joint_topic</span></code> parameter</p></td>
@@ -687,7 +715,7 @@ order in the source code.</p>
 <td><p><code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>Rate</strong></p></td>
-<td><p>500 Hz (same timer as <code class="docutils literal notranslate"><span class="pre">/joint_states</span></code>)</p></td>
+<td><p>100 Hz (same timer as <code class="docutils literal notranslate"><span class="pre">/joint_states</span></code>)</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Configurable</strong></p></td>
 <td><p>Topic name set via <code class="docutils literal notranslate"><span class="pre">gazebo_joint_topic</span></code> parameter</p></td>
@@ -979,18 +1007,17 @@ position.</p>
 </div>
 </section>
 </section>
-<section id="differential-drive-topics-optional">
-<h2><a class="toc-backref" href="#id8" role="doc-backlink">Differential Drive Topics (Optional)</a><a class="headerlink" href="#differential-drive-topics-optional" title="Link to this heading">#</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">diff_drive_controller</span></code> node provides topics for mobile base control.
-This node is currently disabled in the build (commented out in
-<code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code>).</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The differential drive controller is not built by default. It must be
-enabled in <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> to use these topics.</p>
-</div>
-<section id="cmd-vel-subscribed">
-<h3>/cmd_vel (Subscribed)<a class="headerlink" href="#cmd-vel-subscribed" title="Link to this heading">#</a></h3>
+<section id="differential-drive-topics">
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">Differential Drive Topics</a><a class="headerlink" href="#differential-drive-topics" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">differential_drive_controller</span></code> node drives a two-wheel mobile base. It
+is built and installed by default, and launched by
+<code class="docutils literal notranslate"><span class="pre">wmx_r2_diffbot_navigation.launch.py</span></code> with
+<code class="docutils literal notranslate"><span class="pre">diffbot_navigation_config.yaml</span></code>.</p>
+<p>The wheel axes must be in velocity mode. <code class="docutils literal notranslate"><span class="pre">diffbot_wmx_parameters.xml</span></code> sets
+<code class="docutils literal notranslate"><span class="pre">AxisCommandMode</span> <span class="pre">=</span> <span class="pre">1</span></code> on axes 0 and 1 for this reason — see
+<a class="reference internal" href="../commissioning/robot_parameters.html"><span class="doc">Robot Parameter Configuration and Validation</span></a>.</p>
+<section id="cmd-vel-safe-subscribed">
+<h3>/cmd_vel_safe (Subscribed)<a class="headerlink" href="#cmd-vel-safe-subscribed" title="Link to this heading">#</a></h3>
 <div class="pst-scrollable-table-container"><table class="table">
 <colgroup>
 <col style="width: 25.0%" />
@@ -998,13 +1025,14 @@ enabled in <code class="docutils literal notranslate"><span class="pre">CMakeLis
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><strong>Message Type</strong></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">geometry_msgs/msg/Twist</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">geometry_msgs/msg/TwistStamped</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Subscriber</strong></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">diff_drive_controller</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">differential_drive_controller</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>Configurable</strong></p></td>
-<td><p>Topic name set via <code class="docutils literal notranslate"><span class="pre">cmd_vel_topic</span></code> parameter</p></td>
+<td><p>Topic name set via <code class="docutils literal notranslate"><span class="pre">cmd_vel_topic</span></code> parameter (default
+<code class="docutils literal notranslate"><span class="pre">/cmd_vel_safe</span></code>)</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Purpose</strong></p></td>
 <td><p>Receive linear/angular velocity commands for the mobile base</p></td>
@@ -1012,8 +1040,7 @@ enabled in <code class="docutils literal notranslate"><span class="pre">CMakeLis
 </tbody>
 </table>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">cmdCallback()</span></code> stores the incoming Twist message and republishes it.
-The <code class="docutils literal notranslate"><span class="pre">cmdVelStep()</span></code> timer (at <code class="docutils literal notranslate"><span class="pre">rate</span></code> Hz) then:</p>
+<p>The control timer (at <code class="docutils literal notranslate"><span class="pre">rate</span></code> Hz, default 100) then:</p>
 <ol class="arabic simple">
 <li><p>Checks engine state is <code class="docutils literal notranslate"><span class="pre">Communicating</span></code></p></li>
 <li><p>Checks for amplifier alarms and servo status on both wheel axes</p></li>
@@ -1025,33 +1052,15 @@ The <code class="docutils literal notranslate"><span class="pre">cmdVelStep()</s
 </li>
 <li><p>Calls <code class="docutils literal notranslate"><span class="pre">CoreMotion::StartVel()</span></code> for each wheel axis</p></li>
 </ol>
-</section>
-<section id="cmd-vel-check-published">
-<h3>/cmd_vel_check (Published)<a class="headerlink" href="#cmd-vel-check-published" title="Link to this heading">#</a></h3>
-<div class="pst-scrollable-table-container"><table class="table">
-<colgroup>
-<col style="width: 25.0%" />
-<col style="width: 75.0%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><strong>Message Type</strong></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">geometry_msgs/msg/Twist</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><strong>Publisher</strong></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">diff_drive_controller</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><strong>Configurable</strong></p></td>
-<td><p>Topic name set via <code class="docutils literal notranslate"><span class="pre">encoder_vel_topic</span></code> parameter</p></td>
-</tr>
-<tr class="row-even"><td><p><strong>Purpose</strong></p></td>
-<td><p>Echo the received <code class="docutils literal notranslate"><span class="pre">/cmd_vel</span></code> for debugging</p></td>
-</tr>
-</tbody>
-</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">cmd_vel_timeout</span></code> (default 0.25 s) zeroes the wheels when no command
+arrives within the window. This is a functional stale-command timer, not a
+safety function — see <a class="reference internal" href="../commissioning/safety.html"><span class="doc">Safety Functions and Responsibility</span></a>.</p>
 </div>
 </section>
-<section id="velocity-controller-commands-published">
-<h3>/velocity_controller/commands (Published)<a class="headerlink" href="#velocity-controller-commands-published" title="Link to this heading">#</a></h3>
+<section id="omega-enc-published">
+<h3>/omega_enc (Published)<a class="headerlink" href="#omega-enc-published" title="Link to this heading">#</a></h3>
 <div class="pst-scrollable-table-container"><table class="table">
 <colgroup>
 <col style="width: 25.0%" />
@@ -1062,7 +1071,7 @@ The <code class="docutils literal notranslate"><span class="pre">cmdVelStep()</s
 <td><p><code class="docutils literal notranslate"><span class="pre">std_msgs/msg/Float64MultiArray</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Publisher</strong></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">diff_drive_controller</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">differential_drive_controller</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>Configurable</strong></p></td>
 <td><p>Topic name set via <code class="docutils literal notranslate"><span class="pre">encoder_omega_topic</span></code> parameter</p></td>
@@ -1088,24 +1097,58 @@ The <code class="docutils literal notranslate"><span class="pre">cmdVelStep()</s
 <td><p><code class="docutils literal notranslate"><span class="pre">nav_msgs/msg/Odometry</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Publisher</strong></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">diff_drive_controller</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">differential_drive_controller</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>Configurable</strong></p></td>
 <td><p>Topic name set via <code class="docutils literal notranslate"><span class="pre">encoder_odometry_topic</span></code> parameter</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Purpose</strong></p></td>
-<td><p>Publish encoder-based odometry (velocity only)</p></td>
+<td><p>Publish encoder-based odometry (pose and twist), dead-reckoned from
+encoder position deltas</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>Computes odometry from wheel angular velocities:</p>
+<p>Twist is computed from the wheel angular velocities:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">linear_vel</span> <span class="pre">=</span> <span class="pre">(right_omega</span> <span class="pre">*</span> <span class="pre">wheel_radius</span> <span class="pre">+</span> <span class="pre">left_omega</span> <span class="pre">*</span> <span class="pre">wheel_radius)</span> <span class="pre">/</span> <span class="pre">2</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">angular_vel</span> <span class="pre">=</span> <span class="pre">(right_omega</span> <span class="pre">*</span> <span class="pre">wheel_radius</span> <span class="pre">-</span> <span class="pre">left_omega</span> <span class="pre">*</span> <span class="pre">wheel_radius)</span> <span class="pre">/</span> <span class="pre">wheel_to_wheel</span></code></p></li>
 </ul>
-<p>Publishes in <code class="docutils literal notranslate"><span class="pre">twist.twist.linear.x</span></code> and <code class="docutils literal notranslate"><span class="pre">twist.twist.angular.z</span></code>. The
-<code class="docutils literal notranslate"><span class="pre">pose</span></code> fields are not populated.</p>
+<p>Pose is integrated from per-cycle encoder position deltas and published in
+<code class="docutils literal notranslate"><span class="pre">pose.pose.position</span></code> and <code class="docutils literal notranslate"><span class="pre">pose.pose.orientation</span></code>. <code class="docutils literal notranslate"><span class="pre">pos_unit_scale</span></code>
+converts <code class="docutils literal notranslate"><span class="pre">actualPos</span></code> to wheel radians and is <code class="docutils literal notranslate"><span class="pre">1.0</span></code> when the WMX parameter
+file already scales to radians. A jump guard (<code class="docutils literal notranslate"><span class="pre">jump_guard_tol</span></code>, default
+0.5 rad) re-baselines the integration when a position delta disagrees with the
+measured velocity, rejecting homing and encoder-rollover jumps.</p>
+<p>TF (<code class="docutils literal notranslate"><span class="pre">odom</span></code> → <code class="docutils literal notranslate"><span class="pre">base_link</span></code>) is published only when <code class="docutils literal notranslate"><span class="pre">publish_tf</span></code> is
+<code class="docutils literal notranslate"><span class="pre">true</span></code>. It defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code> so the localization EKF owns the transform.</p>
+</section>
+<section id="odom-deltas-and-odom-accel-published">
+<h3>/odom_deltas and /odom_accel (Published)<a class="headerlink" href="#odom-deltas-and-odom-accel-published" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 75.0%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Message Types</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">geometry_msgs/msg/TwistStamped</span></code> (<code class="docutils literal notranslate"><span class="pre">/odom_deltas</span></code>),
+<code class="docutils literal notranslate"><span class="pre">geometry_msgs/msg/AccelStamped</span></code> (<code class="docutils literal notranslate"><span class="pre">/odom_accel</span></code>)</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Publisher</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">differential_drive_controller</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Configurable</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">odom_deltas_topic</span></code> / <code class="docutils literal notranslate"><span class="pre">odom_accel_topic</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Purpose</strong></p></td>
+<td><p>Per-cycle pose deltas, and a rate-limited, low-pass-filtered
+acceleration estimate (<code class="docutils literal notranslate"><span class="pre">accel_publish_rate</span></code> default 10 Hz,
+<code class="docutils literal notranslate"><span class="pre">accel_alpha</span></code> default 0.3)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </section>
 </section>
 <section id="see-also">
@@ -1193,11 +1236,11 @@ The <code class="docutils literal notranslate"><span class="pre">cmdVelStep()</s
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wmx-axis-position-relative">/wmx/axis/position/relative</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#differential-drive-topics-optional">Differential Drive Topics (Optional)</a><ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cmd-vel-subscribed">/cmd_vel (Subscribed)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cmd-vel-check-published">/cmd_vel_check (Published)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#velocity-controller-commands-published">/velocity_controller/commands (Published)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#differential-drive-topics">Differential Drive Topics</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cmd-vel-safe-subscribed">/cmd_vel_safe (Subscribed)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#omega-enc-published">/omega_enc (Published)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#odom-enc-published">/odom_enc (Published)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#odom-deltas-and-odom-accel-published">/odom_deltas and /odom_accel (Published)</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#see-also">See Also</a></li>

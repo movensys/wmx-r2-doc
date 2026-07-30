@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=541d874a" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=cd36b759" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
@@ -283,6 +283,13 @@
 <li class="toctree-l2"><a class="reference internal" href="../integration/intelligence_integration.html">Natural-Language and Vision Control (VLM / LLM)</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../commissioning/index.html">Commissioning</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../commissioning/robot_parameters.html">Robot Parameter Configuration and Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commissioning/first_motion.html">Commissioning and First Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commissioning/safety.html">Safety Functions and Responsibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commissioning/validated_hardware.html">Hardware Compatibility and Validation</a></li>
+</ul>
+</li>
 <li class="toctree-l1 current"><a class="reference internal" href="api_reference.html">API Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="communication.html">Communication Overview</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">ROS2 Services</a></li>
@@ -296,6 +303,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../troubleshooting/troubleshooting.html">Troubleshooting</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../licensing.html">Licensing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../about.html">About Us</a></li>
 </ul>
 
@@ -1020,6 +1028,15 @@ is not used – only the <code class="docutils literal notranslate"><span class=
 </div>
 <p>Only <code class="docutils literal notranslate"><span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">-1</span></code> are accepted. Invalid values are rejected per-axis with
 the message <code class="docutils literal notranslate"><span class="pre">&quot;Invalid</span> <span class="pre">polarity</span> <span class="pre">value</span> <span class="pre">for</span> <span class="pre">axis</span> <span class="pre">&lt;index&gt;:</span> <span class="pre">&lt;value&gt;&quot;</span></code>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Polarity decides which physical direction a positive command produces. The
+correct value follows from the URDF’s sign convention for that joint and
+from the motor’s mounting orientation. Change it only with the axis
+stopped, and re-verify with a low-speed single-axis jog afterwards. This
+override is not written back to the parameter XML and is lost on the next
+engine restart — see <a class="reference internal" href="../commissioning/robot_parameters.html"><span class="doc">Robot Parameter Configuration and Validation</span></a>.</p>
+</div>
 <p><strong>Example – Set axis 1 reversed, axis 0 normal:</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axis/set_polarity<span class="w"> </span>wmx_r2_message/srv/SetAxis<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span><span class="s2">&quot;{index: [0, 1], data: [1, -1]}&quot;</span>
@@ -1047,8 +1064,21 @@ the message <code class="docutils literal notranslate"><span class="pre">&quot;I
 </table>
 </div>
 <p>Calls <code class="docutils literal notranslate"><span class="pre">CoreMotion::SetGearRatio(axis,</span> <span class="pre">numerator,</span> <span class="pre">denominator)</span></code> for each
-axis. The gear ratio maps encoder counts to physical units (radians):
-<code class="docutils literal notranslate"><span class="pre">position_radians</span> <span class="pre">=</span> <span class="pre">encoder_counts</span> <span class="pre">*</span> <span class="pre">(denominator</span> <span class="pre">/</span> <span class="pre">numerator)</span></code>.</p>
+axis. The gear ratio maps encoder counts to WMX user units:
+<code class="docutils literal notranslate"><span class="pre">position_user_units</span> <span class="pre">=</span> <span class="pre">encoder_counts</span> <span class="pre">*</span> <span class="pre">(denominator</span> <span class="pre">/</span> <span class="pre">numerator)</span></code>. The user
+unit is the radian only when <code class="docutils literal notranslate"><span class="pre">denominator</span></code> is 2π
+(<code class="docutils literal notranslate"><span class="pre">6.283185307179586</span></code>), as every shipped parameter file sets it.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The numerator is the encoder counts in one revolution of the <strong>joint
+output</strong> — encoder counts per motor revolution × the reducer ratio. A
+numerator that is wrong by the reducer ratio produces motion that is wrong
+by roughly two orders of magnitude. A denominator other than 2π silently
+rescales every position, velocity, and acceleration in the ROS 2 interface.
+Change these only with the axis stopped, and re-verify afterwards; the
+override is lost on the next engine restart. See
+<a class="reference internal" href="../commissioning/robot_parameters.html"><span class="doc">Robot Parameter Configuration and Validation</span></a>.</p>
+</div>
 <p><strong>Example – Set gear ratios for 2 axes:</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axis/set_gear_ratio<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>wmx_r2_message/srv/SetAxisGearRatio<span class="w"> </span><span class="se">\</span>

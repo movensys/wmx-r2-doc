@@ -101,13 +101,15 @@ compact footprint suits robots and mobile machines where space and payload are
 tight.
 
 
-WMX R2's open source MIT-licensed ROS 2 interface handles the timing-sensitive
-step: smoothing trajectories, coordinating joints, and emitting commands at the
-rate servo drivers expect. It runs with WMX motion engine, which keeps
-motion on a deterministic cycle and exposes more than 200 APIs for trajectory
-conversion, EtherCAT, I/O, and engine control. The WMX engine runs free in
-renewable 6-hour sessions that you extend by restarting the engine, and a
-commercial license removes the limit for production.
+WMX R2's ROS 2 interface handles the timing-sensitive step: smoothing
+trajectories, coordinating joints, and emitting commands at the rate servo
+drivers expect. Its source code is open source under the MIT license. It runs
+with the WMX motion engine, which keeps motion on a deterministic cycle and
+exposes more than 200 APIs for trajectory conversion, EtherCAT, I/O, and engine
+control. The engine, its SDK, and its binaries are proprietary and require an
+evaluation or commercial license: the engine runs free in renewable 6-hour
+sessions that you extend by restarting it, and a commercial license removes the
+limit for production.
 
 Performance comparison
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -155,8 +157,13 @@ Where to go next
 * Follow the :doc:`getting_started/index` guide to set up the environment and run the package.
 * Work through the :doc:`examples/examples` to run trajectory, perception, and intelligence demos.
 * See :doc:`integration/integration` for the supported motion-planning and application integrations.
+* Work through :doc:`commissioning/index` before moving a physical robot;
+  parameter validation, first motion, safety responsibilities, and the list of
+  validated robots.
 * Refer to the :doc:`api_reference/api_reference` for ROS2 services, topics, and actions.
 * Consult :doc:`support` for common issues and their resolutions.
+* Read :doc:`licensing` for the boundary between the MIT-licensed ROS 2
+  interface and the proprietary WMX motion engine.
 
 
 
@@ -171,6 +178,8 @@ Where to go next
    getting_started/index
    examples/examples
    integration/integration
+   commissioning/index
    api_reference/api_reference
    support
+   licensing
    about

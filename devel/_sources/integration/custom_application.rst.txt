@@ -83,7 +83,7 @@ Available Interfaces
      - Purpose
    * - ``/joint_states``
      - ``sensor_msgs/msg/JointState``
-     - 500 Hz
+     - 100 Hz
      - Current joint positions and velocities
    * - ``/wmx/axis/state``
      - ``wmx_r2_message/msg/AxisState``
@@ -328,7 +328,7 @@ Python Example: Read Robot State
 ---------------------------------
 
 This example subscribes to ``/joint_states`` and prints the current joint
-positions. The ``joint_state_broadcaster`` node publishes this topic at 500 Hz
+positions. The ``joint_state_broadcaster`` node publishes this topic at 100 Hz
 with 8 values (6 joints + 2 gripper fingers).
 
 .. code-block:: python

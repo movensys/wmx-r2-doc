@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=541d874a" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=cd36b759" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
@@ -279,6 +279,13 @@
 <li class="toctree-l2"><a class="reference internal" href="../integration/intelligence_integration.html">Natural-Language and Vision Control (VLM / LLM)</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../commissioning/index.html">Commissioning</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../commissioning/robot_parameters.html">Robot Parameter Configuration and Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commissioning/first_motion.html">Commissioning and First Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commissioning/safety.html">Safety Functions and Responsibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commissioning/validated_hardware.html">Hardware Compatibility and Validation</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../api_reference/api_reference.html">API Reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/communication.html">Communication Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_services.html">ROS2 Services</a></li>
@@ -292,6 +299,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../troubleshooting/troubleshooting.html">Troubleshooting</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../licensing.html">Licensing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../about.html">About Us</a></li>
 </ul>
 
@@ -393,14 +401,14 @@ Simulation</label><div class="sd-tab-content docutils">
 <ol class="arabic">
 <li><p>Open the scene:</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
-<label class="sd-tab-label" data-sync-group="tab" data-sync-id="isaacsim" for="sd-tab-item-3">
+<input checked="checked" id="sd-tab-item-2" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="isaacsim" for="sd-tab-item-2">
 Isaac Sim</label><div class="sd-tab-content docutils">
 <p>Open
 <code class="docutils literal notranslate"><span class="pre">~/workspaces/movensys-simulation/&lt;NAVIGATION_MODEL&gt;/navigation_simulation.usd</span></code></p>
 </div>
-<input id="sd-tab-item-4" name="sd-tab-set-1" type="radio">
-<label class="sd-tab-label" data-sync-group="tab" data-sync-id="gazebo" for="sd-tab-item-4">
+<input id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="gazebo" for="sd-tab-item-3">
 Gazebo</label><div class="sd-tab-content docutils">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>movensys_navigation_description<span class="w"> </span>gazebo_navigation_simulation.launch.py
 </pre></div>
@@ -437,14 +445,14 @@ HIL</label><div class="sd-tab-content docutils">
 <ol class="arabic">
 <li><p>Open the scene:</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="sd-tab-item-5" name="sd-tab-set-2" type="radio">
-<label class="sd-tab-label" data-sync-group="tab" data-sync-id="isaacsim" for="sd-tab-item-5">
+<input checked="checked" id="sd-tab-item-4" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="isaacsim" for="sd-tab-item-4">
 Isaac Sim</label><div class="sd-tab-content docutils">
 <p>Open
 <code class="docutils literal notranslate"><span class="pre">~/workspaces/movensys-simulation/&lt;NAVIGATION_MODEL&gt;/navigation_hil.usd</span></code></p>
 </div>
-<input id="sd-tab-item-6" name="sd-tab-set-2" type="radio">
-<label class="sd-tab-label" data-sync-group="tab" data-sync-id="gazebo" for="sd-tab-item-6">
+<input id="sd-tab-item-5" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="gazebo" for="sd-tab-item-5">
 Gazebo</label><div class="sd-tab-content docutils">
 <p>Not applicable for HIL.</p>
 </div>
@@ -455,30 +463,6 @@ Gazebo</label><div class="sd-tab-content docutils">
 <code class="docutils literal notranslate"><span class="pre">~/workspaces/movensys_ws/src/wmx-r2/doc/launch_&lt;NAVIGATION_MODEL&gt;_navigation.md</span></code>).</p></li>
 <li><p>Launch navigation:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>movensys_navigation_nav2_config<span class="w"> </span>navigation.launch.py<span class="w"> </span>use_sim_time:<span class="o">=</span><span class="nb">true</span>
-</pre></div>
-</div>
-<p>Add <code class="docutils literal notranslate"><span class="pre">rsp:=false</span></code> if using Gazebo or <code class="docutils literal notranslate"><span class="pre">ros2_control</span></code> – both already
-publish <code class="docutils literal notranslate"><span class="pre">/robot_description</span></code>.</p>
-</li>
-<li><p>Set the initial pose: in RViz, click <strong>2D Pose Estimate</strong> and click the map
-at the robot’s current position and heading.</p></li>
-<li><p>Send a goal pose:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nros<span class="w"> </span>ros2<span class="w"> </span>action<span class="w"> </span>send_goal<span class="w"> </span>/navigate_to_pose<span class="w"> </span>nav2_msgs/action/NavigateToPose<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">&quot;&#39;{pose: {header: {frame_id: map}, pose: {position: {x: 8.0, y: 0.0, z: 0.0}, \</span>
-<span class="s2">  orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}}}}&#39;&quot;</span>
-</pre></div>
-</div>
-</li>
-</ol>
-</div>
-<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-2">
-Real</label><div class="sd-tab-content docutils">
-<ol class="arabic">
-<li><p>Start WMX R2 for the navigation base on the robot (see
-<code class="docutils literal notranslate"><span class="pre">~/workspaces/movensys_ws/src/wmx-r2/doc/launch_&lt;NAVIGATION_MODEL&gt;_navigation.md</span></code>).</p></li>
-<li><p>Launch navigation:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>movensys_navigation_nav2_config<span class="w"> </span>navigation.launch.py
 </pre></div>
 </div>
 <p>Add <code class="docutils literal notranslate"><span class="pre">rsp:=false</span></code> if using Gazebo or <code class="docutils literal notranslate"><span class="pre">ros2_control</span></code> – both already

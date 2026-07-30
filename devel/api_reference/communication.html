@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=541d874a" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=cd36b759" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
@@ -206,7 +206,7 @@ const runMermaid = async (rerun) => {
                                     // Apply zoom to the now-rendered diagram, matching
                                     // the decoration visible diagrams receive.
                                     if (true) {
-                                        addZoomToSvgs(d3.selectAll(".mermaid[data-zoom-id=id-337636ad-fddc-4e89-abeb-6c74c768eba7]").select(function() {
+                                        addZoomToSvgs(d3.selectAll(".mermaid[data-zoom-id=id-d2d1a4fb-298b-416d-a829-6f74917079ad]").select(function() {
                                             return this.querySelector("svg");
                                         }));
                                     }
@@ -232,7 +232,7 @@ const runMermaid = async (rerun) => {
     if (true) {
         const mermaids_to_add_zoom = 1 === -1 ? mermaids_active.length : 1;
         if(mermaids_to_add_zoom > 0) {
-            var svgs = d3.selectAll(".mermaid[data-zoom-id=id-337636ad-fddc-4e89-abeb-6c74c768eba7]").select(function() {
+            var svgs = d3.selectAll(".mermaid[data-zoom-id=id-d2d1a4fb-298b-416d-a829-6f74917079ad]").select(function() {
                 return this.querySelector("svg");
             });
             // Wait until every active (visible) diagram has rendered. Deferred
@@ -636,6 +636,13 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l2"><a class="reference internal" href="../integration/intelligence_integration.html">Natural-Language and Vision Control (VLM / LLM)</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../commissioning/index.html">Commissioning</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../commissioning/robot_parameters.html">Robot Parameter Configuration and Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commissioning/first_motion.html">Commissioning and First Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commissioning/safety.html">Safety Functions and Responsibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commissioning/validated_hardware.html">Hardware Compatibility and Validation</a></li>
+</ul>
+</li>
 <li class="toctree-l1 current"><a class="reference internal" href="api_reference.html">API Reference</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Communication Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ros2_services.html">ROS2 Services</a></li>
@@ -649,6 +656,7 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l2"><a class="reference internal" href="../troubleshooting/troubleshooting.html">Troubleshooting</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../licensing.html">Licensing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../about.html">About Us</a></li>
 </ul>
 
@@ -753,7 +761,7 @@ communicates with servo drives over EtherCAT.</p>
 </div>
 <p>The diagram below shows how the three layers stack and which libraries and buses connect them:</p>
 <figure class="align-default" id="id1">
-<pre data-zoom-id="id-337636ad-fddc-4e89-abeb-6c74c768eba7" class="mermaid">
+<pre data-zoom-id="id-d2d1a4fb-298b-416d-a829-6f74917079ad" class="mermaid">
         %%{init: {&quot;theme&quot;: &quot;base&quot;, &quot;themeVariables&quot;: {&quot;primaryColor&quot;: &quot;#1a73e8&quot;, &quot;primaryTextColor&quot;: &quot;#fff&quot;, &quot;primaryBorderColor&quot;: &quot;#1558b0&quot;, &quot;lineColor&quot;: &quot;#555&quot;}}}%%
 flowchart TB
     subgraph L1[&quot;Layer 1: ROS2 DDS&quot;]

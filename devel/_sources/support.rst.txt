@@ -11,6 +11,15 @@ trajectory execution failures, gripper control issues, missing ROS2 nodes,
 and build errors. Each problem includes symptoms, likely causes, and
 step-by-step solutions.
 
+.. note::
+
+   Unexpected motion on a physical robot: wrong direction, wrong distance,
+   wrong joint, or a constant offset is almost always a robot-parameter
+   problem rather than a software fault. Start at
+   :doc:`commissioning/robot_parameters`, and see
+   :doc:`commissioning/validated_hardware` for what has been validated on your
+   robot and what has not.
+
 For additional help, contact your MOVENSYS representative or visit
 `movensys.com <https://www.movensys.com/en/>`_.
 

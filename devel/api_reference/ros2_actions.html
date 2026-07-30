@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=541d874a" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=cd36b759" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
@@ -283,6 +283,13 @@
 <li class="toctree-l2"><a class="reference internal" href="../integration/intelligence_integration.html">Natural-Language and Vision Control (VLM / LLM)</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../commissioning/index.html">Commissioning</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../commissioning/robot_parameters.html">Robot Parameter Configuration and Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commissioning/first_motion.html">Commissioning and First Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commissioning/safety.html">Safety Functions and Responsibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commissioning/validated_hardware.html">Hardware Compatibility and Validation</a></li>
+</ul>
+</li>
 <li class="toctree-l1 current"><a class="reference internal" href="api_reference.html">API Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="communication.html">Communication Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ros2_services.html">ROS2 Services</a></li>
@@ -296,6 +303,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../troubleshooting/troubleshooting.html">Troubleshooting</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../licensing.html">Licensing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../about.html">About Us</a></li>
 </ul>
 
@@ -583,8 +591,13 @@ reports <code class="docutils literal notranslate"><span class="pre">error_code<
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>This action moves real motors. Ensure the robot workspace is clear and
-all safety precautions are in place before sending trajectory goals.</p>
+<p>This action moves real motors. Before sending trajectory goals, confirm
+that the robot parameters have been verified
+(<a class="reference internal" href="../commissioning/robot_parameters.html"><span class="doc">Robot Parameter Configuration and Validation</span></a>), that the robot has passed the
+first-motion procedure (<a class="reference internal" href="../commissioning/first_motion.html"><span class="doc">Commissioning and First Motion</span></a>), that the
+workspace is clear, and that the separate safety measures in
+<a class="reference internal" href="../commissioning/safety.html"><span class="doc">Safety Functions and Responsibility</span></a> are in place. Cancelling a goal is a
+controlled stop, not an emergency stop.</p>
 </div>
 </section>
 <section id="moveit2-integration">
@@ -597,7 +610,7 @@ The typical workflow is:</p>
 <li><p>MoveIt2 sends the trajectory as a <code class="docutils literal notranslate"><span class="pre">FollowJointTrajectory</span></code> goal</p></li>
 <li><p>The <code class="docutils literal notranslate"><span class="pre">joint_trajectory_controller</span></code> executes it via WMX cubic spline</p></li>
 <li><p>The <code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code> node publishes real-time encoder feedback back
-to <code class="docutils literal notranslate"><span class="pre">/joint_states</span></code> at 500 Hz</p></li>
+to <code class="docutils literal notranslate"><span class="pre">/joint_states</span></code> at 100 Hz</p></li>
 </ol>
 <p>The action server name must match the controller configuration in MoveIt2.
 The default name <code class="docutils literal notranslate"><span class="pre">/movensys_manipulator_arm_controller/follow_joint_trajectory</span></code>

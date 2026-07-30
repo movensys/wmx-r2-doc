@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=541d874a" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=cd36b759" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
@@ -206,7 +206,7 @@ const runMermaid = async (rerun) => {
                                     // Apply zoom to the now-rendered diagram, matching
                                     // the decoration visible diagrams receive.
                                     if (true) {
-                                        addZoomToSvgs(d3.selectAll(".mermaid[data-zoom-id=id-afe95f7c-f279-4ff4-b068-39e0bf7f1869]").select(function() {
+                                        addZoomToSvgs(d3.selectAll(".mermaid[data-zoom-id=id-6a8426c1-e92f-446a-a7fd-abafa2668508]").select(function() {
                                             return this.querySelector("svg");
                                         }));
                                     }
@@ -232,7 +232,7 @@ const runMermaid = async (rerun) => {
     if (true) {
         const mermaids_to_add_zoom = 1 === -1 ? mermaids_active.length : 1;
         if(mermaids_to_add_zoom > 0) {
-            var svgs = d3.selectAll(".mermaid[data-zoom-id=id-afe95f7c-f279-4ff4-b068-39e0bf7f1869]").select(function() {
+            var svgs = d3.selectAll(".mermaid[data-zoom-id=id-6a8426c1-e92f-446a-a7fd-abafa2668508]").select(function() {
                 return this.querySelector("svg");
             });
             // Wait until every active (visible) diagram has rendered. Deferred
@@ -640,6 +640,13 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l2"><a class="reference internal" href="../integration/intelligence_integration.html">Natural-Language and Vision Control (VLM / LLM)</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../commissioning/index.html">Commissioning</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../commissioning/robot_parameters.html">Robot Parameter Configuration and Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commissioning/first_motion.html">Commissioning and First Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commissioning/safety.html">Safety Functions and Responsibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commissioning/validated_hardware.html">Hardware Compatibility and Validation</a></li>
+</ul>
+</li>
 <li class="toctree-l1 current"><a class="reference internal" href="api_reference.html">API Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="communication.html">Communication Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ros2_services.html">ROS2 Services</a></li>
@@ -653,6 +660,7 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l2"><a class="reference internal" href="../troubleshooting/troubleshooting.html">Troubleshooting</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../licensing.html">Licensing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../about.html">About Us</a></li>
 </ul>
 
@@ -770,7 +778,8 @@ robot, configured from a per-robot YAML file.</p></li>
 <td><p>0.1.0</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>License</strong></p></td>
-<td><p>MIT</p></td>
+<td><p>MIT (source code only; the WMX engine and SDK it links against are
+proprietary — see <a class="reference internal" href="../licensing.html"><span class="doc">Licensing</span></a>)</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Build Type</strong></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">ament_cmake</span></code></p></td>
@@ -946,7 +955,7 @@ Each node links only the libraries it needs:</p>
 topics so that dependent nodes only activate once the engine and motion
 layers are live:</p>
 <figure class="align-default" id="id1">
-<pre data-zoom-id="id-afe95f7c-f279-4ff4-b068-39e0bf7f1869" class="mermaid">
+<pre data-zoom-id="id-6a8426c1-e92f-446a-a7fd-abafa2668508" class="mermaid">
         sequenceDiagram
     participant E as wmx_engine_node
     participant C as wmx_core_motion_node
@@ -1428,7 +1437,18 @@ ratios, polarities, limits, home positions):</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">diffbot_wmx_parameters.xml</span></code> – differential-drive base axes</p></li>
 </ul>
 <p>These files are loaded at runtime via
-<code class="docutils literal notranslate"><span class="pre">CoreMotion::config-&gt;ImportAndSetAll(path)</span></code>.</p>
+<code class="docutils literal notranslate"><span class="pre">CoreMotion::config-&gt;ImportAndSetAll(path)</span></code>, by the controller that owns the
+axes — <code class="docutils literal notranslate"><span class="pre">joint_trajectory_controller</span></code> or <code class="docutils literal notranslate"><span class="pre">differential_drive_controller</span></code>,
+using the <code class="docutils literal notranslate"><span class="pre">wmx_param_file_path</span></code> parameter. The four general nodes load no
+parameter file.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>These are the parameters that decide how far and in which direction each
+joint moves. A shipped file describes the robot MOVENSYS commissioned, not
+your unit. For what every field means, where its value comes from, and how
+to verify it against the running engine, see
+<a class="reference internal" href="../commissioning/robot_parameters.html"><span class="doc">Robot Parameter Configuration and Validation</span></a>.</p>
+</div>
 </section>
 </section>
 <section id="building-the-package">
@@ -1450,12 +1470,15 @@ colcon<span class="w"> </span>build<span class="w"> </span>--packages-select<spa
 </pre></div>
 </div>
 <p>Expected:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>wmx_r2_package gripper_controller
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>wmx_r2_package differential_drive_controller
+wmx_r2_package gripper_controller
+wmx_r2_package joint_position_controller
 wmx_r2_package joint_state_broadcaster
 wmx_r2_package joint_trajectory_controller
 wmx_r2_package wmx_core_motion_node
 wmx_r2_package wmx_engine_node
 wmx_r2_package wmx_ethercat_node
+wmx_r2_package wmx_io_node
 wmx_r2_package wmx_io_node
 </pre></div>
 </div>

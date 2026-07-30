@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=541d874a" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=cd36b759" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
@@ -206,7 +206,7 @@ const runMermaid = async (rerun) => {
                                     // Apply zoom to the now-rendered diagram, matching
                                     // the decoration visible diagrams receive.
                                     if (true) {
-                                        addZoomToSvgs(d3.selectAll(".mermaid[data-zoom-id=id-4a9daf30-a27f-4c16-afd8-882f5b6bc741]").select(function() {
+                                        addZoomToSvgs(d3.selectAll(".mermaid[data-zoom-id=id-06ff6a04-004b-4d56-89b7-f9728201c7b7]").select(function() {
                                             return this.querySelector("svg");
                                         }));
                                     }
@@ -232,7 +232,7 @@ const runMermaid = async (rerun) => {
     if (true) {
         const mermaids_to_add_zoom = 1 === -1 ? mermaids_active.length : 1;
         if(mermaids_to_add_zoom > 0) {
-            var svgs = d3.selectAll(".mermaid[data-zoom-id=id-4a9daf30-a27f-4c16-afd8-882f5b6bc741]").select(function() {
+            var svgs = d3.selectAll(".mermaid[data-zoom-id=id-06ff6a04-004b-4d56-89b7-f9728201c7b7]").select(function() {
                 return this.querySelector("svg");
             });
             // Wait until every active (visible) diagram has rendered. Deferred
@@ -640,6 +640,13 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l2"><a class="reference internal" href="intelligence_integration.html">Natural-Language and Vision Control (VLM / LLM)</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../commissioning/index.html">Commissioning</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../commissioning/robot_parameters.html">Robot Parameter Configuration and Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commissioning/first_motion.html">Commissioning and First Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commissioning/safety.html">Safety Functions and Responsibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commissioning/validated_hardware.html">Hardware Compatibility and Validation</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../api_reference/api_reference.html">API Reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/communication.html">Communication Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_services.html">ROS2 Services</a></li>
@@ -653,6 +660,7 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l2"><a class="reference internal" href="../troubleshooting/troubleshooting.html">Troubleshooting</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../licensing.html">Licensing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../about.html">About Us</a></li>
 </ul>
 
@@ -757,7 +765,7 @@ visuals with the real WMX runtime), and <strong>real</strong> base control.</p>
 <section id="architecture">
 <h2>Architecture<a class="headerlink" href="#architecture" title="Link to this heading">#</a></h2>
 <figure class="align-default" id="id3">
-<pre data-zoom-id="id-4a9daf30-a27f-4c16-afd8-882f5b6bc741" class="mermaid">
+<pre data-zoom-id="id-06ff6a04-004b-4d56-89b7-f9728201c7b7" class="mermaid">
         flowchart LR
     GOAL[&quot;Goal pose&lt;br/&gt;(RViz / action)&quot;]
     NAV2[&quot;Nav2 servers&lt;br/&gt;planner · controller · BT&quot;]
@@ -918,8 +926,15 @@ twice.</p>
 </tbody>
 </table>
 </div>
-<p>A stale-command safety timeout (<code class="docutils literal notranslate"><span class="pre">cmd_vel_timeout</span></code>, default 0.25 s) zeroes the
+<p>A stale-command timeout (<code class="docutils literal notranslate"><span class="pre">cmd_vel_timeout</span></code>, default 0.25 s) zeroes the
 wheels if no velocity command arrives, so a stalled planner stops the base.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This is a functional software timer, not a safety function. It runs in a
+non-real-time ROS 2 node and has no redundancy, no monitoring, and no
+guaranteed stopping time. A physical base needs a separate emergency stop
+that removes drive power — see <a class="reference internal" href="../commissioning/safety.html"><span class="doc">Safety Functions and Responsibility</span></a>.</p>
+</div>
 </section>
 <section id="see-also">
 <h2>See Also<a class="headerlink" href="#see-also" title="Link to this heading">#</a></h2>
