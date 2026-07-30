@@ -10,6 +10,38 @@ OpenCV AprilTag (with MoveIt2 OMPL) or Isaac ROS AprilTag (with cuMotion). See
 
    .. tab-item:: Simulation
 
+      .. figure:: https://softservogroup.sharepoint.com/:i:/s/Storage/IQCB1lM577qcRpSUZcgT0-BaAfLORo1zAq44SypAFNvkGmA?e=IijcRD&download=1
+         :alt: AprilTag based pick-and-place
+         :target: https://softservogroup.sharepoint.com/:i:/s/Storage/IQCB1lM577qcRpSUZcgT0-BaAfLORo1zAq44SypAFNvkGmA?e=IijcRD&download=1
+         :align: center
+         :width: 100%
+
+         AprilTag based pick-and-place on simulation
+   
+   .. tab-item:: HIL
+
+      .. figure:: https://softservogroup.sharepoint.com/:i:/s/Storage/IQCB1lM577qcRpSUZcgT0-BaAfLORo1zAq44SypAFNvkGmA?e=IijcRD&download=1
+         :alt: Manipulator executing a planned trajectory
+         :target: https://softservogroup.sharepoint.com/:i:/s/Storage/IQCB1lM577qcRpSUZcgT0-BaAfLORo1zAq44SypAFNvkGmA?e=IijcRD&download=1
+         :align: center
+         :width: 100%
+
+         AprilTag based pick-and-place on hardware-in-the-loop (HIL).
+
+   .. tab-item:: Real
+
+      .. figure:: https://softservogroup.sharepoint.com/:i:/s/Storage/IQB-HDVUWfjsTavu8eyMafmrAY5gd92cerTYSNIcK_3OJgo?e=yUqLho&download=1
+         :alt: Manipulator executing a planned trajectory
+         :target: https://softservogroup.sharepoint.com/:i:/s/Storage/IQB-HDVUWfjsTavu8eyMafmrAY5gd92cerTYSNIcK_3OJgo?e=yUqLho&download=1
+         :align: center
+         :width: 100%
+
+         AprilTag based pick-and-place on real-world scenario.
+
+.. tab-set::
+
+   .. tab-item:: Simulation
+
       1. Open the Isaac Sim scene:
          ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/4a_apriltag_pick_and_place_simulation.usd``
 

@@ -9,6 +9,38 @@ commands run through ``mros``.
 
    .. tab-item:: Simulation
 
+      .. figure:: https://softservogroup.sharepoint.com/:i:/s/Storage/IQBDy7fKRqEHS6WtRdGWA2spAWCsNFQFLkBLEJ-Nm9x33PI?e=fgaStE&download=1
+         :alt: Collision-aware Planning
+         :target: https://softservogroup.sharepoint.com/:i:/s/Storage/IQBDy7fKRqEHS6WtRdGWA2spAWCsNFQFLkBLEJ-Nm9x33PI?e=fgaStE&download=1
+         :align: center
+         :width: 100%
+
+         Collision-aware planning on simulation
+   
+   .. tab-item:: HIL
+
+      .. figure:: https://softservogroup.sharepoint.com/:i:/s/Storage/IQBDy7fKRqEHS6WtRdGWA2spAWCsNFQFLkBLEJ-Nm9x33PI?e=fgaStE&download=1
+         :alt: Collision-aware Planning
+         :target: https://softservogroup.sharepoint.com/:i:/s/Storage/IQBDy7fKRqEHS6WtRdGWA2spAWCsNFQFLkBLEJ-Nm9x33PI?e=fgaStE&download=1
+         :align: center
+         :width: 100%
+
+         Collision-aware planning on hardware-in-the-loop (HIL).
+
+   .. tab-item:: Real
+
+      .. figure:: https://softservogroup.sharepoint.com/:i:/s/Storage/IQBqv6h5EUGYTJB-dRHjfKofAUlEsq091eGRNrTB96h25hs?e=XbZhLd&download=1
+         :alt: Collision-aware Planning
+         :target: https://softservogroup.sharepoint.com/:i:/s/Storage/IQBqv6h5EUGYTJB-dRHjfKofAUlEsq091eGRNrTB96h25hs?e=XbZhLd&download=1
+         :align: center
+         :width: 60%
+
+         Collision-aware planning on real-world scenario.
+
+.. tab-set::
+
+   .. tab-item:: Simulation
+
       1. Open the Isaac Sim scene:
          ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/5a_obstacle_avoidance_simulation.usd``
 
