@@ -45,7 +45,7 @@ OpenCV AprilTag (with MoveIt2 OMPL) or Isaac ROS AprilTag (with cuMotion). See
             mros ros2 launch movensys_manipulator_moveit_config apriltag_pick_and_place.launch.py \
                  use_sim_time:=true target_spawn:=false
 
-   .. tab-item:: SIL
+   .. tab-item:: HIL
 
       1. Open the Isaac Sim scene:
          ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/4b_apriltag_pick_and_place_hil.usd``

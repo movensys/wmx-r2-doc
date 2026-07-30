@@ -38,7 +38,7 @@ commands run through ``mros``.
             mros ros2 launch movensys_manipulator_perception camera_transform_tuning.launch.py use_sim_time:=true \
                  parent_frame:=world_manipulator child_frame:=camera_nvblox_color_optical_frame
 
-   .. tab-item:: SIL
+   .. tab-item:: HIL
 
       1. Open the Isaac Sim scene:
          ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/5b_obstacle_avoidance_hil.usd``

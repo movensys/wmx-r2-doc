@@ -4,7 +4,7 @@ Commissioning and First Motion
 .. warning::
 
    Do not start this procedure until :doc:`robot_parameters` is complete and
-   the same configuration has run cleanly in Simulation and SIL. This is
+   the same configuration has run cleanly in Simulation and HIL. This is
    stage 4 of the :ref:`simulation-first-workflow`. The purpose of this
    procedure is to *discover* wrong parameters with the robot moving slowly
    and by small amounts, which is the only cheap way to find them.
@@ -27,7 +27,7 @@ Preconditions
      - :doc:`robot_parameters` completed; the joint↔axis table written down
    * - Simulation
      - The same URDF and MoveIt configuration planned and executed correctly
-   * - SIL
+   * - HIL
      - The real WMX runtime loaded your parameter file and executed a
        trajectory against the simulated bus with no errors
    * - Workspace
@@ -327,7 +327,7 @@ controlled stop, still not an emergency stop:
    its node options; there is no launch argument to turn it off. On a physical
    robot run without a ``/clock`` publisher, the node's clock does not advance,
    so the timestamps on its jog messages are not real time. Confirm the arm
-   responds as expected in SIL before relying on keyboard jogging on hardware,
+   responds as expected in HIL before relying on keyboard jogging on hardware,
    and prefer the ``/wmx/axis/position/relative`` procedure above for
    commissioning.
 

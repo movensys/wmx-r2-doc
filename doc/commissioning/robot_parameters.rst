@@ -6,7 +6,7 @@ Robot Parameter Configuration and Validation
    The parameters on this page decide how far and in which direction each
    joint moves. An incorrect gear ratio, encoder resolution, joint direction,
    or home offset causes unexpected motion even when every node reports
-   success. Review and verify all of them in simulation and SIL before
+   success. Review and verify all of them in simulation and HIL before
    powering a physical robot. See :ref:`simulation-first-workflow`.
 
 Where the parameters live

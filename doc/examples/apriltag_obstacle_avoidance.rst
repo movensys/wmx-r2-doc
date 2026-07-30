@@ -39,7 +39,7 @@ manipulator setup. All commands run through ``mros``.
             mros ros2 launch movensys_manipulator_moveit_config apriltag_pick_and_place.launch.py \
                  use_sim_time:=true target_spawn:=false
 
-   .. tab-item:: SIL
+   .. tab-item:: HIL
 
       1. Open the Isaac Sim scene:
          ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/6b_apriltag_obstacle_avoidance_hil.usd``

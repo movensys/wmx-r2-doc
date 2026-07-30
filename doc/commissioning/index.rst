@@ -54,7 +54,7 @@ clean.
        correct.
      - Bad URDF, unreachable targets, planner and collision errors.
    * - 3
-     - **SIL**
+     - **HIL**
 
        (simulator visuals, real WMX runtime, simulated bus)
      - The real WMX engine loads your parameter file, accepts the planner's
@@ -82,7 +82,7 @@ clean.
 
 .. note::
 
-   Stages 2 and 3 map directly onto the **Simulation** and **SIL** tabs used
+   Stages 2 and 3 map directly onto the **Simulation** and **HIL** tabs used
    throughout :doc:`../examples/examples`. Stage 6 is the **Real** tab. Stages
    4 and 5 sit between them and are described in :doc:`first_motion`.
 

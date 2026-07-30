@@ -81,7 +81,7 @@ run through ``mros``. For the programmatic ``/wmx/moveit2/*`` service API, see
             mros ros2 launch movensys_manipulator_moveit_config trajectory_test.launch.py use_sim_time:=true
             mros ros2 launch movensys_manipulator_moveit_config coverage_pose.launch.py use_sim_time:=true
 
-   .. tab-item:: SIL
+   .. tab-item:: HIL
 
       1. Open the scene:
 

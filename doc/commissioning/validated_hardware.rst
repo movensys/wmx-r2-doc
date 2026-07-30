@@ -28,7 +28,7 @@ Status definitions
        functions were exercised on hardware.
    * - **Reference implementation**
      - A complete, shipped configuration that is exercised in simulation and
-       SIL. Treat the hardware parameters as a starting point to be verified
+       HIL. Treat the hardware parameters as a starting point to be verified
        per unit, following :doc:`robot_parameters` and :doc:`first_motion`.
    * - **Experimental**
      - Present in the repository but incomplete, unverified, or subject to
