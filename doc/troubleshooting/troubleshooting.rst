@@ -1,6 +1,97 @@
 Troubleshooting
 ===============
 
+.. warning::
+
+   Several symptoms below are caused by wrong robot parameters, and the fix is
+   to correct the parameter — not to compensate for it elsewhere. Scaling a
+   URDF to hide a wrong gear ratio, or flipping a sign in application code to
+   hide a wrong polarity, leaves the robot able to move unexpectedly in every
+   path that does not go through your workaround. See
+   :doc:`../commissioning/robot_parameters`.
+
+Robot Moves in the Wrong Direction
+-----------------------------------
+
+**Symptom:** A positive command moves the joint in the negative direction, or
+RViz and the physical robot move opposite ways.
+
+**Solutions:**
+
+- Read back the polarity the engine actually holds:
+
+  .. code-block:: bash
+
+     ros2 service call /wmx/params/get wmx_r2_message/srv/GetWmxParams \
+       "{index: [0,1,2,3,4,5]}"
+
+- Correct ``AxisPolarity`` for that axis in the robot's WMX parameter XML
+  (``+1`` or ``-1``) and rebuild, or override it for testing:
+
+  .. code-block:: bash
+
+     ros2 service call /wmx/axis/set_polarity wmx_r2_message/srv/SetAxis \
+       "{index: [0], data: [-1]}"
+
+- Confirm the URDF's sign convention for that joint (``<axis xyz>`` together
+  with the joint ``<origin rpy>``) before deciding which sign is correct.
+- Re-verify with the single-axis procedure in
+  :doc:`../commissioning/first_motion`. A runtime polarity override is lost on
+  the next engine restart — write the corrected value into the XML.
+
+Robot Moves the Wrong Distance
+-------------------------------
+
+**Symptom:** A commanded 90° rotation produces a visibly different physical
+rotation, or the robot moves by a large factor more or less than expected.
+
+**Solutions:**
+
+- Check ``AxisGearRatioNumerator`` and ``AxisGearRatioDenominator`` against the
+  drive's encoder resolution and the joint's reducer ratio:
+  ``numerator = encoder counts per motor revolution × gear ratio``.
+- Confirm ``AxisGearRatioDenominator`` is 2π. Any other value changes the unit
+  of every position, velocity, and acceleration in the ROS 2 interface.
+- Verify against the running engine with ``/wmx/params/get``, not against the
+  file — the engine may be holding values from a previous session, since the
+  general nodes load no parameter file.
+- Re-measure with a small commanded step and a physical reference; see
+  :doc:`../commissioning/first_motion`.
+
+Wrong Joint Moves
+-----------------
+
+**Symptom:** Commanding ``joint2`` moves a different physical joint.
+
+**Solutions:**
+
+- Compare ``joint_name`` and ``joint_axes`` in the robot's application YAML.
+  They are matched by position: ``joint_name[i]`` is driven by
+  ``joint_axes[i]``.
+- Confirm the EtherCAT chain order, which is what assigns the axis indices:
+
+  .. code-block:: bash
+
+     ros2 service call /wmx/ecat/get_network_state \
+       wmx_r2_message/srv/EcatGetNetworkState
+
+- Re-cabling the drives in a different order shifts every axis index after the
+  change, with no error anywhere in ROS 2.
+
+All Joints Offset by a Constant
+--------------------------------
+
+**Symptom:** The robot's poses are consistently shifted from the URDF zero, in
+the same direction, by roughly the same amount per joint.
+
+**Solutions:**
+
+- Check ``AbsoluteEncoderHomeOffset`` (and ``HomePosition``) for each axis. The
+  shipped files use ``0.0``, which asserts that the drive's absolute zero is
+  the URDF zero — a per-unit property, not a per-model one.
+- Move each joint to a known mechanical reference and compare ``actual_pos``
+  against the value the URDF zero implies.
+
 Device Creation Failures
 ------------------------
 
@@ -86,6 +177,9 @@ rejected.
 
 - Check for physical obstructions or overcurrent conditions on the robot
 - Verify gear ratios and polarities match the physical servo configuration
+  (see :doc:`../commissioning/robot_parameters`). A wrong polarity drives the
+  joint away from its target, which shows up as a following error or an
+  overcurrent alarm rather than as an obviously wrong direction.
 
 Trajectory Execution Failures
 ------------------------------
@@ -136,7 +230,9 @@ other WMX libraries.
 
 **Solutions:**
 
-- Verify the WMX Runtime libraries exist: ``ls /opt/wmx3/lib/``
+- Verify the WMX Runtime and SDK are installed. The MIT-licensed ROS 2
+  packages link against the proprietary WMX libraries and cannot be built
+  without them (see :doc:`../licensing`): ``ls /opt/wmx3/lib/``
 - Ensure ``LD_LIBRARY_PATH`` includes ``/opt/wmx3/lib/``:
 
   .. code-block:: bash

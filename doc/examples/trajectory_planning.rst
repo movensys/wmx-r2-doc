@@ -235,7 +235,24 @@ Keyboard Jogging
 
 ``keyboard_teleop`` drives the ``servo_node`` started by ``moveit.launch.py``,
 so it works in any of the three modes once the planner is up. Pick a mode first
-(``j`` / ``t`` / ``p``), then jog:
+(``j`` / ``t`` / ``p``), then jog.
+
+.. danger::
+
+   ``q`` and ``Ctrl+C`` are **not** emergency stops. They terminate the
+   ``keyboard_teleop`` process; motion stops only as a side effect, after
+   Servo's 0.1 s command timeout. Neither removes motor power, engages brakes,
+   triggers STO, or stops a ``move_group`` trajectory that is already
+   executing.
+
+.. note::
+
+   This table is the key mapping only. For the configured jog speeds, the
+   per-keypress step size, the command timeout, and the exact stopping
+   behavior of each mode, see
+   :ref:`keyboard-jogging-behavior`. On a physical robot, do not use keyboard
+   jogging as the first motion. Follow :doc:`../commissioning/first_motion`
+   first.
 
 .. list-table::
    :header-rows: 1

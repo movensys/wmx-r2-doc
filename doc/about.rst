@@ -9,6 +9,11 @@ WMX R2 packages integrate real-time motion engine together with a ROS 2 interfac
 into a single solution, and integrates with tools such as MoveIt2 motion planning and NVIDIA
 Isaac cuMotion GPU-accelerated planning. 
 
+**Licensing.** WMX R2 combines an MIT-licensed ROS 2 interface with the
+proprietary WMX motion engine, SDK, and binaries, which require an evaluation
+or commercial license. WMX R2 as a whole is not MIT-licensed — see
+:doc:`licensing` for the boundary.
+
 **Contact:**
 
 - Website: `movensys.com <https://www.movensys.com/en/>`_

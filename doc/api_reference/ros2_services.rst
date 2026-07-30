@@ -513,6 +513,15 @@ Calls ``CoreMotion::SetAxisPolarity(axis, polarity)`` for each axis.
 Only ``1`` and ``-1`` are accepted. Invalid values are rejected per-axis with
 the message ``"Invalid polarity value for axis <index>: <value>"``.
 
+.. warning::
+
+   Polarity decides which physical direction a positive command produces. The
+   correct value follows from the URDF's sign convention for that joint and
+   from the motor's mounting orientation. Change it only with the axis
+   stopped, and re-verify with a low-speed single-axis jog afterwards. This
+   override is not written back to the parameter XML and is lost on the next
+   engine restart — see :doc:`../commissioning/robot_parameters`.
+
 **Example -- Set axis 1 reversed, axis 0 normal:**
 
 .. code-block:: bash
@@ -534,8 +543,21 @@ the message ``"Invalid polarity value for axis <index>: <value>"``.
      - Configure the encoder gear ratio for each axis
 
 Calls ``CoreMotion::SetGearRatio(axis, numerator, denominator)`` for each
-axis. The gear ratio maps encoder counts to physical units (radians):
-``position_radians = encoder_counts * (denominator / numerator)``.
+axis. The gear ratio maps encoder counts to WMX user units:
+``position_user_units = encoder_counts * (denominator / numerator)``. The user
+unit is the radian only when ``denominator`` is 2π
+(``6.283185307179586``), as every shipped parameter file sets it.
+
+.. warning::
+
+   The numerator is the encoder counts in one revolution of the **joint
+   output** — encoder counts per motor revolution × the reducer ratio. A
+   numerator that is wrong by the reducer ratio produces motion that is wrong
+   by roughly two orders of magnitude. A denominator other than 2π silently
+   rescales every position, velocity, and acceleration in the ROS 2 interface.
+   Change these only with the axis stopped, and re-verify afterwards; the
+   override is lost on the next engine restart. See
+   :doc:`../commissioning/robot_parameters`.
 
 **Example -- Set gear ratios for 2 axes:**
 

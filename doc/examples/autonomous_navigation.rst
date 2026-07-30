@@ -95,28 +95,3 @@ commands run through ``nros``.
             nros ros2 action send_goal /navigate_to_pose nav2_msgs/action/NavigateToPose \
               "'{pose: {header: {frame_id: map}, pose: {position: {x: 8.0, y: 0.0, z: 0.0}, \
               orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}}}}'"
-
-   .. tab-item:: Real
-
-      1. Start WMX R2 for the navigation base on the robot (see
-         ``~/workspaces/movensys_ws/src/wmx-r2/doc/launch_<NAVIGATION_MODEL>_navigation.md``).
-
-      2. Launch navigation:
-
-         .. code-block:: bash
-
-            nros ros2 launch movensys_navigation_nav2_config navigation.launch.py
-
-         Add ``rsp:=false`` if using Gazebo or ``ros2_control`` -- both already
-         publish ``/robot_description``.
-
-      3. Set the initial pose: in RViz, click **2D Pose Estimate** and click the map
-         at the robot's current position and heading.
-
-      4. Send a goal pose:
-
-         .. code-block:: bash
-
-            nros ros2 action send_goal /navigate_to_pose nav2_msgs/action/NavigateToPose \
-              "'{pose: {header: {frame_id: map}, pose: {position: {x: 8.0, y: 0.0, z: 0.0}, \
-              orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}}}}'"

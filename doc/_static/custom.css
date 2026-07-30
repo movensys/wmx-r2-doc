@@ -480,3 +480,13 @@ pre.mermaid > svg[id] {
     display: block;
     margin: 0 auto;
 }
+
+/* ---------- Download buttons ---------- */
+/* sphinx-design's `.sd-btn` rounds its corners; keep the WMX3 download buttons
+   square so they read as a solid, clickable target. */
+a.sd-btn.wmx-download-btn {
+    border-radius: 0;
+    padding: 0.6rem 1.4rem;
+    font-weight: 600;
+    margin: 0.25rem 0 0.75rem;
+}

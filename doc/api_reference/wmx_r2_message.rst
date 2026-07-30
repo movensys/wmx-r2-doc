@@ -19,7 +19,8 @@ and Python bindings by ``rosidl``.
    * - **Version**
      - 0.1.0
    * - **License**
-     - MIT
+     - MIT (source code only; the WMX engine and SDK it links against are
+       proprietary — see :doc:`../licensing`)
    * - **Build Type**
      - ``ament_cmake``
 
