@@ -60,7 +60,7 @@ setup. All commands run through ``nros``.
             nros ros2 run nav2_map_server map_saver_cli \
                  -f /home/admin/workspaces/movensys_ws/src/movensys-navigation/movensys_navigation_nav2_config/maps/my_map
 
-   .. tab-item:: SIL
+   .. tab-item:: HIL
 
       1. Open the scene:
 
@@ -75,7 +75,7 @@ setup. All commands run through ``nros``.
             .. tab-item:: Gazebo
                :sync: gazebo
 
-               Not applicable for SIL.
+               Not applicable for HIL.
 
       2. Start WMX R2 for the navigation base (real WMX runtime) with
          ``use_sim_time:=true`` (see

@@ -116,11 +116,11 @@ Verify the build by launching the robot description in RViz:
 
    nros ros2 launch movensys_navigation_description movensys_navigation_rviz.launch.py
 
-For SIL and Real modes, the base is brought up with WMX R2 (see
+For HIL and Real modes, the base is brought up with WMX R2 (see
 ``wmx-r2/doc/launch_<NAVIGATION_MODEL>_navigation.md`` and
 :doc:`../getting_started/install_wmx3`).
 
 .. note:: **Isaac Sim scenes**
 
-   The Simulation and SIL modes load USD scenes in NVIDIA Isaac Sim. See
+   The Simulation and HIL modes load USD scenes in NVIDIA Isaac Sim. See
    :doc:`isaacsim_setup` for the Isaac Sim installation and the scene layout.

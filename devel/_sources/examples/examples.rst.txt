@@ -15,7 +15,7 @@ repository, built on top of the manipulator stack.
 Every manipulator and navigation scenario runs in three execution modes:
 
 - **Simulation** -- pure simulation (Isaac Sim or Gazebo), no hardware
-- **SIL** -- simulation-in-the-loop: simulator visuals with the real WMX runtime
+- **HIL** -- hardware-in-the-loop: simulator visuals with the real WMX runtime
 - **Real** -- the real robot via WMX over EtherCAT
 
 .. toctree::
@@ -34,7 +34,7 @@ Common Requirements
   (see :doc:`../getting_started/index`)
 - Docker with ``docker compose`` (the examples run inside containers)
 - An NVIDIA GPU and Isaac ROS prerequisites for the ``isaac-ros_*`` images
-- EtherCAT hardware for SIL and Real modes
+- EtherCAT hardware for HIL and Real modes
 - The `movensys-simulation <https://github.com/movensys/movensys-simulation>`_
   repo for the Isaac Sim scenes
 

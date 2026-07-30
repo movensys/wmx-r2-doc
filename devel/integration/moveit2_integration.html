@@ -55,7 +55,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Jul 27, 2026"/>
+    <meta name="docbuild:last-update" content="Jul 30, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -391,7 +391,7 @@ wraps MoveIt2 with a high-level service API and executes the planned motion on
 the robot through the WMX R2 stack.</p>
 <p>MoveIt2 produces collision-aware, time-parameterized trajectories; WMX runs
 them on a deterministic real-time cycle. The same configuration drives three
-execution modes: pure <strong>simulation</strong> (Isaac Sim or Gazebo), <strong>simulation-in-the-loop</strong>
+execution modes: pure <strong>simulation</strong> (Isaac Sim or Gazebo), <strong>hardware-in-the-loop</strong>
 (simulator visuals with the real WMX runtime), and <strong>real</strong> robot control over
 EtherCAT.</p>
 </section>
@@ -460,7 +460,7 @@ mros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> <
 mros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>movensys_manipulator_moveit_config<span class="w"> </span>trajectory_test.launch.py
 </pre></div>
 </div>
-<p>For simulation or simulation-in-the-loop, start the simulator bridge first and
+<p>For simulation or hardware-in-the-loop, start the simulator bridge first and
 pass <code class="docutils literal notranslate"><span class="pre">use_sim_time:=true</span></code>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>movensys_manipulator_moveit_config<span class="w"> </span>sim_bridge.launch.py<span class="w"> </span><span class="se">\</span>
 <span class="w">     </span>simulator:<span class="o">=</span>isaacsim<span class="w"> </span>use_sim_time:<span class="o">=</span><span class="nb">true</span>
@@ -647,7 +647,7 @@ repository for the full trajectory, AprilTag, Nvblox, and YOLO walkthroughs</p><
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Jul 27, 2026</p>
+      <p>Last updated: Jul 30, 2026</p>
     
   </div>
   <div class="movensys-footer__links">
