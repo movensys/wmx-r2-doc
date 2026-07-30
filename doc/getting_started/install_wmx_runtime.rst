@@ -67,29 +67,35 @@ the tab that matches your hardware.
    .. tab-item:: x86/amd64-based PC
       :sync: x86
 
-      `Download WMX3 for x86/amd64
-      <https://softservogroup.sharepoint.com/:u:/s/Storage/IQCyN66D6ZtqQJ7NDFmjzrTpAUmDKoB3T3LC5OFh_Cc-x0w?e=COgGmT>`_
+      .. button-link:: https://softservogroup.sharepoint.com/:u:/s/Storage/IQDy5FzTpMdZRbs52-K1JE7QAdB_nPu0NeG03dkZpDxBYgQ?e=u9hmQB
+         :color: primary
+         :shadow:
+         :class: wmx-download-btn
+
+         Download WMX3 for x86/amd64
 
       **Install WMX3** — extract the archive and run the installer:
 
       .. code-block:: bash
 
          unzip 20260729_WMX3_v3.7_Linux_x86.zip
-         cd 20260729_WMX3_v3.7_Linux_x86/
          sudo dpkg -i *wmx3-installer.deb
 
    .. tab-item:: arm64 (Jetson)
       :sync: jetson
 
-      `Download WMX3 for jetson/arm64
-      <https://softservogroup.sharepoint.com/:u:/s/Storage/IQA1tj_1ST26TreJ2HfYSPkmAWf0tEW_1O6rNWqxB0plycQ?e=wZD2cc>`_
+      .. button-link:: https://softservogroup.sharepoint.com/:u:/s/Storage/IQCoAJZFNxnkQqnT-9YB6QffAXztaavZH7li6n_nWI6YnwY?e=DA5UKp
+         :color: primary
+         :shadow:
+         :class: wmx-download-btn
+
+         Download WMX3 for jetson/arm64
 
       **Install WMX3** — extract the archive and run the installer:
 
       .. code-block:: bash
 
          unzip 20260729_WMX3_v3.7_Linux_ARM64.zip
-         cd 20260729_WMX3_v3.7_Linux_ARM64/
          sudo dpkg -i *wmx3-installer.deb
 
 The installer places the WMX3 runtime at ``/opt/wmx3/``. Confirm the required
