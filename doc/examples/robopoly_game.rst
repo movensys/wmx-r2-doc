@@ -75,7 +75,7 @@ required services across terminals:
          # Terminal 3: run MoveIt2, the containers, and YOLO
          ./run_robopoly.sh run
 
-   .. tab-item:: Intel Panther Lake
+   .. tab-item:: Intel Core Ultra Series 3
       
       .. code-block:: bash
 
