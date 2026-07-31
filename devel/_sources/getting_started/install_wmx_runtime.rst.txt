@@ -138,7 +138,7 @@ are isolated on every platform.
          sudo update-grub
          sudo reboot
 
-   .. tab-item:: Intel XPU (Panther Lake)
+   .. tab-item:: Intel XPU (Core Ultra Series 3)
 
       Edit ``/etc/default/grub`` and set ``GRUB_CMDLINE_LINUX_DEFAULT``:
 
@@ -150,9 +150,9 @@ are isolated on every platform.
         NIC kernel driver — and cores ``0,1`` handle housekeeping.
       - ``idle=poll`` trades power for latency; measure with ``cyclictest`` to
         confirm it helps on your hardware.
-      - On hybrid Intel silicon (Panther Lake mixes P-cores, E-cores, and
-        LP-E-cores), pin the control loop to isolated **P-cores** for the most
-        consistent latency.
+      - On hybrid Intel silicon (Core Ultra Series 3 mixes P-cores, E-cores,
+        and LP-E-cores), pin the control loop to isolated **P-cores** for the
+        most consistent latency.
 
       Apply the change and reboot:
 

@@ -206,7 +206,7 @@ const runMermaid = async (rerun) => {
                                     // Apply zoom to the now-rendered diagram, matching
                                     // the decoration visible diagrams receive.
                                     if (true) {
-                                        addZoomToSvgs(d3.selectAll(".mermaid[data-zoom-id=id-28366b4f-93bb-487f-934d-25896b1d4511]").select(function() {
+                                        addZoomToSvgs(d3.selectAll(".mermaid[data-zoom-id=id-0a767394-b20f-420d-b43a-3d80860304bc]").select(function() {
                                             return this.querySelector("svg");
                                         }));
                                     }
@@ -232,7 +232,7 @@ const runMermaid = async (rerun) => {
     if (true) {
         const mermaids_to_add_zoom = 1 === -1 ? mermaids_active.length : 1;
         if(mermaids_to_add_zoom > 0) {
-            var svgs = d3.selectAll(".mermaid[data-zoom-id=id-28366b4f-93bb-487f-934d-25896b1d4511]").select(function() {
+            var svgs = d3.selectAll(".mermaid[data-zoom-id=id-0a767394-b20f-420d-b43a-3d80860304bc]").select(function() {
                 return this.querySelector("svg");
             });
             // Wait until every active (visible) diagram has rendered. Deferred
@@ -412,7 +412,7 @@ window.runMermaid = runMermaid;</script>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Jul 30, 2026"/>
+    <meta name="docbuild:last-update" content="Jul 31, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -759,7 +759,7 @@ backend. It runs above a planning backend (MoveIt2) and calls the
 <section id="architecture">
 <h2>Architecture<a class="headerlink" href="#architecture" title="Link to this heading">#</a></h2>
 <figure class="align-default" id="id1">
-<pre data-zoom-id="id-28366b4f-93bb-487f-934d-25896b1d4511" class="mermaid">
+<pre data-zoom-id="id-0a767394-b20f-420d-b43a-3d80860304bc" class="mermaid">
         flowchart LR
     USER[&quot;Voice / text&lt;br/&gt;instruction&quot;]
     WHISPER[&quot;Whisper STT&quot;]
@@ -940,7 +940,7 @@ MoveIt2 session. Bring up the robot (or simulation) first — see
 <a class="reference internal" href="../getting_started/install_wmx3.html"><span class="doc">Install WMX R2 Package</span></a>.</p>
 </div>
 <p>Supported accelerators include NVIDIA desktop GPUs and Jetson Thor
-(<code class="docutils literal notranslate"><span class="pre">nvidia-gpu</span></code>) and Intel B60 / Panther Lake (<code class="docutils literal notranslate"><span class="pre">intel-xpu</span></code>). See the
+(<code class="docutils literal notranslate"><span class="pre">nvidia-gpu</span></code>) and Intel B60 / Core Ultra Series 3 (<code class="docutils literal notranslate"><span class="pre">intel-xpu</span></code>). See the
 <a class="reference external" href="https://github.com/movensys/movensys-intelligence">Movensys Intelligence repository</a> for the full setup
 guide and the latest model configuration.</p>
 </section>
@@ -1027,7 +1027,7 @@ guide and the latest model configuration.</p>
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Jul 30, 2026</p>
+      <p>Last updated: Jul 31, 2026</p>
     
   </div>
   <div class="movensys-footer__links">

@@ -124,7 +124,7 @@ Pick your target and install the operating system.
       In firmware/BIOS, disable **Secure Boot** for now. Signing a custom
       kernel is extra work you can add later.
 
-   .. tab-item:: Intel XPU (Panther Lake)
+   .. tab-item:: Intel XPU (Core Ultra Series 3)
 
       Install Ubuntu 24.04 the usual way with the standard Ubuntu installer,
       then update fully.
@@ -293,7 +293,7 @@ Install a PREEMPT_RT kernel for your target.
             modules load unsigned. If you later re-enable Secure Boot, enroll a
             MOK and sign the NVIDIA modules, or they will be refused at load.
 
-   .. tab-item:: Intel XPU (Panther Lake)
+   .. tab-item:: Intel XPU (Core Ultra Series 3)
 
       Build the RT kernel from Intel's
       `mainline-tracking <https://github.com/intel/mainline-tracking>`_ tree,
@@ -317,7 +317,7 @@ Install a PREEMPT_RT kernel for your target.
 
       .. note::
 
-         Panther Lake Linux support is in active flux. Pin the exact
+         Intel Core Ultra Series 3 Linux support is in active flux. Pin the exact
          commit/tag you build so you can reproduce it, and expect to rebuild
          as fixes land.
 

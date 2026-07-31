@@ -55,7 +55,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Jul 30, 2026"/>
+    <meta name="docbuild:last-update" content="Jul 31, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -500,7 +500,7 @@ sudo<span class="w"> </span>reboot
 </div>
 <input id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-3">
-Intel XPU (Panther Lake)</label><div class="sd-tab-content docutils">
+Intel XPU (Core Ultra Series 3)</label><div class="sd-tab-content docutils">
 <p>Edit <code class="docutils literal notranslate"><span class="pre">/etc/default/grub</span></code> and set <code class="docutils literal notranslate"><span class="pre">GRUB_CMDLINE_LINUX_DEFAULT</span></code>:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>GRUB_CMDLINE_LINUX_DEFAULT=&quot;isolcpus=managed_irq,domain,2,3 nohz_full=2,3 rcu_nocbs=2,3 irqaffinity=0,1 intel_pstate=disable processor.max_cstate=1 idle=poll&quot;
 </pre></div>
@@ -510,9 +510,9 @@ Intel XPU (Panther Lake)</label><div class="sd-tab-content docutils">
 NIC kernel driver — and cores <code class="docutils literal notranslate"><span class="pre">0,1</span></code> handle housekeeping.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">idle=poll</span></code> trades power for latency; measure with <code class="docutils literal notranslate"><span class="pre">cyclictest</span></code> to
 confirm it helps on your hardware.</p></li>
-<li><p>On hybrid Intel silicon (Panther Lake mixes P-cores, E-cores, and
-LP-E-cores), pin the control loop to isolated <strong>P-cores</strong> for the most
-consistent latency.</p></li>
+<li><p>On hybrid Intel silicon (Core Ultra Series 3 mixes P-cores, E-cores,
+and LP-E-cores), pin the control loop to isolated <strong>P-cores</strong> for the
+most consistent latency.</p></li>
 </ul>
 <p>Apply the change and reboot:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>update-grub
@@ -842,7 +842,7 @@ sudo<span class="w"> </span>./wmx3-stop-engine<span class="w">      </span><span
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Jul 30, 2026</p>
+      <p>Last updated: Jul 31, 2026</p>
     
   </div>
   <div class="movensys-footer__links">

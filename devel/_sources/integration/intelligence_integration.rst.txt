@@ -173,7 +173,7 @@ sending requests. A pick-and-place example is included in the repository:
    :doc:`../getting_started/install_wmx3`.
 
 Supported accelerators include NVIDIA desktop GPUs and Jetson Thor
-(``nvidia-gpu``) and Intel B60 / Panther Lake (``intel-xpu``). See the
+(``nvidia-gpu``) and Intel B60 / Core Ultra Series 3 (``intel-xpu``). See the
 `Movensys Intelligence repository
 <https://github.com/movensys/movensys-intelligence>`_ for the full setup
 guide and the latest model configuration.
