@@ -1,8 +1,7 @@
-NVIDIA Isaac Setup (Optional)
-=============================
+NVIDIA Isaac ROS Setup (Optional)
+=================================
 
-This setup is optional — skip it if you only run on the real robot or with
-Gazebo. It is needed for two NVIDIA components used by the examples:
+This setup is optional. It is needed for two NVIDIA components used by the examples:
 
 - **Isaac Sim** — the desktop simulator that renders the robot for the
   Simulation and HIL modes. Set up :ref:`isaac-sim-desktop` if you run any
@@ -218,9 +217,10 @@ driven:
      - real
      - Visualization against the real robot
 
-The CR3A directory provides scenes for the trajectory, AprilTag pick-and-place,
-obstacle avoidance, RoboPoly, and AprilTag obstacle-avoidance examples; the CR5A
-directory currently provides the trajectory scene. In the App Selector
+The CR3A directory provides scenes for the trajectory (``3``), AprilTag
+pick-and-place (``4``), Nvblox obstacle avoidance (``5``), AprilTag with
+obstacle avoidance (``6``), RoboPoly (``7``), and YOLO pick-and-place (``8``)
+examples; the CR5A directory currently provides the trajectory scene. In the App Selector
 (``Play``), open a scene such as
 ``~/workspaces/movensys-simulation/dobot_cr3a/3a_trajectory_simulation.usd``,
 click **Play**, then run the matching manipulator scenario to drive the robot.

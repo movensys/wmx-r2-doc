@@ -1,5 +1,5 @@
 # -- Project information -----------------------------------------------------
-project = 'WMX ROS2 Documentation'
+project = 'WMX R2 Documentation'
 copyright = '2026, MOVENSYS'
 author = 'MOVENSYS'
 release = '1.0.0'
@@ -28,6 +28,17 @@ rst_prolog = """
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
+# -- Mermaid ----------------------------------------------------------------
+# Render diagrams at their natural size instead of clamping every SVG to the
+# content-column width (mermaid's default ``useMaxWidth: true``), which shrinks
+# wide graphs until the text is unreadable. With this off, the SVG carries
+# pixel width/height and custom.css lets it scroll horizontally when needed.
+mermaid_init_config = {
+    "startOnLoad": False,
+    "flowchart": {"useMaxWidth": False},
+    "sequence": {"useMaxWidth": False},
+}
+
 # -- Options for HTML output -------------------------------------------------
 html_theme = 'pydata_sphinx_theme'
 html_static_path = ['_static']
@@ -41,12 +52,12 @@ html_last_updated_fmt = '%b %d, %Y'
 
 html_theme_options = {
     "logo": {
-        "text": "WMX ROS2 Documentation",
+        "text": "WMX R2 Documentation",
     },
     "icon_links": [
         {
             "name": "GitHub",
-            "url": "https://github.com/movensys/wmx-ros2-doc",
+            "url": "https://github.com/movensys/wmx-r2-doc",
             "icon": "fa-brands fa-github",
             "type": "fontawesome",
         },

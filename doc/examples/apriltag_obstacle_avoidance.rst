@@ -6,89 +6,128 @@ cuMotion plans collision-free motion against a live Nvblox reconstruction while
 Isaac ROS AprilTag locates the target. See :doc:`examples` for the shared
 manipulator setup. All commands run through ``mros``.
 
-Simulation
-----------
+.. tab-set::
 
-1. Open the Isaac Sim scene:
-   ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/7a_apriltag_obstacle_avoidance_simulation.usd``
+   .. tab-item:: Simulation
 
-2. Run the simulator bridge:
+      .. figure:: https://softservogroup.sharepoint.com/:i:/s/Storage/IQA9AvezFL6rRqAk2lkE2t2pAVITAVf0p90ZtDtATjCjM4g?e=pU18j7&download=1
+         :alt: AprilTag based Obstacle Avoidance
+         :target: https://softservogroup.sharepoint.com/:i:/s/Storage/IQA9AvezFL6rRqAk2lkE2t2pAVITAVf0p90ZtDtATjCjM4g?e=pU18j7&download=1
+         :align: center
+         :width: 100%
 
-   .. code-block:: bash
+         AprilTag based obstacle avoidance on simulation
+   
+   .. tab-item:: HIL
 
-      mros ros2 launch movensys_manipulator_moveit_config sim_bridge.launch.py \
-           simulator:=isaacsim use_sim_time:=true
+      .. figure:: https://softservogroup.sharepoint.com/:i:/s/Storage/IQA9AvezFL6rRqAk2lkE2t2pAVITAVf0p90ZtDtATjCjM4g?e=pU18j7&download=1
+         :alt: AprilTag based Obstacle Avoidance
+         :target: https://softservogroup.sharepoint.com/:i:/s/Storage/IQA9AvezFL6rRqAk2lkE2t2pAVITAVf0p90ZtDtATjCjM4g?e=pU18j7&download=1
+         :align: center
+         :width: 100%
 
-3. Launch cuMotion + Nvblox:
+         AprilTag based obstacle avoidance on hardware-in-the-loop (HIL).
 
-   .. code-block:: bash
+   .. tab-item:: Real
 
-      mros ros2 launch movensys_manipulator_isaac_ros_config isaac_cumotion_nvblox.launch.py use_sim_time:=true
+      .. figure:: https://softservogroup.sharepoint.com/:i:/s/Storage/IQDxqbaey2rhRJ4qPuWfbd9sAYPrIkuX3Ztz16QSwkvpTmY?e=Br0Ybv&download=1
+         :alt: AprilTag based Obstacle Avoidance
+         :target: https://softservogroup.sharepoint.com/:i:/s/Storage/IQDxqbaey2rhRJ4qPuWfbd9sAYPrIkuX3Ztz16QSwkvpTmY?e=Br0Ybv&download=1
+         :align: center
+         :width: 100%
 
-4. Launch Isaac AprilTag:
+         AprilTag based obstacle avoidance on real-world scenario.
 
-   .. code-block:: bash
+.. tab-set::
 
-      mros ros2 launch movensys_manipulator_isaac_ros_config isaac_apriltag.launch.py use_sim_time:=true
+   .. tab-item:: Simulation
 
-5. Run AprilTag pick-and-place with obstacle avoidance:
+      1. Open the Isaac Sim scene:
+         ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/6a_apriltag_obstacle_avoidance_simulation.usd``
 
-   .. code-block:: bash
+      2. Run the simulator bridge:
 
-      mros ros2 launch movensys_manipulator_moveit_config apriltag_pick_and_place.launch.py \
-           use_sim_time:=true target_spawn:=false
+         .. code-block:: bash
 
-HIL
----
+            mros ros2 launch movensys_manipulator_moveit_config sim_bridge.launch.py \
+                 simulator:=isaacsim use_sim_time:=true
 
-1. Open the Isaac Sim scene:
-   ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/7b_apriltag_obstacle_avoidance_hil.usd``
+      3. Launch cuMotion + Nvblox:
 
-2. Start WMX ROS2 for the manipulator (real WMX runtime) with
-   ``use_sim_time:=true``.
+         .. code-block:: bash
 
-3. Launch cuMotion + Nvblox:
+            mros ros2 launch movensys_manipulator_isaac_ros_config isaac_cumotion_nvblox.launch.py use_sim_time:=true
 
-   .. code-block:: bash
+      4. Launch Isaac AprilTag:
 
-      mros ros2 launch movensys_manipulator_isaac_ros_config isaac_cumotion_nvblox.launch.py use_sim_time:=true
+         .. code-block:: bash
 
-4. Launch Isaac AprilTag:
+            mros ros2 launch movensys_manipulator_isaac_ros_config isaac_apriltag.launch.py use_sim_time:=true
 
-   .. code-block:: bash
+      5. Run AprilTag pick-and-place with obstacle avoidance:
 
-      mros ros2 launch movensys_manipulator_isaac_ros_config isaac_apriltag.launch.py use_sim_time:=true
+         .. code-block:: bash
 
-5. Run AprilTag pick-and-place with obstacle avoidance:
+            mros ros2 launch movensys_manipulator_moveit_config apriltag_pick_and_place.launch.py \
+                 use_sim_time:=true target_spawn:=false
 
-   .. code-block:: bash
+   .. tab-item:: HIL
 
-      mros ros2 launch movensys_manipulator_moveit_config apriltag_pick_and_place.launch.py \
-           use_sim_time:=true target_spawn:=false
+      1. Open the Isaac Sim scene:
+         ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/6b_apriltag_obstacle_avoidance_hil.usd``
 
-Real
-----
+      2. Start WMX R2 for the manipulator (real WMX runtime) with
+         ``use_sim_time:=true`` (see
+         ``~/workspaces/movensys_ws/src/wmx-r2/doc/launch_<MANIPULATOR_MODEL>_manipulator.md``).
 
-1. Open the Isaac Sim scene:
-   ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/7c_apriltag_obstacle_avoidance_real.usd``
+      3. Launch cuMotion + Nvblox:
 
-2. Start WMX ROS2 for the manipulator on the robot (no ``use_sim_time``).
+         .. code-block:: bash
 
-3. Launch cuMotion + Nvblox:
+            mros ros2 launch movensys_manipulator_isaac_ros_config isaac_cumotion_nvblox.launch.py use_sim_time:=true
 
-   .. code-block:: bash
+         Add ``rsp:=false`` if using Gazebo or ``ros2_control`` -- both already
+         publish ``/robot_description``.
 
-      mros ros2 launch movensys_manipulator_isaac_ros_config isaac_cumotion_nvblox.launch.py
+      4. Launch Isaac AprilTag:
 
-4. Launch Isaac AprilTag:
+         .. code-block:: bash
 
-   .. code-block:: bash
+            mros ros2 launch movensys_manipulator_isaac_ros_config isaac_apriltag.launch.py use_sim_time:=true
 
-      mros ros2 launch movensys_manipulator_isaac_ros_config isaac_apriltag.launch.py
+      5. Run AprilTag pick-and-place with obstacle avoidance:
 
-5. Run AprilTag pick-and-place with obstacle avoidance:
+         .. code-block:: bash
 
-   .. code-block:: bash
+            mros ros2 launch movensys_manipulator_moveit_config apriltag_pick_and_place.launch.py \
+                 use_sim_time:=true target_spawn:=false
 
-      mros ros2 launch movensys_manipulator_moveit_config apriltag_pick_and_place.launch.py \
-           use_sim_time:=false target_spawn:=true
+   .. tab-item:: Real
+
+      1. Open the Isaac Sim scene:
+         ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/6c_apriltag_obstacle_avoidance_real.usd``
+
+      2. Start WMX R2 for the manipulator on the robot (see
+         ``~/workspaces/movensys_ws/src/wmx-r2/doc/launch_<MANIPULATOR_MODEL>_manipulator.md``).
+
+      3. Launch cuMotion + Nvblox:
+
+         .. code-block:: bash
+
+            mros ros2 launch movensys_manipulator_isaac_ros_config isaac_cumotion_nvblox.launch.py
+
+         Add ``rsp:=false`` if using Gazebo or ``ros2_control`` -- both already
+         publish ``/robot_description``.
+
+      4. Launch Isaac AprilTag:
+
+         .. code-block:: bash
+
+            mros ros2 launch movensys_manipulator_isaac_ros_config isaac_apriltag.launch.py
+
+      5. Run AprilTag pick-and-place with obstacle avoidance:
+
+         .. code-block:: bash
+
+            mros ros2 launch movensys_manipulator_moveit_config apriltag_pick_and_place.launch.py \
+                 use_sim_time:=false target_spawn:=true

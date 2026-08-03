@@ -1,10 +1,10 @@
-wmx_ros2_package
+wmx_r2_package
 =================
 
 Overview
 --------
 
-The ``wmx_ros2_package`` is the main application package of the WMX ROS2
+The ``wmx_r2_package`` is the main application package of the WMX R2
 system. It contains all executable nodes, launch files, and configuration
 files for driving robots — such as the Dobot CR3A and CR5A manipulators —
 through the WMX motion control engine over EtherCAT.
@@ -26,11 +26,12 @@ The package provides two groups of nodes:
    :widths: 25 75
 
    * - **Package Name**
-     - ``wmx_ros2_package``
+     - ``wmx_r2_package``
    * - **Version**
      - 0.1.0
    * - **License**
-     - MIT
+     - MIT (source code only; the WMX engine and SDK it links against are
+       proprietary — see :doc:`../licensing`)
    * - **Build Type**
      - ``ament_cmake``
    * - **C++ Standard**
@@ -41,7 +42,7 @@ Package Structure
 
 .. code-block:: text
 
-   wmx_ros2_package/
+   wmx_r2_package/
    ├── CMakeLists.txt
    ├── package.xml
    ├── include/
@@ -58,9 +59,9 @@ Package Structure
    │   ├── joint_trajectory_controller.cpp   # FollowJointTrajectory action node
    │   └── gripper_controller.cpp            # Gripper control node
    ├── launch/
-   │   ├── wmx_ros2_general_nodes.launch.py
-   │   ├── wmx_ros2_cr3a_manipulator.launch.py
-   │   └── wmx_ros2_cr5a_manipulator.launch.py
+   │   ├── wmx_r2_general_nodes.launch.py
+   │   ├── wmx_r2_cr3a_manipulator.launch.py
+   │   └── wmx_r2_cr5a_manipulator.launch.py
    ├── config/
    │   ├── cr3a_manipulator_config.yaml
    │   ├── cr3a_wmx_parameters.xml           # WMX3 axis params for CR3A
@@ -106,7 +107,7 @@ Package Dependencies (package.xml)
    * - ``trajectory_msgs``
      - depend
      - ``JointTrajectory`` messages
-   * - ``wmx_ros2_message``
+   * - ``wmx_r2_message``
      - depend
      - Custom message and service definitions
    * - ``ros2launch``
@@ -130,7 +131,7 @@ CMake Dependencies (find_package)
 
 ``ament_cmake``, ``rclcpp``, ``rclcpp_action``, ``std_msgs``, ``std_srvs``,
 ``sensor_msgs``, ``control_msgs``, ``trajectory_msgs``, and
-``wmx_ros2_message``.
+``wmx_r2_message``.
 
 WMX Libraries (External)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -171,6 +172,7 @@ layers are live:
 
 .. mermaid::
    :caption: Node startup coordination via ready signals
+   :zoom:
 
    sequenceDiagram
        participant E as wmx_engine_node
@@ -215,7 +217,7 @@ and also exposes manual-override services.
      - Type
      - Description
    * - ``/wmx/engine/set_device``
-     - ``wmx_ros2_message/srv/SetEngine``
+     - ``wmx_r2_message/srv/SetEngine``
      - Create or close the WMX device handle
    * - ``/wmx/engine/set_comm``
      - ``std_srvs/srv/SetBool``
@@ -247,31 +249,31 @@ motion commands, and per-axis state publishing. Waits for
      - Type
      - Description
    * - ``/wmx/axis/set_on``
-     - ``wmx_ros2_message/srv/SetAxis``
+     - ``wmx_r2_message/srv/SetAxis``
      - Enable/disable servo drives
    * - ``/wmx/axis/clear_alarm``
-     - ``wmx_ros2_message/srv/SetAxis``
+     - ``wmx_r2_message/srv/SetAxis``
      - Clear amplifier faults
    * - ``/wmx/axis/set_mode``
-     - ``wmx_ros2_message/srv/SetAxis``
+     - ``wmx_r2_message/srv/SetAxis``
      - Set position (0) or velocity (1) mode
    * - ``/wmx/axis/set_polarity``
-     - ``wmx_ros2_message/srv/SetAxis``
+     - ``wmx_r2_message/srv/SetAxis``
      - Set rotation direction (1 or -1)
    * - ``/wmx/axis/set_gear_ratio``
-     - ``wmx_ros2_message/srv/SetAxisGearRatio``
+     - ``wmx_r2_message/srv/SetAxisGearRatio``
      - Configure encoder gear ratio
    * - ``/wmx/axis/homing``
-     - ``wmx_ros2_message/srv/SetAxis``
+     - ``wmx_r2_message/srv/SetAxis``
      - Set current position as home (zero)
    * - ``/wmx/params/load``
-     - ``wmx_ros2_message/srv/LoadWmxParams``
+     - ``wmx_r2_message/srv/LoadWmxParams``
      - Load axis parameters from a WMX3 XML file
    * - ``/wmx/params/get``
-     - ``wmx_ros2_message/srv/GetWmxParams``
+     - ``wmx_r2_message/srv/GetWmxParams``
      - Retrieve active axis parameters as text
 
-**Published topic:** ``/wmx/axis/state`` (``wmx_ros2_message/msg/AxisState``,
+**Published topic:** ``/wmx/axis/state`` (``wmx_r2_message/msg/AxisState``,
 100 Hz) — full per-axis status.
 
 **Subscribed topics:** ``/wmx/axis/velocity`` (``AxisVelocity`` →
@@ -294,22 +296,22 @@ Service-based access to EtherCAT digital I/O. Waits for ``/wmx/engine/ready``.
      - Type
      - Description
    * - ``/wmx/io/get_input_bit``
-     - ``wmx_ros2_message/srv/GetIoBit``
+     - ``wmx_r2_message/srv/GetIoBit``
      - Read a single digital input bit
    * - ``/wmx/io/get_output_bit``
-     - ``wmx_ros2_message/srv/GetIoBit``
+     - ``wmx_r2_message/srv/GetIoBit``
      - Read back a digital output bit
    * - ``/wmx/io/get_input_bytes``
-     - ``wmx_ros2_message/srv/GetIoBytes``
+     - ``wmx_r2_message/srv/GetIoBytes``
      - Read a block of digital input bytes
    * - ``/wmx/io/get_output_bytes``
-     - ``wmx_ros2_message/srv/GetIoBytes``
+     - ``wmx_r2_message/srv/GetIoBytes``
      - Read a block of digital output bytes
    * - ``/wmx/io/set_output_bit``
-     - ``wmx_ros2_message/srv/SetIoBit``
+     - ``wmx_r2_message/srv/SetIoBit``
      - Write a single digital output bit
    * - ``/wmx/io/set_output_bytes``
-     - ``wmx_ros2_message/srv/SetIoBytes``
+     - ``wmx_r2_message/srv/SetIoBytes``
      - Write a block of digital output bytes
 
 wmx_ethercat_node
@@ -328,16 +330,16 @@ EtherCAT diagnostic services for network monitoring and debugging. Waits for
      - Type
      - Description
    * - ``/wmx/ecat/get_network_state``
-     - ``wmx_ros2_message/srv/EcatGetNetworkState``
+     - ``wmx_r2_message/srv/EcatGetNetworkState``
      - Full network state: master + all slaves
    * - ``/wmx/ecat/register_read``
-     - ``wmx_ros2_message/srv/EcatRegisterRead``
+     - ``wmx_r2_message/srv/EcatRegisterRead``
      - Read raw EtherCAT register from a slave
    * - ``/wmx/ecat/reset_statistics``
-     - ``wmx_ros2_message/srv/EcatResetStatistics``
+     - ``wmx_r2_message/srv/EcatResetStatistics``
      - Reset packet loss / timing counters
    * - ``/wmx/ecat/start_hotconnect``
-     - ``wmx_ros2_message/srv/EcatStartHotconnect``
+     - ``wmx_r2_message/srv/EcatStartHotconnect``
      - Initiate hot-connect for dynamic slave addition
 
 Manipulator Controllers
@@ -461,7 +463,7 @@ The gripper service is a ``std_srvs/srv/SetBool`` (``true`` = close,
 Launch Files
 ------------
 
-wmx_ros2_general_nodes.launch.py
+wmx_r2_general_nodes.launch.py
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Starts the four general nodes for standalone axis/IO/EtherCAT control without
@@ -474,13 +476,13 @@ manipulator controllers.
 
 .. code-block:: bash
 
-   ros2 launch wmx_ros2_package wmx_ros2_general_nodes.launch.py
+   ros2 launch wmx_r2_package wmx_r2_general_nodes.launch.py
 
-wmx_ros2_cr3a_manipulator.launch.py
+wmx_r2_cr3a_manipulator.launch.py
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Full Dobot CR3A manipulator launch. Includes
-``wmx_ros2_general_nodes.launch.py`` and then starts the manipulator
+``wmx_r2_general_nodes.launch.py`` and then starts the manipulator
 controllers.
 
 **Nodes launched:** the four general nodes (via include), plus
@@ -494,10 +496,10 @@ launch time).
 
 .. code-block:: bash
 
-   ros2 launch wmx_ros2_package wmx_ros2_cr3a_manipulator.launch.py \
+   ros2 launch wmx_r2_package wmx_r2_cr3a_manipulator.launch.py \
      use_sim_time:=false
 
-wmx_ros2_cr5a_manipulator.launch.py
+wmx_r2_cr5a_manipulator.launch.py
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Full Dobot CR5A manipulator launch. Includes the general nodes and starts
@@ -509,14 +511,14 @@ Full Dobot CR5A manipulator launch. Includes the general nodes and starts
 
 .. code-block:: bash
 
-   ros2 launch wmx_ros2_package wmx_ros2_cr5a_manipulator.launch.py \
+   ros2 launch wmx_r2_package wmx_r2_cr5a_manipulator.launch.py \
      use_sim_time:=false
 
 .. note::
 
    The launch commands above assume the workspace is already sourced. On real
    hardware the nodes require ``sudo`` with the ROS2 environment preserved —
-   see :doc:`../getting_started/testing_wmx_ros2` for the full ``sudo
+   see :doc:`../getting_started/install_wmx3` for the full ``sudo
    --preserve-env`` invocation.
 
 Configuration Files
@@ -572,39 +574,53 @@ ratios, polarities, limits, home positions):
 - ``diffbot_wmx_parameters.xml`` -- differential-drive base axes
 
 These files are loaded at runtime via
-``CoreMotion::config->ImportAndSetAll(path)``.
+``CoreMotion::config->ImportAndSetAll(path)``, by the controller that owns the
+axes — ``joint_trajectory_controller`` or ``differential_drive_controller``,
+using the ``wmx_param_file_path`` parameter. The four general nodes load no
+parameter file.
+
+.. warning::
+
+   These are the parameters that decide how far and in which direction each
+   joint moves. A shipped file describes the robot MOVENSYS commissioned, not
+   your unit. For what every field means, where its value comes from, and how
+   to verify it against the running engine, see
+   :doc:`../commissioning/robot_parameters`.
 
 Building the Package
 --------------------
 
-This package depends on ``wmx_ros2_message`` and must be built after it:
+This package depends on ``wmx_r2_message`` and must be built after it:
 
 .. code-block:: bash
 
    cd ~/workspaces/movensys_ws
 
    # Stage 1: Build message package
-   colcon build --packages-select wmx_ros2_message
+   colcon build --packages-select wmx_r2_message
    source install/setup.bash
 
    # Stage 2: Build application package
-   colcon build --packages-select wmx_ros2_package
+   colcon build --packages-select wmx_r2_package
    source install/setup.bash
 
 Verify executables are available:
 
 .. code-block:: bash
 
-   ros2 pkg executables wmx_ros2_package
+   ros2 pkg executables wmx_r2_package
 
 Expected:
 
 .. code-block:: text
 
-   wmx_ros2_package gripper_controller
-   wmx_ros2_package joint_state_broadcaster
-   wmx_ros2_package joint_trajectory_controller
-   wmx_ros2_package wmx_core_motion_node
-   wmx_ros2_package wmx_engine_node
-   wmx_ros2_package wmx_ethercat_node
-   wmx_ros2_package wmx_io_node
+   wmx_r2_package differential_drive_controller
+   wmx_r2_package gripper_controller
+   wmx_r2_package joint_position_controller
+   wmx_r2_package joint_state_broadcaster
+   wmx_r2_package joint_trajectory_controller
+   wmx_r2_package wmx_core_motion_node
+   wmx_r2_package wmx_engine_node
+   wmx_r2_package wmx_ethercat_node
+   wmx_r2_package wmx_io_node
+   wmx_r2_package wmx_io_node

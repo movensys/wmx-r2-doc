@@ -5,85 +5,124 @@ Collision-aware planning with Isaac cuMotion against a live Nvblox depth
 reconstruction. See :doc:`examples` for the shared manipulator setup. All
 commands run through ``mros``.
 
-Simulation
-----------
+.. tab-set::
 
-1. Open the Isaac Sim scene:
-   ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/5a_obstacle_avoidance_simulation.usd``
+   .. tab-item:: Simulation
 
-2. Run the simulator bridge:
+      .. figure:: https://softservogroup.sharepoint.com/:i:/s/Storage/IQBDy7fKRqEHS6WtRdGWA2spAWCsNFQFLkBLEJ-Nm9x33PI?e=fgaStE&download=1
+         :alt: Collision-aware Planning
+         :target: https://softservogroup.sharepoint.com/:i:/s/Storage/IQBDy7fKRqEHS6WtRdGWA2spAWCsNFQFLkBLEJ-Nm9x33PI?e=fgaStE&download=1
+         :align: center
+         :width: 100%
 
-   .. code-block:: bash
+         Collision-aware planning on simulation
+   
+   .. tab-item:: HIL
 
-      mros ros2 launch movensys_manipulator_moveit_config sim_bridge.launch.py \
-           simulator:=isaacsim use_sim_time:=true
+      .. figure:: https://softservogroup.sharepoint.com/:i:/s/Storage/IQBDy7fKRqEHS6WtRdGWA2spAWCsNFQFLkBLEJ-Nm9x33PI?e=fgaStE&download=1
+         :alt: Collision-aware Planning
+         :target: https://softservogroup.sharepoint.com/:i:/s/Storage/IQBDy7fKRqEHS6WtRdGWA2spAWCsNFQFLkBLEJ-Nm9x33PI?e=fgaStE&download=1
+         :align: center
+         :width: 100%
 
-3. Launch cuMotion + Nvblox:
+         Collision-aware planning on hardware-in-the-loop (HIL).
 
-   .. code-block:: bash
+   .. tab-item:: Real
 
-      mros ros2 launch movensys_manipulator_isaac_ros_config isaac_cumotion_nvblox.launch.py use_sim_time:=true
+      .. figure:: https://softservogroup.sharepoint.com/:i:/s/Storage/IQBqv6h5EUGYTJB-dRHjfKofAUlEsq091eGRNrTB96h25hs?e=XbZhLd&download=1
+         :alt: Collision-aware Planning
+         :target: https://softservogroup.sharepoint.com/:i:/s/Storage/IQBqv6h5EUGYTJB-dRHjfKofAUlEsq091eGRNrTB96h25hs?e=XbZhLd&download=1
+         :align: center
+         :width: 60%
 
-4. Run obstacle avoidance:
+         Collision-aware planning on real-world scenario.
 
-   .. code-block:: bash
+.. tab-set::
 
-      mros ros2 launch movensys_manipulator_moveit_config obstacle_avoidance.launch.py use_sim_time:=true
+   .. tab-item:: Simulation
 
-5. (optional) Tune the Nvblox camera transform:
+      1. Open the Isaac Sim scene:
+         ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/5a_obstacle_avoidance_simulation.usd``
 
-   .. code-block:: bash
+      2. Run the simulator bridge:
 
-      mros ros2 launch movensys_manipulator_perception camera_transform_tuning.launch.py use_sim_time:=true \
-           parent_frame:=world_manipulator child_frame:=camera_nvblox_color_optical_frame
+         .. code-block:: bash
 
-HIL
----
+            mros ros2 launch movensys_manipulator_moveit_config sim_bridge.launch.py \
+                 simulator:=isaacsim use_sim_time:=true
 
-1. Open the Isaac Sim scene:
-   ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/5b_obstacle_avoidance_hil.usd``
+      3. Launch cuMotion + Nvblox:
 
-2. Start WMX ROS2 for the manipulator (real WMX runtime) with
-   ``use_sim_time:=true``.
+         .. code-block:: bash
 
-3. Launch cuMotion + Nvblox:
+            mros ros2 launch movensys_manipulator_isaac_ros_config isaac_cumotion_nvblox.launch.py use_sim_time:=true
 
-   .. code-block:: bash
+      4. Run obstacle avoidance:
 
-      mros ros2 launch movensys_manipulator_isaac_ros_config isaac_cumotion_nvblox.launch.py use_sim_time:=true
+         .. code-block:: bash
 
-4. Run obstacle avoidance:
+            mros ros2 launch movensys_manipulator_moveit_config obstacle_avoidance.launch.py use_sim_time:=true
 
-   .. code-block:: bash
+      5. (optional) Tune the Nvblox camera transform:
 
-      mros ros2 launch movensys_manipulator_moveit_config obstacle_avoidance.launch.py use_sim_time:=true
+         .. code-block:: bash
 
-5. (optional) Tune the Nvblox camera transform (same command as Simulation
-   step 5).
+            mros ros2 launch movensys_manipulator_perception camera_transform_tuning.launch.py use_sim_time:=true \
+                 parent_frame:=world_manipulator child_frame:=camera_nvblox_color_optical_frame
 
-Real
-----
+   .. tab-item:: HIL
 
-1. Open the Isaac Sim scene:
-   ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/5c_obstacle_avoidance_real.usd``
+      1. Open the Isaac Sim scene:
+         ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/5b_obstacle_avoidance_hil.usd``
 
-2. Start WMX ROS2 for the manipulator on the robot (no ``use_sim_time``).
+      2. Start WMX R2 for the manipulator (real WMX runtime) with
+         ``use_sim_time:=true`` (see
+         ``~/workspaces/movensys_ws/src/wmx-r2/doc/launch_<MANIPULATOR_MODEL>_manipulator.md``).
 
-3. Launch cuMotion + Nvblox:
+      3. Launch cuMotion + Nvblox:
 
-   .. code-block:: bash
+         .. code-block:: bash
 
-      mros ros2 launch movensys_manipulator_isaac_ros_config isaac_cumotion_nvblox.launch.py
+            mros ros2 launch movensys_manipulator_isaac_ros_config isaac_cumotion_nvblox.launch.py use_sim_time:=true
 
-4. Run obstacle avoidance:
+         Add ``rsp:=false`` if using Gazebo or ``ros2_control`` -- both already
+         publish ``/robot_description``.
 
-   .. code-block:: bash
+      4. Run obstacle avoidance:
 
-      mros ros2 launch movensys_manipulator_moveit_config obstacle_avoidance.launch.py
+         .. code-block:: bash
 
-5. (optional) Tune the Nvblox camera transform (note the real-hardware frame):
+            mros ros2 launch movensys_manipulator_moveit_config obstacle_avoidance.launch.py use_sim_time:=true
 
-   .. code-block:: bash
+      5. (optional) Tune the Nvblox camera transform (same command as Simulation
+         step 5).
 
-      mros ros2 launch movensys_manipulator_perception camera_transform_tuning.launch.py \
-           parent_frame:=world_manipulator child_frame:=camera_nvblox_link
+   .. tab-item:: Real
+
+      1. Open the Isaac Sim scene:
+         ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/5c_obstacle_avoidance_real.usd``
+
+      2. Start WMX R2 for the manipulator on the robot (see
+         ``~/workspaces/movensys_ws/src/wmx-r2/doc/launch_<MANIPULATOR_MODEL>_manipulator.md``).
+
+      3. Launch cuMotion + Nvblox:
+
+         .. code-block:: bash
+
+            mros ros2 launch movensys_manipulator_isaac_ros_config isaac_cumotion_nvblox.launch.py
+
+         Add ``rsp:=false`` if using Gazebo or ``ros2_control`` -- both already
+         publish ``/robot_description``.
+
+      4. Run obstacle avoidance:
+
+         .. code-block:: bash
+
+            mros ros2 launch movensys_manipulator_moveit_config obstacle_avoidance.launch.py
+
+      5. (optional) Tune the Nvblox camera transform (note the real-hardware frame):
+
+         .. code-block:: bash
+
+            mros ros2 launch movensys_manipulator_perception camera_transform_tuning.launch.py \
+                 parent_frame:=world_manipulator child_frame:=camera_nvblox_link

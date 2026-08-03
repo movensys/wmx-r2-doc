@@ -1,11 +1,11 @@
-wmx_ros2_message
+wmx_r2_message
 =================
 
 Overview
 --------
 
-The ``wmx_ros2_message`` package defines custom ROS2 message and service
-interfaces used by all nodes in the WMX ROS2 application. It contains no
+The ``wmx_r2_message`` package defines custom ROS2 message and service
+interfaces used by all nodes in the WMX R2 application. It contains no
 executable nodes -- only interface definitions that are compiled into C++
 and Python bindings by ``rosidl``.
 
@@ -15,11 +15,12 @@ and Python bindings by ``rosidl``.
    :widths: 25 75
 
    * - **Package Name**
-     - ``wmx_ros2_message``
+     - ``wmx_r2_message``
    * - **Version**
      - 0.1.0
    * - **License**
-     - MIT
+     - MIT (source code only; the WMX engine and SDK it links against are
+       proprietary — see :doc:`../licensing`)
    * - **Build Type**
      - ``ament_cmake``
 
@@ -28,7 +29,7 @@ Package Structure
 
 .. code-block:: text
 
-   wmx_ros2_message/
+   wmx_r2_message/
    ├── CMakeLists.txt
    ├── package.xml
    ├── msg/
@@ -286,13 +287,13 @@ EtherCAT
 Building the Package
 --------------------
 
-This package must be built **before** ``wmx_ros2_package`` because the main
+This package must be built **before** ``wmx_r2_package`` because the main
 package depends on the generated message headers:
 
 .. code-block:: bash
 
    cd ~/workspaces/movensys_ws
-   colcon build --packages-select wmx_ros2_message
+   colcon build --packages-select wmx_r2_message
    source install/setup.bash
 
 Verify the interfaces are registered:
@@ -305,25 +306,25 @@ Expected:
 
 .. code-block:: text
 
-   wmx_ros2_message/msg/AxisPose
-   wmx_ros2_message/msg/AxisState
-   wmx_ros2_message/msg/AxisVelocity
-   wmx_ros2_message/srv/EcatGetNetworkState
-   wmx_ros2_message/srv/EcatRegisterRead
-   wmx_ros2_message/srv/EcatResetStatistics
-   wmx_ros2_message/srv/EcatStartHotconnect
-   wmx_ros2_message/srv/GetIoBit
-   wmx_ros2_message/srv/GetIoBytes
-   wmx_ros2_message/srv/GetWmxParams
-   wmx_ros2_message/srv/LoadWmxParams
-   wmx_ros2_message/srv/SetAxis
-   wmx_ros2_message/srv/SetAxisGearRatio
-   wmx_ros2_message/srv/SetEngine
-   wmx_ros2_message/srv/SetIoBit
-   wmx_ros2_message/srv/SetIoBytes
+   wmx_r2_message/msg/AxisPose
+   wmx_r2_message/msg/AxisState
+   wmx_r2_message/msg/AxisVelocity
+   wmx_r2_message/srv/EcatGetNetworkState
+   wmx_r2_message/srv/EcatRegisterRead
+   wmx_r2_message/srv/EcatResetStatistics
+   wmx_r2_message/srv/EcatStartHotconnect
+   wmx_r2_message/srv/GetIoBit
+   wmx_r2_message/srv/GetIoBytes
+   wmx_r2_message/srv/GetWmxParams
+   wmx_r2_message/srv/LoadWmxParams
+   wmx_r2_message/srv/SetAxis
+   wmx_r2_message/srv/SetAxisGearRatio
+   wmx_r2_message/srv/SetEngine
+   wmx_r2_message/srv/SetIoBit
+   wmx_r2_message/srv/SetIoBytes
 
 Inspect a specific interface:
 
 .. code-block:: bash
 
-   ros2 interface show wmx_ros2_message/msg/AxisState
+   ros2 interface show wmx_r2_message/msg/AxisState

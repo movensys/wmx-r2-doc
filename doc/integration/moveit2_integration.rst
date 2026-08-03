@@ -4,11 +4,11 @@ MoveIt2 Motion Planning
 Overview
 --------
 
-MoveIt2 is the primary motion-planning integration for WMX ROS2. The
+MoveIt2 is the primary motion-planning integration for WMX R2. The
 `movensys-manipulator <https://github.com/movensys/movensys-manipulator>`_
 repository provides the ``movensys_manipulator_moveit_config`` package, which
 wraps MoveIt2 with a high-level service API and executes the planned motion on
-the robot through the WMX ROS2 stack.
+the robot through the WMX R2 stack.
 
 MoveIt2 produces collision-aware, time-parameterized trajectories; WMX runs
 them on a deterministic real-time cycle. The same configuration drives three
@@ -171,6 +171,7 @@ See Also
 --------
 
 - :doc:`cumotion_integration` -- GPU-accelerated planning with Isaac cuMotion
+- :doc:`nav2_integration` -- the mobile-base (Nav2) counterpart to this page
 - :doc:`custom_application` -- drive the ``/wmx/moveit2/*`` services from your
   own code
 - The `movensys-manipulator <https://github.com/movensys/movensys-manipulator>`_

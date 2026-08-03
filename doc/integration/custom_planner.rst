@@ -4,9 +4,9 @@ Custom Planner Integration
 Overview
 --------
 
-The WMX ROS2 application supports any motion planner that can send
+The WMX R2 application supports any motion planner that can send
 trajectories via the standard ``FollowJointTrajectory`` action interface.
-This allows integration of custom planners without modifying the WMX ROS2
+This allows integration of custom planners without modifying the WMX R2
 nodes.
 
 The architecture is:
@@ -16,7 +16,7 @@ The architecture is:
    ┌──────────────────────────┐
    │   Your Custom Planner    │
    │                          │
-   │  1. Read /joint_states   │──── sensor_msgs/JointState (500 Hz)
+   │  1. Read /joint_states   │──── sensor_msgs/JointState (100 Hz)
    │  2. Compute trajectory   │
    │  3. Send action goal     │──── FollowJointTrajectory
    │  4. Wait for result      │
@@ -43,7 +43,7 @@ that implements the following two-step pattern can control the robot:
 
 1. **Read current joint state** from ``/joint_states``
    (``sensor_msgs/msg/JointState``) -- published by ``joint_state_broadcaster``
-   at 500 Hz
+   at 100 Hz
 
 2. **Send trajectory goals** to the ``FollowJointTrajectory`` action server
    at ``/movensys_manipulator_arm_controller/follow_joint_trajectory``
@@ -271,11 +271,11 @@ For applications that don't use trajectory-based planning, the
 ``wmx_core_motion_node`` provides direct axis control through:
 
 - **Velocity commands** via ``/wmx/axis/velocity``
-  (``wmx_ros2_message/msg/AxisVelocity``)
+  (``wmx_r2_message/msg/AxisVelocity``)
 - **Absolute position commands** via ``/wmx/axis/position``
-  (``wmx_ros2_message/msg/AxisPose``)
+  (``wmx_r2_message/msg/AxisPose``)
 - **Relative position commands** via ``/wmx/axis/position/relative``
-  (``wmx_ros2_message/msg/AxisPose``)
+  (``wmx_r2_message/msg/AxisPose``)
 
 These topics bypass the action server and control motors directly using
 ``CoreMotion::StartVel()``, ``CoreMotion::StartPos()``, and
