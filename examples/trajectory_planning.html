@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Trajectory Planning &#8212; WMX ROS2 Documentation 1.0.0 documentation</title>
+    <title>Trajectory Planning &#8212; WMX R2 Documentation 1.0.0 documentation</title>
   
   
   
@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=c5bec18d" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=cd36b759" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
@@ -55,7 +55,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Jul 15, 2026"/>
+    <meta name="docbuild:last-update" content="Aug 03, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -129,7 +129,7 @@
     <img src="../_static/movensys_logo.png" class="logo__image only-dark pst-js-only" alt=""/>
   
   
-    <p class="title logo__title">WMX ROS2 Documentation</p>
+    <p class="title logo__title">WMX R2 Documentation</p>
   
 </a></div>
     
@@ -168,7 +168,7 @@
           
           
           
-          <a href="https://github.com/movensys/wmx-ros2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+          <a href="https://github.com/movensys/wmx-r2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
 </ul></div>
       
@@ -231,7 +231,7 @@
           
           
           
-          <a href="https://github.com/movensys/wmx-ros2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+          <a href="https://github.com/movensys/wmx-r2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
 </ul></div>
         
@@ -248,22 +248,28 @@
   <div class="bd-toc-item navbar-nav">
     <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started/system_requirements.html">System Requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../getting_started/computer_setup.html">Computer Setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx3.html">Install WMX ROS2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started/testing_wmx_ros2.html">Testing WMX ROS2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx_runtime.html">Install WMX Runtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx3.html">Install WMX R2 Package</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="examples.html">Example Applications</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="isaacsim_setup.html">NVIDIA Isaac Setup (Optional)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Trajectory Planning</a></li>
-<li class="toctree-l2"><a class="reference internal" href="apriltag_pick_and_place.html">AprilTag Pick-and-Place</a></li>
-<li class="toctree-l2"><a class="reference internal" href="obstacle_avoidance.html">Nvblox Obstacle Avoidance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="yolo_pick_and_place.html">YOLO Pick-and-Place</a></li>
-<li class="toctree-l2"><a class="reference internal" href="apriltag_obstacle_avoidance.html">AprilTag + Obstacle Avoidance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="robopoly_game.html">Robopoly Game (VLM / LLM)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="robopoly_detailed_guide.html">Robopoly Game Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="isaacsim_setup.html">NVIDIA Isaac ROS Setup (Optional)</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="movensys_manipulator.html">movensys-manipulator</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Trajectory Planning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="apriltag_pick_and_place.html">AprilTag Pick-and-Place</a></li>
+<li class="toctree-l3"><a class="reference internal" href="obstacle_avoidance.html">Nvblox Obstacle Avoidance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="yolo_pick_and_place.html">YOLO Pick-and-Place</a></li>
+<li class="toctree-l3"><a class="reference internal" href="apriltag_obstacle_avoidance.html">AprilTag + Obstacle Avoidance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="robopoly_game.html">Robopoly Game (VLM / LLM)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="movensys_navigation.html">movensys-navigation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="movensys_navigation_setup.html">movensys-navigation Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual_driving.html">Manual Driving</a></li>
+<li class="toctree-l3"><a class="reference internal" href="slam_mapping.html">SLAM Mapping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autonomous_navigation.html">Autonomous Navigation</a></li>
 </ul>
 </li>
 </ul>
@@ -271,24 +277,33 @@
 <li class="toctree-l1"><a class="reference internal" href="../integration/integration.html">Integration Scenarios</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../integration/moveit2_integration.html">MoveIt2 Motion Planning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../integration/cumotion_integration.html">Isaac cuMotion Accelerated Planning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/nav2_integration.html">Nav2 Navigation (Mobile Base)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../integration/custom_planner.html">Custom Planner Integration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../integration/custom_application.html">Building Custom Applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../integration/intelligence_integration.html">Natural-Language and Vision Control (VLM / LLM)</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../commissioning/index.html">Commissioning</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../commissioning/robot_parameters.html">Robot Parameter Configuration and Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commissioning/first_motion.html">Commissioning and First Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commissioning/safety.html">Safety Functions and Responsibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commissioning/validated_hardware.html">Hardware Compatibility and Validation</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../api_reference/api_reference.html">API Reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/communication.html">Communication Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_ros2_message.html">wmx_ros2_message</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_ros2_package.html">wmx_ros2_package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_services.html">ROS2 Services</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_topics.html">ROS2 Topics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_actions.html">ROS2 Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_message.html">wmx_r2_message</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_package.html">wmx_r2_package</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../support.html">Support</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../troubleshooting/troubleshooting.html">Troubleshooting</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../licensing.html">Licensing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../about.html">About Us</a></li>
 </ul>
 
@@ -356,6 +371,9 @@ document.addEventListener("DOMContentLoaded", function() {
     
     <li class="breadcrumb-item"><a href="examples.html" class="nav-link">Example Applications</a></li>
     
+    
+    <li class="breadcrumb-item"><a href="movensys_manipulator.html" class="nav-link">movensys-manipulator</a></li>
+    
     <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Trajectory Planning</span></li>
   </ul>
 </nav>
@@ -379,19 +397,56 @@ document.addEventListener("DOMContentLoaded", function() {
 cuMotion. See <a class="reference internal" href="examples.html"><span class="doc">Example Applications</span></a> for the shared manipulator setup. All commands
 run through <code class="docutils literal notranslate"><span class="pre">mros</span></code>. For the programmatic <code class="docutils literal notranslate"><span class="pre">/wmx/moveit2/*</span></code> service API, see
 <a class="reference internal" href="../integration/moveit2_integration.html"><span class="doc">MoveIt2 Motion Planning</span></a>.</p>
-<section id="simulation">
-<h2>Simulation<a class="headerlink" href="#simulation" title="Link to this heading">#</a></h2>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-0">
+Simulation</label><div class="sd-tab-content docutils">
+<figure class="align-center" id="id2">
+<a class="reference external image-reference" href="https://softservogroup.sharepoint.com/:i:/s/Storage/IQDynSNIn4y0RZB2aSh7GFiCAawZCSJEu-CmLk9Lqay0a7Y?e=mViWWa&amp;download=1"><img alt="Manipulator executing a planned trajectory" src="https://softservogroup.sharepoint.com/:i:/s/Storage/IQDynSNIn4y0RZB2aSh7GFiCAawZCSJEu-CmLk9Lqay0a7Y?e=mViWWa&amp;download=1" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Basic movements on simulation</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-1">
+HIL</label><div class="sd-tab-content docutils">
+<figure class="align-center" id="id3">
+<a class="reference external image-reference" href="https://softservogroup.sharepoint.com/:i:/s/Storage/IQDynSNIn4y0RZB2aSh7GFiCAawZCSJEu-CmLk9Lqay0a7Y?e=mViWWa&amp;download=1"><img alt="Manipulator executing a planned trajectory" src="https://softservogroup.sharepoint.com/:i:/s/Storage/IQDynSNIn4y0RZB2aSh7GFiCAawZCSJEu-CmLk9Lqay0a7Y?e=mViWWa&amp;download=1" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Basic movements on hardware-in-the-loop (HIL).</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</div>
+<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-2">
+Real</label><div class="sd-tab-content docutils">
+<figure class="align-center" id="id4">
+<a class="reference external image-reference" href="https://softservogroup.sharepoint.com/:i:/s/Storage/IQDcGyFQvgSLQ7O3YVlRJ6TCAYXHtwsd6oNHRKCT5Sx57j0?e=vu6Y1Y&amp;download=1"><img alt="Manipulator executing a planned trajectory" src="https://softservogroup.sharepoint.com/:i:/s/Storage/IQDcGyFQvgSLQ7O3YVlRJ6TCAYXHtwsd6oNHRKCT5Sx57j0?e=vu6Y1Y&amp;download=1" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Basic movements on real-world scenario.</span><a class="headerlink" href="#id4" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-3">
+Simulation</label><div class="sd-tab-content docutils">
 <ol class="arabic">
 <li><p>Open the scene:</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
-<label class="sd-tab-label" data-sync-group="tab" data-sync-id="isaacsim" for="sd-tab-item-0">
+<input checked="checked" id="sd-tab-item-6" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="isaacsim" for="sd-tab-item-6">
 Isaac Sim</label><div class="sd-tab-content docutils">
 <p>Open
 <code class="docutils literal notranslate"><span class="pre">~/workspaces/movensys-simulation/&lt;MANIPULATOR_MODEL&gt;/3a_trajectory_simulation.usd</span></code></p>
 </div>
-<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
-<label class="sd-tab-label" data-sync-group="tab" data-sync-id="gazebo" for="sd-tab-item-1">
+<input id="sd-tab-item-7" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="gazebo" for="sd-tab-item-7">
 Gazebo</label><div class="sd-tab-content docutils">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>movensys_manipulator_description<span class="w"> </span>gazebo_trajectory_simulation.launch.py
 </pre></div>
@@ -401,16 +456,16 @@ Gazebo</label><div class="sd-tab-content docutils">
 </li>
 <li><p>Run the simulator bridge:</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="sd-tab-item-2" name="sd-tab-set-1" type="radio">
-<label class="sd-tab-label" data-sync-group="tab" data-sync-id="isaacsim" for="sd-tab-item-2">
+<input checked="checked" id="sd-tab-item-8" name="sd-tab-set-3" type="radio">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="isaacsim" for="sd-tab-item-8">
 Isaac Sim</label><div class="sd-tab-content docutils">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>movensys_manipulator_moveit_config<span class="w"> </span>sim_bridge.launch.py<span class="w"> </span><span class="se">\</span>
 <span class="w">     </span>simulator:<span class="o">=</span>isaacsim<span class="w"> </span>use_sim_time:<span class="o">=</span><span class="nb">true</span>
 </pre></div>
 </div>
 </div>
-<input id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
-<label class="sd-tab-label" data-sync-group="tab" data-sync-id="gazebo" for="sd-tab-item-3">
+<input id="sd-tab-item-9" name="sd-tab-set-3" type="radio">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="gazebo" for="sd-tab-item-9">
 Gazebo</label><div class="sd-tab-content docutils">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>movensys_manipulator_moveit_config<span class="w"> </span>sim_bridge.launch.py<span class="w"> </span><span class="se">\</span>
 <span class="w">     </span>simulator:<span class="o">=</span>gazebo<span class="w"> </span>use_sim_time:<span class="o">=</span><span class="nb">true</span>
@@ -421,20 +476,27 @@ Gazebo</label><div class="sd-tab-content docutils">
 </li>
 <li><p>Launch the planner and service API:</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="sd-tab-item-4" name="sd-tab-set-2" type="radio">
-<label class="sd-tab-label" data-sync-group="tab" data-sync-id="ompl" for="sd-tab-item-4">
+<input checked="checked" id="sd-tab-item-10" name="sd-tab-set-4" type="radio">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="ompl" for="sd-tab-item-10">
 MoveIt2 OMPL</label><div class="sd-tab-content docutils">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>movensys_manipulator_moveit_config<span class="w"> </span>moveit.launch.py<span class="w"> </span>use_sim_time:<span class="o">=</span><span class="nb">true</span>
 </pre></div>
 </div>
 </div>
-<input id="sd-tab-item-5" name="sd-tab-set-2" type="radio">
-<label class="sd-tab-label" data-sync-group="tab" data-sync-id="cumotion" for="sd-tab-item-5">
+<input id="sd-tab-item-11" name="sd-tab-set-4" type="radio">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="cumotion" for="sd-tab-item-11">
 Isaac cuMotion</label><div class="sd-tab-content docutils">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>movensys_manipulator_isaac_ros_config<span class="w"> </span>isaac_cumotion.launch.py<span class="w"> </span>use_sim_time:<span class="o">=</span><span class="nb">true</span>
 </pre></div>
 </div>
 </div>
+</div>
+<p>Add <code class="docutils literal notranslate"><span class="pre">rsp:=false</span></code> if using Gazebo or <code class="docutils literal notranslate"><span class="pre">ros2_control</span></code> – both already
+publish <code class="docutils literal notranslate"><span class="pre">/robot_description</span></code>.</p>
+</li>
+<li><p>(optional) Jog the arm from the keyboard (see <a class="reference internal" href="#keyboard-jogging"><span class="std std-ref">Keyboard Jogging</span></a>):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mros<span class="w"> </span>ros2<span class="w"> </span>run<span class="w"> </span>movensys_manipulator_moveit_config<span class="w"> </span>keyboard_teleop
+</pre></div>
 </div>
 </li>
 <li><p>(optional) Execute the trajectory or coverage test:</p>
@@ -444,20 +506,21 @@ mros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> <
 </div>
 </li>
 </ol>
-</section>
-<section id="hil">
-<h2>HIL<a class="headerlink" href="#hil" title="Link to this heading">#</a></h2>
+</div>
+<input id="sd-tab-item-4" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-4">
+HIL</label><div class="sd-tab-content docutils">
 <ol class="arabic">
 <li><p>Open the scene:</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="sd-tab-item-6" name="sd-tab-set-3" type="radio">
-<label class="sd-tab-label" data-sync-group="tab" data-sync-id="isaacsim" for="sd-tab-item-6">
+<input checked="checked" id="sd-tab-item-12" name="sd-tab-set-5" type="radio">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="isaacsim" for="sd-tab-item-12">
 Isaac Sim</label><div class="sd-tab-content docutils">
 <p>Open
 <code class="docutils literal notranslate"><span class="pre">~/workspaces/movensys-simulation/&lt;MANIPULATOR_MODEL&gt;/3b_trajectory_hil.usd</span></code></p>
 </div>
-<input id="sd-tab-item-7" name="sd-tab-set-3" type="radio">
-<label class="sd-tab-label" data-sync-group="tab" data-sync-id="gazebo" for="sd-tab-item-7">
+<input id="sd-tab-item-13" name="sd-tab-set-5" type="radio">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="gazebo" for="sd-tab-item-13">
 Gazebo</label><div class="sd-tab-content docutils">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>movensys_manipulator_description<span class="w"> </span>gazebo_trajectory_hil.launch.py
 </pre></div>
@@ -465,43 +528,56 @@ Gazebo</label><div class="sd-tab-content docutils">
 </div>
 </div>
 </li>
-<li><p>Start WMX ROS2 for the manipulator (real WMX runtime) with
-<code class="docutils literal notranslate"><span class="pre">use_sim_time:=true</span></code>.</p></li>
+<li><p>Start WMX R2 for the manipulator (real WMX runtime) with
+<code class="docutils literal notranslate"><span class="pre">use_sim_time:=true</span></code> (see
+<code class="docutils literal notranslate"><span class="pre">~/workspaces/movensys_ws/src/wmx-r2/doc/launch_&lt;MANIPULATOR_MODEL&gt;_manipulator.md</span></code>).</p></li>
 <li><p>Launch the planner and service API with <code class="docutils literal notranslate"><span class="pre">use_sim_time:=true</span></code>:</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="sd-tab-item-8" name="sd-tab-set-4" type="radio">
-<label class="sd-tab-label" data-sync-group="tab" data-sync-id="ompl" for="sd-tab-item-8">
+<input checked="checked" id="sd-tab-item-14" name="sd-tab-set-6" type="radio">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="ompl" for="sd-tab-item-14">
 MoveIt2 OMPL</label><div class="sd-tab-content docutils">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>movensys_manipulator_moveit_config<span class="w"> </span>moveit.launch.py<span class="w"> </span>use_sim_time:<span class="o">=</span><span class="nb">true</span>
 </pre></div>
 </div>
 </div>
-<input id="sd-tab-item-9" name="sd-tab-set-4" type="radio">
-<label class="sd-tab-label" data-sync-group="tab" data-sync-id="cumotion" for="sd-tab-item-9">
+<input id="sd-tab-item-15" name="sd-tab-set-6" type="radio">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="cumotion" for="sd-tab-item-15">
 Isaac cuMotion</label><div class="sd-tab-content docutils">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>movensys_manipulator_isaac_ros_config<span class="w"> </span>isaac_cumotion.launch.py<span class="w"> </span>use_sim_time:<span class="o">=</span><span class="nb">true</span>
 </pre></div>
 </div>
 </div>
 </div>
+<p>Add <code class="docutils literal notranslate"><span class="pre">rsp:=false</span></code> if using Gazebo or <code class="docutils literal notranslate"><span class="pre">ros2_control</span></code> – both already
+publish <code class="docutils literal notranslate"><span class="pre">/robot_description</span></code>.</p>
 </li>
-<li><p>(optional) Run <code class="docutils literal notranslate"><span class="pre">trajectory_test.launch.py</span></code> / <code class="docutils literal notranslate"><span class="pre">coverage_pose.launch.py</span></code>
-with <code class="docutils literal notranslate"><span class="pre">use_sim_time:=true</span></code>.</p></li>
+<li><p>(optional) Jog the arm from the keyboard (see <a class="reference internal" href="#keyboard-jogging"><span class="std std-ref">Keyboard Jogging</span></a>):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mros<span class="w"> </span>ros2<span class="w"> </span>run<span class="w"> </span>movensys_manipulator_moveit_config<span class="w"> </span>keyboard_teleop
+</pre></div>
+</div>
+</li>
+<li><p>(optional) Execute the trajectory or coverage test:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>movensys_manipulator_moveit_config<span class="w"> </span>trajectory_test.launch.py<span class="w"> </span>use_sim_time:<span class="o">=</span><span class="nb">true</span>
+mros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>movensys_manipulator_moveit_config<span class="w"> </span>coverage_pose.launch.py<span class="w"> </span>use_sim_time:<span class="o">=</span><span class="nb">true</span>
+</pre></div>
+</div>
+</li>
 </ol>
-</section>
-<section id="real">
-<h2>Real<a class="headerlink" href="#real" title="Link to this heading">#</a></h2>
+</div>
+<input id="sd-tab-item-5" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-5">
+Real</label><div class="sd-tab-content docutils">
 <ol class="arabic">
 <li><p>(optional) Open the matching scene for visualization:</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="sd-tab-item-10" name="sd-tab-set-5" type="radio">
-<label class="sd-tab-label" data-sync-group="tab" data-sync-id="isaacsim" for="sd-tab-item-10">
+<input checked="checked" id="sd-tab-item-16" name="sd-tab-set-7" type="radio">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="isaacsim" for="sd-tab-item-16">
 Isaac Sim</label><div class="sd-tab-content docutils">
 <p>Open
 <code class="docutils literal notranslate"><span class="pre">~/workspaces/movensys-simulation/&lt;MANIPULATOR_MODEL&gt;/3c_trajectory_real.usd</span></code></p>
 </div>
-<input id="sd-tab-item-11" name="sd-tab-set-5" type="radio">
-<label class="sd-tab-label" data-sync-group="tab" data-sync-id="gazebo" for="sd-tab-item-11">
+<input id="sd-tab-item-17" name="sd-tab-set-7" type="radio">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="gazebo" for="sd-tab-item-17">
 Gazebo</label><div class="sd-tab-content docutils">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>movensys_manipulator_description<span class="w"> </span>gazebo_trajectory_real.launch.py
 </pre></div>
@@ -509,27 +585,109 @@ Gazebo</label><div class="sd-tab-content docutils">
 </div>
 </div>
 </li>
-<li><p>Start WMX ROS2 for the manipulator on the robot (no <code class="docutils literal notranslate"><span class="pre">use_sim_time</span></code>).</p></li>
-<li><p>Launch the planner and service API (no <code class="docutils literal notranslate"><span class="pre">use_sim_time</span></code>):</p>
+<li><p>Start WMX R2 for the manipulator on the robot (see
+<code class="docutils literal notranslate"><span class="pre">~/workspaces/movensys_ws/src/wmx-r2/doc/launch_&lt;MANIPULATOR_MODEL&gt;_manipulator.md</span></code>).</p></li>
+<li><p>Launch the planner and service API:</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="sd-tab-item-12" name="sd-tab-set-6" type="radio">
-<label class="sd-tab-label" data-sync-group="tab" data-sync-id="ompl" for="sd-tab-item-12">
+<input checked="checked" id="sd-tab-item-18" name="sd-tab-set-8" type="radio">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="ompl" for="sd-tab-item-18">
 MoveIt2 OMPL</label><div class="sd-tab-content docutils">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>movensys_manipulator_moveit_config<span class="w"> </span>moveit.launch.py
 </pre></div>
 </div>
 </div>
-<input id="sd-tab-item-13" name="sd-tab-set-6" type="radio">
-<label class="sd-tab-label" data-sync-group="tab" data-sync-id="cumotion" for="sd-tab-item-13">
+<input id="sd-tab-item-19" name="sd-tab-set-8" type="radio">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="cumotion" for="sd-tab-item-19">
 Isaac cuMotion</label><div class="sd-tab-content docutils">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>movensys_manipulator_isaac_ros_config<span class="w"> </span>isaac_cumotion.launch.py
 </pre></div>
 </div>
 </div>
 </div>
+<p>Add <code class="docutils literal notranslate"><span class="pre">rsp:=false</span></code> if using Gazebo or <code class="docutils literal notranslate"><span class="pre">ros2_control</span></code> – both already
+publish <code class="docutils literal notranslate"><span class="pre">/robot_description</span></code>.</p>
 </li>
-<li><p>(optional) Run <code class="docutils literal notranslate"><span class="pre">trajectory_test.launch.py</span></code> / <code class="docutils literal notranslate"><span class="pre">coverage_pose.launch.py</span></code>.</p></li>
+<li><p>(optional) Jog the arm from the keyboard (see <a class="reference internal" href="#keyboard-jogging"><span class="std std-ref">Keyboard Jogging</span></a>):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mros<span class="w"> </span>ros2<span class="w"> </span>run<span class="w"> </span>movensys_manipulator_moveit_config<span class="w"> </span>keyboard_teleop
+</pre></div>
+</div>
+</li>
+<li><p>(optional) Execute the trajectory or coverage test:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>movensys_manipulator_moveit_config<span class="w"> </span>trajectory_test.launch.py
+mros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>movensys_manipulator_moveit_config<span class="w"> </span>coverage_pose.launch.py
+</pre></div>
+</div>
+</li>
 </ol>
+</div>
+</div>
+<section id="keyboard-jogging">
+<span id="id1"></span><h2>Keyboard Jogging<a class="headerlink" href="#keyboard-jogging" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">keyboard_teleop</span></code> drives the <code class="docutils literal notranslate"><span class="pre">servo_node</span></code> started by <code class="docutils literal notranslate"><span class="pre">moveit.launch.py</span></code>,
+so it works in any of the three modes once the planner is up. Pick a mode first
+(<code class="docutils literal notranslate"><span class="pre">j</span></code> / <code class="docutils literal notranslate"><span class="pre">t</span></code> / <code class="docutils literal notranslate"><span class="pre">p</span></code>), then jog.</p>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p><code class="docutils literal notranslate"><span class="pre">q</span></code> and <code class="docutils literal notranslate"><span class="pre">Ctrl+C</span></code> are <strong>not</strong> emergency stops. They terminate the
+<code class="docutils literal notranslate"><span class="pre">keyboard_teleop</span></code> process; motion stops only as a side effect, after
+Servo’s 0.1 s command timeout. Neither removes motor power, engages brakes,
+triggers STO, or stops a <code class="docutils literal notranslate"><span class="pre">move_group</span></code> trajectory that is already
+executing.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This table is the key mapping only. For the configured jog speeds, the
+per-keypress step size, the command timeout, and the exact stopping
+behavior of each mode, see
+<a class="reference internal" href="../commissioning/first_motion.html#keyboard-jogging-behavior"><span class="std std-ref">Keyboard jogging — speeds, steps, and stopping behavior</span></a>. On a physical robot, do not use keyboard
+jogging as the first motion. Follow <a class="reference internal" href="../commissioning/first_motion.html"><span class="doc">Commissioning and First Motion</span></a>
+first.</p>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 80.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Action</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">j</span></code></p></td>
+<td><p><strong>JOINT</strong> mode – keys <code class="docutils literal notranslate"><span class="pre">1</span></code>…<code class="docutils literal notranslate"><span class="pre">6</span></code> jog joint 1…6</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">t</span></code></p></td>
+<td><p><strong>TWIST</strong> mode – Cartesian end-effector jog</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">p</span></code></p></td>
+<td><p><strong>POSE</strong> mode – nudge an absolute end-effector target pose</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">↑</span></code> / <code class="docutils literal notranslate"><span class="pre">↓</span></code></p></td>
+<td><p>X (+ / −) – twist jog, or pose-target nudge</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">←</span></code> / <code class="docutils literal notranslate"><span class="pre">→</span></code></p></td>
+<td><p>Y (− / +) – twist jog, or pose-target nudge</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">.</span></code> / <code class="docutils literal notranslate"><span class="pre">;</span></code></p></td>
+<td><p>Z (− / +) – twist jog, or pose-target nudge</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">1</span></code> … <code class="docutils literal notranslate"><span class="pre">6</span></code></p></td>
+<td><p>Joint jog for joint 1 … 6 (JOINT mode)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">w</span></code> / <code class="docutils literal notranslate"><span class="pre">e</span></code></p></td>
+<td><p>Frame for TWIST jog <strong>and</strong> POSE nudge = base (<code class="docutils literal notranslate"><span class="pre">world_manipulator</span></code>) /
+eef (<code class="docutils literal notranslate"><span class="pre">Link6</span></code>)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">r</span></code></p></td>
+<td><p>Reverse jog direction (twist / joint)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">q</span></code></p></td>
+<td><p>Quit</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </section>
 </section>
 
@@ -580,9 +738,7 @@ Isaac cuMotion</label><div class="sd-tab-content docutils">
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation">Simulation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hil">HIL</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#real">Real</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#keyboard-jogging">Keyboard Jogging</a></li>
 </ul>
   </nav></div>
 
@@ -612,7 +768,7 @@ Isaac cuMotion</label><div class="sd-tab-content docutils">
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Jul 15, 2026</p>
+      <p>Last updated: Aug 03, 2026</p>
     
   </div>
   <div class="movensys-footer__links">

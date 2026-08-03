@@ -1,5 +1,5 @@
 /* ==========================================================================
-   MOVENSYS Brand Theme - WMX ROS2 Documentation
+   MOVENSYS Brand Theme - WMX R2 Documentation
    Primary brand color: #6DC13F (MOVENSYS Green)
    ========================================================================== */
 
@@ -457,4 +457,36 @@ code.literal {
    keeping real page links and the current-page self-link (href="#"). */
 .bd-sidebar-primary .bd-docs-nav li:has(> a.reference.internal[href*="#"]:not([href="#"])) {
     display: none;
+}
+
+/* ---------- Mermaid: keep wide diagrams readable ---------- */
+/* The mermaid runtime injects `pre.mermaid > svg { width:100%; max-width:100%
+   !important; height:500px }`, which scales wide graphs (e.g. the multi-layer
+   communication diagram) down until the text is unreadable. Override it with a
+   higher-specificity rule so diagrams render at their natural size and scroll
+   horizontally instead of shrinking. The `:zoom:` fullscreen button still
+   works for an even larger view. */
+pre.mermaid {
+    overflow-x: auto;
+    text-align: left;
+}
+/* `svg[id]` beats the runtime's `pre.mermaid > svg` rule on specificity, and
+   matches every mermaid diagram (mermaid always assigns the svg an id), whether
+   or not the directive uses `:zoom:`. */
+pre.mermaid > svg[id] {
+    width: auto !important;
+    max-width: none !important;
+    height: auto !important;
+    display: block;
+    margin: 0 auto;
+}
+
+/* ---------- Download buttons ---------- */
+/* sphinx-design's `.sd-btn` rounds its corners; keep the WMX3 download buttons
+   square so they read as a solid, clickable target. */
+a.sd-btn.wmx-download-btn {
+    border-radius: 0;
+    padding: 0.6rem 1.4rem;
+    font-weight: 600;
+    margin: 0.25rem 0 0.75rem;
 }

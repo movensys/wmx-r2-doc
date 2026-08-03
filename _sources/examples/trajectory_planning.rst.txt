@@ -6,153 +6,278 @@ cuMotion. See :doc:`examples` for the shared manipulator setup. All commands
 run through ``mros``. For the programmatic ``/wmx/moveit2/*`` service API, see
 :doc:`../integration/moveit2_integration`.
 
-Simulation
-----------
+.. tab-set::
 
-1. Open the scene:
+   .. tab-item:: Simulation
 
-   .. tab-set::
+      .. figure:: https://softservogroup.sharepoint.com/:i:/s/Storage/IQDynSNIn4y0RZB2aSh7GFiCAawZCSJEu-CmLk9Lqay0a7Y?e=mViWWa&download=1
+         :alt: Manipulator executing a planned trajectory
+         :target: https://softservogroup.sharepoint.com/:i:/s/Storage/IQDynSNIn4y0RZB2aSh7GFiCAawZCSJEu-CmLk9Lqay0a7Y?e=mViWWa&download=1
+         :align: center
+         :width: 100%
 
-      .. tab-item:: Isaac Sim
-         :sync: isaacsim
+         Basic movements on simulation
+   
+   .. tab-item:: HIL
 
-         Open
-         ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/3a_trajectory_simulation.usd``
+      .. figure:: https://softservogroup.sharepoint.com/:i:/s/Storage/IQDynSNIn4y0RZB2aSh7GFiCAawZCSJEu-CmLk9Lqay0a7Y?e=mViWWa&download=1
+         :alt: Manipulator executing a planned trajectory
+         :target: https://softservogroup.sharepoint.com/:i:/s/Storage/IQDynSNIn4y0RZB2aSh7GFiCAawZCSJEu-CmLk9Lqay0a7Y?e=mViWWa&download=1
+         :align: center
+         :width: 100%
 
-      .. tab-item:: Gazebo
-         :sync: gazebo
+         Basic movements on hardware-in-the-loop (HIL).
 
-         .. code-block:: bash
+   .. tab-item:: Real
 
-            mros ros2 launch movensys_manipulator_description gazebo_trajectory_simulation.launch.py
+      .. figure:: https://softservogroup.sharepoint.com/:i:/s/Storage/IQDcGyFQvgSLQ7O3YVlRJ6TCAYXHtwsd6oNHRKCT5Sx57j0?e=vu6Y1Y&download=1
+         :alt: Manipulator executing a planned trajectory
+         :target: https://softservogroup.sharepoint.com/:i:/s/Storage/IQDcGyFQvgSLQ7O3YVlRJ6TCAYXHtwsd6oNHRKCT5Sx57j0?e=vu6Y1Y&download=1
+         :align: center
+         :width: 100%
 
-2. Run the simulator bridge:
+         Basic movements on real-world scenario.
 
-   .. tab-set::
 
-      .. tab-item:: Isaac Sim
-         :sync: isaacsim
 
-         .. code-block:: bash
+.. tab-set::
 
-            mros ros2 launch movensys_manipulator_moveit_config sim_bridge.launch.py \
-                 simulator:=isaacsim use_sim_time:=true
+   .. tab-item:: Simulation
 
-      .. tab-item:: Gazebo
-         :sync: gazebo
+      1. Open the scene:
 
-         .. code-block:: bash
+         .. tab-set::
 
-            mros ros2 launch movensys_manipulator_moveit_config sim_bridge.launch.py \
-                 simulator:=gazebo use_sim_time:=true
+            .. tab-item:: Isaac Sim
+               :sync: isaacsim
 
-3. Launch the planner and service API:
+               Open
+               ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/3a_trajectory_simulation.usd``
 
-   .. tab-set::
+            .. tab-item:: Gazebo
+               :sync: gazebo
 
-      .. tab-item:: MoveIt2 OMPL
-         :sync: ompl
+               .. code-block:: bash
 
-         .. code-block:: bash
+                  mros ros2 launch movensys_manipulator_description gazebo_trajectory_simulation.launch.py
 
-            mros ros2 launch movensys_manipulator_moveit_config moveit.launch.py use_sim_time:=true
+      2. Run the simulator bridge:
 
-      .. tab-item:: Isaac cuMotion
-         :sync: cumotion
+         .. tab-set::
 
-         .. code-block:: bash
+            .. tab-item:: Isaac Sim
+               :sync: isaacsim
 
-            mros ros2 launch movensys_manipulator_isaac_ros_config isaac_cumotion.launch.py use_sim_time:=true
+               .. code-block:: bash
 
-4. (optional) Execute the trajectory or coverage test:
+                  mros ros2 launch movensys_manipulator_moveit_config sim_bridge.launch.py \
+                       simulator:=isaacsim use_sim_time:=true
 
-   .. code-block:: bash
+            .. tab-item:: Gazebo
+               :sync: gazebo
 
-      mros ros2 launch movensys_manipulator_moveit_config trajectory_test.launch.py use_sim_time:=true
-      mros ros2 launch movensys_manipulator_moveit_config coverage_pose.launch.py use_sim_time:=true
+               .. code-block:: bash
 
-HIL
----
+                  mros ros2 launch movensys_manipulator_moveit_config sim_bridge.launch.py \
+                       simulator:=gazebo use_sim_time:=true
 
-1. Open the scene:
+      3. Launch the planner and service API:
 
-   .. tab-set::
+         .. tab-set::
 
-      .. tab-item:: Isaac Sim
-         :sync: isaacsim
+            .. tab-item:: MoveIt2 OMPL
+               :sync: ompl
 
-         Open
-         ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/3b_trajectory_hil.usd``
+               .. code-block:: bash
 
-      .. tab-item:: Gazebo
-         :sync: gazebo
+                  mros ros2 launch movensys_manipulator_moveit_config moveit.launch.py use_sim_time:=true
 
-         .. code-block:: bash
+            .. tab-item:: Isaac cuMotion
+               :sync: cumotion
 
-            mros ros2 launch movensys_manipulator_description gazebo_trajectory_hil.launch.py
+               .. code-block:: bash
 
-2. Start WMX ROS2 for the manipulator (real WMX runtime) with
-   ``use_sim_time:=true``.
+                  mros ros2 launch movensys_manipulator_isaac_ros_config isaac_cumotion.launch.py use_sim_time:=true
 
-3. Launch the planner and service API with ``use_sim_time:=true``:
+         Add ``rsp:=false`` if using Gazebo or ``ros2_control`` -- both already
+         publish ``/robot_description``.
 
-   .. tab-set::
-
-      .. tab-item:: MoveIt2 OMPL
-         :sync: ompl
-
-         .. code-block:: bash
-
-            mros ros2 launch movensys_manipulator_moveit_config moveit.launch.py use_sim_time:=true
-
-      .. tab-item:: Isaac cuMotion
-         :sync: cumotion
+      4. (optional) Jog the arm from the keyboard (see :ref:`keyboard-jogging`):
 
          .. code-block:: bash
 
-            mros ros2 launch movensys_manipulator_isaac_ros_config isaac_cumotion.launch.py use_sim_time:=true
+            mros ros2 run movensys_manipulator_moveit_config keyboard_teleop
 
-4. (optional) Run ``trajectory_test.launch.py`` / ``coverage_pose.launch.py``
-   with ``use_sim_time:=true``.
-
-Real
-----
-
-1. (optional) Open the matching scene for visualization:
-
-   .. tab-set::
-
-      .. tab-item:: Isaac Sim
-         :sync: isaacsim
-
-         Open
-         ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/3c_trajectory_real.usd``
-
-      .. tab-item:: Gazebo
-         :sync: gazebo
+      5. (optional) Execute the trajectory or coverage test:
 
          .. code-block:: bash
 
-            mros ros2 launch movensys_manipulator_description gazebo_trajectory_real.launch.py
+            mros ros2 launch movensys_manipulator_moveit_config trajectory_test.launch.py use_sim_time:=true
+            mros ros2 launch movensys_manipulator_moveit_config coverage_pose.launch.py use_sim_time:=true
 
-2. Start WMX ROS2 for the manipulator on the robot (no ``use_sim_time``).
+   .. tab-item:: HIL
 
-3. Launch the planner and service API (no ``use_sim_time``):
+      1. Open the scene:
 
-   .. tab-set::
+         .. tab-set::
 
-      .. tab-item:: MoveIt2 OMPL
-         :sync: ompl
+            .. tab-item:: Isaac Sim
+               :sync: isaacsim
+
+               Open
+               ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/3b_trajectory_hil.usd``
+
+            .. tab-item:: Gazebo
+               :sync: gazebo
+
+               .. code-block:: bash
+
+                  mros ros2 launch movensys_manipulator_description gazebo_trajectory_hil.launch.py
+
+      2. Start WMX R2 for the manipulator (real WMX runtime) with
+         ``use_sim_time:=true`` (see
+         ``~/workspaces/movensys_ws/src/wmx-r2/doc/launch_<MANIPULATOR_MODEL>_manipulator.md``).
+
+      3. Launch the planner and service API with ``use_sim_time:=true``:
+
+         .. tab-set::
+
+            .. tab-item:: MoveIt2 OMPL
+               :sync: ompl
+
+               .. code-block:: bash
+
+                  mros ros2 launch movensys_manipulator_moveit_config moveit.launch.py use_sim_time:=true
+
+            .. tab-item:: Isaac cuMotion
+               :sync: cumotion
+
+               .. code-block:: bash
+
+                  mros ros2 launch movensys_manipulator_isaac_ros_config isaac_cumotion.launch.py use_sim_time:=true
+
+         Add ``rsp:=false`` if using Gazebo or ``ros2_control`` -- both already
+         publish ``/robot_description``.
+
+      4. (optional) Jog the arm from the keyboard (see :ref:`keyboard-jogging`):
 
          .. code-block:: bash
 
-            mros ros2 launch movensys_manipulator_moveit_config moveit.launch.py
+            mros ros2 run movensys_manipulator_moveit_config keyboard_teleop
 
-      .. tab-item:: Isaac cuMotion
-         :sync: cumotion
+      5. (optional) Execute the trajectory or coverage test:
 
          .. code-block:: bash
 
-            mros ros2 launch movensys_manipulator_isaac_ros_config isaac_cumotion.launch.py
+            mros ros2 launch movensys_manipulator_moveit_config trajectory_test.launch.py use_sim_time:=true
+            mros ros2 launch movensys_manipulator_moveit_config coverage_pose.launch.py use_sim_time:=true
 
-4. (optional) Run ``trajectory_test.launch.py`` / ``coverage_pose.launch.py``.
+   .. tab-item:: Real
+
+      1. (optional) Open the matching scene for visualization:
+
+         .. tab-set::
+
+            .. tab-item:: Isaac Sim
+               :sync: isaacsim
+
+               Open
+               ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/3c_trajectory_real.usd``
+
+            .. tab-item:: Gazebo
+               :sync: gazebo
+
+               .. code-block:: bash
+
+                  mros ros2 launch movensys_manipulator_description gazebo_trajectory_real.launch.py
+
+      2. Start WMX R2 for the manipulator on the robot (see
+         ``~/workspaces/movensys_ws/src/wmx-r2/doc/launch_<MANIPULATOR_MODEL>_manipulator.md``).
+
+      3. Launch the planner and service API:
+
+         .. tab-set::
+
+            .. tab-item:: MoveIt2 OMPL
+               :sync: ompl
+
+               .. code-block:: bash
+
+                  mros ros2 launch movensys_manipulator_moveit_config moveit.launch.py
+
+            .. tab-item:: Isaac cuMotion
+               :sync: cumotion
+
+               .. code-block:: bash
+
+                  mros ros2 launch movensys_manipulator_isaac_ros_config isaac_cumotion.launch.py
+
+         Add ``rsp:=false`` if using Gazebo or ``ros2_control`` -- both already
+         publish ``/robot_description``.
+
+      4. (optional) Jog the arm from the keyboard (see :ref:`keyboard-jogging`):
+
+         .. code-block:: bash
+
+            mros ros2 run movensys_manipulator_moveit_config keyboard_teleop
+
+      5. (optional) Execute the trajectory or coverage test:
+
+         .. code-block:: bash
+
+            mros ros2 launch movensys_manipulator_moveit_config trajectory_test.launch.py
+            mros ros2 launch movensys_manipulator_moveit_config coverage_pose.launch.py
+
+.. _keyboard-jogging:
+
+Keyboard Jogging
+----------------
+
+``keyboard_teleop`` drives the ``servo_node`` started by ``moveit.launch.py``,
+so it works in any of the three modes once the planner is up. Pick a mode first
+(``j`` / ``t`` / ``p``), then jog.
+
+.. danger::
+
+   ``q`` and ``Ctrl+C`` are **not** emergency stops. They terminate the
+   ``keyboard_teleop`` process; motion stops only as a side effect, after
+   Servo's 0.1 s command timeout. Neither removes motor power, engages brakes,
+   triggers STO, or stops a ``move_group`` trajectory that is already
+   executing.
+
+.. note::
+
+   This table is the key mapping only. For the configured jog speeds, the
+   per-keypress step size, the command timeout, and the exact stopping
+   behavior of each mode, see
+   :ref:`keyboard-jogging-behavior`. On a physical robot, do not use keyboard
+   jogging as the first motion. Follow :doc:`../commissioning/first_motion`
+   first.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 20 80
+
+   * - Key
+     - Action
+   * - ``j``
+     - **JOINT** mode -- keys ``1``…``6`` jog joint 1…6
+   * - ``t``
+     - **TWIST** mode -- Cartesian end-effector jog
+   * - ``p``
+     - **POSE** mode -- nudge an absolute end-effector target pose
+   * - ``↑`` / ``↓``
+     - X (+ / −) -- twist jog, or pose-target nudge
+   * - ``←`` / ``→``
+     - Y (− / +) -- twist jog, or pose-target nudge
+   * - ``.`` / ``;``
+     - Z (− / +) -- twist jog, or pose-target nudge
+   * - ``1`` … ``6``
+     - Joint jog for joint 1 … 6 (JOINT mode)
+   * - ``w`` / ``e``
+     - Frame for TWIST jog **and** POSE nudge = base (``world_manipulator``) /
+       eef (``Link6``)
+   * - ``r``
+     - Reverse jog direction (twist / joint)
+   * - ``q``
+     - Quit

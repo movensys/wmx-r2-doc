@@ -1,0 +1,603 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Licensing &#8212; WMX R2 Documentation 1.0.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=cd36b759" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
+
+    <script src="_static/documentation_options.js?v=8d563738"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'licensing';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="icon" href="_static/movensys_logo.png"/>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="About Us" href="about.html" />
+    <link rel="prev" title="Troubleshooting" href="troubleshooting/troubleshooting.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="Aug 03, 2026"/>
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="light">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="_static/movensys_logo.png" class="logo__image only-light" alt=""/>
+    <img src="_static/movensys_logo.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">WMX R2 Documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/movensys/wmx-r2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/movensys/wmx-r2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item"><div class="sidebar-toc-header">
+  <p class="sidebar-toc-title">Table of Contents</p>
+  <p class="sidebar-toc-subtitle">Contents</p>
+</div></div>
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links" aria-label="Section Navigation">
+  <div class="bd-toc-item navbar-nav">
+    <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting_started/index.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getting_started/computer_setup.html">Computer Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started/install_wmx_runtime.html">Install WMX Runtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started/install_wmx3.html">Install WMX R2 Package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples/examples.html">Example Applications</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples/isaacsim_setup.html">NVIDIA Isaac ROS Setup (Optional)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/movensys_manipulator.html">movensys-manipulator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/trajectory_planning.html">Trajectory Planning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/apriltag_pick_and_place.html">AprilTag Pick-and-Place</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/obstacle_avoidance.html">Nvblox Obstacle Avoidance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/yolo_pick_and_place.html">YOLO Pick-and-Place</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/apriltag_obstacle_avoidance.html">AprilTag + Obstacle Avoidance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/robopoly_game.html">Robopoly Game (VLM / LLM)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="examples/movensys_navigation.html">movensys-navigation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="examples/movensys_navigation_setup.html">movensys-navigation Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/manual_driving.html">Manual Driving</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/slam_mapping.html">SLAM Mapping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/autonomous_navigation.html">Autonomous Navigation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="integration/integration.html">Integration Scenarios</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="integration/moveit2_integration.html">MoveIt2 Motion Planning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integration/cumotion_integration.html">Isaac cuMotion Accelerated Planning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integration/nav2_integration.html">Nav2 Navigation (Mobile Base)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integration/custom_planner.html">Custom Planner Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integration/custom_application.html">Building Custom Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integration/intelligence_integration.html">Natural-Language and Vision Control (VLM / LLM)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="commissioning/index.html">Commissioning</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="commissioning/robot_parameters.html">Robot Parameter Configuration and Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commissioning/first_motion.html">Commissioning and First Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commissioning/safety.html">Safety Functions and Responsibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commissioning/validated_hardware.html">Hardware Compatibility and Validation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference/api_reference.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/communication.html">Communication Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/ros2_services.html">ROS2 Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/ros2_topics.html">ROS2 Topics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/ros2_actions.html">ROS2 Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/wmx_r2_message.html">wmx_r2_message</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/wmx_r2_package.html">wmx_r2_package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="support.html">Support</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About Us</a></li>
+</ul>
+
+  </div>
+</nav>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var navItems = document.querySelectorAll(".bd-docs-nav li");
+  navItems.forEach(function(li) {
+    var subList = li.querySelector(":scope > ul");
+    if (subList) {
+      var toggle = document.createElement("span");
+      toggle.className = "toc-toggle";
+      var isCurrent = li.classList.contains("current");
+      toggle.textContent = isCurrent ? "−" : "+";
+      if (!isCurrent) {
+        subList.classList.add("toc-collapsed");
+      }
+      toggle.addEventListener("click", function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        subList.classList.toggle("toc-collapsed");
+        toggle.textContent = subList.classList.contains("toc-collapsed") ? "+" : "−";
+      });
+      li.style.position = "relative";
+      var link = li.querySelector(":scope > a");
+      if (link) {
+        link.after(toggle);
+      }
+    }
+  });
+});
+</script></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Licensing</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="licensing">
+<h1>Licensing<a class="headerlink" href="#licensing" title="Link to this heading">#</a></h1>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><strong>WMX R2 as a whole is not MIT-licensed.</strong></p>
+<p>“WMX R2” names a solution made of two parts with different licenses: an
+open-source ROS 2 interface, and the proprietary WMX motion engine it runs
+on. The MIT license applies to the ROS 2 interface source code <strong>only</strong>.
+The WMX motion engine, its SDK, and its binaries are proprietary and
+require an evaluation or commercial license from MOVENSYS.</p>
+<p>Neither the MIT license nor the WMX license grants rights to the other.</p>
+</div>
+<section id="licensing-boundary">
+<h2>Licensing boundary<a class="headerlink" href="#licensing-boundary" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 22.0%" />
+<col style="width: 48.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Component</p></th>
+<th class="head"><p>License</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>ROS 2 interface source code</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message</span></code>, <code class="docutils literal notranslate"><span class="pre">wmx_r2_package</span></code>, <code class="docutils literal notranslate"><span class="pre">wmx_r2_control</span></code></p>
+</td>
+<td><p>MIT</p></td>
+<td><p>Source in the <code class="docutils literal notranslate"><span class="pre">wmx-r2</span></code> repository. Free to use, modify, and
+redistribute under the MIT terms.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Example and reference repositories</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">movensys-manipulator</span></code>, <code class="docutils literal notranslate"><span class="pre">movensys-navigation</span></code>,
+<code class="docutils literal notranslate"><span class="pre">movensys-simulation</span></code></p>
+</td>
+<td><p>MIT</p></td>
+<td><p>Configuration, URDFs, launch files, and application nodes.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>WMX Motion Engine</strong></p>
+<p>the runtime installed at <code class="docutils literal notranslate"><span class="pre">/opt/wmx3/</span></code></p>
+</td>
+<td><p>Proprietary: evaluation or commercial</p></td>
+<td><p>Not open source. Distributed as binaries by MOVENSYS.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>WMX3 SDK</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">WMX3Api.h</span></code>, <code class="docutils literal notranslate"><span class="pre">libwmx3api.so</span></code>, <code class="docutils literal notranslate"><span class="pre">libimdll.so</span></code>, <code class="docutils literal notranslate"><span class="pre">coremotionapi</span></code>,
+<code class="docutils literal notranslate"><span class="pre">ioapi</span></code></p>
+</td>
+<td><p>Proprietary: evaluation or commercial</p></td>
+<td><p>Required to <strong>build</strong> the ROS 2 interface. The MIT-licensed source
+links against these libraries; it cannot be built or run without them.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>EtherCAT NIC drivers and platform modules</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">ec_platform.so</span></code>, <code class="docutils literal notranslate"><span class="pre">simu_platform.so</span></code>, <code class="docutils literal notranslate"><span class="pre">ndd_*.so</span></code></p>
+</td>
+<td><p>Proprietary: evaluation or commercial</p></td>
+<td><p>Part of the WMX runtime installation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>This documentation</strong></p></td>
+<td><p>© 2026 MOVENSYS, all rights reserved</p></td>
+<td><p>Not covered by the MIT license.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The MIT-licensed packages depend on the proprietary SDK at build time
+(<code class="docutils literal notranslate"><span class="pre">target_link_libraries(...</span> <span class="pre">coremotionapi</span> <span class="pre">wmx3api</span> <span class="pre">imdll)</span></code>). Obtaining the
+MIT source therefore does not by itself give you a buildable or runnable
+system — a WMX runtime and SDK are required as well.</p>
+</div>
+</section>
+<section id="wmx-runtime-licensing-terms">
+<h2>WMX runtime licensing terms<a class="headerlink" href="#wmx-runtime-licensing-terms" title="Link to this heading">#</a></h2>
+<p>The WMX runtime is free to evaluate in renewable 6-hour sessions; restarting
+the engine starts a new session. A commercial license removes the time limit
+for production use. Contact your MOVENSYS representative for commercial
+licensing.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Mode</p></th>
+<th class="head"><p>Terms</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Evaluation</p></td>
+<td><p>Renewable 6-hour engine sessions, extended by restarting the engine.
+Intended for evaluation and development.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Commercial</p></td>
+<td><p>No session time limit. Required for production use.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="third-party-components">
+<h2>Third-party components<a class="headerlink" href="#third-party-components" title="Link to this heading">#</a></h2>
+<p>WMX R2 integrates with ROS 2, MoveIt 2, Nav2, <code class="docutils literal notranslate"><span class="pre">ros2_control</span></code>, NVIDIA Isaac
+ROS and Isaac Sim, Intel OpenVINO, Ultralytics YOLO, and Gazebo. Each carries
+its own license, which is unaffected by the terms above and which you are
+responsible for reviewing for your deployment. Ultralytics YOLO in particular
+is distributed under AGPL-3.0 unless a commercial Ultralytics license is
+obtained.</p>
+<p>ROS is a trademark of Open Robotics.</p>
+</section>
+<section id="warranty">
+<h2>Warranty<a class="headerlink" href="#warranty" title="Link to this heading">#</a></h2>
+<p>The MIT license disclaims all warranties, including merchantability and
+fitness for a particular purpose, for the ROS 2 interface source code. This
+disclaimer is significant in a motion-control context: the software carries no
+warranty that it will produce correct or safe motion on your hardware. See
+<a class="reference internal" href="commissioning/safety.html"><span class="doc">Safety Functions and Responsibility</span></a> for the safety functions this stack does not
+provide and for where responsibility sits.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="troubleshooting/troubleshooting.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Troubleshooting</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="about.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">About Us</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#licensing-boundary">Licensing boundary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wmx-runtime-licensing-terms">WMX runtime licensing terms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#third-party-components">Third-party components</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#warranty">Warranty</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5"></script>
+
+<footer class="bd-footer">
+<div class="movensys-footer">
+  <div class="movensys-footer__logo">
+    <a href="https://www.movensys.com" target="_blank" rel="noopener">
+      <img src="_static/movensys_wordmark.png" alt="Movensys" />
+    </a>
+  </div>
+  <div class="movensys-footer__info">
+    <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
+    
+      <p>Last updated: Aug 03, 2026</p>
+    
+  </div>
+  <div class="movensys-footer__links">
+    <a href="https://www.movensys.com" target="_blank" rel="noopener">MOVENSYS.com</a>
+    <a href="https://www.movensys.com/privacy" target="_blank" rel="noopener">Privacy Policy</a>
+  </div>
+</div>
+</footer>
+  </body>
+</html>

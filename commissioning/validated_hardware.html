@@ -1,0 +1,813 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Hardware Compatibility and Validation &#8212; WMX R2 Documentation 1.0.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=cd36b759" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
+
+    <script src="../_static/documentation_options.js?v=8d563738"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'commissioning/validated_hardware';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="icon" href="../_static/movensys_logo.png"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="API Reference" href="../api_reference/api_reference.html" />
+    <link rel="prev" title="Safety Functions and Responsibility" href="safety.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="Aug 03, 2026"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="light">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../_static/movensys_logo.png" class="logo__image only-light" alt=""/>
+    <img src="../_static/movensys_logo.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">WMX R2 Documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/movensys/wmx-r2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/movensys/wmx-r2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item"><div class="sidebar-toc-header">
+  <p class="sidebar-toc-title">Table of Contents</p>
+  <p class="sidebar-toc-subtitle">Contents</p>
+</div></div>
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links" aria-label="Section Navigation">
+  <div class="bd-toc-item navbar-nav">
+    <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/computer_setup.html">Computer Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx_runtime.html">Install WMX Runtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx3.html">Install WMX R2 Package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/examples.html">Example Applications</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/isaacsim_setup.html">NVIDIA Isaac ROS Setup (Optional)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator.html">movensys-manipulator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/trajectory_planning.html">Trajectory Planning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/apriltag_pick_and_place.html">AprilTag Pick-and-Place</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/obstacle_avoidance.html">Nvblox Obstacle Avoidance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/yolo_pick_and_place.html">YOLO Pick-and-Place</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/apriltag_obstacle_avoidance.html">AprilTag + Obstacle Avoidance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/robopoly_game.html">Robopoly Game (VLM / LLM)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/movensys_navigation.html">movensys-navigation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples/movensys_navigation_setup.html">movensys-navigation Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/manual_driving.html">Manual Driving</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/slam_mapping.html">SLAM Mapping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/autonomous_navigation.html">Autonomous Navigation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../integration/integration.html">Integration Scenarios</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../integration/moveit2_integration.html">MoveIt2 Motion Planning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/cumotion_integration.html">Isaac cuMotion Accelerated Planning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/nav2_integration.html">Nav2 Navigation (Mobile Base)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/custom_planner.html">Custom Planner Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/custom_application.html">Building Custom Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/intelligence_integration.html">Natural-Language and Vision Control (VLM / LLM)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Commissioning</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="robot_parameters.html">Robot Parameter Configuration and Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="first_motion.html">Commissioning and First Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="safety.html">Safety Functions and Responsibility</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Hardware Compatibility and Validation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/api_reference.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/communication.html">Communication Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_services.html">ROS2 Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_topics.html">ROS2 Topics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_actions.html">ROS2 Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_message.html">wmx_r2_message</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_package.html">wmx_r2_package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support.html">Support</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../licensing.html">Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About Us</a></li>
+</ul>
+
+  </div>
+</nav>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var navItems = document.querySelectorAll(".bd-docs-nav li");
+  navItems.forEach(function(li) {
+    var subList = li.querySelector(":scope > ul");
+    if (subList) {
+      var toggle = document.createElement("span");
+      toggle.className = "toc-toggle";
+      var isCurrent = li.classList.contains("current");
+      toggle.textContent = isCurrent ? "−" : "+";
+      if (!isCurrent) {
+        subList.classList.add("toc-collapsed");
+      }
+      toggle.addEventListener("click", function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        subList.classList.toggle("toc-collapsed");
+        toggle.textContent = subList.classList.contains("toc-collapsed") ? "+" : "−";
+      });
+      li.style.position = "relative";
+      var link = li.querySelector(":scope > a");
+      if (link) {
+        link.after(toggle);
+      }
+    }
+  });
+});
+</script></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Commissioning</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Hardware Compatibility and Validation</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="hardware-compatibility-and-validation">
+<h1>Hardware Compatibility and Validation<a class="headerlink" href="#hardware-compatibility-and-validation" title="Link to this heading">#</a></h1>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><strong>WMX R2 does not “work with any robot”.</strong></p>
+<p>WMX R2 controls EtherCAT servo drives. Whether it can drive <em>your</em> robot
+depends on whether the drives speak EtherCAT CoE in a supported mode,
+whether an EtherCAT Network Information (ENI) file exists for them, and
+whether someone has produced and verified a correct parameter set,
+URDF, and planning configuration for that specific machine.</p>
+<p>The robots below are the ones for which this project ships a parameter set
+and a configuration. Everything else is an integration project, not a
+configuration change.</p>
+</div>
+<section id="status-definitions">
+<h2>Status definitions<a class="headerlink" href="#status-definitions" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 24.0%" />
+<col style="width: 76.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Status</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Validated</strong></p></td>
+<td><p>Run on the physical robot by MOVENSYS. A verified parameter file,
+URDF, and application configuration are shipped, and the listed
+functions were exercised on hardware.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Reference implementation</strong></p></td>
+<td><p>A complete, shipped configuration that is exercised in simulation and
+HIL. Treat the hardware parameters as a starting point to be verified
+per unit, following <a class="reference internal" href="robot_parameters.html"><span class="doc">Robot Parameter Configuration and Validation</span></a> and <a class="reference internal" href="first_motion.html"><span class="doc">Commissioning and First Motion</span></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Experimental</strong></p></td>
+<td><p>Present in the repository but incomplete, unverified, or subject to
+change. Not intended for use on a physical robot.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Not supported</strong></p></td>
+<td><p>No shipped configuration. Requires an integration project.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Status applies to a <em>robot model plus a function</em>, not to a robot model
+alone. A model validated for trajectory execution is not thereby validated
+for perception-driven picking.</p>
+</div>
+</section>
+<section id="robot-matrix">
+<h2>Robot matrix<a class="headerlink" href="#robot-matrix" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 12.0%" />
+<col style="width: 14.0%" />
+<col style="width: 18.0%" />
+<col style="width: 36.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Robot</p></th>
+<th class="head"><p>Axes</p></th>
+<th class="head"><p>Status</p></th>
+<th class="head"><p>Parameter file</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Dobot CR3A</strong></p></td>
+<td><p>6 + gripper</p></td>
+<td><p>Validated</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cr3a_wmx_parameters.xml</span></code></p></td>
+<td><p>The reference platform. Trajectory, gripper, AprilTag, YOLO, Nvblox,
+and the Robopoly application are all configured for this arm.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Dobot CR5A</strong></p></td>
+<td><p>6</p></td>
+<td><p>Validated (trajectory only)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cr5a_wmx_parameters.xml</span></code></p></td>
+<td><p>Trajectory execution and keyboard/Servo jogging only. No gripper and
+no perception configuration is shipped — see the function matrix.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Differential-drive base</strong> (<code class="docutils literal notranslate"><span class="pre">diffbot</span></code>)</p></td>
+<td><p>2</p></td>
+<td><p>Validated</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">diffbot_wmx_parameters.xml</span></code></p></td>
+<td><p>Velocity-mode axes (<code class="docutils literal notranslate"><span class="pre">AxisCommandMode</span> <span class="pre">=</span> <span class="pre">1</span></code>) driven by
+<code class="docutils literal notranslate"><span class="pre">differential_drive_controller</span></code>, with Nav2, EKF, and SLAM Toolbox.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Any other EtherCAT servo system</p></td>
+<td><p>—</p></td>
+<td><p>Not supported</p></td>
+<td><p>—</p></td>
+<td><p>The general nodes expose axis, I/O, engine, and EtherCAT control for
+arbitrary EtherCAT devices, but no robot-level configuration is
+shipped. See <a class="reference internal" href="#bringing-up-an-unlisted-robot"><span class="std std-ref">Bringing up a robot that is not listed</span></a>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="function-matrix">
+<h2>Function matrix<a class="headerlink" href="#function-matrix" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 34.0%" />
+<col style="width: 22.0%" />
+<col style="width: 22.0%" />
+<col style="width: 22.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Function</p></th>
+<th class="head"><p>Dobot CR3A</p></th>
+<th class="head"><p>Dobot CR5A</p></th>
+<th class="head"><p>diffbot</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>General nodes (engine, axis, I/O, EtherCAT)</p></td>
+<td><p>Validated</p></td>
+<td><p>Validated</p></td>
+<td><p>Validated</p></td>
+</tr>
+<tr class="row-odd"><td><p>Joint state feedback</p></td>
+<td><p>Validated</p></td>
+<td><p>Validated</p></td>
+<td><p>Validated</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">FollowJointTrajectory</span></code> execution</p></td>
+<td><p>Validated</p></td>
+<td><p>Validated</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p>MoveIt 2 (OMPL) planning</p></td>
+<td><p>Validated</p></td>
+<td><p>Validated</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-even"><td><p>Isaac cuMotion planning</p></td>
+<td><p>Validated</p></td>
+<td><p>Not configured</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p>MoveIt Servo / keyboard jogging</p></td>
+<td><p>Validated</p></td>
+<td><p>Reference implementation</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ros2_control</span></code> hardware interface</p></td>
+<td><p>Reference implementation</p></td>
+<td><p>Reference implementation</p></td>
+<td><p>Reference implementation</p></td>
+</tr>
+<tr class="row-odd"><td><p>Gripper (digital I/O)</p></td>
+<td><p>Validated</p></td>
+<td><p>Not configured</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-even"><td><p>AprilTag pick and place</p></td>
+<td><p>Validated</p></td>
+<td><p>Not configured</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p>YOLO pick and place</p></td>
+<td><p>Validated</p></td>
+<td><p>Not configured</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-even"><td><p>Nvblox obstacle avoidance</p></td>
+<td><p>Validated</p></td>
+<td><p>Not configured</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p>Robopoly (VLM/LLM application)</p></td>
+<td><p>Validated</p></td>
+<td><p>Not configured</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-even"><td><p>Nav2 autonomous navigation</p></td>
+<td><p>—</p></td>
+<td><p>—</p></td>
+<td><p>Validated</p></td>
+</tr>
+<tr class="row-odd"><td><p>SLAM mapping</p></td>
+<td><p>—</p></td>
+<td><p>—</p></td>
+<td><p>Validated</p></td>
+</tr>
+<tr class="row-even"><td><p>Manual teleoperated driving</p></td>
+<td><p>—</p></td>
+<td><p>—</p></td>
+<td><p>Validated</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>“Not configured” means the repository ships no configuration for that
+combination — the launch will fail to find its config file rather than run
+with a wrong one. For the CR5A this covers everything under
+<code class="docutils literal notranslate"><span class="pre">movensys_manipulator_perception/config/</span></code> and
+<code class="docutils literal notranslate"><span class="pre">movensys_manipulator_isaac_ros_config/config/</span></code>, both of which contain
+only <code class="docutils literal notranslate"><span class="pre">dobot_cr3a</span></code> entries.</p>
+</div>
+</section>
+<section id="homing-absolute-position-brakes-and-safety">
+<h2>Homing, absolute position, brakes, and safety<a class="headerlink" href="#homing-absolute-position-brakes-and-safety" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 24.0%" />
+<col style="width: 76.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Topic</p></th>
+<th class="head"><p>Handling</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Homing</strong></p></td>
+<td><p>Not used on any shipped robot. <code class="docutils literal notranslate"><span class="pre">AbsoluteEncoderMode</span> <span class="pre">=</span> <span class="pre">1</span></code> on every
+axis, so position is known at power-on. The homing service
+(<code class="docutils literal notranslate"><span class="pre">/wmx/axis/homing</span></code>) and the <code class="docutils literal notranslate"><span class="pre">HomeParam</span></code> block exist and are
+populated with defaults, but no shipped configuration exercises them.
+A robot with incremental encoders requires a homing strategy that this
+project does not provide.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Absolute position</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">AbsoluteEncoderHomeOffset</span> <span class="pre">=</span> <span class="pre">0.0</span></code> on every shipped axis, asserting
+that the drive’s absolute zero is the URDF zero. <strong>Verify this per
+unit</strong> — it is a property of the individual robot, not of the model.
+See <a class="reference internal" href="robot_parameters.html"><span class="doc">Robot Parameter Configuration and Validation</span></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Brakes</strong></p></td>
+<td><p>Not managed by WMX R2. Brake release and engagement are handled by the
+drive and the robot’s electrical design. Brake behavior on power loss
+and on emergency stop must be covered by the system risk assessment.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Safety systems</strong></p></td>
+<td><p>None are provided. WMX R2 is not safety-rated, and the safety
+functions of the robot manufacturer’s original controller are not
+available when that controller is bypassed. See <a class="reference internal" href="safety.html"><span class="doc">Safety Functions and Responsibility</span></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Soft limits</strong></p></td>
+<td><p>Disabled (<code class="docutils literal notranslate"><span class="pre">SoftLimitType</span> <span class="pre">=</span> <span class="pre">0</span></code>) in all three shipped parameter files.
+Position limiting exists only in MoveIt’s planning-time check against
+the URDF.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>E-stop input</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">EnableEStopSignal</span> <span class="pre">=</span> <span class="pre">0</span></code> in all three shipped parameter files. The
+WMX engine’s E-stop input is not configured, and is in any case a
+functional input rather than a safety function.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="validated-parameter-files">
+<h2>Validated parameter files<a class="headerlink" href="#validated-parameter-files" title="Link to this heading">#</a></h2>
+<p>The parameter files shipped in <code class="docutils literal notranslate"><span class="pre">wmx_r2_package/config/</span></code> are the starting
+point for the corresponding robot model:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 34.0%" />
+<col style="width: 30.0%" />
+<col style="width: 36.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>File</p></th>
+<th class="head"><p>Robot</p></th>
+<th class="head"><p>Application config</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cr3a_wmx_parameters.xml</span></code></p></td>
+<td><p>Dobot CR3A</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cr3a_manipulator_config.yaml</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">cr5a_wmx_parameters.xml</span></code></p></td>
+<td><p>Dobot CR5A</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cr5a_manipulator_config.yaml</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">diffbot_wmx_parameters.xml</span></code></p></td>
+<td><p>Differential-drive base</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">diffbot_navigation_config.yaml</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>A shipped parameter file describes the robot MOVENSYS commissioned. It is
+not a guarantee for your unit. Encoder zero, motor mounting orientation,
+reducer ratio after a repair, and mechanical range can all differ between
+units of the same model. Re-run <a class="reference internal" href="first_motion.html"><span class="doc">Commissioning and First Motion</span></a> on every physical
+robot, including a second unit of an already-validated model.</p>
+</div>
+</section>
+<section id="bringing-up-a-robot-that-is-not-listed">
+<span id="bringing-up-an-unlisted-robot"></span><h2>Bringing up a robot that is not listed<a class="headerlink" href="#bringing-up-a-robot-that-is-not-listed" title="Link to this heading">#</a></h2>
+<p>There is no supported path that consists only of editing configuration. At
+minimum you need:</p>
+<ol class="arabic simple">
+<li><p><strong>EtherCAT compatibility.</strong> Drives reachable by the WMX EtherCAT master,
+with an ENI file present in <code class="docutils literal notranslate"><span class="pre">wmx-r2/eni/</span></code> for each slave, in a supported
+CoE mode (position mode for the manipulators, velocity mode for the
+differential-drive base).</p></li>
+<li><p><strong>A parameter file.</strong> Gear ratio numerator and denominator, polarity,
+command mode, and limits for every axis, derived from the drive and
+mechanical specifications — see <a class="reference internal" href="robot_parameters.html"><span class="doc">Robot Parameter Configuration and Validation</span></a>.</p></li>
+<li><p><strong>A URDF.</strong> Link geometry, joint axes and origins, and position, velocity,
+and effort limits, consistent with the parameter file.</p></li>
+<li><p><strong>A planning configuration.</strong> SRDF, kinematics, joint limits, and
+controller configuration for MoveIt 2, or the equivalent Nav2
+configuration for a mobile base.</p></li>
+<li><p><strong>An application YAML.</strong> The joint-name to axis-index mapping and the
+topic, action, and I/O configuration.</p></li>
+<li><p><strong>Full commissioning.</strong> The complete <a class="reference internal" href="index.html#simulation-first-workflow"><span class="std std-ref">The simulation-first workflow</span></a>,
+with the safety architecture in <a class="reference internal" href="safety.html"><span class="doc">Safety Functions and Responsibility</span></a> in place first.</p></li>
+</ol>
+<p>Contact your MOVENSYS representative before starting an integration for a
+robot that is not listed above.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="safety.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Safety Functions and Responsibility</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../api_reference/api_reference.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">API Reference</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#status-definitions">Status definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#robot-matrix">Robot matrix</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function-matrix">Function matrix</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homing-absolute-position-brakes-and-safety">Homing, absolute position, brakes, and safety</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validated-parameter-files">Validated parameter files</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bringing-up-a-robot-that-is-not-listed">Bringing up a robot that is not listed</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5"></script>
+
+<footer class="bd-footer">
+<div class="movensys-footer">
+  <div class="movensys-footer__logo">
+    <a href="https://www.movensys.com" target="_blank" rel="noopener">
+      <img src="../_static/movensys_wordmark.png" alt="Movensys" />
+    </a>
+  </div>
+  <div class="movensys-footer__info">
+    <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
+    
+      <p>Last updated: Aug 03, 2026</p>
+    
+  </div>
+  <div class="movensys-footer__links">
+    <a href="https://www.movensys.com" target="_blank" rel="noopener">MOVENSYS.com</a>
+    <a href="https://www.movensys.com/privacy" target="_blank" rel="noopener">Privacy Policy</a>
+  </div>
+</div>
+</footer>
+  </body>
+</html>

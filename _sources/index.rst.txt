@@ -1,89 +1,166 @@
-WMX ROS2 Documentation
+WMX R2 Documentation
 =======================
 
-Welcome to the WMX ROS2 documentation. This project provides ROS2
-packages for controlling robot platforms through the WMX motion control
-engine over EtherCAT. It targets industrial applications that require
-deterministic and high precision motion, such as semiconductor
-equipment, manufacturing automation, and precision robotics. The entire
-stack runs on a single industrial PC (IPC) or edge device with no
-separate motion controller. It combines perception and deterministic
-motion into edge physical AI so a machine can sense and act in the real
-world on one device. A Real-Time OS is required so that motion timing
-stays predictable under load.
+**WMX R2: The Real-Time Execution Layer for Physical AI.**
 
-WMX ROS2 integrates with widely used projects in the ROS2 ecosystem:
+WMX R2 brings industrial deterministic real-time robotics motion control into the
+ROS 2 ecosystem. WMX R2 is a solution that integrates a ROS 2 interface with
+the WMX motion engine. It drives industrial servos over EtherCAT, a
+real-time industrial Ethernet network that links the controller to servo drives
+and I/O over a single cable.
 
-* `MoveIt2 <https://moveit.ai/>`_ for manipulator motion planning
-* `NVIDIA Isaac Sim <https://developer.nvidia.com/isaac/sim>`_ and
-  `Gazebo <https://gazebosim.org/>`_ for simulation
-* `NVIDIA Isaac ROS <https://developer.nvidia.com/isaac/ros>`_ for GPU
-  accelerated perception
-* `YOLO <https://docs.ultralytics.com/>`_ for real time object detection
-* `Intel OpenVINO <https://docs.openvino.ai/2026/index.html>`_ for optimized inference on
-  CPU and integrated accelerators
-* Multimodal large language models (LLMs) and vision language models
-  (VLMs) for natural language task specification and high level reasoning
+WMX R2 turns planner output such as MoveIt2 and Nav2 trajectories into the precisely timed
+servo motion that industrial and Physical AI applications demand.
+In the *See–Think–Act* flow of Physical AI, WMX R2 is the layer that turns an
+AI's judgment (*Think*) into a robot's real-world motion (*Act*), in real time. 
 
-
-
-.. figure:: /_static/images/wmx-ros2_overview.drawio.png
-   :alt: WMX ROS2 architecture overview
+.. figure:: /_static/images/wmx-r2_pai.png
+   :alt: WMX R2 for physical AI
    :align: center
    :width: 100%
 
-   WMX ROS2 architecture overview.
+The entire stack runs on a single edge device with no separate external motion
+controller, combining perception and deterministic motion into edge physical AI.
 
-Why need a Real-Time OS?
+WMX R2 integrates with widely used projects in the ROS2 ecosystem:
+
+* `MoveIt2 <https://moveit.ai/>`_ for manipulator motion planning
+* `Nav2 <https://nav2.org/>`_ for mobile robot navigation
+* `ros2_control <https://control.ros.org/>`_ for hardware interface and controller management
+* `Intel OpenVINO <https://docs.openvino.ai/2026/index.html>`_ for optimized inference on
+  Intel XPU and integrated accelerators
+* `NVIDIA Isaac Sim <https://developer.nvidia.com/isaac/sim>`_ and
+  `Gazebo <https://gazebosim.org/>`_ for simulation
+* `NVIDIA Isaac ROS <https://developer.nvidia.com/isaac/ros>`_ for NVIDIA GPU
+  accelerated perception and control
+* `YOLO <https://docs.ultralytics.com/>`_ for real time object detection
+* Multimodal large language models (LLMs) and vision language models
+  (VLMs) for natural language task specification and high level reasoning
+
+See WMX R2 in action:
+
+.. raw:: html
+
+   <div style="position: relative; width: 100%; max-width: 800px; margin: 1em auto; aspect-ratio: 16 / 9;">
+     <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
+             src="https://www.youtube-nocookie.com/embed/YSqfW-ECzHU"
+             title="WMX R2 demo video for Intel Edge Day"
+             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+             allowfullscreen></iframe>
+   </div>
+
+
+.. raw:: html
+
+   <div style="position: relative; width: 100%; max-width: 800px; margin: 1em auto; aspect-ratio: 16 / 9;">
+     <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
+             src="https://www.youtube-nocookie.com/embed/h-G9vtAGAIU"
+             title="WMX R2 demo video for GTC conference"
+             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+             allowfullscreen></iframe>
+   </div>
+
+To show how these pieces fit together, four companion repositories are provided
+as working examples and reference implementations built on WMX R2:
+
+* `movensys-manipulator <https://github.com/movensys/movensys-manipulator>`_ :
+  manipulator scenarios (Dobot CR3A / CR5A) with MoveIt2 / Isaac cuMotion
+  planning and Nvblox / YOLO / AprilTag perception
+* `movensys-navigation <https://github.com/movensys/movensys-navigation>`_ :
+  a differential-drive mobile base with Nav2 planning, EKF odometry, and SLAM mapping
+* `movensys-intelligence <https://github.com/movensys/movensys-intelligence>`_ :
+  a voice-driven VLM/LLM application (the Robopoly game) built on top of the
+  manipulator stack
+* `movensys-simulation <https://github.com/movensys/movensys-simulation>`_ :
+  the Isaac Sim scenes used by the manipulator and navigation scenarios
+
+See :doc:`examples/examples` to run these scenarios from start to finish.
+
+
+
+.. figure:: /_static/images/wmx-r2_overview.drawio.png
+   :alt: WMX R2 architecture overview
+   :align: center
+   :width: 100%
+
+   WMX R2 architecture overview.
+
+Why WMX R2?
 ----------------------------------------
 
-Servo drivers expect a command every fixed cycle. Standard Linux
-optimizes for throughput rather than keeping a strict deterministic
-schedule, so it may pause the program for a few milliseconds to handle
-a packet or a background task. That delay makes the next command arrive
-late and miss its cycle. A missed cycle makes motion stutter and drops
-accuracy, and on a production line it can even fault the drivers and
-stop the machine. A Real-Time OS such as Linux with the PREEMPT_RT
-patch guarantees motion threads run on time even under load, which is
-why every industrial motion stack runs on one.
-
-Why WMX ROS2?
-----------------------------------------
-
-A Real-Time OS covers the kernel-level guarantees, but ROS2 still
-leaves one step uncovered. A planner such as MoveIt2 or Nav2 produces a
-trajectory and `ros2_control <https://control.ros.org/>`_ sends joint
-commands to the hardware. Those commands still need to become the
+A planner such as MoveIt2 or Nav2 produces a trajectory that must become the
 precisely timed signals servo drivers execute on a fixed cycle. Most
 ROS2 setups bridge this execution gap with a closed industrial
 controller over TCP/IP, which adds latency the planner can never
 recover. The other common option sends raw EtherCAT commands and leaves
 smoothing and coordination to ROS2, which is not built for hard
-real-time work. Both approaches become the limiting factor once a line
-needs production-grade cycle accuracy. The WMX ROS2 package closes the
-gap by bringing the WMX motion control engine into ROS2, so the
-planner's output runs as smooth and deterministic motion without
-leaving the ROS2 ecosystem.
+real-time system. WMX R2 closes this gap by bringing the WMX motion control engine into ROS2
+so planner output runs as smooth deterministic motion in one single edge device.
 
-What is WMX ROS2?
+.. figure:: /_static/images/one_ipc.png
+   :alt: Conventional motion control versus WMX software motion on a single PC
+   :align: center
+   :width: 100%
+
+   Conventional motion control routes the PC through a separate dedicated
+   motion controller; WMX software motion drives the servo drives directly
+   from a single edge device over the field network.
+
+Moving the controller into the PC removes an enclosure and its cabling, so
+the system is smaller, lighter, and efficient while performing better. That
+compact footprint suits robots and mobile machines where space and payload are
+tight.
+
+
+WMX R2's ROS 2 interface handles the timing-sensitive step: smoothing
+trajectories, coordinating joints, and emitting commands at the rate servo
+drivers expect. Its source code is open source under the MIT license. It runs
+with the WMX motion engine, which keeps motion on a deterministic cycle and
+exposes more than 200 APIs for trajectory conversion, EtherCAT, I/O, and engine
+control. The engine, its SDK, and its binaries are proprietary and require an
+evaluation or commercial license: the engine runs free in renewable 6-hour
+sessions that you extend by restarting it, and a commercial license removes the
+limit for production.
+
+Performance comparison
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. grid:: 1 1 2 2
+   :gutter: 3
+
+   .. grid-item::
+
+      .. figure:: /_static/images/graph_1.png
+         :alt: Representative single run — joint-angle tracking
+         :width: 100%
+
+         Representative run: joint-angle tracking for the reference, the
+         traditional external controller, and the proposed WMX R2.
+
+   .. grid-item::
+
+      .. figure:: /_static/images/graph_2.png
+         :alt: Mean absolute tracking error across ten runs
+         :width: 100%
+
+         Per-sample mean absolute error across ten runs.
+
+We executed the same trajectory ten times. The left panel shows a representative run,
+and the right panel presents the per-sample mean absolute tracking error (MAE).
+The overall MAE corresponds to the time average of this curve. WMX R2 reduced
+the MAE by 85% relative to the conventional external controller, thanks to lower
+communication latency from removing the TCP/IP hop and a redundant control stage.
+
+Customers and Partners
 ----------------------------------------
 
-WMX ROS2 is an open source MIT-licensed ROS2 package layer that owns the
-timing-sensitive step: smoothing trajectories, coordinating joints, and
-emitting commands at the rate servo drivers expect. It runs in
-simulation, in hardware-in-the-loop, and on real EtherCAT hardware across
-x86 industrial PCs and NVIDIA Jetson boards on a real-time Linux kernel
-(PREEMPT_RT). It also brings AI to the edge as physical AI, hosting
-workloads such as `NVIDIA Isaac ROS <https://developer.nvidia.com/isaac/ros>`_,
-`YOLO <https://docs.ultralytics.com/>`_,
-`Intel OpenVINO <https://docs.openvino.ai/2026/index.html>`_, and
-vision-language models on the same device that drives the servo. It is
-built on the WMX motion control engine, which keeps motion on a
-deterministic cycle and exposes more than 200 APIs for trajectory
-conversion, EtherCAT, I/O, and engine control. Proven over a decade in
-semiconductor, manufacturing, and precision robotics. WMX runs free in
-renewable 1-hour sessions that you extend by restarting the engine, and a
-commercial license removes the limit for production.
+The WMX motion engine has a long, proven industrial track record:
+
+* 25+ years of development with 40+ patents worldwide
+* 40,000+ cumulative licenses sold
+* 500+ customers, mainly in the semiconductor industry
+
+.. Add customer and partner logos or names here.
 
 Where to go next
 ----------------------------------------
@@ -91,8 +168,14 @@ Where to go next
 * Follow the :doc:`getting_started/index` guide to set up the environment and run the package.
 * Work through the :doc:`examples/examples` to run trajectory, perception, and intelligence demos.
 * See :doc:`integration/integration` for the supported motion-planning and application integrations.
+* Work through :doc:`commissioning/index` before moving a physical robot;
+  parameter validation, first motion, safety responsibilities, and the list of
+  validated robots.
 * Refer to the :doc:`api_reference/api_reference` for ROS2 services, topics, and actions.
 * Consult :doc:`support` for common issues and their resolutions.
+* Read :doc:`licensing` for the boundary between the MIT-licensed ROS 2
+  interface and the proprietary WMX motion engine.
+
 
 
 
@@ -106,6 +189,8 @@ Where to go next
    getting_started/index
    examples/examples
    integration/integration
+   commissioning/index
    api_reference/api_reference
    support
+   licensing
    about

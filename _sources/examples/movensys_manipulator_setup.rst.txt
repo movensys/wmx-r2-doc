@@ -17,7 +17,7 @@ model, and define the ``mros`` helper used to run commands inside the container.
 
    export ROS_DOMAIN_ID=73                         # use any number
    export ROS_DISTRO=jazzy                         # {jazzy, humble}
-   export MOVENSYS_ROS_VERSION=isaac-ros_4.1       # {isaac-ros_4.1, isaac-ros_3.2, general}
+   export MOVENSYS_ROS_VERSION=isaac-ros_4.1       # {intel-xpu, isaac-ros_4.1, isaac-ros_3.2, general}
    export CPU_ARCH=amd64                           # {amd64, arm64}
    export MANIPULATOR_MODEL=dobot_cr3a             # {dobot_cr3a, dobot_cr5a}
 
@@ -115,9 +115,9 @@ Verify the build by launching the robot description in RViz:
 
    mros ros2 launch movensys_manipulator_description movensys_manipulator_rviz.launch.py
 
-For HIL and Real modes, the manipulator is brought up with WMX ROS2 (see
-``wmx-ros2/doc/launch_<MANIPULATOR_MODEL>_manipulator.md`` and
-:doc:`../getting_started/testing_wmx_ros2`).
+For HIL and Real modes, the manipulator is brought up with WMX R2 (see
+``wmx-r2/doc/launch_<MANIPULATOR_MODEL>_manipulator.md`` and
+:doc:`../getting_started/install_wmx3`).
 
 .. note:: **Isaac Sim scenes**
 

@@ -1,0 +1,877 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Commissioning and First Motion &#8212; WMX R2 Documentation 1.0.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=cd36b759" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
+
+    <script src="../_static/documentation_options.js?v=8d563738"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'commissioning/first_motion';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="icon" href="../_static/movensys_logo.png"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Safety Functions and Responsibility" href="safety.html" />
+    <link rel="prev" title="Robot Parameter Configuration and Validation" href="robot_parameters.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="Aug 03, 2026"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="light">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../_static/movensys_logo.png" class="logo__image only-light" alt=""/>
+    <img src="../_static/movensys_logo.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">WMX R2 Documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/movensys/wmx-r2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/movensys/wmx-r2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item"><div class="sidebar-toc-header">
+  <p class="sidebar-toc-title">Table of Contents</p>
+  <p class="sidebar-toc-subtitle">Contents</p>
+</div></div>
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links" aria-label="Section Navigation">
+  <div class="bd-toc-item navbar-nav">
+    <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/computer_setup.html">Computer Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx_runtime.html">Install WMX Runtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx3.html">Install WMX R2 Package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/examples.html">Example Applications</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/isaacsim_setup.html">NVIDIA Isaac ROS Setup (Optional)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator.html">movensys-manipulator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/trajectory_planning.html">Trajectory Planning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/apriltag_pick_and_place.html">AprilTag Pick-and-Place</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/obstacle_avoidance.html">Nvblox Obstacle Avoidance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/yolo_pick_and_place.html">YOLO Pick-and-Place</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/apriltag_obstacle_avoidance.html">AprilTag + Obstacle Avoidance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/robopoly_game.html">Robopoly Game (VLM / LLM)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/movensys_navigation.html">movensys-navigation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples/movensys_navigation_setup.html">movensys-navigation Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/manual_driving.html">Manual Driving</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/slam_mapping.html">SLAM Mapping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/autonomous_navigation.html">Autonomous Navigation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../integration/integration.html">Integration Scenarios</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../integration/moveit2_integration.html">MoveIt2 Motion Planning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/cumotion_integration.html">Isaac cuMotion Accelerated Planning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/nav2_integration.html">Nav2 Navigation (Mobile Base)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/custom_planner.html">Custom Planner Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/custom_application.html">Building Custom Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/intelligence_integration.html">Natural-Language and Vision Control (VLM / LLM)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Commissioning</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="robot_parameters.html">Robot Parameter Configuration and Validation</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Commissioning and First Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="safety.html">Safety Functions and Responsibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="validated_hardware.html">Hardware Compatibility and Validation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/api_reference.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/communication.html">Communication Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_services.html">ROS2 Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_topics.html">ROS2 Topics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_actions.html">ROS2 Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_message.html">wmx_r2_message</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_package.html">wmx_r2_package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support.html">Support</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../licensing.html">Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About Us</a></li>
+</ul>
+
+  </div>
+</nav>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var navItems = document.querySelectorAll(".bd-docs-nav li");
+  navItems.forEach(function(li) {
+    var subList = li.querySelector(":scope > ul");
+    if (subList) {
+      var toggle = document.createElement("span");
+      toggle.className = "toc-toggle";
+      var isCurrent = li.classList.contains("current");
+      toggle.textContent = isCurrent ? "−" : "+";
+      if (!isCurrent) {
+        subList.classList.add("toc-collapsed");
+      }
+      toggle.addEventListener("click", function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        subList.classList.toggle("toc-collapsed");
+        toggle.textContent = subList.classList.contains("toc-collapsed") ? "+" : "−";
+      });
+      li.style.position = "relative";
+      var link = li.querySelector(":scope > a");
+      if (link) {
+        link.after(toggle);
+      }
+    }
+  });
+});
+</script></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Commissioning</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Commissioning and First Motion</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="commissioning-and-first-motion">
+<h1>Commissioning and First Motion<a class="headerlink" href="#commissioning-and-first-motion" title="Link to this heading">#</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Do not start this procedure until <a class="reference internal" href="robot_parameters.html"><span class="doc">Robot Parameter Configuration and Validation</span></a> is complete and
+the same configuration has run cleanly in Simulation and HIL. This is
+stage 4 of the <a class="reference internal" href="index.html#simulation-first-workflow"><span class="std std-ref">The simulation-first workflow</span></a>. The purpose of this
+procedure is to <em>discover</em> wrong parameters with the robot moving slowly
+and by small amounts, which is the only cheap way to find them.</p>
+<p>Before the first command, confirm that the separate safety measures
+described in <a class="reference internal" href="safety.html"><span class="doc">Safety Functions and Responsibility</span></a> are installed and tested — in particular a
+hardwired emergency stop that removes drive power independently of this
+software.</p>
+</div>
+<section id="preconditions">
+<h2>Preconditions<a class="headerlink" href="#preconditions" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Check</p></th>
+<th class="head"><p>Requirement</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Parameter review</p></td>
+<td><p><a class="reference internal" href="robot_parameters.html"><span class="doc">Robot Parameter Configuration and Validation</span></a> completed; the joint↔axis table written down</p></td>
+</tr>
+<tr class="row-odd"><td><p>Simulation</p></td>
+<td><p>The same URDF and MoveIt configuration planned and executed correctly</p></td>
+</tr>
+<tr class="row-even"><td><p>HIL</p></td>
+<td><p>The real WMX runtime loaded your parameter file and executed a
+trajectory against the simulated bus with no errors</p></td>
+</tr>
+<tr class="row-odd"><td><p>Workspace</p></td>
+<td><p>The robot is clear of people, fixtures, cabling, and the ground plane
+through its full expected travel — not just its current pose</p></td>
+</tr>
+<tr class="row-even"><td><p>Emergency stop</p></td>
+<td><p>A hardwired E-stop that removes drive power is installed, reachable
+from the operating position, and has been function-tested this session</p></td>
+</tr>
+<tr class="row-odd"><td><p>Mechanical</p></td>
+<td><p>Payload and tooling removed or fully secured; brakes, if fitted,
+verified to hold</p></td>
+</tr>
+<tr class="row-even"><td><p>Recovery</p></td>
+<td><p>You know how to clear an alarm and how to restore power after an E-stop</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="stage-4a-bring-the-axes-up-without-commanding-motion">
+<h2>Stage 4A — Bring the axes up without commanding motion<a class="headerlink" href="#stage-4a-bring-the-axes-up-without-commanding-motion" title="Link to this heading">#</a></h2>
+<p>Start only the general nodes. This path uses no planner, no MoveIt, and no
+Servo, so nothing can generate a trajectory while you are still checking
+feedback.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>--preserve-env<span class="o">=</span>PATH<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--preserve-env<span class="o">=</span>AMENT_PREFIX_PATH<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--preserve-env<span class="o">=</span>COLCON_PREFIX_PATH<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--preserve-env<span class="o">=</span>PYTHONPATH<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--preserve-env<span class="o">=</span>LD_LIBRARY_PATH<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--preserve-env<span class="o">=</span>ROS_DISTRO<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--preserve-env<span class="o">=</span>ROS_VERSION<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--preserve-env<span class="o">=</span>ROS_PYTHON_VERSION<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--preserve-env<span class="o">=</span>ROS_DOMAIN_ID<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--preserve-env<span class="o">=</span>RMW_IMPLEMENTATION<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>bash<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;source /opt/ros/</span><span class="si">${</span><span class="nv">ROS_DISTRO</span><span class="si">}</span><span class="s2">/setup.bash &amp;&amp; source </span><span class="nv">$HOME</span><span class="s2">/workspaces/movensys_ws/install/setup.bash &amp;&amp; \</span>
+<span class="s2">  ros2 launch wmx_r2_package wmx_r2_general_nodes.launch.py&quot;</span>
+</pre></div>
+</div>
+<p>Confirm the engine and the bus, then read back the parameters the engine
+actually holds:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/engine/get_status<span class="w"> </span>std_srvs/srv/Trigger<span class="w">      </span><span class="c1"># expect &quot;Communicating&quot;</span>
+ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/ecat/get_network_state<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span>wmx_r2_message/srv/EcatGetNetworkState<span class="w">                        </span><span class="c1"># expect every drive present</span>
+ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/params/get<span class="w"> </span>wmx_r2_message/srv/GetWmxParams<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span><span class="s2">&quot;{index: [0,1,2,3,4,5]}&quot;</span><span class="w">                                      </span><span class="c1"># gear ratio, polarity, mode</span>
+</pre></div>
+</div>
+<p><strong>Checkpoint.</strong> The gear ratio, polarity, and command mode in the response
+must match the table you built in <a class="reference internal" href="robot_parameters.html"><span class="doc">Robot Parameter Configuration and Validation</span></a>. Stop here if they
+do not.</p>
+<p>Now watch the feedback with the servos still off and move each joint <strong>by
+hand</strong> where the mechanics allow it:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/wmx/axis/state
+</pre></div>
+</div>
+<div class="pst-scrollable-table-container"><table class="table" id="id1">
+<caption><span class="caption-text">What to confirm before enabling a servo</span><a class="headerlink" href="#id1" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 34.0%" />
+<col style="width: 66.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Check</p></th>
+<th class="head"><p>Expected</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">amp_alarm</span></code></p></td>
+<td><p>all <code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">actual_pos</span></code></p></td>
+<td><p>plausible values, and stable when nothing is moving</p></td>
+</tr>
+<tr class="row-even"><td><p>Joint numbering</p></td>
+<td><p>moving physical joint <em>N</em> by hand changes <code class="docutils literal notranslate"><span class="pre">actual_pos[N-1]</span></code> and no
+other entry</p></td>
+</tr>
+<tr class="row-odd"><td><p>Direction</p></td>
+<td><p>moving a joint in the URDF’s positive direction increases
+<code class="docutils literal notranslate"><span class="pre">actual_pos</span></code> for that axis</p></td>
+</tr>
+<tr class="row-even"><td><p>Magnitude</p></td>
+<td><p>a hand-moved 90° rotation changes <code class="docutils literal notranslate"><span class="pre">actual_pos</span></code> by ≈ 1.571; a value
+that is off by a large factor means the gear ratio is wrong</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This hand-check catches swapped axes, inverted polarity, and wrong gear
+ratios <strong>before any motor is energized</strong>. It is the highest-value step in
+the whole procedure. On a robot whose joints cannot be back-driven, defer
+these three checks to stage 4B and use the smallest steps in the table.</p>
+</div>
+</section>
+<section id="stage-4b-one-axis-low-speed-small-step">
+<h2>Stage 4B — One axis, low speed, small step<a class="headerlink" href="#stage-4b-one-axis-low-speed-small-step" title="Link to this heading">#</a></h2>
+<p>Enable <strong>one</strong> axis only. Leave every other axis off.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axis/clear_alarm<span class="w"> </span>wmx_r2_message/srv/SetAxis<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span><span class="s2">&quot;{index: [0], data: [0]}&quot;</span>
+ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axis/set_on<span class="w"> </span>wmx_r2_message/srv/SetAxis<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span><span class="s2">&quot;{index: [0], data: [1]}&quot;</span>
+</pre></div>
+</div>
+<p>Command a small relative move. The units are radians, and the velocity and
+acceleration are rad/s and rad/s² (this holds only because
+<code class="docutils literal notranslate"><span class="pre">AxisGearRatioDenominator</span></code> is 2π — see <a class="reference internal" href="robot_parameters.html"><span class="doc">Robot Parameter Configuration and Validation</span></a>):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># +0.05 rad (≈2.9°) at 0.05 rad/s with gentle ramps</span>
+ros2<span class="w"> </span>topic<span class="w"> </span>pub<span class="w"> </span>--once<span class="w"> </span>/wmx/axis/position/relative<span class="w"> </span>wmx_r2_message/msg/AxisPose<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s2">&quot;{index: [0], target: [0.05], velocity: [0.05], acc: [0.1], dec: [0.1]}&quot;</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The examples in <a class="reference internal" href="../api_reference/ros2_topics.html"><span class="doc">ROS2 Topics</span></a> use values such as
+<code class="docutils literal notranslate"><span class="pre">velocity:</span> <span class="pre">[5.0]</span></code> to illustrate the message format. Those are <strong>not</strong>
+commissioning values. For a first move use velocity ≤ 0.05 rad/s and
+acceleration ≤ 0.1 rad/s², and increase only after each check below
+passes.</p>
+</div>
+<p>Work through this sequence for the axis, repeating each step in both
+directions:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 6.0%" />
+<col style="width: 26.0%" />
+<col style="width: 68.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>#</p></th>
+<th class="head"><p>Check</p></th>
+<th class="head"><p>How</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p><strong>Joint numbering</strong></p></td>
+<td><p>Command <code class="docutils literal notranslate"><span class="pre">index:</span> <span class="pre">[0]</span></code>. Confirm that the joint you mapped to axis 0
+moves and that nothing else does. Repeat for every axis before
+continuing.</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p><strong>Direction</strong></p></td>
+<td><p>Command <code class="docutils literal notranslate"><span class="pre">target:</span> <span class="pre">[+0.05]</span></code>. The joint must rotate in the direction
+the URDF calls positive, and RViz must move the same way as the
+physical robot. If it is reversed, correct <code class="docutils literal notranslate"><span class="pre">AxisPolarity</span></code> — do not
+compensate for it elsewhere.</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p><strong>Travel distance</strong></p></td>
+<td><p>Command <code class="docutils literal notranslate"><span class="pre">target:</span> <span class="pre">[+0.5]</span></code> (≈28.6°) and measure the physical rotation
+with an inclinometer or a marked reference. A discrepancy is a gear
+ratio or encoder-resolution error. Do not scale it away in the URDF.</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p><strong>Home position</strong></p></td>
+<td><p>Move the joint to a known mechanical reference (a machined face, a
+scribed mark, a mechanical stop approached slowly). Compare
+<code class="docutils literal notranslate"><span class="pre">actual_pos</span></code> against the value the URDF zero implies. A constant
+offset on all moves is an <code class="docutils literal notranslate"><span class="pre">AbsoluteEncoderHomeOffset</span></code> error.</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p><strong>Feedback agreement</strong></p></td>
+<td><p>With the axis stationary, <code class="docutils literal notranslate"><span class="pre">pos_cmd</span></code> and <code class="docutils literal notranslate"><span class="pre">actual_pos</span></code> must agree to
+within the in-position window. A growing gap during motion is a
+following error — stop and investigate before increasing speed.</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p><strong>Range of travel</strong></p></td>
+<td><p>Approach each end of the intended travel in small steps at low speed,
+confirming the mechanical range matches the URDF limits. Remember that
+WMX soft limits are <strong>disabled</strong> in the shipped parameter files.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Disable the axis before moving to the next one:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axis/set_on<span class="w"> </span>wmx_r2_message/srv/SetAxis<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span><span class="s2">&quot;{index: [0], data: [0]}&quot;</span>
+</pre></div>
+</div>
+<p><strong>Checkpoint.</strong> Do not proceed to multi-axis motion until every axis has
+passed checks 1–6 individually.</p>
+</section>
+<section id="stage-5-multi-axis-motion">
+<h2>Stage 5 — Multi-axis motion<a class="headerlink" href="#stage-5-multi-axis-motion" title="Link to this heading">#</a></h2>
+<p>Only after every axis has passed individually:</p>
+<ol class="arabic simple">
+<li><p>Enable all axes and command each one in turn from a single node, still at
+commissioning speeds, confirming no cross-talk.</p></li>
+<li><p>Bring up the planner (<code class="docutils literal notranslate"><span class="pre">moveit.launch.py</span></code>) and plan — but do not execute —
+a short motion. Confirm in RViz that the planned path matches the physical
+robot’s current pose.</p></li>
+<li><p>Execute one short, slow, coordinated motion well inside the workspace, with
+a hand on the E-stop.</p></li>
+<li><p>Increase speed toward the configured limits in steps, re-checking following
+error at each step.</p></li>
+</ol>
+</section>
+<section id="stage-6-trajectory-execution">
+<h2>Stage 6 — Trajectory execution<a class="headerlink" href="#stage-6-trajectory-execution" title="Link to this heading">#</a></h2>
+<p>Run the trajectory examples in <a class="reference internal" href="../examples/trajectory_planning.html"><span class="doc">Trajectory Planning</span></a>, keeping
+MoveIt’s velocity and acceleration scaling low for the first runs and raising
+it once tracking is confirmed.</p>
+</section>
+<section id="keyboard-jogging-speeds-steps-and-stopping-behavior">
+<span id="keyboard-jogging-behavior"></span><h2>Keyboard jogging — speeds, steps, and stopping behavior<a class="headerlink" href="#keyboard-jogging-speeds-steps-and-stopping-behavior" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">keyboard_teleop</span></code> is a convenience tool for driving MoveIt Servo. It is
+<strong>not</strong> a commissioning tool: it needs the whole planner stack up, it moves the
+end effector rather than one axis, and its speeds are set in <code class="docutils literal notranslate"><span class="pre">servo.yaml</span></code>
+rather than per command. Use the <code class="docutils literal notranslate"><span class="pre">/wmx/axis/position/relative</span></code> procedure
+above for stages 4A and 4B, and keyboard jogging afterwards.</p>
+<p>The key mappings are in <a class="reference internal" href="../examples/trajectory_planning.html#keyboard-jogging"><span class="std std-ref">Keyboard Jogging</span></a>. The quantities that matter
+for safety are below, as configured for the CR3A in
+<code class="docutils literal notranslate"><span class="pre">movensys_manipulator_moveit_config/config/dobot_cr3a/servo.yaml</span></code>.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id2">
+<caption><span class="caption-text">Jog speeds and steps</span><a class="headerlink" href="#id2" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 24.0%" />
+<col style="width: 20.0%" />
+<col style="width: 56.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Mode</p></th>
+<th class="head"><p>Configured value</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>JOINT (<code class="docutils literal notranslate"><span class="pre">1</span></code>…<code class="docutils literal notranslate"><span class="pre">6</span></code>)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">scale.joint</span></code> = 0.5 rad/s</p></td>
+<td><p>One keypress requests full-scale jog velocity for that joint until the
+command times out.</p></td>
+</tr>
+<tr class="row-odd"><td><p>TWIST — linear</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">scale.linear</span></code> = 0.4 m/s</p></td>
+<td><p>Maximum commanded end-effector linear speed.</p></td>
+</tr>
+<tr class="row-even"><td><p>TWIST — angular</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">scale.rotational</span></code> = 0.8 rad/s</p></td>
+<td><p>Maximum commanded end-effector angular speed.</p></td>
+</tr>
+<tr class="row-odd"><td><p>POSE</p></td>
+<td><p>0.01 m per keypress</p></td>
+<td><p>Each keypress shifts an <strong>absolute</strong> target by 10 mm. The target is
+then streamed continuously at ~50 Hz, so the arm drives to it and holds
+it.</p></td>
+</tr>
+<tr class="row-even"><td><p>Command rate</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">publish_period</span></code> = 0.025 s</p></td>
+<td><p>Servo emits a command roughly every 25 ms (~40 Hz).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table" id="id3">
+<caption><span class="caption-text">Stopping behavior</span><a class="headerlink" href="#id3" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Mechanism</p></th>
+<th class="head"><p>Behavior</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Command timeout</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">incoming_command_timeout</span></code> = 0.1 s. In JOINT and TWIST mode a
+keypress sends a single command, so motion stops ~0.1 s after the last
+keypress. Servo then publishes
+<code class="docutils literal notranslate"><span class="pre">num_outgoing_halt_msgs_to_publish</span></code> = 4 halt messages.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Per-keypress travel</p></td>
+<td><p>JOINT mode: roughly 0.5 rad/s for ~0.1 s, i.e. on the order of
+0.05 rad (≈3°) per keypress, reduced by the smoothing filter. <strong>Measure
+it on your robot</strong> rather than relying on this estimate.</p></td>
+</tr>
+<tr class="row-even"><td><p>POSE mode</p></td>
+<td><p>Does <strong>not</strong> time out. <code class="docutils literal notranslate"><span class="pre">keyboard_teleop</span></code> re-publishes the target
+every 20 ms, so the arm keeps driving to the accumulated target and
+holds position there until you move the target or stop the node.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Joint-limit margin</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">joint_limit_margins</span></code> = 0.1 rad. Servo slows as a joint approaches
+its URDF limit.</p></td>
+</tr>
+<tr class="row-even"><td><p>Singularity</p></td>
+<td><p>Servo scales velocity down above condition number 17 and stops above
+30.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Collision</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">check_collisions</span></code> is enabled at 10 Hz against the monitored planning
+scene. It protects against modelled geometry only.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">q</span></code></p></td>
+<td><p>Restores the terminal and shuts the <code class="docutils literal notranslate"><span class="pre">keyboard_teleop</span></code> node down.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Ctrl+C</span></code></p></td>
+<td><p>Same handler as <code class="docutils literal notranslate"><span class="pre">q</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p><strong>``q`` and ``Ctrl+C`` are not emergency stops.</strong></p>
+<p>Both do exactly one thing: they terminate the <code class="docutils literal notranslate"><span class="pre">keyboard_teleop</span></code> process.
+Motion then stops only as a side effect — Servo stops receiving commands
+and halts after its 0.1 s timeout.</p>
+<p>Neither one:</p>
+<ul class="simple">
+<li><p>removes power from the motors — the servos stay enabled and holding,</p></li>
+<li><p>engages the mechanical brakes,</p></li>
+<li><p>triggers STO or any drive-level safe stop,</p></li>
+<li><p>stops the WMX engine or EtherCAT communication,</p></li>
+<li><p>has any redundancy, monitoring, or guaranteed stopping time,</p></li>
+<li><p>affects anything else that is commanding the robot. A <code class="docutils literal notranslate"><span class="pre">move_group</span></code>
+trajectory already in flight continues to completion.</p></li>
+</ul>
+<p>They depend on the operating system scheduling a process, on ROS 2
+middleware delivery, and on the correct behavior of the software you are in
+the middle of commissioning. An emergency stop must be a hardwired circuit
+that removes drive power independently of all of it. See <a class="reference internal" href="safety.html"><span class="doc">Safety Functions and Responsibility</span></a>.</p>
+</div>
+<p>To stop motion deliberately from ROS 2, disable the servos — which is a
+controlled stop, still not an emergency stop:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axis/set_on<span class="w"> </span>wmx_r2_message/srv/SetAxis<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span><span class="s2">&quot;{index: [0,1,2,3,4,5], data: [0,0,0,0,0,0]}&quot;</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>Known limitation — ``keyboard_teleop`` forces simulated time.</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">keyboard_teleop</span></code> sets <code class="docutils literal notranslate"><span class="pre">use_sim_time</span></code> to <code class="docutils literal notranslate"><span class="pre">true</span></code> unconditionally in
+its node options; there is no launch argument to turn it off. On a physical
+robot run without a <code class="docutils literal notranslate"><span class="pre">/clock</span></code> publisher, the node’s clock does not advance,
+so the timestamps on its jog messages are not real time. Confirm the arm
+responds as expected in HIL before relying on keyboard jogging on hardware,
+and prefer the <code class="docutils literal notranslate"><span class="pre">/wmx/axis/position/relative</span></code> procedure above for
+commissioning.</p>
+</div>
+</section>
+<section id="record-what-you-verified">
+<h2>Record what you verified<a class="headerlink" href="#record-what-you-verified" title="Link to this heading">#</a></h2>
+<p>Commissioning results are per robot, not per model. Two units of the same
+model can differ in encoder zero, motor orientation, and mechanical range.
+Record, for each axis: the ROS 2 joint name, the WMX axis index, the EtherCAT
+position, the gear ratio numerator, the polarity, the measured travel for a
+known command, the home offset, and the measured mechanical range. Keep it
+with the parameter file — it is what makes the next commissioning, or the next
+service visit, a check rather than a rediscovery.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="robot_parameters.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Robot Parameter Configuration and Validation</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="safety.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Safety Functions and Responsibility</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preconditions">Preconditions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stage-4a-bring-the-axes-up-without-commanding-motion">Stage 4A — Bring the axes up without commanding motion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stage-4b-one-axis-low-speed-small-step">Stage 4B — One axis, low speed, small step</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stage-5-multi-axis-motion">Stage 5 — Multi-axis motion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stage-6-trajectory-execution">Stage 6 — Trajectory execution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#keyboard-jogging-speeds-steps-and-stopping-behavior">Keyboard jogging — speeds, steps, and stopping behavior</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#record-what-you-verified">Record what you verified</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5"></script>
+
+<footer class="bd-footer">
+<div class="movensys-footer">
+  <div class="movensys-footer__logo">
+    <a href="https://www.movensys.com" target="_blank" rel="noopener">
+      <img src="../_static/movensys_wordmark.png" alt="Movensys" />
+    </a>
+  </div>
+  <div class="movensys-footer__info">
+    <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
+    
+      <p>Last updated: Aug 03, 2026</p>
+    
+  </div>
+  <div class="movensys-footer__links">
+    <a href="https://www.movensys.com" target="_blank" rel="noopener">MOVENSYS.com</a>
+    <a href="https://www.movensys.com/privacy" target="_blank" rel="noopener">Privacy Policy</a>
+  </div>
+</div>
+</footer>
+  </body>
+</html>

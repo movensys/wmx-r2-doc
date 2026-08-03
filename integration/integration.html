@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Integration Scenarios &#8212; WMX ROS2 Documentation 1.0.0 documentation</title>
+    <title>Integration Scenarios &#8212; WMX R2 Documentation 1.0.0 documentation</title>
   
   
   
@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=c5bec18d" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=cd36b759" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
@@ -49,177 +49,13 @@
 
 
 
-
-
 const initStyles = () => {
     const defaultStyle = document.createElement('style');
-    defaultStyle.textContent = `pre.mermaid {
-    /* Same as .mermaid-container > pre */
-    display: block;
-    width: 100%;
-}
-
-pre.mermaid > svg {
-    /* Same as .mermaid-container > pre > svg */
-    height: 500px;
-    width: 100%;
-    max-width: 100% !important;
-}`;
+    defaultStyle.textContent = "pre.mermaid {\n    /* Same as .mermaid-container > pre */\n    display: block;\n    width: 100%;\n}\n\npre.mermaid > svg {\n    /* Same as .mermaid-container > pre > svg */\n    height: 500px;\n    width: 100%;\n    max-width: 100% !important;\n}";
     document.head.appendChild(defaultStyle);
 
     const fullscreenStyle = document.createElement('style');
-    fullscreenStyle.textContent = `.mermaid-container {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-}
-
-.mermaid-container > pre {
-    display: block;
-    width: 100%;
-}
-
-.mermaid-container > pre > svg {
-    height: 500px;
-    width: 100%;
-    max-width: 100% !important;
-}
-
-.mermaid-fullscreen-btn {
-    width: 28px;
-    height: 28px;
-    background: rgba(255, 255, 255, 0.95);
-    border: 1px solid rgba(0, 0, 0, 0.3);
-    border-radius: 4px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-    font-size: 14px;
-    line-height: 1;
-    padding: 0;
-    color: #333;
-}
-
-.mermaid-fullscreen-btn:hover {
-    opacity: 100% !important;
-    background: rgba(255, 255, 255, 1);
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-    transform: scale(1.1);
-}
-
-.mermaid-fullscreen-btn.dark-theme {
-    background: rgba(50, 50, 50, 0.95);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    color: #e0e0e0;
-}
-
-.mermaid-fullscreen-btn.dark-theme:hover {
-    background: rgba(60, 60, 60, 1);
-    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.2);
-}
-
-.mermaid-fullscreen-modal {
-    display: none;
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 95vw;
-    height: 100vh;
-    background: rgba(255, 255, 255, 0.98);
-    z-index: 9999;
-    padding: 20px;
-    overflow: auto;
-}
-
-.mermaid-fullscreen-modal.dark-theme {
-    background: rgba(0, 0, 0, 0.98);
-}
-
-.mermaid-fullscreen-modal.active {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.mermaid-container-fullscreen {
-    position: relative;
-    width: 95vw;
-    height: 90vh;
-    max-width: 95vw;
-    max-height: 90vh;
-    background: white;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-    overflow: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.mermaid-container-fullscreen.dark-theme {
-    background: #1a1a1a;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
-}
-
-.mermaid-container-fullscreen pre.mermaid {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.mermaid-container-fullscreen .mermaid svg {
-    height: 100% !important;
-    width: 100% !important;
-    cursor: grab;
-}
-
-.mermaid-fullscreen-close {
-    position: fixed !important;
-    top: 20px !important;
-    right: 20px !important;
-    width: 40px;
-    height: 40px;
-    background: rgba(255, 255, 255, 0.95);
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 50%;
-    cursor: pointer;
-    z-index: 10000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    transition: all 0.2s;
-    font-size: 24px;
-    line-height: 1;
-    color: #333;
-}
-
-.mermaid-fullscreen-close:hover {
-    background: white;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
-    transform: scale(1.1);
-}
-
-.mermaid-fullscreen-close.dark-theme {
-    background: rgba(50, 50, 50, 0.95);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: #e0e0e0;
-}
-
-.mermaid-fullscreen-close.dark-theme:hover {
-    background: rgba(60, 60, 60, 1);
-    box-shadow: 0 6px 16px rgba(255, 255, 255, 0.2);
-}
-
-.mermaid-fullscreen-modal .mermaid-fullscreen-btn {
-    display: none !important;
-}`;
+    fullscreenStyle.textContent = ".mermaid-container {\n    position: relative;\n    display: flex;\n    flex-direction: row;\n    width: 100%;\n}\n\n.mermaid-container > pre {\n    display: block;\n    width: 100%;\n}\n\n.mermaid-container > pre > svg {\n    height: 500px;\n    width: 100%;\n    max-width: 100% !important;\n}\n\n.mermaid-fullscreen-btn {\n    position: absolute;\n    width: 28px;\n    height: 28px;\n    background: rgba(255, 255, 255, 0.95);\n    border: 1px solid rgba(0, 0, 0, 0.3);\n    border-radius: 4px;\n    cursor: pointer;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    transition: all 0.2s;\n    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);\n    font-size: 14px;\n    line-height: 1;\n    padding: 0;\n    color: #333;\n}\n\n.mermaid-fullscreen-btn:hover {\n    opacity: 100% !important;\n    background: rgba(255, 255, 255, 1);\n    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);\n    transform: scale(1.1);\n}\n\n.mermaid-fullscreen-btn.dark-theme {\n    background: rgba(50, 50, 50, 0.95);\n    border: 1px solid rgba(255, 255, 255, 0.3);\n    color: #e0e0e0;\n}\n\n.mermaid-fullscreen-btn.dark-theme:hover {\n    background: rgba(60, 60, 60, 1);\n    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.2);\n}\n\n.mermaid-fullscreen-modal {\n    display: none;\n    position: fixed !important;\n    top: 0 !important;\n    left: 0 !important;\n    width: 95vw;\n    height: 100vh;\n    background: rgba(255, 255, 255, 0.98);\n    z-index: 9999;\n    padding: 20px;\n    overflow: auto;\n}\n\n.mermaid-fullscreen-modal.dark-theme {\n    background: rgba(0, 0, 0, 0.98);\n}\n\n.mermaid-fullscreen-modal.active {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.mermaid-container-fullscreen {\n    position: relative;\n    width: 95vw;\n    height: 90vh;\n    max-width: 95vw;\n    max-height: 90vh;\n    background: white;\n    border-radius: 8px;\n    padding: 20px;\n    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);\n    overflow: auto;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.mermaid-container-fullscreen.dark-theme {\n    background: #1a1a1a;\n    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);\n}\n\n.mermaid-container-fullscreen pre.mermaid {\n    width: 100%;\n    height: 100%;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.mermaid-container-fullscreen .mermaid svg {\n    height: 100% !important;\n    width: 100% !important;\n    cursor: grab;\n}\n\n.mermaid-fullscreen-close {\n    position: fixed !important;\n    top: 20px !important;\n    right: 20px !important;\n    width: 40px;\n    height: 40px;\n    background: rgba(255, 255, 255, 0.95);\n    border: 1px solid rgba(0, 0, 0, 0.2);\n    border-radius: 50%;\n    cursor: pointer;\n    z-index: 10000;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);\n    transition: all 0.2s;\n    font-size: 24px;\n    line-height: 1;\n    color: #333;\n}\n\n.mermaid-fullscreen-close:hover {\n    background: white;\n    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);\n    transform: scale(1.1);\n}\n\n.mermaid-fullscreen-close.dark-theme {\n    background: rgba(50, 50, 50, 0.95);\n    border: 1px solid rgba(255, 255, 255, 0.2);\n    color: #e0e0e0;\n}\n\n.mermaid-fullscreen-close.dark-theme:hover {\n    background: rgba(60, 60, 60, 1);\n    box-shadow: 0 6px 16px rgba(255, 255, 255, 0.2);\n}\n\n.mermaid-fullscreen-modal .mermaid-fullscreen-btn {\n    display: none !important;\n}";
     document.head.appendChild(fullscreenStyle);
 }
 
@@ -266,6 +102,13 @@ let modalContent = null;
 let previousScrollOffset = [window.scrollX, window.scrollY];
 let _lazyObserver = null;
 let _renderQueue = Promise.resolve();
+let closeModal = () => {};
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal?.classList.contains('active')) {
+        closeModal();
+    }
+});
 
 // Apply d3 zoom to each SVG. Idempotent: an SVG already wrapped is skipped,
 // so this is safe to call both for the initial batch and for diagrams that
@@ -362,8 +205,10 @@ const runMermaid = async (rerun) => {
                                     el.removeAttribute('data-mermaid-deferred');
                                     // Apply zoom to the now-rendered diagram, matching
                                     // the decoration visible diagrams receive.
-                                    if ("False" === "True") {
-                                        addZoomToSvgs(d3.selectAll(""));
+                                    if (true) {
+                                        addZoomToSvgs(d3.selectAll(".mermaid[data-zoom-id=id-fdd3edee-6323-4dfb-95e9-15abcab10305]").select(function() {
+                                            return this.querySelector("svg");
+                                        }));
                                     }
                                 } catch (e) {
                                     console.error("Mermaid deferred rendering failed:", e);
@@ -384,10 +229,12 @@ const runMermaid = async (rerun) => {
     const mermaids_active = document.querySelectorAll(".mermaid:not([data-mermaid-deferred]):not([data-mermaid-render-failed])");
     const mermaids_processed = document.querySelectorAll(".mermaid:not([data-mermaid-deferred]):not([data-mermaid-render-failed])[data-processed='true']");
 
-    if ("False" === "True") {
-        const mermaids_to_add_zoom = -1 === -1 ? mermaids_active.length : -1;
+    if (true) {
+        const mermaids_to_add_zoom = 1 === -1 ? mermaids_active.length : 1;
         if(mermaids_to_add_zoom > 0) {
-            var svgs = d3.selectAll("");
+            var svgs = d3.selectAll(".mermaid[data-zoom-id=id-fdd3edee-6323-4dfb-95e9-15abcab10305]").select(function() {
+                return this.querySelector("svg");
+            });
             // Wait until every active (visible) diagram has rendered. Deferred
             // diagrams are excluded, so a fixed d3_node_count that counts a
             // hidden diagram no longer loops forever waiting for its SVG.
@@ -404,7 +251,7 @@ const runMermaid = async (rerun) => {
     }
 
     // Stop here if not adding fullscreen capability
-    if ("True" !== "True") return;
+    if (!true) return;
 
     if (modal !== null ) {
         // Destroy existing modal
@@ -427,7 +274,7 @@ const runMermaid = async (rerun) => {
     modalContent = modal.querySelector('.mermaid-container-fullscreen');
     const closeBtn = modal.querySelector('.mermaid-fullscreen-close');
 
-    const closeModal = () => {
+    closeModal = () => {
         modal.classList.remove('active');
         modalContent.innerHTML = '';
         document.body.style.overflow = ''
@@ -438,12 +285,6 @@ const runMermaid = async (rerun) => {
     modal.addEventListener('click', (e) => {
         if (e.target === modal) closeModal();
     });
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal.classList.contains('active')) {
-            closeModal();
-        }
-    });
-
     document.querySelectorAll('.mermaid').forEach((mermaidDiv) => {
         if (mermaidDiv.parentNode.classList.contains('mermaid-container') ||
             mermaidDiv.closest('.mermaid-fullscreen-modal')) {
@@ -463,8 +304,8 @@ const runMermaid = async (rerun) => {
         const fullscreenBtn = document.createElement('button');
         fullscreenBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
         fullscreenBtn.setAttribute('aria-label', 'View diagram in fullscreen');
-        fullscreenBtn.textContent = '⛶';
-        fullscreenBtn.style.opacity = '50%';
+        fullscreenBtn.textContent = "\u26f6";
+        fullscreenBtn.style.opacity = "50%";
 
         // Calculate dynamic position based on diagram's margin and padding
         const diagramStyle = window.getComputedStyle(mermaidDiv);
@@ -476,7 +317,7 @@ const runMermaid = async (rerun) => {
         fullscreenBtn.style.right = `${marginRight + paddingRight + 4}px`;
 
         fullscreenBtn.addEventListener('click', () => {
-            previousScrollOffset = [window.scroll, window.scrollY];
+            previousScrollOffset = [window.scrollX, window.scrollY];
             const clone = mermaidDiv.cloneNode(true);
             modalContent.innerHTML = '';
             modalContent.appendChild(clone);
@@ -488,9 +329,9 @@ const runMermaid = async (rerun) => {
                 svg.style.width = '100%';
                 svg.style.height = 'auto';
                 svg.style.maxWidth = '100%';
-                svg.style.sdisplay = 'block';
+                svg.style.display = 'block';
 
-                if ("False" === "True") {
+                if (true) {
                     setTimeout(() => {
                         const g = svg.querySelector('g');
                         if (g) {
@@ -513,8 +354,11 @@ const runMermaid = async (rerun) => {
     });
 };
 
+
+
 const load = async () => {
     initStyles();
+
 
     await runMermaid(true);
 
@@ -524,10 +368,8 @@ const load = async () => {
             darkTheme = newDarkTheme;
             console.log("Theme change detected, re-running mermaid with", darkTheme ? "dark" : "default", "theme");
             await mermaid.initialize(
-                {...JSON.parse(
-                    `{"startOnLoad": false}`
-                ),
-                ...{ darkMode: darkTheme, theme: darkTheme ? 'dark' : 'default' },
+                {...{"startOnLoad": false, "flowchart": {"useMaxWidth": false}, "sequence": {"useMaxWidth": false}},
+                ...{ darkMode: darkTheme, theme: darkTheme ? "dark" : "default" },
                 }
             );
             await runMermaid(true);
@@ -552,10 +394,8 @@ const load = async () => {
 
 console.log("Initializing mermaid with", darkTheme ? "dark" : "default", "theme");
 mermaid.initialize(
-    {...JSON.parse(
-        `{"startOnLoad": false}`
-    ),
-    ...{ darkMode: darkTheme, theme: darkTheme ? 'dark' : 'default' },
+    {...{"startOnLoad": false, "flowchart": {"useMaxWidth": false}, "sequence": {"useMaxWidth": false}},
+    ...{ darkMode: darkTheme, theme: darkTheme ? "dark" : "default" },
     }
 );
 
@@ -568,11 +408,11 @@ window.runMermaid = runMermaid;</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="MoveIt2 Motion Planning" href="moveit2_integration.html" />
-    <link rel="prev" title="Robopoly Game Guide" href="../examples/robopoly_detailed_guide.html" />
+    <link rel="prev" title="Autonomous Navigation" href="../examples/autonomous_navigation.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Jul 15, 2026"/>
+    <meta name="docbuild:last-update" content="Aug 03, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -646,7 +486,7 @@ window.runMermaid = runMermaid;</script>
     <img src="../_static/movensys_logo.png" class="logo__image only-dark pst-js-only" alt=""/>
   
   
-    <p class="title logo__title">WMX ROS2 Documentation</p>
+    <p class="title logo__title">WMX R2 Documentation</p>
   
 </a></div>
     
@@ -685,7 +525,7 @@ window.runMermaid = runMermaid;</script>
           
           
           
-          <a href="https://github.com/movensys/wmx-ros2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+          <a href="https://github.com/movensys/wmx-r2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
 </ul></div>
       
@@ -744,7 +584,7 @@ window.runMermaid = runMermaid;</script>
           
           
           
-          <a href="https://github.com/movensys/wmx-ros2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+          <a href="https://github.com/movensys/wmx-r2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
 </ul></div>
         
@@ -761,22 +601,28 @@ window.runMermaid = runMermaid;</script>
   <div class="bd-toc-item navbar-nav">
     <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started/system_requirements.html">System Requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../getting_started/computer_setup.html">Computer Setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx3.html">Install WMX ROS2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started/testing_wmx_ros2.html">Testing WMX ROS2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx_runtime.html">Install WMX Runtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx3.html">Install WMX R2 Package</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/examples.html">Example Applications</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../examples/isaacsim_setup.html">NVIDIA Isaac Setup (Optional)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../examples/trajectory_planning.html">Trajectory Planning</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../examples/apriltag_pick_and_place.html">AprilTag Pick-and-Place</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../examples/obstacle_avoidance.html">Nvblox Obstacle Avoidance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../examples/yolo_pick_and_place.html">YOLO Pick-and-Place</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../examples/apriltag_obstacle_avoidance.html">AprilTag + Obstacle Avoidance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../examples/robopoly_game.html">Robopoly Game (VLM / LLM)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../examples/robopoly_detailed_guide.html">Robopoly Game Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/isaacsim_setup.html">NVIDIA Isaac ROS Setup (Optional)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator.html">movensys-manipulator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/trajectory_planning.html">Trajectory Planning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/apriltag_pick_and_place.html">AprilTag Pick-and-Place</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/obstacle_avoidance.html">Nvblox Obstacle Avoidance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/yolo_pick_and_place.html">YOLO Pick-and-Place</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/apriltag_obstacle_avoidance.html">AprilTag + Obstacle Avoidance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/robopoly_game.html">Robopoly Game (VLM / LLM)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/movensys_navigation.html">movensys-navigation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples/movensys_navigation_setup.html">movensys-navigation Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/manual_driving.html">Manual Driving</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/slam_mapping.html">SLAM Mapping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/autonomous_navigation.html">Autonomous Navigation</a></li>
 </ul>
 </li>
 </ul>
@@ -784,24 +630,33 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Integration Scenarios</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="moveit2_integration.html">MoveIt2 Motion Planning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cumotion_integration.html">Isaac cuMotion Accelerated Planning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nav2_integration.html">Nav2 Navigation (Mobile Base)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="custom_planner.html">Custom Planner Integration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="custom_application.html">Building Custom Applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="intelligence_integration.html">Natural-Language and Vision Control (VLM / LLM)</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../commissioning/index.html">Commissioning</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../commissioning/robot_parameters.html">Robot Parameter Configuration and Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commissioning/first_motion.html">Commissioning and First Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commissioning/safety.html">Safety Functions and Responsibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commissioning/validated_hardware.html">Hardware Compatibility and Validation</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../api_reference/api_reference.html">API Reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/communication.html">Communication Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_ros2_message.html">wmx_ros2_message</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_ros2_package.html">wmx_ros2_package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_services.html">ROS2 Services</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_topics.html">ROS2 Topics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_actions.html">ROS2 Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_message.html">wmx_r2_message</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_package.html">wmx_r2_package</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../support.html">Support</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../troubleshooting/troubleshooting.html">Troubleshooting</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../licensing.html">Licensing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../about.html">About Us</a></li>
 </ul>
 
@@ -885,28 +740,34 @@ document.addEventListener("DOMContentLoaded", function() {
                   
   <section id="integration-scenarios">
 <h1>Integration Scenarios<a class="headerlink" href="#integration-scenarios" title="Link to this heading">#</a></h1>
-<p>WMX ROS2 supports multiple motion planning backends and can be extended with
-custom planners and applications.</p>
+<p>WMX R2 supports motion-planning backends for both robot arms (MoveIt2, Isaac
+cuMotion) and mobile bases (Nav2), and can be extended with custom planners and
+standalone applications.</p>
 <p class="rubric">Planning Backend Selection</p>
 <p>Use the decision tree below to find the right integration for your use case,
 then follow the corresponding guide.</p>
 <figure class="align-default" id="id1">
-<pre data-zoom-id="id-1f6cd20b-6d0c-47f6-ba2f-011e9250b2db" class="mermaid">
+<pre data-zoom-id="id-fdd3edee-6323-4dfb-95e9-15abcab10305" class="mermaid">
         %%{init: {&quot;theme&quot;: &quot;base&quot;, &quot;themeVariables&quot;: {&quot;primaryColor&quot;: &quot;#2563eb&quot;, &quot;primaryTextColor&quot;: &quot;#0f172a&quot;, &quot;primaryBorderColor&quot;: &quot;#1e40af&quot;, &quot;lineColor&quot;: &quot;#475569&quot;, &quot;fontSize&quot;: &quot;14px&quot;, &quot;edgeLabelBackground&quot;: &quot;#f1f5f9&quot;, &quot;tertiaryColor&quot;: &quot;#f1f5f9&quot;}}}%%
 flowchart TD
     START([&quot; What do I need? &quot;])
 
+    Q0{{&quot;Robot arm or&lt;br/&gt;mobile base?&quot;}}
     Q1{{&quot;NVIDIA GPU with&lt;br/&gt;CUDA available?&quot;}}
     Q2{{&quot;Need vision / 3D&lt;br/&gt;obstacle avoidance?&quot;}}
     Q3{{&quot;Custom planning&lt;br/&gt;algorithm?&quot;}}
     Q4{{&quot;Standalone&lt;br/&gt;ROS2 app?&quot;}}
 
+    R_NAV[&quot;**Nav2**&lt;br/&gt;&lt;br/&gt;Mobile base&lt;br/&gt;Path planning · AMCL&quot;]
     R_MV[&quot;**MoveIt2**&lt;br/&gt;&lt;br/&gt;OMPL · CHOMP · Pilz&lt;br/&gt;Any hardware&quot;]
     R_CU[&quot;**Isaac cuMotion**&lt;br/&gt;&lt;br/&gt;GPU-accelerated&lt;br/&gt;AprilTag · NvBlox&quot;]
     R_CP[&quot;**Custom Planner**&lt;br/&gt;&lt;br/&gt;Your own algorithm&lt;br/&gt;MoveIt2 plugin API&quot;]
     R_CA[&quot;**Custom App**&lt;br/&gt;&lt;br/&gt;WMX services direct&lt;br/&gt;No MoveIt2 needed&quot;]
 
-    START --&gt; Q1
+    START --&gt; Q0
+    Q0 --&gt;|&quot;Mobile base&quot;| R_NAV
+    Q0 --&gt;|&quot;Robot arm&quot;| Q1
+
     Q1 --&gt;|&quot;Yes&quot;| Q2
     Q1 --&gt;|&quot;No&quot;| Q3
 
@@ -925,23 +786,27 @@ flowchart TD
     classDef cumotion fill:#2563eb,stroke:#1d4ed8,stroke-width:2px,color:#fff
     classDef custom fill:#ea580c,stroke:#c2410c,stroke-width:2px,color:#fff
     classDef customapp fill:#7c3aed,stroke:#6d28d9,stroke-width:2px,color:#fff
+    classDef nav fill:#0d9488,stroke:#0f766e,stroke-width:2px,color:#fff
 
     class START startNode
-    class Q1,Q2,Q3,Q4 question
+    class Q0,Q1,Q2,Q3,Q4 question
+    class R_NAV nav
     class R_MV moveit
     class R_CU cumotion
     class R_CP custom
     class R_CA customapp
 
     linkStyle 0 stroke:#475569,stroke-width:2px
-    linkStyle 1 stroke:#16a34a,stroke-width:2px
-    linkStyle 2 stroke:#ef4444,stroke-width:2px
+    linkStyle 1 stroke:#0d9488,stroke-width:2px
+    linkStyle 2 stroke:#475569,stroke-width:2px
     linkStyle 3 stroke:#16a34a,stroke-width:2px
     linkStyle 4 stroke:#ef4444,stroke-width:2px
     linkStyle 5 stroke:#16a34a,stroke-width:2px
     linkStyle 6 stroke:#ef4444,stroke-width:2px
     linkStyle 7 stroke:#16a34a,stroke-width:2px
     linkStyle 8 stroke:#ef4444,stroke-width:2px
+    linkStyle 9 stroke:#16a34a,stroke-width:2px
+    linkStyle 10 stroke:#ef4444,stroke-width:2px
     </pre><figcaption>
 <p><span class="caption-text">Integration — which scenario fits your use case?</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
 </figcaption>
@@ -950,6 +815,8 @@ flowchart TD
 <ul class="simple">
 <li><p><strong>MoveIt2</strong> – Standard ROS2 motion planning via <code class="docutils literal notranslate"><span class="pre">FollowJointTrajectory</span></code></p></li>
 <li><p><strong>Isaac cuMotion</strong> – NVIDIA GPU-accelerated collision-aware planning</p></li>
+<li><p><strong>Nav2</strong> – ROS2 navigation for differential-drive mobile bases, executed on
+the wheels via <code class="docutils literal notranslate"><span class="pre">/cmd_vel_safe</span></code></p></li>
 <li><p><strong>Custom Planner</strong> – Integrate your own planning algorithm</p></li>
 <li><p><strong>Custom Application</strong> – Build standalone ROS2 apps using WMX services</p></li>
 <li><p><strong>Natural-Language and Vision Control</strong> – drive the robot with a VLM/LLM
@@ -977,6 +844,16 @@ through a FastAPI service (an application layer on top of MoveIt2)</p></li>
 <li class="toctree-l2"><a class="reference internal" href="cumotion_integration.html#see-also">See Also</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="nav2_integration.html">Nav2 Navigation (Mobile Base)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="nav2_integration.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nav2_integration.html#architecture">Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nav2_integration.html#execution-modes">Execution modes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nav2_integration.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nav2_integration.html#running-nav2">Running Nav2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nav2_integration.html#key-interfaces">Key Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nav2_integration.html#see-also">See Also</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="custom_planner.html">Custom Planner Integration</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="custom_planner.html#overview">Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="custom_planner.html#replacing-the-default-planner">Replacing the Default Planner</a></li>
@@ -997,13 +874,13 @@ through a FastAPI service (an application layer on top of MoveIt2)</p></li>
 <li class="toctree-l2"><a class="reference internal" href="custom_application.html#python-example-monitor-axis-state-and-control-gripper">Python Example: Monitor Axis State and Control Gripper</a></li>
 <li class="toctree-l2"><a class="reference internal" href="custom_application.html#using-with-moveit2-python-api">Using with MoveIt2 Python API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="custom_application.html#direct-axis-control">Direct Axis Control</a></li>
-<li class="toctree-l2"><a class="reference internal" href="custom_application.html#adapting-for-different-6-dof-robots">Adapting for Different 6-DOF Robots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_application.html#adapting-for-different-robots">Adapting for Different Robots</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="intelligence_integration.html">Natural-Language and Vision Control (VLM / LLM)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="intelligence_integration.html#architecture">Architecture</a></li>
 <li class="toctree-l2"><a class="reference internal" href="intelligence_integration.html#components">Components</a></li>
-<li class="toctree-l2"><a class="reference internal" href="intelligence_integration.html#connection-to-wmx-ros2">Connection to WMX ROS2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intelligence_integration.html#connection-to-wmx-r2">Connection to WMX R2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="intelligence_integration.html#api-surface">API Surface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="intelligence_integration.html#running-it">Running It</a></li>
 </ul>
@@ -1023,12 +900,12 @@ through a FastAPI service (an application layer on top of MoveIt2)</p></li>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../examples/robopoly_detailed_guide.html"
+       href="../examples/autonomous_navigation.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Robopoly Game Guide</p>
+        <p class="prev-next-title">Autonomous Navigation</p>
       </div>
     </a>
     <a class="right-next"
@@ -1071,7 +948,7 @@ through a FastAPI service (an application layer on top of MoveIt2)</p></li>
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Jul 15, 2026</p>
+      <p>Last updated: Aug 03, 2026</p>
     
   </div>
   <div class="movensys-footer__links">

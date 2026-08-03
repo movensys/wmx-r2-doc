@@ -2,11 +2,11 @@ Natural-Language and Vision Control (VLM / LLM)
 ===============================================
 
 `Movensys Intelligence <https://github.com/movensys/movensys-intelligence>`_
-is an application layer on top of WMX ROS2 that lets a robot be driven by
+is an application layer on top of WMX R2 that lets a robot be driven by
 natural language and vision. A vision-language model (VLM) and large language
 model (LLM) interpret camera images and spoken or typed instructions, then
 issue motion commands to the robot through a FastAPI service that bridges to
-the WMX ROS2 / MoveIt2 stack.
+the WMX R2 / MoveIt2 stack.
 
 Unlike the other entries in this section, this is **not** a motion-planning
 backend. It runs above a planning backend (MoveIt2) and calls the
@@ -17,6 +17,7 @@ Architecture
 
 .. mermaid::
    :caption: Movensys Intelligence — perception and language to motion
+   :zoom:
 
    flowchart LR
        USER["Voice / text<br/>instruction"]
@@ -25,7 +26,7 @@ Architecture
        MEM["Memory<br/>(Qdrant vector DB)"]
        API["FastAPI service<br/>Movensys Manipulator API"]
        BRIDGE["ROS2 bridge node"]
-       WMX["WMX ROS2 / MoveIt2"]
+       WMX["WMX R2 / MoveIt2"]
        ROBOT["Robot + cameras"]
        YOLO["YOLO detectors"]
 
@@ -42,7 +43,7 @@ The flow is: a spoken instruction is transcribed by **Whisper**, or text is
 sent directly. The **VLM/LLM** receives the instruction together with the
 latest camera images and any relevant context retrieved from the **memory**
 store, and produces a motion command. The **FastAPI** service forwards that
-command through its **ROS2 bridge** to the WMX ROS2 / MoveIt2 services, which
+command through its **ROS2 bridge** to the WMX R2 / MoveIt2 services, which
 execute the motion on the robot. Perception nodes (**YOLO** detectors) publish
 detected object poses back through the bridge.
 
@@ -72,12 +73,12 @@ Components
      - Tracing and observability for model calls (``PHOENIX_*`` settings)
    * - **ROS2 bridge** (``movensys_vlm/ros2_node.py``)
      - Subscribes to robot state, camera, and perception topics and calls the
-       WMX ROS2 / MoveIt2 motion services
+       WMX R2 / MoveIt2 motion services
 
-Connection to WMX ROS2
+Connection to WMX R2
 ----------------------
 
-The ROS2 bridge node talks to the WMX ROS2 / MoveIt2 stack through these
+The ROS2 bridge node talks to the WMX R2 / MoveIt2 stack through these
 interfaces:
 
 .. list-table::
@@ -150,7 +151,7 @@ accelerator with the ``XPU_CORE`` environment variable
    COMPOSE_PROFILES=$XPU_CORE docker compose -f vllm.yaml up -d --build
 
    # 2. Start the vector-DB memory
-   COMPOSE_PROFILES=$CPU_ARCH docker compose -f vectordb.yaml up -d --build
+   COMPOSE_PROFILES=$XPU_CORE docker compose -f vectordb.yaml up -d --build
 
    # 3. Start the FastAPI service (+ Whisper)
    COMPOSE_PROFILES=$XPU_CORE docker compose -f movensys_vlm.yaml up -d --build
@@ -166,13 +167,13 @@ sending requests. A pick-and-place example is included in the repository:
 
 .. note::
 
-   The Movensys Intelligence services connect to a running WMX ROS2 /
+   The Movensys Intelligence services connect to a running WMX R2 /
    MoveIt2 session. Bring up the robot (or simulation) first — see
    :doc:`moveit2_integration` and
-   :doc:`../getting_started/testing_wmx_ros2`.
+   :doc:`../getting_started/install_wmx3`.
 
 Supported accelerators include NVIDIA desktop GPUs and Jetson Thor
-(``nvidia-gpu``) and Intel B60 / Panther Lake (``intel-xpu``). See the
+(``nvidia-gpu``) and Intel B60 / Core Ultra Series 3 (``intel-xpu``). See the
 `Movensys Intelligence repository
 <https://github.com/movensys/movensys-intelligence>`_ for the full setup
 guide and the latest model configuration.

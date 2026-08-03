@@ -1,9 +1,9 @@
 ROS2 Services
 ==============
 
-The WMX ROS2 application provides services for engine management, axis
+The WMX R2 application provides services for engine management, axis
 control, parameter loading, I/O, EtherCAT diagnostics, and gripper operation.
-Services use custom types from ``wmx_ros2_message`` plus standard types from
+Services use custom types from ``wmx_r2_message`` plus standard types from
 ``std_srvs``.
 
 .. list-table:: Service Summary
@@ -15,7 +15,7 @@ Services use custom types from ``wmx_ros2_message`` plus standard types from
      - Node
      - Category
    * - ``/wmx/engine/set_device``
-     - ``wmx_ros2_message/srv/SetEngine``
+     - ``wmx_r2_message/srv/SetEngine``
      - ``wmx_engine_node``
      - Engine
    * - ``/wmx/engine/set_comm``
@@ -31,75 +31,75 @@ Services use custom types from ``wmx_ros2_message`` plus standard types from
      - ``wmx_engine_node``
      - Engine
    * - ``/wmx/axis/set_on``
-     - ``wmx_ros2_message/srv/SetAxis``
+     - ``wmx_r2_message/srv/SetAxis``
      - ``wmx_core_motion_node``
      - Axis Control
    * - ``/wmx/axis/clear_alarm``
-     - ``wmx_ros2_message/srv/SetAxis``
+     - ``wmx_r2_message/srv/SetAxis``
      - ``wmx_core_motion_node``
      - Axis Control
    * - ``/wmx/axis/set_mode``
-     - ``wmx_ros2_message/srv/SetAxis``
+     - ``wmx_r2_message/srv/SetAxis``
      - ``wmx_core_motion_node``
      - Axis Control
    * - ``/wmx/axis/set_polarity``
-     - ``wmx_ros2_message/srv/SetAxis``
+     - ``wmx_r2_message/srv/SetAxis``
      - ``wmx_core_motion_node``
      - Axis Control
    * - ``/wmx/axis/set_gear_ratio``
-     - ``wmx_ros2_message/srv/SetAxisGearRatio``
+     - ``wmx_r2_message/srv/SetAxisGearRatio``
      - ``wmx_core_motion_node``
      - Axis Control
    * - ``/wmx/axis/homing``
-     - ``wmx_ros2_message/srv/SetAxis``
+     - ``wmx_r2_message/srv/SetAxis``
      - ``wmx_core_motion_node``
      - Axis Control
    * - ``/wmx/params/load``
-     - ``wmx_ros2_message/srv/LoadWmxParams``
+     - ``wmx_r2_message/srv/LoadWmxParams``
      - ``wmx_core_motion_node``
      - Parameters
    * - ``/wmx/params/get``
-     - ``wmx_ros2_message/srv/GetWmxParams``
+     - ``wmx_r2_message/srv/GetWmxParams``
      - ``wmx_core_motion_node``
      - Parameters
    * - ``/wmx/io/get_input_bit``
-     - ``wmx_ros2_message/srv/GetIoBit``
+     - ``wmx_r2_message/srv/GetIoBit``
      - ``wmx_io_node``
      - I/O
    * - ``/wmx/io/get_output_bit``
-     - ``wmx_ros2_message/srv/GetIoBit``
+     - ``wmx_r2_message/srv/GetIoBit``
      - ``wmx_io_node``
      - I/O
    * - ``/wmx/io/get_input_bytes``
-     - ``wmx_ros2_message/srv/GetIoBytes``
+     - ``wmx_r2_message/srv/GetIoBytes``
      - ``wmx_io_node``
      - I/O
    * - ``/wmx/io/get_output_bytes``
-     - ``wmx_ros2_message/srv/GetIoBytes``
+     - ``wmx_r2_message/srv/GetIoBytes``
      - ``wmx_io_node``
      - I/O
    * - ``/wmx/io/set_output_bit``
-     - ``wmx_ros2_message/srv/SetIoBit``
+     - ``wmx_r2_message/srv/SetIoBit``
      - ``wmx_io_node``
      - I/O
    * - ``/wmx/io/set_output_bytes``
-     - ``wmx_ros2_message/srv/SetIoBytes``
+     - ``wmx_r2_message/srv/SetIoBytes``
      - ``wmx_io_node``
      - I/O
    * - ``/wmx/ecat/get_network_state``
-     - ``wmx_ros2_message/srv/EcatGetNetworkState``
+     - ``wmx_r2_message/srv/EcatGetNetworkState``
      - ``wmx_ethercat_node``
      - EtherCAT
    * - ``/wmx/ecat/register_read``
-     - ``wmx_ros2_message/srv/EcatRegisterRead``
+     - ``wmx_r2_message/srv/EcatRegisterRead``
      - ``wmx_ethercat_node``
      - EtherCAT
    * - ``/wmx/ecat/reset_statistics``
-     - ``wmx_ros2_message/srv/EcatResetStatistics``
+     - ``wmx_r2_message/srv/EcatResetStatistics``
      - ``wmx_ethercat_node``
      - EtherCAT
    * - ``/wmx/ecat/start_hotconnect``
-     - ``wmx_ros2_message/srv/EcatStartHotconnect``
+     - ``wmx_r2_message/srv/EcatStartHotconnect``
      - ``wmx_ethercat_node``
      - EtherCAT
    * - ``/wmx/set_gripper``
@@ -115,22 +115,22 @@ Custom Service Types
 --------------------
 
 Before reviewing the services, here are the custom service type definitions
-from ``wmx_ros2_message``.
+from ``wmx_r2_message``.
 
-**wmx_ros2_message/srv/SetEngine**
+**wmx_r2_message/srv/SetEngine**
 
 .. code-block:: text
 
    # Request
    bool data           # true = create device, false = close device
    string path         # Device path (e.g., "/opt/wmx3/")
-   string name         # Device name (e.g., "wmx_ros2_general_test")
+   string name         # Device name (e.g., "wmx_r2_general_test")
    ---
    # Response
    bool success         # true if operation succeeded
    string message       # Human-readable result description
 
-**wmx_ros2_message/srv/SetAxis**
+**wmx_r2_message/srv/SetAxis**
 
 .. code-block:: text
 
@@ -142,7 +142,7 @@ from ``wmx_ros2_message``.
    bool success         # true only if ALL axes succeeded
    string message       # Concatenated per-axis result messages
 
-**wmx_ros2_message/srv/SetAxisGearRatio**
+**wmx_r2_message/srv/SetAxisGearRatio**
 
 .. code-block:: text
 
@@ -155,7 +155,7 @@ from ``wmx_ros2_message``.
    bool success             # true only if ALL axes succeeded
    string message           # Concatenated per-axis result messages
 
-**wmx_ros2_message/srv/LoadWmxParams**
+**wmx_r2_message/srv/LoadWmxParams**
 
 .. code-block:: text
 
@@ -166,7 +166,7 @@ from ``wmx_ros2_message``.
    bool success
    string message
 
-**wmx_ros2_message/srv/GetWmxParams**
+**wmx_r2_message/srv/GetWmxParams**
 
 .. code-block:: text
 
@@ -191,7 +191,7 @@ These services manage the WMX engine lifecycle. They are hosted by
    :widths: 25 75
 
    * - **Service Type**
-     - ``wmx_ros2_message/srv/SetEngine``
+     - ``wmx_r2_message/srv/SetEngine``
    * - **Node**
      - ``wmx_engine_node``
    * - **Purpose**
@@ -231,14 +231,14 @@ These services manage the WMX engine lifecycle. They are hosted by
 
 .. code-block:: bash
 
-   ros2 service call /wmx/engine/set_device wmx_ros2_message/srv/SetEngine \
+   ros2 service call /wmx/engine/set_device wmx_r2_message/srv/SetEngine \
      "{data: true, path: '/opt/wmx3/', name: 'my_device'}"
 
 **Example -- Close device:**
 
 .. code-block:: bash
 
-   ros2 service call /wmx/engine/set_device wmx_ros2_message/srv/SetEngine \
+   ros2 service call /wmx/engine/set_device wmx_r2_message/srv/SetEngine \
      "{data: false, path: '', name: ''}"
 
 /wmx/engine/set_comm
@@ -378,7 +378,7 @@ are applied per-axis based on the ``index`` array in the request. The response
    :widths: 25 75
 
    * - **Service Type**
-     - ``wmx_ros2_message/srv/SetAxis``
+     - ``wmx_r2_message/srv/SetAxis``
    * - **Node**
      - ``wmx_core_motion_node``
    * - **Purpose**
@@ -405,14 +405,14 @@ message is concatenated per-axis (e.g., ``"Set axis 0 on. Set axis 1 on."``).
 
 .. code-block:: bash
 
-   ros2 service call /wmx/axis/set_on wmx_ros2_message/srv/SetAxis \
+   ros2 service call /wmx/axis/set_on wmx_r2_message/srv/SetAxis \
      "{index: [0, 1, 2, 3, 4, 5], data: [1, 1, 1, 1, 1, 1]}"
 
 **Example -- Disable all 6 servos:**
 
 .. code-block:: bash
 
-   ros2 service call /wmx/axis/set_on wmx_ros2_message/srv/SetAxis \
+   ros2 service call /wmx/axis/set_on wmx_r2_message/srv/SetAxis \
      "{index: [0, 1, 2, 3, 4, 5], data: [0, 0, 0, 0, 0, 0]}"
 
 /wmx/axis/clear_alarm
@@ -422,7 +422,7 @@ message is concatenated per-axis (e.g., ``"Set axis 0 on. Set axis 1 on."``).
    :widths: 25 75
 
    * - **Service Type**
-     - ``wmx_ros2_message/srv/SetAxis``
+     - ``wmx_r2_message/srv/SetAxis``
    * - **Node**
      - ``wmx_core_motion_node``
    * - **Purpose**
@@ -435,7 +435,7 @@ is not used -- only the ``index`` array determines which axes are cleared.
 
 .. code-block:: bash
 
-   ros2 service call /wmx/axis/clear_alarm wmx_ros2_message/srv/SetAxis \
+   ros2 service call /wmx/axis/clear_alarm wmx_r2_message/srv/SetAxis \
      "{index: [0, 1, 2, 3, 4, 5], data: [0, 0, 0, 0, 0, 0]}"
 
 /wmx/axis/set_mode
@@ -445,7 +445,7 @@ is not used -- only the ``index`` array determines which axes are cleared.
    :widths: 25 75
 
    * - **Service Type**
-     - ``wmx_ros2_message/srv/SetAxis``
+     - ``wmx_r2_message/srv/SetAxis``
    * - **Node**
      - ``wmx_core_motion_node``
    * - **Purpose**
@@ -474,14 +474,14 @@ Invalid mode values are rejected per-axis with the message
 
 .. code-block:: bash
 
-   ros2 service call /wmx/axis/set_mode wmx_ros2_message/srv/SetAxis \
+   ros2 service call /wmx/axis/set_mode wmx_r2_message/srv/SetAxis \
      "{index: [0, 1, 2, 3, 4, 5], data: [0, 0, 0, 0, 0, 0]}"
 
 **Example -- Set axis 0 to velocity mode:**
 
 .. code-block:: bash
 
-   ros2 service call /wmx/axis/set_mode wmx_ros2_message/srv/SetAxis \
+   ros2 service call /wmx/axis/set_mode wmx_r2_message/srv/SetAxis \
      "{index: [0], data: [1]}"
 
 /wmx/axis/set_polarity
@@ -491,7 +491,7 @@ Invalid mode values are rejected per-axis with the message
    :widths: 25 75
 
    * - **Service Type**
-     - ``wmx_ros2_message/srv/SetAxis``
+     - ``wmx_r2_message/srv/SetAxis``
    * - **Node**
      - ``wmx_core_motion_node``
    * - **Purpose**
@@ -513,11 +513,20 @@ Calls ``CoreMotion::SetAxisPolarity(axis, polarity)`` for each axis.
 Only ``1`` and ``-1`` are accepted. Invalid values are rejected per-axis with
 the message ``"Invalid polarity value for axis <index>: <value>"``.
 
+.. warning::
+
+   Polarity decides which physical direction a positive command produces. The
+   correct value follows from the URDF's sign convention for that joint and
+   from the motor's mounting orientation. Change it only with the axis
+   stopped, and re-verify with a low-speed single-axis jog afterwards. This
+   override is not written back to the parameter XML and is lost on the next
+   engine restart — see :doc:`../commissioning/robot_parameters`.
+
 **Example -- Set axis 1 reversed, axis 0 normal:**
 
 .. code-block:: bash
 
-   ros2 service call /wmx/axis/set_polarity wmx_ros2_message/srv/SetAxis \
+   ros2 service call /wmx/axis/set_polarity wmx_r2_message/srv/SetAxis \
      "{index: [0, 1], data: [1, -1]}"
 
 /wmx/axis/set_gear_ratio
@@ -527,22 +536,35 @@ the message ``"Invalid polarity value for axis <index>: <value>"``.
    :widths: 25 75
 
    * - **Service Type**
-     - ``wmx_ros2_message/srv/SetAxisGearRatio``
+     - ``wmx_r2_message/srv/SetAxisGearRatio``
    * - **Node**
      - ``wmx_core_motion_node``
    * - **Purpose**
      - Configure the encoder gear ratio for each axis
 
 Calls ``CoreMotion::SetGearRatio(axis, numerator, denominator)`` for each
-axis. The gear ratio maps encoder counts to physical units (radians):
-``position_radians = encoder_counts * (denominator / numerator)``.
+axis. The gear ratio maps encoder counts to WMX user units:
+``position_user_units = encoder_counts * (denominator / numerator)``. The user
+unit is the radian only when ``denominator`` is 2π
+(``6.283185307179586``), as every shipped parameter file sets it.
+
+.. warning::
+
+   The numerator is the encoder counts in one revolution of the **joint
+   output** — encoder counts per motor revolution × the reducer ratio. A
+   numerator that is wrong by the reducer ratio produces motion that is wrong
+   by roughly two orders of magnitude. A denominator other than 2π silently
+   rescales every position, velocity, and acceleration in the ROS 2 interface.
+   Change these only with the axis stopped, and re-verify afterwards; the
+   override is lost on the next engine restart. See
+   :doc:`../commissioning/robot_parameters`.
 
 **Example -- Set gear ratios for 2 axes:**
 
 .. code-block:: bash
 
    ros2 service call /wmx/axis/set_gear_ratio \
-     wmx_ros2_message/srv/SetAxisGearRatio \
+     wmx_r2_message/srv/SetAxisGearRatio \
      "{index: [0, 1],
       numerator: [8388608.0, 8388608.0],
       denominator: [6.28319, 6.28319]}"
@@ -554,7 +576,7 @@ axis. The gear ratio maps encoder counts to physical units (radians):
    :widths: 25 75
 
    * - **Service Type**
-     - ``wmx_ros2_message/srv/SetAxis``
+     - ``wmx_r2_message/srv/SetAxis``
    * - **Node**
      - ``wmx_core_motion_node``
    * - **Purpose**
@@ -580,7 +602,7 @@ axes are homed.
 
 .. code-block:: bash
 
-   ros2 service call /wmx/axis/homing wmx_ros2_message/srv/SetAxis \
+   ros2 service call /wmx/axis/homing wmx_r2_message/srv/SetAxis \
      "{index: [0, 1, 2, 3, 4, 5], data: [0, 0, 0, 0, 0, 0]}"
 
 Parameter Services
@@ -597,7 +619,7 @@ home settings, etc.). They are hosted by ``wmx_core_motion_node`` (source:
    :widths: 25 75
 
    * - **Service Type**
-     - ``wmx_ros2_message/srv/LoadWmxParams``
+     - ``wmx_r2_message/srv/LoadWmxParams``
    * - **Node**
      - ``wmx_core_motion_node``
    * - **Purpose**
@@ -610,7 +632,7 @@ Returns ``success=true`` with a confirmation ``message`` on success.
 
 .. code-block:: bash
 
-   ros2 service call /wmx/params/load wmx_ros2_message/srv/LoadWmxParams \
+   ros2 service call /wmx/params/load wmx_r2_message/srv/LoadWmxParams \
      "{file_path: '/opt/wmx3/param/cr3a_params.xml'}"
 
 /wmx/params/get
@@ -620,7 +642,7 @@ Returns ``success=true`` with a confirmation ``message`` on success.
    :widths: 25 75
 
    * - **Service Type**
-     - ``wmx_ros2_message/srv/GetWmxParams``
+     - ``wmx_r2_message/srv/GetWmxParams``
    * - **Node**
      - ``wmx_core_motion_node``
    * - **Purpose**
@@ -634,7 +656,7 @@ each requested axis.
 
 .. code-block:: bash
 
-   ros2 service call /wmx/params/get wmx_ros2_message/srv/GetWmxParams \
+   ros2 service call /wmx/params/get wmx_r2_message/srv/GetWmxParams \
      "{index: [0, 1]}"
 
 Gripper Service
@@ -711,7 +733,7 @@ after ``wmx_engine_node`` publishes ``/wmx/engine/ready``.
 
 Custom service types used:
 
-**wmx_ros2_message/srv/GetIoBit**
+**wmx_r2_message/srv/GetIoBit**
 
 .. code-block:: text
 
@@ -722,7 +744,7 @@ Custom service types used:
    int32 value     # Bit value: 0 or 1
    string message  # Response or error description
 
-**wmx_ros2_message/srv/GetIoBytes**
+**wmx_r2_message/srv/GetIoBytes**
 
 .. code-block:: text
 
@@ -733,7 +755,7 @@ Custom service types used:
    uint8[] data   # Byte values read from I/O
    string message # Response or error description
 
-**wmx_ros2_message/srv/SetIoBit**
+**wmx_r2_message/srv/SetIoBit**
 
 .. code-block:: text
 
@@ -744,7 +766,7 @@ Custom service types used:
    bool success    # true if write succeeded
    string message  # Response or error description
 
-**wmx_ros2_message/srv/SetIoBytes**
+**wmx_r2_message/srv/SetIoBytes**
 
 .. code-block:: text
 
@@ -763,7 +785,7 @@ Read a single bit from an EtherCAT digital input.
 
 .. code-block:: bash
 
-   ros2 service call /wmx/io/get_input_bit wmx_ros2_message/srv/GetIoBit \
+   ros2 service call /wmx/io/get_input_bit wmx_r2_message/srv/GetIoBit \
      "{byte: 0, bit: 3}"
 
 /wmx/io/get_output_bit
@@ -776,7 +798,7 @@ output state, not a physical input).
 
 .. code-block:: bash
 
-   ros2 service call /wmx/io/get_output_bit wmx_ros2_message/srv/GetIoBit \
+   ros2 service call /wmx/io/get_output_bit wmx_r2_message/srv/GetIoBit \
      "{byte: 0, bit: 0}"
 
 /wmx/io/get_input_bytes
@@ -788,7 +810,7 @@ Read a contiguous block of digital input bytes.
 
 .. code-block:: bash
 
-   ros2 service call /wmx/io/get_input_bytes wmx_ros2_message/srv/GetIoBytes \
+   ros2 service call /wmx/io/get_input_bytes wmx_r2_message/srv/GetIoBytes \
      "{byte: 0, length: 4}"
 
 /wmx/io/get_output_bytes
@@ -800,7 +822,7 @@ Read the current values of a contiguous block of digital output bytes.
 
 .. code-block:: bash
 
-   ros2 service call /wmx/io/get_output_bytes wmx_ros2_message/srv/GetIoBytes \
+   ros2 service call /wmx/io/get_output_bytes wmx_r2_message/srv/GetIoBytes \
      "{byte: 0, length: 4}"
 
 /wmx/io/set_output_bit
@@ -814,7 +836,7 @@ general-purpose digital outputs.
 
 .. code-block:: bash
 
-   ros2 service call /wmx/io/set_output_bit wmx_ros2_message/srv/SetIoBit \
+   ros2 service call /wmx/io/set_output_bit wmx_r2_message/srv/SetIoBit \
      "{byte: 0, bit: 1, value: 1}"
 
 /wmx/io/set_output_bytes
@@ -826,7 +848,7 @@ Write a block of digital output bytes in a single call.
 
 .. code-block:: bash
 
-   ros2 service call /wmx/io/set_output_bytes wmx_ros2_message/srv/SetIoBytes \
+   ros2 service call /wmx/io/set_output_bytes wmx_r2_message/srv/SetIoBytes \
      "{byte: 0, data: [1, 0]}"
 
 EtherCAT Diagnostic Services
@@ -838,7 +860,7 @@ active after ``wmx_engine_node`` publishes ``/wmx/engine/ready``.
 
 Custom service types used:
 
-**wmx_ros2_message/srv/EcatGetNetworkState**
+**wmx_r2_message/srv/EcatGetNetworkState**
 
 .. code-block:: text
 
@@ -863,7 +885,7 @@ Custom service types used:
    uint32[] slave_product_codes
    # (plus additional timing and addressing fields)
 
-**wmx_ros2_message/srv/EcatRegisterRead**
+**wmx_r2_message/srv/EcatRegisterRead**
 
 .. code-block:: text
 
@@ -876,7 +898,7 @@ Custom service types used:
    uint8[] data
    string message
 
-**wmx_ros2_message/srv/EcatResetStatistics** / **EcatStartHotconnect**
+**wmx_r2_message/srv/EcatResetStatistics** / **EcatStartHotconnect**
 
 Both take only ``int32 master_id`` in the request and return
 ``bool success`` + ``string message``.
@@ -893,7 +915,7 @@ state (``slave_states`` = 16).
 .. code-block:: bash
 
    ros2 service call /wmx/ecat/get_network_state \
-     wmx_ros2_message/srv/EcatGetNetworkState "{master_id: 0}"
+     wmx_r2_message/srv/EcatGetNetworkState "{master_id: 0}"
 
 /wmx/ecat/register_read
 ^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -906,7 +928,7 @@ for low-level diagnostics.
 .. code-block:: bash
 
    ros2 service call /wmx/ecat/register_read \
-     wmx_ros2_message/srv/EcatRegisterRead \
+     wmx_r2_message/srv/EcatRegisterRead \
      "{master_id: 0, slave_id: 1, reg_address: 304, length: 4}"
 
 /wmx/ecat/reset_statistics
@@ -920,7 +942,7 @@ Useful when starting a measurement window.
 .. code-block:: bash
 
    ros2 service call /wmx/ecat/reset_statistics \
-     wmx_ros2_message/srv/EcatResetStatistics "{master_id: 0}"
+     wmx_r2_message/srv/EcatResetStatistics "{master_id: 0}"
 
 /wmx/ecat/start_hotconnect
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -932,7 +954,7 @@ Initiate the EtherCAT hot-connect procedure for dynamic slave addition.
 .. code-block:: bash
 
    ros2 service call /wmx/ecat/start_hotconnect \
-     wmx_ros2_message/srv/EcatStartHotconnect "{master_id: 0}"
+     wmx_r2_message/srv/EcatStartHotconnect "{master_id: 0}"
 
 Service Call Workflow
 ---------------------
@@ -981,4 +1003,4 @@ See Also
 
 - :doc:`ros2_actions` -- FollowJointTrajectory action for MoveIt2 integration
 - :doc:`ros2_topics` -- Motion command topics and state feedback
-- :doc:`wmx_ros2_message` -- Custom message type definitions
+- :doc:`wmx_r2_message` -- Custom message type definitions

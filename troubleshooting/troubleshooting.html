@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Troubleshooting &#8212; WMX ROS2 Documentation 1.0.0 documentation</title>
+    <title>Troubleshooting &#8212; WMX R2 Documentation 1.0.0 documentation</title>
   
   
   
@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=c5bec18d" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=cd36b759" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
@@ -50,12 +50,12 @@
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="About Us" href="../about.html" />
+    <link rel="next" title="Licensing" href="../licensing.html" />
     <link rel="prev" title="Support" href="../support.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Jul 15, 2026"/>
+    <meta name="docbuild:last-update" content="Aug 03, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -129,7 +129,7 @@
     <img src="../_static/movensys_logo.png" class="logo__image only-dark pst-js-only" alt=""/>
   
   
-    <p class="title logo__title">WMX ROS2 Documentation</p>
+    <p class="title logo__title">WMX R2 Documentation</p>
   
 </a></div>
     
@@ -168,7 +168,7 @@
           
           
           
-          <a href="https://github.com/movensys/wmx-ros2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+          <a href="https://github.com/movensys/wmx-r2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
 </ul></div>
       
@@ -231,7 +231,7 @@
           
           
           
-          <a href="https://github.com/movensys/wmx-ros2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+          <a href="https://github.com/movensys/wmx-r2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
 </ul></div>
         
@@ -248,22 +248,28 @@
   <div class="bd-toc-item navbar-nav">
     <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started/system_requirements.html">System Requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../getting_started/computer_setup.html">Computer Setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx3.html">Install WMX ROS2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../getting_started/testing_wmx_ros2.html">Testing WMX ROS2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx_runtime.html">Install WMX Runtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx3.html">Install WMX R2 Package</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/examples.html">Example Applications</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../examples/isaacsim_setup.html">NVIDIA Isaac Setup (Optional)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../examples/trajectory_planning.html">Trajectory Planning</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../examples/apriltag_pick_and_place.html">AprilTag Pick-and-Place</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../examples/obstacle_avoidance.html">Nvblox Obstacle Avoidance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../examples/yolo_pick_and_place.html">YOLO Pick-and-Place</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../examples/apriltag_obstacle_avoidance.html">AprilTag + Obstacle Avoidance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../examples/robopoly_game.html">Robopoly Game (VLM / LLM)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../examples/robopoly_detailed_guide.html">Robopoly Game Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/isaacsim_setup.html">NVIDIA Isaac ROS Setup (Optional)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator.html">movensys-manipulator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/trajectory_planning.html">Trajectory Planning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/apriltag_pick_and_place.html">AprilTag Pick-and-Place</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/obstacle_avoidance.html">Nvblox Obstacle Avoidance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/yolo_pick_and_place.html">YOLO Pick-and-Place</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/apriltag_obstacle_avoidance.html">AprilTag + Obstacle Avoidance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/robopoly_game.html">Robopoly Game (VLM / LLM)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/movensys_navigation.html">movensys-navigation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples/movensys_navigation_setup.html">movensys-navigation Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/manual_driving.html">Manual Driving</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/slam_mapping.html">SLAM Mapping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/autonomous_navigation.html">Autonomous Navigation</a></li>
 </ul>
 </li>
 </ul>
@@ -271,24 +277,33 @@
 <li class="toctree-l1"><a class="reference internal" href="../integration/integration.html">Integration Scenarios</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../integration/moveit2_integration.html">MoveIt2 Motion Planning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../integration/cumotion_integration.html">Isaac cuMotion Accelerated Planning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/nav2_integration.html">Nav2 Navigation (Mobile Base)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../integration/custom_planner.html">Custom Planner Integration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../integration/custom_application.html">Building Custom Applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../integration/intelligence_integration.html">Natural-Language and Vision Control (VLM / LLM)</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../commissioning/index.html">Commissioning</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../commissioning/robot_parameters.html">Robot Parameter Configuration and Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commissioning/first_motion.html">Commissioning and First Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commissioning/safety.html">Safety Functions and Responsibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commissioning/validated_hardware.html">Hardware Compatibility and Validation</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../api_reference/api_reference.html">API Reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/communication.html">Communication Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_ros2_message.html">wmx_ros2_message</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_ros2_package.html">wmx_ros2_package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_services.html">ROS2 Services</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_topics.html">ROS2 Topics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_actions.html">ROS2 Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_message.html">wmx_r2_message</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_package.html">wmx_r2_package</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="../support.html">Support</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Troubleshooting</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../licensing.html">Licensing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../about.html">About Us</a></li>
 </ul>
 
@@ -375,6 +390,90 @@ document.addEventListener("DOMContentLoaded", function() {
                   
   <section id="troubleshooting">
 <h1>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading">#</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Several symptoms below are caused by wrong robot parameters, and the fix is
+to correct the parameter — not to compensate for it elsewhere. Scaling a
+URDF to hide a wrong gear ratio, or flipping a sign in application code to
+hide a wrong polarity, leaves the robot able to move unexpectedly in every
+path that does not go through your workaround. See
+<a class="reference internal" href="../commissioning/robot_parameters.html"><span class="doc">Robot Parameter Configuration and Validation</span></a>.</p>
+</div>
+<section id="robot-moves-in-the-wrong-direction">
+<h2>Robot Moves in the Wrong Direction<a class="headerlink" href="#robot-moves-in-the-wrong-direction" title="Link to this heading">#</a></h2>
+<p><strong>Symptom:</strong> A positive command moves the joint in the negative direction, or
+RViz and the physical robot move opposite ways.</p>
+<p><strong>Solutions:</strong></p>
+<ul>
+<li><p>Read back the polarity the engine actually holds:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/params/get<span class="w"> </span>wmx_r2_message/srv/GetWmxParams<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s2">&quot;{index: [0,1,2,3,4,5]}&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Correct <code class="docutils literal notranslate"><span class="pre">AxisPolarity</span></code> for that axis in the robot’s WMX parameter XML
+(<code class="docutils literal notranslate"><span class="pre">+1</span></code> or <code class="docutils literal notranslate"><span class="pre">-1</span></code>) and rebuild, or override it for testing:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axis/set_polarity<span class="w"> </span>wmx_r2_message/srv/SetAxis<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s2">&quot;{index: [0], data: [-1]}&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Confirm the URDF’s sign convention for that joint (<code class="docutils literal notranslate"><span class="pre">&lt;axis</span> <span class="pre">xyz&gt;</span></code> together
+with the joint <code class="docutils literal notranslate"><span class="pre">&lt;origin</span> <span class="pre">rpy&gt;</span></code>) before deciding which sign is correct.</p></li>
+<li><p>Re-verify with the single-axis procedure in
+<a class="reference internal" href="../commissioning/first_motion.html"><span class="doc">Commissioning and First Motion</span></a>. A runtime polarity override is lost on
+the next engine restart — write the corrected value into the XML.</p></li>
+</ul>
+</section>
+<section id="robot-moves-the-wrong-distance">
+<h2>Robot Moves the Wrong Distance<a class="headerlink" href="#robot-moves-the-wrong-distance" title="Link to this heading">#</a></h2>
+<p><strong>Symptom:</strong> A commanded 90° rotation produces a visibly different physical
+rotation, or the robot moves by a large factor more or less than expected.</p>
+<p><strong>Solutions:</strong></p>
+<ul class="simple">
+<li><p>Check <code class="docutils literal notranslate"><span class="pre">AxisGearRatioNumerator</span></code> and <code class="docutils literal notranslate"><span class="pre">AxisGearRatioDenominator</span></code> against the
+drive’s encoder resolution and the joint’s reducer ratio:
+<code class="docutils literal notranslate"><span class="pre">numerator</span> <span class="pre">=</span> <span class="pre">encoder</span> <span class="pre">counts</span> <span class="pre">per</span> <span class="pre">motor</span> <span class="pre">revolution</span> <span class="pre">×</span> <span class="pre">gear</span> <span class="pre">ratio</span></code>.</p></li>
+<li><p>Confirm <code class="docutils literal notranslate"><span class="pre">AxisGearRatioDenominator</span></code> is 2π. Any other value changes the unit
+of every position, velocity, and acceleration in the ROS 2 interface.</p></li>
+<li><p>Verify against the running engine with <code class="docutils literal notranslate"><span class="pre">/wmx/params/get</span></code>, not against the
+file — the engine may be holding values from a previous session, since the
+general nodes load no parameter file.</p></li>
+<li><p>Re-measure with a small commanded step and a physical reference; see
+<a class="reference internal" href="../commissioning/first_motion.html"><span class="doc">Commissioning and First Motion</span></a>.</p></li>
+</ul>
+</section>
+<section id="wrong-joint-moves">
+<h2>Wrong Joint Moves<a class="headerlink" href="#wrong-joint-moves" title="Link to this heading">#</a></h2>
+<p><strong>Symptom:</strong> Commanding <code class="docutils literal notranslate"><span class="pre">joint2</span></code> moves a different physical joint.</p>
+<p><strong>Solutions:</strong></p>
+<ul>
+<li><p>Compare <code class="docutils literal notranslate"><span class="pre">joint_name</span></code> and <code class="docutils literal notranslate"><span class="pre">joint_axes</span></code> in the robot’s application YAML.
+They are matched by position: <code class="docutils literal notranslate"><span class="pre">joint_name[i]</span></code> is driven by
+<code class="docutils literal notranslate"><span class="pre">joint_axes[i]</span></code>.</p></li>
+<li><p>Confirm the EtherCAT chain order, which is what assigns the axis indices:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/ecat/get_network_state<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>wmx_r2_message/srv/EcatGetNetworkState
+</pre></div>
+</div>
+</li>
+<li><p>Re-cabling the drives in a different order shifts every axis index after the
+change, with no error anywhere in ROS 2.</p></li>
+</ul>
+</section>
+<section id="all-joints-offset-by-a-constant">
+<h2>All Joints Offset by a Constant<a class="headerlink" href="#all-joints-offset-by-a-constant" title="Link to this heading">#</a></h2>
+<p><strong>Symptom:</strong> The robot’s poses are consistently shifted from the URDF zero, in
+the same direction, by roughly the same amount per joint.</p>
+<p><strong>Solutions:</strong></p>
+<ul class="simple">
+<li><p>Check <code class="docutils literal notranslate"><span class="pre">AbsoluteEncoderHomeOffset</span></code> (and <code class="docutils literal notranslate"><span class="pre">HomePosition</span></code>) for each axis. The
+shipped files use <code class="docutils literal notranslate"><span class="pre">0.0</span></code>, which asserts that the drive’s absolute zero is
+the URDF zero — a per-unit property, not a per-model one.</p></li>
+<li><p>Move each joint to a known mechanical reference and compare <code class="docutils literal notranslate"><span class="pre">actual_pos</span></code>
+against the value the URDF zero implies.</p></li>
+</ul>
+</section>
 <section id="device-creation-failures">
 <h2>Device Creation Failures<a class="headerlink" href="#device-creation-failures" title="Link to this heading">#</a></h2>
 <p><strong>Symptom:</strong> <code class="docutils literal notranslate"><span class="pre">Failed</span> <span class="pre">to</span> <span class="pre">create</span> <span class="pre">device</span> <span class="pre">after</span> <span class="pre">N</span> <span class="pre">attempts</span></code></p>
@@ -431,7 +530,7 @@ errors in the log)</p></li>
 <li><p>Verify <code class="docutils literal notranslate"><span class="pre">wmx_param_file_path</span></code> in the config YAML points to the correct
 WMX parameter XML file for your robot</p></li>
 <li><p>Clear alarms and re-enable servos:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axis/clear_alarm<span class="w"> </span>wmx_ros2_message/srv/SetAxis<span class="w"> </span><span class="se">\</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axis/clear_alarm<span class="w"> </span>wmx_r2_message/srv/SetAxis<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span><span class="s2">&quot;{index: [0,1,2,3,4,5], data: [0,0,0,0,0,0]}&quot;</span>
 </pre></div>
 </div>
@@ -445,13 +544,16 @@ rejected.</p>
 <p><strong>Solutions:</strong></p>
 <ul>
 <li><p>Clear alarms via the service:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axis/clear_alarm<span class="w"> </span>wmx_ros2_message/srv/SetAxis<span class="w"> </span><span class="se">\</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axis/clear_alarm<span class="w"> </span>wmx_r2_message/srv/SetAxis<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span><span class="s2">&quot;{index: [0,1,2,3,4,5], data: [0,0,0,0,0,0]}&quot;</span>
 </pre></div>
 </div>
 </li>
 <li><p>Check for physical obstructions or overcurrent conditions on the robot</p></li>
-<li><p>Verify gear ratios and polarities match the physical servo configuration</p></li>
+<li><p>Verify gear ratios and polarities match the physical servo configuration
+(see <a class="reference internal" href="../commissioning/robot_parameters.html"><span class="doc">Robot Parameter Configuration and Validation</span></a>). A wrong polarity drives the
+joint away from its target, which shows up as a following error or an
+overcurrent alarm rather than as an obviously wrong direction.</p></li>
 </ul>
 </section>
 <section id="trajectory-execution-failures">
@@ -485,8 +587,8 @@ does not move.</p>
 <p><strong>Symptom:</strong> <code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">pkg</span> <span class="pre">list</span> <span class="pre">|</span> <span class="pre">grep</span> <span class="pre">wmx</span></code> returns nothing.</p>
 <p><strong>Solutions:</strong></p>
 <ul class="simple">
-<li><p>Source the workspace: <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">~/wmx_ros2_ws/install/setup.bash</span></code></p></li>
-<li><p>Rebuild if needed: <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">~/wmx_ros2_ws</span> <span class="pre">&amp;&amp;</span> <span class="pre">colcon</span> <span class="pre">build</span></code></p></li>
+<li><p>Source the workspace: <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">~/wmx_r2_ws/install/setup.bash</span></code></p></li>
+<li><p>Rebuild if needed: <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">~/wmx_r2_ws</span> <span class="pre">&amp;&amp;</span> <span class="pre">colcon</span> <span class="pre">build</span></code></p></li>
 <li><p>Check the two-stage build was done correctly (message package first).
 See <a class="reference internal" href="../getting_started/index.html"><span class="doc">Getting Started</span></a>.</p></li>
 </ul>
@@ -497,14 +599,16 @@ See <a class="reference internal" href="../getting_started/index.html"><span cla
 other WMX libraries.</p>
 <p><strong>Solutions:</strong></p>
 <ul>
-<li><p>Verify the WMX Runtime libraries exist: <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">/opt/wmx3/lib/</span></code></p></li>
+<li><p>Verify the WMX Runtime and SDK are installed. The MIT-licensed ROS 2
+packages link against the proprietary WMX libraries and cannot be built
+without them (see <a class="reference internal" href="../licensing.html"><span class="doc">Licensing</span></a>): <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">/opt/wmx3/lib/</span></code></p></li>
 <li><p>Ensure <code class="docutils literal notranslate"><span class="pre">LD_LIBRARY_PATH</span></code> includes <code class="docutils literal notranslate"><span class="pre">/opt/wmx3/lib/</span></code>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span>/opt/wmx3/lib:<span class="nv">$LD_LIBRARY_PATH</span>
 </pre></div>
 </div>
 </li>
 <li><p>Install missing ROS2 dependencies:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/wmx_ros2_ws
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/wmx_r2_ws
 rosdep<span class="w"> </span>install<span class="w"> </span>--from-paths<span class="w"> </span>src<span class="w"> </span>--ignore-src<span class="w"> </span>-y
 </pre></div>
 </div>
@@ -538,11 +642,11 @@ issue on the project repository.</p>
       </div>
     </a>
     <a class="right-next"
-       href="../about.html"
+       href="../licensing.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">About Us</p>
+        <p class="prev-next-title">Licensing</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -565,6 +669,10 @@ issue on the project repository.</p>
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#robot-moves-in-the-wrong-direction">Robot Moves in the Wrong Direction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#robot-moves-the-wrong-distance">Robot Moves the Wrong Distance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wrong-joint-moves">Wrong Joint Moves</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#all-joints-offset-by-a-constant">All Joints Offset by a Constant</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#device-creation-failures">Device Creation Failures</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ethercat-scan-failures">EtherCAT Scan Failures</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#communication-start-failures">Communication Start Failures</a></li>
@@ -604,7 +712,7 @@ issue on the project repository.</p>
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Jul 15, 2026</p>
+      <p>Last updated: Aug 03, 2026</p>
     
   </div>
   <div class="movensys-footer__links">
