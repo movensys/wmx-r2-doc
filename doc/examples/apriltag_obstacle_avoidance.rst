@@ -17,30 +17,6 @@ manipulator setup. All commands run through ``mros``.
          :width: 100%
 
          AprilTag based obstacle avoidance on simulation
-   
-   .. tab-item:: HIL
-
-      .. figure:: https://softservogroup.sharepoint.com/:i:/s/Storage/IQA9AvezFL6rRqAk2lkE2t2pAVITAVf0p90ZtDtATjCjM4g?e=pU18j7&download=1
-         :alt: AprilTag based Obstacle Avoidance
-         :target: https://softservogroup.sharepoint.com/:i:/s/Storage/IQA9AvezFL6rRqAk2lkE2t2pAVITAVf0p90ZtDtATjCjM4g?e=pU18j7&download=1
-         :align: center
-         :width: 100%
-
-         AprilTag based obstacle avoidance on hardware-in-the-loop (HIL).
-
-   .. tab-item:: Real
-
-      .. figure:: https://softservogroup.sharepoint.com/:i:/s/Storage/IQDxqbaey2rhRJ4qPuWfbd9sAYPrIkuX3Ztz16QSwkvpTmY?e=Br0Ybv&download=1
-         :alt: AprilTag based Obstacle Avoidance
-         :target: https://softservogroup.sharepoint.com/:i:/s/Storage/IQDxqbaey2rhRJ4qPuWfbd9sAYPrIkuX3Ztz16QSwkvpTmY?e=Br0Ybv&download=1
-         :align: center
-         :width: 100%
-
-         AprilTag based obstacle avoidance on real-world scenario.
-
-.. tab-set::
-
-   .. tab-item:: Simulation
 
       1. Open the Isaac Sim scene:
          ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/6a_apriltag_obstacle_avoidance_simulation.usd``
@@ -73,6 +49,14 @@ manipulator setup. All commands run through ``mros``.
 
    .. tab-item:: HIL
 
+      .. figure:: https://softservogroup.sharepoint.com/:i:/s/Storage/IQA9AvezFL6rRqAk2lkE2t2pAVITAVf0p90ZtDtATjCjM4g?e=pU18j7&download=1
+         :alt: AprilTag based Obstacle Avoidance
+         :target: https://softservogroup.sharepoint.com/:i:/s/Storage/IQA9AvezFL6rRqAk2lkE2t2pAVITAVf0p90ZtDtATjCjM4g?e=pU18j7&download=1
+         :align: center
+         :width: 100%
+
+         AprilTag based obstacle avoidance on hardware-in-the-loop (HIL).
+
       1. Open the Isaac Sim scene:
          ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/6b_apriltag_obstacle_avoidance_hil.usd``
 
@@ -103,6 +87,14 @@ manipulator setup. All commands run through ``mros``.
                  use_sim_time:=true target_spawn:=false
 
    .. tab-item:: Real
+
+      .. figure:: https://softservogroup.sharepoint.com/:i:/s/Storage/IQDxqbaey2rhRJ4qPuWfbd9sAYPrIkuX3Ztz16QSwkvpTmY?e=Br0Ybv&download=1
+         :alt: AprilTag based Obstacle Avoidance
+         :target: https://softservogroup.sharepoint.com/:i:/s/Storage/IQDxqbaey2rhRJ4qPuWfbd9sAYPrIkuX3Ztz16QSwkvpTmY?e=Br0Ybv&download=1
+         :align: center
+         :width: 100%
+
+         AprilTag based obstacle avoidance on real-world scenario.
 
       1. Open the Isaac Sim scene:
          ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/6c_apriltag_obstacle_avoidance_real.usd``
