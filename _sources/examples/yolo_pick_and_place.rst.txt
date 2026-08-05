@@ -17,30 +17,6 @@ setup. All commands run through ``mros``.
          :width: 100%
 
          Yolo pick-and-place on simulation
-   
-   .. tab-item:: HIL
-
-      .. figure:: https://softservogroup.sharepoint.com/:i:/s/Storage/IQAKSfUzPqN9QbQ1exoS5K_TAcv7l0fPK0dwXwBQWrZUuOM?e=jYXiL9&download=1
-         :alt: Yolo pick-and-place
-         :target: https://softservogroup.sharepoint.com/:i:/s/Storage/IQA9AvezFL6rRqAk2lkE2t2pAVITAVf0p90ZtDtATjCjM4g?e=pU18j7&download=1
-         :align: center
-         :width: 100%
-
-         Yolo pick-and-place on hardware-in-the-loop (HIL)
-
-   .. tab-item:: Real
-
-      .. figure:: https://softservogroup.sharepoint.com/:i:/s/Storage/IQBwJ10DEqUuTYIEju5NsoetAbTusZtOxT2Zx6GPbd8Izrs?e=vOCl68&download=1
-         :alt: Yolo pick-and-place
-         :target: https://softservogroup.sharepoint.com/:i:/s/Storage/IQDxqbaey2rhRJ4qPuWfbd9sAYPrIkuX3Ztz16QSwkvpTmY?e=Br0Ybv&download=1
-         :align: center
-         :width: 100%
-
-         Yolo pick-and-place on real-world scenario
-
-.. tab-set::
-
-   .. tab-item:: Simulation
 
       1. Open the Isaac Sim scene:
          ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/8a_yolo_pick_and_place_simulation.usd``
@@ -93,6 +69,14 @@ setup. All commands run through ``mros``.
 
    .. tab-item:: HIL
 
+      .. figure:: https://softservogroup.sharepoint.com/:i:/s/Storage/IQAKSfUzPqN9QbQ1exoS5K_TAcv7l0fPK0dwXwBQWrZUuOM?e=jYXiL9&download=1
+         :alt: Yolo pick-and-place
+         :target: https://softservogroup.sharepoint.com/:i:/s/Storage/IQA9AvezFL6rRqAk2lkE2t2pAVITAVf0p90ZtDtATjCjM4g?e=pU18j7&download=1
+         :align: center
+         :width: 100%
+
+         Yolo pick-and-place on hardware-in-the-loop (HIL)
+
       1. Open the Isaac Sim scene:
          ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/8b_yolo_pick_and_place_hil.usd``
 
@@ -134,6 +118,14 @@ setup. All commands run through ``mros``.
             mros ros2 launch movensys_manipulator_moveit_config yolo_pick_and_place.launch.py use_sim_time:=true
 
    .. tab-item:: Real
+
+      .. figure:: https://softservogroup.sharepoint.com/:i:/s/Storage/IQBwJ10DEqUuTYIEju5NsoetAbTusZtOxT2Zx6GPbd8Izrs?e=vOCl68&download=1
+         :alt: Yolo pick-and-place
+         :target: https://softservogroup.sharepoint.com/:i:/s/Storage/IQDxqbaey2rhRJ4qPuWfbd9sAYPrIkuX3Ztz16QSwkvpTmY?e=Br0Ybv&download=1
+         :align: center
+         :width: 100%
+
+         Yolo pick-and-place on real-world scenario
 
       1. Open the Isaac Sim scene:
          ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/8c_yolo_pick_and_place_real.usd``

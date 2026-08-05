@@ -8,10 +8,20 @@ the simplest navigation scenario and a good way to confirm the base, odometry
 autonomous navigation. See :doc:`examples` for the shared navigation setup. All
 commands run through ``nros``.
 
+
 .. tab-set::
 
    .. tab-item:: Simulation
+      
+      .. figure:: https://softservogroup.sharepoint.com/:i:/s/Storage/IQBa4hLAQQoORahUB6yes5AKAdi1u9Cn1qxHa28TXDpiXzk?e=SK2UWg&download=1
+         :alt: Manual driving on simulation
+         :target: https://softservogroup.sharepoint.com/:i:/s/Storage/IQBa4hLAQQoORahUB6yes5AKAdi1u9Cn1qxHa28TXDpiXzk?e=SK2UWg&download=1
+         :align: center
+         :width: 100%
 
+         Manual driving on simulation
+
+      
       1. Open the scene:
 
          .. tab-set::
@@ -58,6 +68,14 @@ commands run through ``nros``.
          Keep this terminal focused to send keystrokes to the base.
 
    .. tab-item:: HIL
+
+      .. figure:: https://softservogroup.sharepoint.com/:i:/s/Storage/IQBa4hLAQQoORahUB6yes5AKAdi1u9Cn1qxHa28TXDpiXzk?e=SK2UWg&download=1
+         :alt: Manual driving on HIL
+         :target: https://softservogroup.sharepoint.com/:i:/s/Storage/IQBa4hLAQQoORahUB6yes5AKAdi1u9Cn1qxHa28TXDpiXzk?e=SK2UWg&download=1
+         :align: center
+         :width: 100%
+
+         Manual driving on HIL
 
       1. Open the scene:
 

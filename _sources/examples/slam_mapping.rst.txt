@@ -10,6 +10,14 @@ setup. All commands run through ``nros``.
 
    .. tab-item:: Simulation
 
+      .. figure:: https://softservogroup.sharepoint.com/:i:/s/Storage/IQAqEkNTOJfcRKWZoqsdvS3FAWN06pDGTDrk5i4WAimhqGE?e=s2avzR&download=1
+         :alt: SLAM mapping on simulation
+         :target: https://softservogroup.sharepoint.com/:i:/s/Storage/IQAqEkNTOJfcRKWZoqsdvS3FAWN06pDGTDrk5i4WAimhqGE?e=s2avzR&download=1
+         :align: center
+         :width: 100%
+
+         SLAM mapping on simulation
+
       1. Open the scene:
 
          .. tab-set::
@@ -61,6 +69,14 @@ setup. All commands run through ``nros``.
                  -f /home/admin/workspaces/movensys_ws/src/movensys-navigation/movensys_navigation_nav2_config/maps/my_map
 
    .. tab-item:: HIL
+
+      .. figure:: https://softservogroup.sharepoint.com/:i:/s/Storage/IQAqEkNTOJfcRKWZoqsdvS3FAWN06pDGTDrk5i4WAimhqGE?e=s2avzR&download=1
+         :alt: SLAM examples on HIL
+         :target: https://softservogroup.sharepoint.com/:i:/s/Storage/IQAqEkNTOJfcRKWZoqsdvS3FAWN06pDGTDrk5i4WAimhqGE?e=s2avzR&download=1
+         :align: center
+         :width: 100%
+
+         SLAM Mapping on HIL
 
       1. Open the scene:
 
