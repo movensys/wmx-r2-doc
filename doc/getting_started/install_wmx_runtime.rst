@@ -104,7 +104,7 @@ headers and libraries are present:
 .. code-block:: bash
 
    ls /opt/wmx3/include/WMX3Api.h
-   ls /opt/wmx3/lib/libwmx3api.so
+   ls /opt/wmx3/lib/libwmx3api.a
    ls /opt/wmx3/lib/libimdll.so
 
 All files must exist before proceeding. If any are missing, re-run the installer
