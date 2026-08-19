@@ -55,7 +55,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Aug 12, 2026"/>
+    <meta name="docbuild:last-update" content="Aug 19, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -468,7 +468,7 @@ the application YAML — <code class="docutils literal notranslate"><span class=
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">joint_state_broadcaster</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">joint_axes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">2</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">3</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">4</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">5</span><span class="p p-Indicator">]</span>
-<span class="w">    </span><span class="nt">joint_name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;joint1&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;joint2&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;joint3&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;joint4&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;joint5&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;joint6&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">joint_name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"joint1"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"joint2"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"joint3"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"joint4"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"joint5"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"joint6"</span><span class="p p-Indicator">]</span>
 </pre></div>
 </div>
 <p>The WMX axis index is in turn the position of the servo drive in the EtherCAT
@@ -534,7 +534,7 @@ must agree:</p>
 <span class="nt">joint_state_broadcaster</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">joint_axes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">]</span>
-<span class="w">    </span><span class="nt">joint_name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;drivewheel_left_joint&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;drivewheel_right_joint&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">joint_name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"drivewheel_left_joint"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"drivewheel_right_joint"</span><span class="p p-Indicator">]</span>
 </pre></div>
 </div>
 <div class="admonition warning">
@@ -986,7 +986,7 @@ file. Two mechanisms expose them.</p>
 axis unit, polarity, command mode, torque limits, motor speed, and the homing
 parameters that the engine currently holds, per axis:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/params/get<span class="w"> </span>wmx_r2_message/srv/GetWmxParams<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span><span class="s2">&quot;{index: [0,1,2,3,4,5]}&quot;</span>
+<span class="w">     </span><span class="s2">"{index: [0,1,2,3,4,5]}"</span>
 </pre></div>
 </div>
 <p>Compare the <code class="docutils literal notranslate"><span class="pre">GearRatio</span></code>, <code class="docutils literal notranslate"><span class="pre">AxisPolarity</span></code>, and <code class="docutils literal notranslate"><span class="pre">CommandMode</span></code> lines in the
@@ -1010,16 +1010,16 @@ your robot.</p>
 immediately on a live engine.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load a different parameter file wholesale</span>
 ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/params/load<span class="w"> </span>wmx_r2_message/srv/LoadWmxParams<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span><span class="s2">&quot;{file_path: &#39;/abs/path/to/&lt;robot&gt;_wmx_parameters.xml&#39;}&quot;</span>
+<span class="w">     </span><span class="s2">"{file_path: '/abs/path/to/&lt;robot&gt;_wmx_parameters.xml'}"</span>
 
 <span class="c1"># Override the gear ratio on selected axes</span>
 ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axis/set_gear_ratio<span class="w"> </span><span class="se">\</span>
 <span class="w">     </span>wmx_r2_message/srv/SetAxisGearRatio<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span><span class="s2">&quot;{index: [0], numerator: [52953088.0], denominator: [6.283185307179586]}&quot;</span>
+<span class="w">     </span><span class="s2">"{index: [0], numerator: [52953088.0], denominator: [6.283185307179586]}"</span>
 
 <span class="c1"># Override the polarity on selected axes (+1 or -1)</span>
 ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axis/set_polarity<span class="w"> </span>wmx_r2_message/srv/SetAxis<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span><span class="s2">&quot;{index: [0], data: [-1]}&quot;</span>
+<span class="w">     </span><span class="s2">"{index: [0], data: [-1]}"</span>
 </pre></div>
 </div>
 <div class="admonition warning">
@@ -1122,7 +1122,7 @@ correctly during a tuning session can behave differently after a reboot.</p>
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Aug 12, 2026</p>
+      <p>Last updated: Aug 19, 2026</p>
     
   </div>
   <div class="movensys-footer__links">

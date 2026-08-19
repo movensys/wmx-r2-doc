@@ -55,7 +55,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Aug 12, 2026"/>
+    <meta name="docbuild:last-update" content="Aug 19, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -550,8 +550,8 @@ from <code class="docutils literal notranslate"><span class="pre">wmx_r2_message
 <p><strong>wmx_r2_message/srv/SetEngine</strong></p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span># Request
 bool data           # true = create device, false = close device
-string path         # Device path (e.g., &quot;/opt/wmx3/&quot;)
-string name         # Device name (e.g., &quot;wmx_r2_general_test&quot;)
+string path         # Device path (e.g., "/opt/wmx3/")
+string name         # Device name (e.g., "wmx_r2_general_test")
 ---
 # Response
 bool success         # true if operation succeeded
@@ -667,12 +667,12 @@ string[] params_dump # formatted human-readable string of all parameters
 </ol>
 <p><strong>Example – Create device:</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/engine/set_device<span class="w"> </span>wmx_r2_message/srv/SetEngine<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">&quot;{data: true, path: &#39;/opt/wmx3/&#39;, name: &#39;my_device&#39;}&quot;</span>
+<span class="w">  </span><span class="s2">"{data: true, path: '/opt/wmx3/', name: 'my_device'}"</span>
 </pre></div>
 </div>
 <p><strong>Example – Close device:</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/engine/set_device<span class="w"> </span>wmx_r2_message/srv/SetEngine<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">&quot;{data: false, path: &#39;&#39;, name: &#39;&#39;}&quot;</span>
+<span class="w">  </span><span class="s2">"{data: false, path: '', name: ''}"</span>
 </pre></div>
 </div>
 </section>
@@ -730,11 +730,11 @@ string[] params_dump # formatted human-readable string of all parameters
 <li><p>On error: <code class="docutils literal notranslate"><span class="pre">success=false</span></code>, <code class="docutils literal notranslate"><span class="pre">message=&quot;Failed</span> <span class="pre">to</span> <span class="pre">stop</span> <span class="pre">communication.</span> <span class="pre">Error=&lt;code&gt;</span> <span class="pre">(&lt;description&gt;)&quot;</span></code></p></li>
 </ul>
 <p><strong>Example – Start communication:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/engine/set_comm<span class="w"> </span>std_srvs/srv/SetBool<span class="w"> </span><span class="s2">&quot;{data: true}&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/engine/set_comm<span class="w"> </span>std_srvs/srv/SetBool<span class="w"> </span><span class="s2">"{data: true}"</span>
 </pre></div>
 </div>
 <p><strong>Example – Stop communication:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/engine/set_comm<span class="w"> </span>std_srvs/srv/SetBool<span class="w"> </span><span class="s2">&quot;{data: false}&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/engine/set_comm<span class="w"> </span>std_srvs/srv/SetBool<span class="w"> </span><span class="s2">"{data: false}"</span>
 </pre></div>
 </div>
 </section>
@@ -800,7 +800,7 @@ fail).</p>
 </div>
 <p>Expected response when operating normally:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>success: True
-message: &quot;Communicating&quot;
+message: "Communicating"
 </pre></div>
 </div>
 </section>
@@ -888,12 +888,12 @@ are applied per-axis based on the <code class="docutils literal notranslate"><sp
 message is concatenated per-axis (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;Set</span> <span class="pre">axis</span> <span class="pre">0</span> <span class="pre">on.</span> <span class="pre">Set</span> <span class="pre">axis</span> <span class="pre">1</span> <span class="pre">on.&quot;</span></code>).</p>
 <p><strong>Example – Enable all 6 servos:</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axis/set_on<span class="w"> </span>wmx_r2_message/srv/SetAxis<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">&quot;{index: [0, 1, 2, 3, 4, 5], data: [1, 1, 1, 1, 1, 1]}&quot;</span>
+<span class="w">  </span><span class="s2">"{index: [0, 1, 2, 3, 4, 5], data: [1, 1, 1, 1, 1, 1]}"</span>
 </pre></div>
 </div>
 <p><strong>Example – Disable all 6 servos:</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axis/set_on<span class="w"> </span>wmx_r2_message/srv/SetAxis<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">&quot;{index: [0, 1, 2, 3, 4, 5], data: [0, 0, 0, 0, 0, 0]}&quot;</span>
+<span class="w">  </span><span class="s2">"{index: [0, 1, 2, 3, 4, 5], data: [0, 0, 0, 0, 0, 0]}"</span>
 </pre></div>
 </div>
 </section>
@@ -921,7 +921,7 @@ message is concatenated per-axis (e.g., <code class="docutils literal notranslat
 is not used – only the <code class="docutils literal notranslate"><span class="pre">index</span></code> array determines which axes are cleared.</p>
 <p><strong>Example – Clear alarms on all axes:</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axis/clear_alarm<span class="w"> </span>wmx_r2_message/srv/SetAxis<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">&quot;{index: [0, 1, 2, 3, 4, 5], data: [0, 0, 0, 0, 0, 0]}&quot;</span>
+<span class="w">  </span><span class="s2">"{index: [0, 1, 2, 3, 4, 5], data: [0, 0, 0, 0, 0, 0]}"</span>
 </pre></div>
 </div>
 </section>
@@ -975,12 +975,12 @@ is not used – only the <code class="docutils literal notranslate"><span class=
 <code class="docutils literal notranslate"><span class="pre">&quot;Invalid</span> <span class="pre">mode</span> <span class="pre">&lt;value&gt;</span> <span class="pre">for</span> <span class="pre">axis</span> <span class="pre">&lt;index&gt;&quot;</span></code>.</p>
 <p><strong>Example – Set all axes to position mode:</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axis/set_mode<span class="w"> </span>wmx_r2_message/srv/SetAxis<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">&quot;{index: [0, 1, 2, 3, 4, 5], data: [0, 0, 0, 0, 0, 0]}&quot;</span>
+<span class="w">  </span><span class="s2">"{index: [0, 1, 2, 3, 4, 5], data: [0, 0, 0, 0, 0, 0]}"</span>
 </pre></div>
 </div>
 <p><strong>Example – Set axis 0 to velocity mode:</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axis/set_mode<span class="w"> </span>wmx_r2_message/srv/SetAxis<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">&quot;{index: [0], data: [1]}&quot;</span>
+<span class="w">  </span><span class="s2">"{index: [0], data: [1]}"</span>
 </pre></div>
 </div>
 </section>
@@ -1039,7 +1039,7 @@ engine restart — see <a class="reference internal" href="../commissioning/robo
 </div>
 <p><strong>Example – Set axis 1 reversed, axis 0 normal:</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axis/set_polarity<span class="w"> </span>wmx_r2_message/srv/SetAxis<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">&quot;{index: [0, 1], data: [1, -1]}&quot;</span>
+<span class="w">  </span><span class="s2">"{index: [0, 1], data: [1, -1]}"</span>
 </pre></div>
 </div>
 </section>
@@ -1082,9 +1082,9 @@ override is lost on the next engine restart. See
 <p><strong>Example – Set gear ratios for 2 axes:</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axis/set_gear_ratio<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>wmx_r2_message/srv/SetAxisGearRatio<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">&quot;{index: [0, 1],</span>
+<span class="w">  </span><span class="s2">"{index: [0, 1],</span>
 <span class="s2">   numerator: [8388608.0, 8388608.0],</span>
-<span class="s2">   denominator: [6.28319, 6.28319]}&quot;</span>
+<span class="s2">   denominator: [6.28319, 6.28319]}"</span>
 </pre></div>
 </div>
 </section>
@@ -1125,7 +1125,7 @@ axis is homed sequentially within the callback.</p>
 </div>
 <p><strong>Example – Home all axes at current position:</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axis/homing<span class="w"> </span>wmx_r2_message/srv/SetAxis<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">&quot;{index: [0, 1, 2, 3, 4, 5], data: [0, 0, 0, 0, 0, 0]}&quot;</span>
+<span class="w">  </span><span class="s2">"{index: [0, 1, 2, 3, 4, 5], data: [0, 0, 0, 0, 0, 0]}"</span>
 </pre></div>
 </div>
 </section>
@@ -1159,7 +1159,7 @@ home settings, etc.). They are hosted by <code class="docutils literal notransla
 Returns <code class="docutils literal notranslate"><span class="pre">success=true</span></code> with a confirmation <code class="docutils literal notranslate"><span class="pre">message</span></code> on success.</p>
 <p><strong>Example:</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/params/load<span class="w"> </span>wmx_r2_message/srv/LoadWmxParams<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">&quot;{file_path: &#39;/opt/wmx3/param/cr3a_params.xml&#39;}&quot;</span>
+<span class="w">  </span><span class="s2">"{file_path: '/opt/wmx3/param/cr3a_params.xml'}"</span>
 </pre></div>
 </div>
 </section>
@@ -1188,7 +1188,7 @@ Returns <code class="docutils literal notranslate"><span class="pre">success=tru
 each requested axis.</p>
 <p><strong>Example – dump parameters for axes 0 and 1:</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/params/get<span class="w"> </span>wmx_r2_message/srv/GetWmxParams<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">&quot;{index: [0, 1]}&quot;</span>
+<span class="w">  </span><span class="s2">"{index: [0, 1]}"</span>
 </pre></div>
 </div>
 </section>
@@ -1269,11 +1269,11 @@ on error</p></td>
 </table>
 </div>
 <p><strong>Example – Close gripper:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/set_gripper<span class="w"> </span>std_srvs/srv/SetBool<span class="w"> </span><span class="s2">&quot;{data: true}&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/set_gripper<span class="w"> </span>std_srvs/srv/SetBool<span class="w"> </span><span class="s2">"{data: true}"</span>
 </pre></div>
 </div>
 <p><strong>Example – Open gripper:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/set_gripper<span class="w"> </span>std_srvs/srv/SetBool<span class="w"> </span><span class="s2">&quot;{data: false}&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/set_gripper<span class="w"> </span>std_srvs/srv/SetBool<span class="w"> </span><span class="s2">"{data: false}"</span>
 </pre></div>
 </div>
 <p>The gripper state is also reflected in the <code class="docutils literal notranslate"><span class="pre">/joint_states</span></code> topic. The
@@ -1328,7 +1328,7 @@ string message  # Response or error description
 <p>Read a single bit from an EtherCAT digital input.</p>
 <p><strong>Example – Read input bit 3 of byte 0:</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/io/get_input_bit<span class="w"> </span>wmx_r2_message/srv/GetIoBit<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">&quot;{byte: 0, bit: 3}&quot;</span>
+<span class="w">  </span><span class="s2">"{byte: 0, bit: 3}"</span>
 </pre></div>
 </div>
 </section>
@@ -1338,7 +1338,7 @@ string message  # Response or error description
 output state, not a physical input).</p>
 <p><strong>Example:</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/io/get_output_bit<span class="w"> </span>wmx_r2_message/srv/GetIoBit<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">&quot;{byte: 0, bit: 0}&quot;</span>
+<span class="w">  </span><span class="s2">"{byte: 0, bit: 0}"</span>
 </pre></div>
 </div>
 </section>
@@ -1347,7 +1347,7 @@ output state, not a physical input).</p>
 <p>Read a contiguous block of digital input bytes.</p>
 <p><strong>Example – Read 4 input bytes starting at address 0:</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/io/get_input_bytes<span class="w"> </span>wmx_r2_message/srv/GetIoBytes<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">&quot;{byte: 0, length: 4}&quot;</span>
+<span class="w">  </span><span class="s2">"{byte: 0, length: 4}"</span>
 </pre></div>
 </div>
 </section>
@@ -1356,7 +1356,7 @@ output state, not a physical input).</p>
 <p>Read the current values of a contiguous block of digital output bytes.</p>
 <p><strong>Example:</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/io/get_output_bytes<span class="w"> </span>wmx_r2_message/srv/GetIoBytes<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">&quot;{byte: 0, length: 4}&quot;</span>
+<span class="w">  </span><span class="s2">"{byte: 0, length: 4}"</span>
 </pre></div>
 </div>
 </section>
@@ -1367,7 +1367,7 @@ same underlying <code class="docutils literal notranslate"><span class="pre">Io:
 general-purpose digital outputs.</p>
 <p><strong>Example – Set output bit 1 of byte 0 to high:</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/io/set_output_bit<span class="w"> </span>wmx_r2_message/srv/SetIoBit<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">&quot;{byte: 0, bit: 1, value: 1}&quot;</span>
+<span class="w">  </span><span class="s2">"{byte: 0, bit: 1, value: 1}"</span>
 </pre></div>
 </div>
 </section>
@@ -1376,7 +1376,7 @@ general-purpose digital outputs.</p>
 <p>Write a block of digital output bytes in a single call.</p>
 <p><strong>Example – Write [0x01, 0x00] to output bytes 0–1:</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/io/set_output_bytes<span class="w"> </span>wmx_r2_message/srv/SetIoBytes<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">&quot;{byte: 0, data: [1, 0]}&quot;</span>
+<span class="w">  </span><span class="s2">"{byte: 0, data: [1, 0]}"</span>
 </pre></div>
 </div>
 </section>
@@ -1431,7 +1431,7 @@ devices. Useful for verifying that all drives are online and in operational
 state (<code class="docutils literal notranslate"><span class="pre">slave_states</span></code> = 16).</p>
 <p><strong>Example:</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/ecat/get_network_state<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>wmx_r2_message/srv/EcatGetNetworkState<span class="w"> </span><span class="s2">&quot;{master_id: 0}&quot;</span>
+<span class="w">  </span>wmx_r2_message/srv/EcatGetNetworkState<span class="w"> </span><span class="s2">"{master_id: 0}"</span>
 </pre></div>
 </div>
 </section>
@@ -1442,7 +1442,7 @@ for low-level diagnostics.</p>
 <p><strong>Example – Read 4 bytes from register 0x0130 of slave 1:</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/ecat/register_read<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>wmx_r2_message/srv/EcatRegisterRead<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">&quot;{master_id: 0, slave_id: 1, reg_address: 304, length: 4}&quot;</span>
+<span class="w">  </span><span class="s2">"{master_id: 0, slave_id: 1, reg_address: 304, length: 4}"</span>
 </pre></div>
 </div>
 </section>
@@ -1452,7 +1452,7 @@ for low-level diagnostics.</p>
 Useful when starting a measurement window.</p>
 <p><strong>Example:</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/ecat/reset_statistics<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>wmx_r2_message/srv/EcatResetStatistics<span class="w"> </span><span class="s2">&quot;{master_id: 0}&quot;</span>
+<span class="w">  </span>wmx_r2_message/srv/EcatResetStatistics<span class="w"> </span><span class="s2">"{master_id: 0}"</span>
 </pre></div>
 </div>
 </section>
@@ -1461,7 +1461,7 @@ Useful when starting a measurement window.</p>
 <p>Initiate the EtherCAT hot-connect procedure for dynamic slave addition.</p>
 <p><strong>Example:</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/ecat/start_hotconnect<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>wmx_r2_message/srv/EcatStartHotconnect<span class="w"> </span><span class="s2">&quot;{master_id: 0}&quot;</span>
+<span class="w">  </span>wmx_r2_message/srv/EcatStartHotconnect<span class="w"> </span><span class="s2">"{master_id: 0}"</span>
 </pre></div>
 </div>
 </section>
@@ -1636,7 +1636,7 @@ write fails</p></li>
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Aug 12, 2026</p>
+      <p>Last updated: Aug 19, 2026</p>
     
   </div>
   <div class="movensys-footer__links">

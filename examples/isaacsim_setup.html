@@ -55,7 +55,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Aug 12, 2026"/>
+    <meta name="docbuild:last-update" content="Aug 19, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -412,7 +412,7 @@ Simulation and HIL modes. Set up <a class="reference internal" href="#isaac-sim-
 <h3>2. Install<a class="headerlink" href="#install" title="Link to this heading">#</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>~/isaacsim
 <span class="nb">cd</span><span class="w"> </span>~/Downloads
-unzip<span class="w"> </span><span class="s2">&quot;isaac-sim-standalone-5.0.0-linux-x86_64.zip&quot;</span><span class="w"> </span>-d<span class="w"> </span>~/isaacsim
+unzip<span class="w"> </span><span class="s2">"isaac-sim-standalone-5.0.0-linux-x86_64.zip"</span><span class="w"> </span>-d<span class="w"> </span>~/isaacsim
 <span class="nb">cd</span><span class="w"> </span>~/isaacsim
 ./post_install.sh
 </pre></div>
@@ -449,7 +449,7 @@ driver is not supported by the Ubuntu <em>desktop</em> installer, install Ubuntu
 isaac-ros_4.1 (Ubuntu 24.04 / Jazzy)</label><div class="sd-tab-content docutils">
 <p><strong>1. Set up the NVIDIA workspace:</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/workspaces/isaac_ros-dev/src
-<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;export ISAAC_ROS_WS=&quot;${ISAAC_ROS_WS:-${HOME}/workspaces/isaac_ros-dev/}&quot;&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
+<span class="nb">echo</span><span class="w"> </span><span class="s1">'export ISAAC_ROS_WS="${ISAAC_ROS_WS:-${HOME}/workspaces/isaac_ros-dev/}"'</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
 <span class="nb">source</span><span class="w"> </span>~/.bashrc
 </pre></div>
 </div>
@@ -465,12 +465,12 @@ sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> <
 sudo<span class="w"> </span>add-apt-repository<span class="w"> </span>universe
 sudo<span class="w"> </span>apt-get<span class="w"> </span>update
 
-<span class="nv">k</span><span class="o">=</span><span class="s2">&quot;/usr/share/keyrings/nvidia-isaac-ros.gpg&quot;</span>
+<span class="nv">k</span><span class="o">=</span><span class="s2">"/usr/share/keyrings/nvidia-isaac-ros.gpg"</span>
 curl<span class="w"> </span>-fsSL<span class="w"> </span>https://isaac.download.nvidia.com/isaac-ros/repos.key<span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>gpg<span class="w"> </span>--dearmor<span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>-a<span class="w"> </span><span class="nv">$k</span><span class="w"> </span>&gt;<span class="w"> </span>/dev/null
-<span class="nv">f</span><span class="o">=</span><span class="s2">&quot;/etc/apt/sources.list.d/nvidia-isaac-ros.list&quot;</span>
+<span class="nv">f</span><span class="o">=</span><span class="s2">"/etc/apt/sources.list.d/nvidia-isaac-ros.list"</span>
 sudo<span class="w"> </span>touch<span class="w"> </span><span class="nv">$f</span>
-<span class="nv">s</span><span class="o">=</span><span class="s2">&quot;deb [signed-by=</span><span class="nv">$k</span><span class="s2">] https://isaac.download.nvidia.com/isaac-ros/release-4.1 noble main&quot;</span>
-grep<span class="w"> </span>-qxF<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$s</span><span class="s2">&quot;</span><span class="w"> </span><span class="nv">$f</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$s</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>-a<span class="w"> </span><span class="nv">$f</span>
+<span class="nv">s</span><span class="o">=</span><span class="s2">"deb [signed-by=</span><span class="nv">$k</span><span class="s2">] https://isaac.download.nvidia.com/isaac-ros/release-4.1 noble main"</span>
+grep<span class="w"> </span>-qxF<span class="w"> </span><span class="s2">"</span><span class="nv">$s</span><span class="s2">"</span><span class="w"> </span><span class="nv">$f</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$s</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>-a<span class="w"> </span><span class="nv">$f</span>
 sudo<span class="w"> </span>apt-get<span class="w"> </span>update
 </pre></div>
 </div>
@@ -672,7 +672,7 @@ click <strong>Play</strong>, then run the matching manipulator scenario to drive
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Aug 12, 2026</p>
+      <p>Last updated: Aug 19, 2026</p>
     
   </div>
   <div class="movensys-footer__links">

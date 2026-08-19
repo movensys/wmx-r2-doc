@@ -55,7 +55,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Aug 12, 2026"/>
+    <meta name="docbuild:last-update" content="Aug 19, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -531,23 +531,23 @@ mros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> <
 <h2>Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h2>
 <p>Read the current end-effector pose:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/moveit2/get_eef_pose<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>movensys_manipulator_moveit_config/srv/GetEefPose<span class="w"> </span><span class="s1">&#39;&quot;{}&quot;&#39;</span>
+<span class="w">     </span>movensys_manipulator_moveit_config/srv/GetEefPose<span class="w"> </span><span class="s1">'"{}"'</span>
 </pre></div>
 </div>
 <p>Absolute Cartesian move (base frame):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/moveit2/absolute_base_eef_cartesian<span class="w"> </span><span class="se">\</span>
 <span class="w">     </span>movensys_manipulator_moveit_config/srv/MovePose<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span><span class="s1">&#39;&quot;{pos: [-0.158, -0.071, 0.346], ori: [3.14159265, 0.0, -3.14159265]}&quot;&#39;</span>
+<span class="w">     </span><span class="s1">'"{pos: [-0.158, -0.071, 0.346], ori: [3.14159265, 0.0, -3.14159265]}"'</span>
 </pre></div>
 </div>
 <p>Absolute joint move:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/moveit2/joint_movement<span class="w"> </span><span class="se">\</span>
 <span class="w">     </span>movensys_manipulator_moveit_config/srv/MoveJoints<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span><span class="s1">&#39;&quot;{joint_names: [joint1, joint2, joint3, joint4, joint5, joint6], joint_values: [0.0, 0.0, -1.57, 0.0, 1.57, 0.0]}&quot;&#39;</span>
+<span class="w">     </span><span class="s1">'"{joint_names: [joint1, joint2, joint3, joint4, joint5, joint6], joint_values: [0.0, 0.0, -1.57, 0.0, 1.57, 0.0]}"'</span>
 </pre></div>
 </div>
 <p>Open or close the gripper:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/set_gripper<span class="w"> </span>std_srvs/srv/SetBool<span class="w"> </span><span class="s1">&#39;&quot;{data: true}&quot;&#39;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/set_gripper<span class="w"> </span>std_srvs/srv/SetBool<span class="w"> </span><span class="s1">'"{data: true}"'</span>
 </pre></div>
 </div>
 </section>
@@ -655,7 +655,7 @@ repository for the full trajectory, AprilTag, Nvblox, and YOLO walkthroughs</p><
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Aug 12, 2026</p>
+      <p>Last updated: Aug 19, 2026</p>
     
   </div>
   <div class="movensys-footer__links">

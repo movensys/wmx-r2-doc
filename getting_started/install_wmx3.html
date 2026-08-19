@@ -55,7 +55,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Aug 12, 2026"/>
+    <meta name="docbuild:last-update" content="Aug 19, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -573,8 +573,8 @@ safety measures described in <a class="reference internal" href="../commissionin
 <span class="w">  </span>--preserve-env<span class="o">=</span>ROS_PYTHON_VERSION<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--preserve-env<span class="o">=</span>ROS_DOMAIN_ID<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--preserve-env<span class="o">=</span>RMW_IMPLEMENTATION<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>bash<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;source /opt/ros/</span><span class="si">${</span><span class="nv">ROS_DISTRO</span><span class="si">}</span><span class="s2">/setup.bash &amp;&amp; source </span><span class="nv">$HOME</span><span class="s2">/workspaces/movensys_ws/install/setup.bash &amp;&amp; \</span>
-<span class="s2">  ros2 launch wmx_r2_package wmx_r2_general_nodes.launch.py&quot;</span>
+<span class="w">  </span>bash<span class="w"> </span>-c<span class="w"> </span><span class="s2">"source /opt/ros/</span><span class="si">${</span><span class="nv">ROS_DISTRO</span><span class="si">}</span><span class="s2">/setup.bash &amp;&amp; source </span><span class="nv">$HOME</span><span class="s2">/workspaces/movensys_ws/install/setup.bash &amp;&amp; \</span>
+<span class="s2">  ros2 launch wmx_r2_package wmx_r2_general_nodes.launch.py"</span>
 </pre></div>
 </div>
 </section>
@@ -608,9 +608,9 @@ servos; that is an explicit <code class="docutils literal notranslate"><span cla
 hardware plugin. If you command motion from the general nodes alone, load
 the parameters first:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/params/load<span class="w"> </span>wmx_r2_message/srv/LoadWmxParams<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span><span class="s2">&quot;{file_path: &#39;/abs/path/to/&lt;robot&gt;_wmx_parameters.xml&#39;}&quot;</span>
+<span class="w">     </span><span class="s2">"{file_path: '/abs/path/to/&lt;robot&gt;_wmx_parameters.xml'}"</span>
 ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/params/get<span class="w"> </span>wmx_r2_message/srv/GetWmxParams<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span><span class="s2">&quot;{index: [0,1,2,3,4,5]}&quot;</span>
+<span class="w">     </span><span class="s2">"{index: [0,1,2,3,4,5]}"</span>
 </pre></div>
 </div>
 <p>See <a class="reference internal" href="../commissioning/robot_parameters.html"><span class="doc">Robot Parameter Configuration and Validation</span></a>.</p>
@@ -623,7 +623,7 @@ interfaces as ROS2 services and topics. List what is available and confirm the
 engine is communicating:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>/wmx<span class="w">                                  </span><span class="c1"># Available WMX services</span>
 ros2<span class="w"> </span>topic<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>/wmx<span class="w">                                    </span><span class="c1"># Available WMX topics</span>
-ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/engine/get_status<span class="w"> </span>std_srvs/srv/Trigger<span class="w">  </span><span class="c1"># Expect: &quot;Communicating&quot;</span>
+ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/engine/get_status<span class="w"> </span>std_srvs/srv/Trigger<span class="w">  </span><span class="c1"># Expect: "Communicating"</span>
 ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/ecat/get_network_state<span class="w"> </span><span class="se">\</span>
 <span class="w">     </span>wmx_r2_message/srv/EcatGetNetworkState<span class="w">                  </span><span class="c1"># EtherCAT master/slave status</span>
 </pre></div>
@@ -727,7 +727,7 @@ servos, stop EtherCAT communication, and close the WMX device.</p>
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Aug 12, 2026</p>
+      <p>Last updated: Aug 19, 2026</p>
     
   </div>
   <div class="movensys-footer__links">

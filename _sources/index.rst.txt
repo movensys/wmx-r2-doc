@@ -22,6 +22,8 @@ AI's judgment (*Think*) into a robot's real-world motion (*Act*), in real time.
 The entire stack runs on a single edge device with no separate external motion
 controller, combining perception and deterministic motion into edge physical AI.
 
+**WMX R2 runs on any robot or machine that uses EtherCAT.**
+
 WMX R2 integrates with widely used projects in the ROS2 ecosystem:
 
 * `MoveIt2 <https://moveit.ai/>`_ for manipulator motion planning
@@ -84,6 +86,25 @@ See :doc:`examples/examples` to run these scenarios from start to finish.
    :width: 100%
 
    WMX R2 architecture overview.
+
+Any EtherCAT system, any robot
+----------------------------------------
+
+**WMX R2 runs on any robot or machine that uses EtherCAT.**
+
+WMX R2 sends commands to servo drives over EtherCAT using standard CoE. It does
+not go through the robot manufacturer's controller, so it does not depend on the
+brand of the robot or of the drives. It controls axes rather than a specific
+robot model, so a six-axis arm, a differential-drive mobile base, and a custom
+multi-axis machine are all driven the same way.
+
+Moving to a different robot means changing three files: the axis parameter file,
+the URDF, and the planning configuration. The motion engine, the ROS 2
+interface, and the real-time cycle stay the same.
+
+WMX R2 also provides general nodes for axis, I/O, engine, and EtherCAT control.
+You can use them to read and command any EtherCAT device on the network before
+writing a configuration for a specific robot.
 
 Why WMX R2?
 ----------------------------------------

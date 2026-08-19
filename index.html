@@ -54,7 +54,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Aug 12, 2026"/>
+    <meta name="docbuild:last-update" content="Aug 19, 2026"/>
   
     
     <script src="_static/searchtools.js"></script>
@@ -380,6 +380,7 @@ AI’s judgment (<em>Think</em>) into a robot’s real-world motion (<em>Act</em
 </figure>
 <p>The entire stack runs on a single edge device with no separate external motion
 controller, combining perception and deterministic motion into edge physical AI.</p>
+<p><strong>WMX R2 runs on any robot or machine that uses EtherCAT.</strong></p>
 <p>WMX R2 integrates with widely used projects in the ROS2 ecosystem:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://moveit.ai/">MoveIt2</a> for manipulator motion planning</p></li>
@@ -430,6 +431,21 @@ the Isaac Sim scenes used by the manipulator and navigation scenarios</p></li>
 <p><span class="caption-text">WMX R2 architecture overview.</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
+<section id="any-ethercat-system-any-robot">
+<h2>Any EtherCAT system, any robot<a class="headerlink" href="#any-ethercat-system-any-robot" title="Link to this heading">#</a></h2>
+<p><strong>WMX R2 runs on any robot or machine that uses EtherCAT.</strong></p>
+<p>WMX R2 sends commands to servo drives over EtherCAT using standard CoE. It does
+not go through the robot manufacturer’s controller, so it does not depend on the
+brand of the robot or of the drives. It controls axes rather than a specific
+robot model, so a six-axis arm, a differential-drive mobile base, and a custom
+multi-axis machine are all driven the same way.</p>
+<p>Moving to a different robot means changing three files: the axis parameter file,
+the URDF, and the planning configuration. The motion engine, the ROS 2
+interface, and the real-time cycle stay the same.</p>
+<p>WMX R2 also provides general nodes for axis, I/O, engine, and EtherCAT control.
+You can use them to read and command any EtherCAT device on the network before
+writing a configuration for a specific robot.</p>
+</section>
 <section id="why-wmx-r2">
 <h2>Why WMX R2?<a class="headerlink" href="#why-wmx-r2" title="Link to this heading">#</a></h2>
 <p>A planner such as MoveIt2 or Nav2 produces a trajectory that must become the
@@ -715,6 +731,7 @@ interface and the proprietary WMX motion engine.</p></li>
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#any-ethercat-system-any-robot">Any EtherCAT system, any robot</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-wmx-r2">Why WMX R2?</a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#performance-comparison">Performance comparison</a></li>
 </ul>
@@ -750,7 +767,7 @@ interface and the proprietary WMX motion engine.</p></li>
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Aug 12, 2026</p>
+      <p>Last updated: Aug 19, 2026</p>
     
   </div>
   <div class="movensys-footer__links">

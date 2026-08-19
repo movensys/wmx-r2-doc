@@ -55,7 +55,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Aug 12, 2026"/>
+    <meta name="docbuild:last-update" content="Aug 19, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -510,7 +510,7 @@ documentation.</p>
 multi-point trajectory, sends it to the action server, and waits for the
 result.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
-<span class="sd">&quot;&quot;&quot;Custom planner example: generate and execute a multi-point trajectory.&quot;&quot;&quot;</span>
+<span class="sd">"""Custom planner example: generate and execute a multi-point trajectory."""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">rclpy</span>
@@ -522,18 +522,18 @@ result.</p>
 <span class="kn">from</span><span class="w"> </span><span class="nn">builtin_interfaces.msg</span><span class="w"> </span><span class="kn">import</span> <span class="n">Duration</span>
 
 
-<span class="n">JOINT_NAMES</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;joint1&#39;</span><span class="p">,</span> <span class="s1">&#39;joint2&#39;</span><span class="p">,</span> <span class="s1">&#39;joint3&#39;</span><span class="p">,</span> <span class="s1">&#39;joint4&#39;</span><span class="p">,</span> <span class="s1">&#39;joint5&#39;</span><span class="p">,</span> <span class="s1">&#39;joint6&#39;</span><span class="p">]</span>
-<span class="n">ACTION_NAME</span> <span class="o">=</span> <span class="s1">&#39;/movensys_manipulator_arm_controller/follow_joint_trajectory&#39;</span>
+<span class="n">JOINT_NAMES</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'joint1'</span><span class="p">,</span> <span class="s1">'joint2'</span><span class="p">,</span> <span class="s1">'joint3'</span><span class="p">,</span> <span class="s1">'joint4'</span><span class="p">,</span> <span class="s1">'joint5'</span><span class="p">,</span> <span class="s1">'joint6'</span><span class="p">]</span>
+<span class="n">ACTION_NAME</span> <span class="o">=</span> <span class="s1">'/movensys_manipulator_arm_controller/follow_joint_trajectory'</span>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">CustomPlanner</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">&#39;custom_planner&#39;</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">'custom_planner'</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_current_positions</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="c1"># Subscribe to joint states to know current position</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_joint_sub</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_subscription</span><span class="p">(</span>
-            <span class="n">JointState</span><span class="p">,</span> <span class="s1">&#39;/joint_states&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_joint_cb</span><span class="p">,</span> <span class="mi">10</span>
+            <span class="n">JointState</span><span class="p">,</span> <span class="s1">'/joint_states'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_joint_cb</span><span class="p">,</span> <span class="mi">10</span>
         <span class="p">)</span>
 
         <span class="c1"># Action client for trajectory execution</span>
@@ -547,23 +547,23 @@ result.</p>
             <span class="bp">self</span><span class="o">.</span><span class="n">_current_positions</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">position</span><span class="p">[:</span><span class="mi">6</span><span class="p">])</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">wait_for_joint_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timeout_sec</span><span class="o">=</span><span class="mf">5.0</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Wait until we receive at least one joint state message.&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Waiting for /joint_states...&#39;</span><span class="p">)</span>
+<span class="w">        </span><span class="sd">"""Wait until we receive at least one joint state message."""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">'Waiting for /joint_states...'</span><span class="p">)</span>
         <span class="n">start</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_clock</span><span class="p">()</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
         <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_positions</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">rclpy</span><span class="o">.</span><span class="n">spin_once</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timeout_sec</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
             <span class="n">elapsed</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_clock</span><span class="p">()</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span><span class="o">.</span><span class="n">nanoseconds</span> <span class="o">/</span> <span class="mf">1e9</span>
             <span class="k">if</span> <span class="n">elapsed</span> <span class="o">&gt;</span> <span class="n">timeout_sec</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Timeout waiting for /joint_states&#39;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">'Timeout waiting for /joint_states'</span><span class="p">)</span>
                 <span class="k">return</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s1">&#39;Current positions: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_current_positions</span><span class="si">}</span><span class="s1">&#39;</span>
+            <span class="sa">f</span><span class="s1">'Current positions: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_current_positions</span><span class="si">}</span><span class="s1">'</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="kc">True</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">generate_trajectory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_positions</span><span class="p">,</span> <span class="n">num_points</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
                              <span class="n">total_time_sec</span><span class="o">=</span><span class="mf">5.0</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate a linear interpolation trajectory.</span>
+<span class="w">        </span><span class="sd">"""Generate a linear interpolation trajectory.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            target_positions: Target joint angles (6 values, radians).</span>
@@ -572,7 +572,7 @@ result.</p>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            List of JointTrajectoryPoint objects.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">start</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_positions</span>
         <span class="n">points</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_points</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
@@ -592,8 +592,8 @@ result.</p>
         <span class="k">return</span> <span class="n">points</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">execute_trajectory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">points</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Send trajectory to the action server and wait for result.&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Waiting for action server...&#39;</span><span class="p">)</span>
+<span class="w">        </span><span class="sd">"""Send trajectory to the action server and wait for result."""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">'Waiting for action server...'</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_action_client</span><span class="o">.</span><span class="n">wait_for_server</span><span class="p">()</span>
 
         <span class="n">goal</span> <span class="o">=</span> <span class="n">FollowJointTrajectory</span><span class="o">.</span><span class="n">Goal</span><span class="p">()</span>
@@ -601,27 +601,27 @@ result.</p>
         <span class="n">goal</span><span class="o">.</span><span class="n">trajectory</span><span class="o">.</span><span class="n">points</span> <span class="o">=</span> <span class="n">points</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s1">&#39;Sending trajectory with </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">points</span><span class="p">)</span><span class="si">}</span><span class="s1"> points&#39;</span>
+            <span class="sa">f</span><span class="s1">'Sending trajectory with </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">points</span><span class="p">)</span><span class="si">}</span><span class="s1"> points'</span>
         <span class="p">)</span>
         <span class="n">future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_action_client</span><span class="o">.</span><span class="n">send_goal_async</span><span class="p">(</span><span class="n">goal</span><span class="p">)</span>
         <span class="n">rclpy</span><span class="o">.</span><span class="n">spin_until_future_complete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future</span><span class="p">)</span>
 
         <span class="n">goal_handle</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">goal_handle</span><span class="o">.</span><span class="n">accepted</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Goal rejected&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">'Goal rejected'</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">False</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Goal accepted, executing...&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">'Goal accepted, executing...'</span><span class="p">)</span>
         <span class="n">result_future</span> <span class="o">=</span> <span class="n">goal_handle</span><span class="o">.</span><span class="n">get_result_async</span><span class="p">()</span>
         <span class="n">rclpy</span><span class="o">.</span><span class="n">spin_until_future_complete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result_future</span><span class="p">)</span>
 
         <span class="n">result</span> <span class="o">=</span> <span class="n">result_future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">result</span>
         <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">error_code</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Trajectory executed successfully&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">'Trajectory executed successfully'</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">True</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s1">&#39;Trajectory failed: error_code=</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">error_code</span><span class="si">}</span><span class="s1">&#39;</span>
+                <span class="sa">f</span><span class="s1">'Trajectory failed: error_code=</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">error_code</span><span class="si">}</span><span class="s1">'</span>
             <span class="p">)</span>
             <span class="k">return</span> <span class="kc">False</span>
 
@@ -649,7 +649,7 @@ result.</p>
     <span class="n">rclpy</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
 
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -775,7 +775,7 @@ and <a class="reference internal" href="../api_reference/ros2_topics.html"><span
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Aug 12, 2026</p>
+      <p>Last updated: Aug 19, 2026</p>
     
   </div>
   <div class="movensys-footer__links">

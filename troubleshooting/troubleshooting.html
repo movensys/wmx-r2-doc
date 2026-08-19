@@ -55,7 +55,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Aug 12, 2026"/>
+    <meta name="docbuild:last-update" content="Aug 19, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -407,14 +407,14 @@ RViz and the physical robot move opposite ways.</p>
 <ul>
 <li><p>Read back the polarity the engine actually holds:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/params/get<span class="w"> </span>wmx_r2_message/srv/GetWmxParams<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">&quot;{index: [0,1,2,3,4,5]}&quot;</span>
+<span class="w">  </span><span class="s2">"{index: [0,1,2,3,4,5]}"</span>
 </pre></div>
 </div>
 </li>
 <li><p>Correct <code class="docutils literal notranslate"><span class="pre">AxisPolarity</span></code> for that axis in the robot’s WMX parameter XML
 (<code class="docutils literal notranslate"><span class="pre">+1</span></code> or <code class="docutils literal notranslate"><span class="pre">-1</span></code>) and rebuild, or override it for testing:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axis/set_polarity<span class="w"> </span>wmx_r2_message/srv/SetAxis<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">&quot;{index: [0], data: [-1]}&quot;</span>
+<span class="w">  </span><span class="s2">"{index: [0], data: [-1]}"</span>
 </pre></div>
 </div>
 </li>
@@ -531,7 +531,7 @@ errors in the log)</p></li>
 WMX parameter XML file for your robot</p></li>
 <li><p>Clear alarms and re-enable servos:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axis/clear_alarm<span class="w"> </span>wmx_r2_message/srv/SetAxis<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">&quot;{index: [0,1,2,3,4,5], data: [0,0,0,0,0,0]}&quot;</span>
+<span class="w">  </span><span class="s2">"{index: [0,1,2,3,4,5], data: [0,0,0,0,0,0]}"</span>
 </pre></div>
 </div>
 </li>
@@ -545,7 +545,7 @@ rejected.</p>
 <ul>
 <li><p>Clear alarms via the service:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axis/clear_alarm<span class="w"> </span>wmx_r2_message/srv/SetAxis<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">&quot;{index: [0,1,2,3,4,5], data: [0,0,0,0,0,0]}&quot;</span>
+<span class="w">  </span><span class="s2">"{index: [0,1,2,3,4,5], data: [0,0,0,0,0,0]}"</span>
 </pre></div>
 </div>
 </li>
@@ -576,7 +576,7 @@ does not move.</p>
 <li><p>Verify the I/O module is part of the EtherCAT daisy chain</p></li>
 <li><p>Check EtherCAT communication is active (engine state = <code class="docutils literal notranslate"><span class="pre">Communicating</span></code>)</p></li>
 <li><p>Test the I/O directly:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/set_gripper<span class="w"> </span>std_srvs/srv/SetBool<span class="w"> </span><span class="s2">&quot;{data: true}&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/set_gripper<span class="w"> </span>std_srvs/srv/SetBool<span class="w"> </span><span class="s2">"{data: true}"</span>
 </pre></div>
 </div>
 </li>
@@ -712,7 +712,7 @@ issue on the project repository.</p>
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Aug 12, 2026</p>
+      <p>Last updated: Aug 19, 2026</p>
     
   </div>
   <div class="movensys-footer__links">
