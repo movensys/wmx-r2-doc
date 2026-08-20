@@ -113,6 +113,9 @@ Once WMX R2 is installed and built, you can validate it in two ways: in
 simulation (no physical hardware required) or against real EtherCAT hardware.
 Start with simulation to verify basic behavior, then move to real hardware.
 
+Step 1: Setup Operation Mode
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 The WMX R2 nodes communicate directly with the WMX engine over EtherCAT —
 there is no built-in mock hardware mode. The mode is selected in
 ``/opt/wmx3/Module.ini`` by enabling either the simulation or the EtherCAT
@@ -201,8 +204,11 @@ that follow.
    parameter validation, the low-speed single-axis procedure, and the separate
    safety measures described in :doc:`../commissioning/safety`.
 
-Test the WMX R2 General Nodes (Standalone)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Step 2: Launch the General Nodes (Standalone)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Start the four robot-agnostic nodes (wmx_engine_node, wmx_core_motion_node, wmx_io_node, and wmx_ethercat_node).
 
 .. code-block:: bash
 
@@ -219,20 +225,20 @@ Test the WMX R2 General Nodes (Standalone)
      bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash && source $HOME/workspaces/movensys_ws/install/setup.bash && \
      ros2 launch wmx_r2_package wmx_r2_general_nodes.launch.py"
 
-Startup Sequence
-^^^^^^^^^^^^^^^^
 
-``wmx_r2_general_nodes.launch.py`` starts four robot-agnostic nodes —
-``wmx_engine_node``, ``wmx_core_motion_node``, ``wmx_io_node``, and
-``wmx_ethercat_node``:
+.. note::
 
-1. **Device creation** -- ``wmx_engine_node`` creates the WMX device handle,
+   This roadmap covers example applications and platform support only. It is
+   not a commitment to provide sa
+   1. **Device creation** -- ``wmx_engine_node`` creates the WMX device handle,
    retrying up to five times if another application holds the lock
    (error 297). The remaining nodes then attach to that device.
-2. **Communication start** -- ``StartCommunication`` brings up the real-time
+   2. **Communication start** -- ``StartCommunication`` brings up the real-time
    EtherCAT cycle, which discovers the drives on the bus.
-3. **Ready** -- each node publishes on its ``ready`` topic and begins serving
+   3. **Ready** -- each node publishes on its ``ready`` topic and begins serving
    its services and topics.
+
+
 
 .. warning:: **The general nodes load no robot parameters and enable no
    servos.**
