@@ -105,7 +105,7 @@ that follow.
 2. Launch the General Nodes (Standalone)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Start the four robot-agnostic nodes (wmx_engine_node, wmx_core_motion_node, wmx_io_node, and wmx_ethercat_node).
+Start the four robot-agnostic nodes (``wmx_engine_node``, ``wmx_core_motion_node``, ``wmx_io_node``, and ``wmx_ethercat_node``).
 
 .. code-block:: bash
 
