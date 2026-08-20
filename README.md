@@ -47,6 +47,7 @@ cd doc
 make clean
 make html
 ```
+Open `doc/_build/html/index.html` in your browser to view the documentation.
 
 ### Webserver 
 - Youtube link is broken when you try to see index.html file to web browser directly.
@@ -55,8 +56,6 @@ make html
 cd doc/_build/html
 python3 -m http.server 8000
 ```
-
-Open `doc/_build/html/index.html` in your browser to view the documentation.
 
 ## Deployment
 
