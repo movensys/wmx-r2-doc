@@ -113,8 +113,11 @@ Once WMX R2 is installed and built, you can validate it in two ways: in
 simulation (no physical hardware required) or against real EtherCAT hardware.
 Start with simulation to verify basic behavior, then move to real hardware.
 
+
+
 Step 1: Setup Operation Mode
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 
 The WMX R2 nodes communicate directly with the WMX engine over EtherCAT —
 there is no built-in mock hardware mode. The mode is selected in
@@ -205,8 +208,9 @@ that follow.
    safety measures described in :doc:`../commissioning/safety`.
 
 
+
 Step 2: Launch the General Nodes (Standalone)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Start the four robot-agnostic nodes (wmx_engine_node, wmx_core_motion_node, wmx_io_node, and wmx_ethercat_node).
 
@@ -240,6 +244,29 @@ Start the four robot-agnostic nodes (wmx_engine_node, wmx_core_motion_node, wmx_
 
 
 
+Step 3: Test Services and Topics
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+The general nodes expose the WMX engine, axis, I/O, and EtherCAT control
+interfaces as ROS2 services and topics. List what is available and confirm the
+engine is communicating:
+
+.. code-block:: bash
+
+   ros2 service list | grep /wmx                                  # Available WMX services
+   ros2 topic list | grep /wmx                                    # Available WMX topics
+   ros2 service call /wmx/engine/get_status std_srvs/srv/Trigger  # Expect: "Communicating"
+   ros2 service call /wmx/ecat/get_network_state \
+        wmx_r2_message/srv/EcatGetNetworkState                  # EtherCAT master/slave status
+
+For the complete list of services, topics, and message types exposed by the
+general nodes — engine control, axis motion, I/O, and EtherCAT — see the
+`WMX R2 General Nodes reference
+<https://github.com/movensys/wmx-r2/blob/main/doc/reference_wmx_r2_general_nodes.md>`_.
+
+
+
 .. warning:: **The general nodes load no robot parameters and enable no
    servos.**
 
@@ -265,28 +292,10 @@ Start the four robot-agnostic nodes (wmx_engine_node, wmx_core_motion_node, wmx_
 
    See :doc:`../commissioning/robot_parameters`.
 
-Testing WMX R2 Services and Topics
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The general nodes expose the WMX engine, axis, I/O, and EtherCAT control
-interfaces as ROS2 services and topics. List what is available and confirm the
-engine is communicating:
 
-.. code-block:: bash
-
-   ros2 service list | grep /wmx                                  # Available WMX services
-   ros2 topic list | grep /wmx                                    # Available WMX topics
-   ros2 service call /wmx/engine/get_status std_srvs/srv/Trigger  # Expect: "Communicating"
-   ros2 service call /wmx/ecat/get_network_state \
-        wmx_r2_message/srv/EcatGetNetworkState                  # EtherCAT master/slave status
-
-For the complete list of services, topics, and message types exposed by the
-general nodes — engine control, axis motion, I/O, and EtherCAT — see the
-`WMX R2 General Nodes reference
-<https://github.com/movensys/wmx-r2/blob/main/doc/reference_wmx_r2_general_nodes.md>`_.
-
-Shutdown
-^^^^^^^^
+Step 4: Shutdown
+^^^^^^^^^^^^^^^^
 
 Press ``Ctrl+C`` in the launch terminal. The nodes will automatically disable
 servos, stop EtherCAT communication, and close the WMX device.
