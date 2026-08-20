@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>SLAM Mapping &#8212; WMX R2 Documentation 1.0.0 documentation</title>
+    <title>Testing WMX R2 &#8212; WMX R2 Documentation 1.0.0 documentation</title>
   
   
   
@@ -44,14 +44,14 @@
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'examples/slam_mapping';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'examples/Testing WMX R2';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="icon" href="../_static/movensys_logo.png"/>
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Autonomous Navigation" href="autonomous_navigation.html" />
-    <link rel="prev" title="Manual Driving" href="manual_driving.html" />
+    <link rel="next" title="NVIDIA Isaac ROS Setup (Optional)" href="isaacsim_setup.html" />
+    <link rel="prev" title="Example Applications" href="examples.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -188,6 +188,10 @@
   
 
   
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
 </div>
 
     </header>
@@ -250,7 +254,7 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="examples.html">Example Applications</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="Testing%20WMX%20R2.html">Testing WMX R2</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Testing WMX R2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="isaacsim_setup.html">NVIDIA Isaac ROS Setup (Optional)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="movensys_manipulator.html">movensys-manipulator</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
@@ -262,10 +266,10 @@
 <li class="toctree-l3"><a class="reference internal" href="robopoly_game.html">Robopoly Game (VLM / LLM)</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="reference internal" href="movensys_navigation.html">movensys-navigation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="movensys_navigation.html">movensys-navigation</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="movensys_navigation_setup.html">movensys-navigation Setup</a></li>
 <li class="toctree-l3"><a class="reference internal" href="manual_driving.html">Manual Driving</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">SLAM Mapping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="slam_mapping.html">SLAM Mapping</a></li>
 <li class="toctree-l3"><a class="reference internal" href="autonomous_navigation.html">Autonomous Navigation</a></li>
 </ul>
 </li>
@@ -368,10 +372,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
     <li class="breadcrumb-item"><a href="examples.html" class="nav-link">Example Applications</a></li>
     
-    
-    <li class="breadcrumb-item"><a href="movensys_navigation.html" class="nav-link">movensys-navigation</a></li>
-    
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">SLAM Mapping</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Testing WMX R2</span></li>
   </ul>
 </nav>
 </div>
@@ -388,126 +389,167 @@ document.addEventListener("DOMContentLoaded", function() {
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="slam-mapping">
-<h1>SLAM Mapping<a class="headerlink" href="#slam-mapping" title="Link to this heading">#</a></h1>
-<p>Build an occupancy-grid map of the environment by driving the base manually
-while SLAM runs. When the map looks complete, save it for later use in
-<a class="reference internal" href="autonomous_navigation.html"><span class="doc">Autonomous Navigation</span></a>. See <a class="reference internal" href="examples.html"><span class="doc">Example Applications</span></a> for the shared navigation
-setup. All commands run through <code class="docutils literal notranslate"><span class="pre">nros</span></code>.</p>
+  <section id="testing-wmx-r2">
+<h1>Testing WMX R2<a class="headerlink" href="#testing-wmx-r2" title="Link to this heading">#</a></h1>
+<p>Once WMX R2 is installed and built, you can validate it in two ways: in
+simulation (no physical hardware required) or against real EtherCAT hardware.
+Start with simulation to verify basic behavior, then move to real hardware.</p>
+<section id="setup-operation-mode">
+<h2>1. Setup Operation Mode<a class="headerlink" href="#setup-operation-mode" title="Link to this heading">#</a></h2>
+<p>The WMX R2 nodes communicate directly with the WMX engine over EtherCAT —
+there is no built-in mock hardware mode. The mode is selected in
+<code class="docutils literal notranslate"><span class="pre">/opt/wmx3/Module.ini</span></code> by enabling either the simulation or the EtherCAT
+platform. Select your mode below, then continue with the common test steps
+that follow.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>Real Hardware mode moves a physical machine.</strong></p>
+<p>Start with the Simulation platform. Before switching to EtherCAT and
+enabling servos on a robot, complete <a class="reference internal" href="../commissioning/index.html"><span class="doc">Commissioning</span></a> —
+parameter validation, the low-speed single-axis procedure, and the separate
+safety measures described in <a class="reference internal" href="../commissioning/safety.html"><span class="doc">Safety Functions and Responsibility</span></a>.</p>
+</div>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-0">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="sim" for="sd-tab-item-0">
 Simulation</label><div class="sd-tab-content docutils">
-<figure class="align-center" id="id1">
-<a class="reference external image-reference" href="https://softservogroup.sharepoint.com/:i:/s/Storage/IQAqEkNTOJfcRKWZoqsdvS3FAWN06pDGTDrk5i4WAimhqGE?e=s2avzR&amp;download=1"><img alt="SLAM mapping on simulation" src="https://softservogroup.sharepoint.com/:i:/s/Storage/IQAqEkNTOJfcRKWZoqsdvS3FAWN06pDGTDrk5i4WAimhqGE?e=s2avzR&amp;download=1" style="width: 100%;" />
-</a>
-<figcaption>
-<p><span class="caption-text">SLAM mapping on simulation</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
-</figcaption>
-</figure>
-<ol class="arabic">
-<li><p>Open the scene:</p>
-<div class="sd-tab-set docutils">
-<input checked="checked" id="sd-tab-item-2" name="sd-tab-set-1" type="radio">
-<label class="sd-tab-label" data-sync-group="tab" data-sync-id="isaacsim" for="sd-tab-item-2">
-Isaac Sim</label><div class="sd-tab-content docutils">
-<p>Open
-<code class="docutils literal notranslate"><span class="pre">~/workspaces/movensys-simulation/&lt;NAVIGATION_MODEL&gt;/navigation_simulation.usd</span></code></p>
-</div>
-<input id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
-<label class="sd-tab-label" data-sync-group="tab" data-sync-id="gazebo" for="sd-tab-item-3">
-Gazebo</label><div class="sd-tab-content docutils">
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>movensys_navigation_description<span class="w"> </span>gazebo_navigation_simulation.launch.py
+<p>Use the simulation platform to test without any physical hardware
+connected.</p>
+<p><strong>Setup WMX in simulation mode</strong></p>
+<p>Modify <code class="docutils literal notranslate"><span class="pre">/opt/wmx3/Module.ini</span></code> to disable the EtherCAT platform and
+enable the simulation platform:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[Platform 0]</span>
+<span class="na">Location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">./platform/ethercat</span>
+<span class="na">DllName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">ec_platform.so</span>
+<span class="na">NumOfMaster</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">1</span>
+<span class="na">disable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">1</span>
+
+<span class="k">[Platform 1]</span>
+<span class="na">Location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">./platform/simu</span>
+<span class="na">DllName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">simu_platform.so</span>
+<span class="na">NumOfMaster</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">1</span>
+<span class="na">disable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">0</span>
 </pre></div>
 </div>
-</div>
-</div>
-</li>
-<li><p>Run the simulator bridge:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>movensys_navigation_nav2_config<span class="w"> </span>sim_bridge.launch.py<span class="w"> </span>use_sim_time:<span class="o">=</span><span class="nb">true</span>
-</pre></div>
-</div>
-</li>
-<li><p>Start mapping:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>movensys_navigation_nav2_config<span class="w"> </span>mapping.launch.py<span class="w"> </span>use_sim_time:<span class="o">=</span><span class="nb">true</span>
-</pre></div>
-</div>
-<p>Add <code class="docutils literal notranslate"><span class="pre">rsp:=false</span></code> if using Gazebo or <code class="docutils literal notranslate"><span class="pre">ros2_control</span></code> – both already
-publish <code class="docutils literal notranslate"><span class="pre">/robot_description</span></code>.</p>
-</li>
-<li><p>Drive with the teleop keyboard to cover the environment:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nros<span class="w"> </span>ros2<span class="w"> </span>run<span class="w"> </span>teleop_twist_keyboard<span class="w"> </span>teleop_twist_keyboard<span class="w"> </span>--ros-args<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>-p<span class="w"> </span>turn:<span class="o">=</span><span class="m">0</span>.5<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>-p<span class="w"> </span>stamped:<span class="o">=</span><span class="nb">true</span><span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>-p<span class="w"> </span>frame_id:<span class="o">=</span>base_link<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>-p<span class="w"> </span>use_sim_time:<span class="o">=</span><span class="nb">true</span><span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>-r<span class="w"> </span>cmd_vel:<span class="o">=</span>/cmd_vel_safe
-</pre></div>
-</div>
-</li>
-<li><p>Save the map once coverage is complete:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nros<span class="w"> </span>ros2<span class="w"> </span>run<span class="w"> </span>nav2_map_server<span class="w"> </span>map_saver_cli<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>-f<span class="w"> </span>/home/admin/workspaces/movensys_ws/src/movensys-navigation/movensys_navigation_nav2_config/maps/my_map
-</pre></div>
-</div>
-</li>
-</ol>
 </div>
 <input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-1">
-HIL</label><div class="sd-tab-content docutils">
-<figure class="align-center" id="id2">
-<a class="reference external image-reference" href="https://softservogroup.sharepoint.com/:i:/s/Storage/IQAqEkNTOJfcRKWZoqsdvS3FAWN06pDGTDrk5i4WAimhqGE?e=s2avzR&amp;download=1"><img alt="SLAM examples on HIL" src="https://softservogroup.sharepoint.com/:i:/s/Storage/IQAqEkNTOJfcRKWZoqsdvS3FAWN06pDGTDrk5i4WAimhqGE?e=s2avzR&amp;download=1" style="width: 100%;" />
-</a>
-<figcaption>
-<p><span class="caption-text">SLAM Mapping on HIL</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
-</figcaption>
-</figure>
-<ol class="arabic">
-<li><p>Open the scene:</p>
-<div class="sd-tab-set docutils">
-<input checked="checked" id="sd-tab-item-4" name="sd-tab-set-2" type="radio">
-<label class="sd-tab-label" data-sync-group="tab" data-sync-id="isaacsim" for="sd-tab-item-4">
-Isaac Sim</label><div class="sd-tab-content docutils">
-<p>Open
-<code class="docutils literal notranslate"><span class="pre">~/workspaces/movensys-simulation/&lt;NAVIGATION_MODEL&gt;/navigation_hil.usd</span></code></p>
-</div>
-<input id="sd-tab-item-5" name="sd-tab-set-2" type="radio">
-<label class="sd-tab-label" data-sync-group="tab" data-sync-id="gazebo" for="sd-tab-item-5">
-Gazebo</label><div class="sd-tab-content docutils">
-<p>Not applicable for HIL.</p>
-</div>
-</div>
-</li>
-<li><p>Start WMX R2 for the navigation base (real WMX runtime) with
-<code class="docutils literal notranslate"><span class="pre">use_sim_time:=true</span></code> (see
-<code class="docutils literal notranslate"><span class="pre">~/workspaces/movensys_ws/src/wmx-r2/doc/launch_&lt;NAVIGATION_MODEL&gt;_navigation.md</span></code>).</p></li>
-<li><p>Start mapping:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>movensys_navigation_nav2_config<span class="w"> </span>mapping.launch.py<span class="w"> </span>use_sim_time:<span class="o">=</span><span class="nb">true</span>
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="real" for="sd-tab-item-1">
+Real Hardware</label><div class="sd-tab-content docutils">
+<p>This covers testing against any EtherCAT hardware (a robot, a standalone
+servo drive, an I/O module, etc.). The examples below use the Dobot CR3A
+manipulator, but the same procedure applies to any EtherCAT device.</p>
+<p><strong>Prerequisites</strong></p>
+<ul class="simple">
+<li><p>The WMX R2 workspace is built and sourced</p></li>
+<li><p>The WMX Runtime is installed at <code class="docutils literal notranslate"><span class="pre">/opt/wmx3/</span></code></p></li>
+<li><p>EtherCAT cable is connected between compute platform and first EtherCAT device</p></li>
+<li><p>The hardware and all servo drives are powered on</p></li>
+<li><p>You have <code class="docutils literal notranslate"><span class="pre">sudo</span></code> privileges</p></li>
+</ul>
+<p><strong>EtherCAT Wiring</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>┌──────────────┐    Ethernet     ┌──────────┐    ┌──────────┐         ┌──────────┐
+│  Compute PC  │────(EtherCAT)──►│ Servo J1 │───►│ Servo J2 │── ... ──│ Servo J6 │
+│  (dedicated  │                 └──────────┘    └──────────┘         └──────────┘
+│   NIC port)  │
+└──────────────┘
 </pre></div>
 </div>
-<p>Add <code class="docutils literal notranslate"><span class="pre">rsp:=false</span></code> if using Gazebo or <code class="docutils literal notranslate"><span class="pre">ros2_control</span></code> – both already
-publish <code class="docutils literal notranslate"><span class="pre">/robot_description</span></code>.</p>
-</li>
-<li><p>Drive with the teleop keyboard to cover the environment:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nros<span class="w"> </span>ros2<span class="w"> </span>run<span class="w"> </span>teleop_twist_keyboard<span class="w"> </span>teleop_twist_keyboard<span class="w"> </span>--ros-args<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>-p<span class="w"> </span>turn:<span class="o">=</span><span class="m">0</span>.5<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>-p<span class="w"> </span>stamped:<span class="o">=</span><span class="nb">true</span><span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>-p<span class="w"> </span>frame_id:<span class="o">=</span>base_link<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>-p<span class="w"> </span>use_sim_time:<span class="o">=</span><span class="nb">true</span><span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>-r<span class="w"> </span>cmd_vel:<span class="o">=</span>/cmd_vel_safe
+<ul class="simple">
+<li><p>Use a <strong>dedicated Ethernet port</strong> for EtherCAT</p></li>
+<li><p>Servo drives are daisy-chained (each drive has IN and OUT ports)</p></li>
+<li><p>The I/O module for gripper control is part of the same chain</p></li>
+</ul>
+<p><strong>Setup WMX in real hardware mode</strong></p>
+<p>Modify <code class="docutils literal notranslate"><span class="pre">/opt/wmx3/Module.ini</span></code> to enable the EtherCAT platform and
+disable the simulation platform:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[Platform 0]</span>
+<span class="na">Location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">./platform/ethercat</span>
+<span class="na">DllName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">ec_platform.so</span>
+<span class="na">NumOfMaster</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">1</span>
+<span class="na">disable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">0</span>
+
+<span class="k">[Platform 1]</span>
+<span class="na">Location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">./platform/simu</span>
+<span class="na">DllName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">simu_platform.so</span>
+<span class="na">NumOfMaster</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">1</span>
+<span class="na">disable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">1</span>
 </pre></div>
 </div>
-</li>
-<li><p>Save the map once coverage is complete:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nros<span class="w"> </span>ros2<span class="w"> </span>run<span class="w"> </span>nav2_map_server<span class="w"> </span>map_saver_cli<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>-f<span class="w"> </span>/home/admin/workspaces/movensys_ws/src/movensys-navigation/movensys_navigation_nav2_config/maps/my_map
+</div>
+</div>
+</section>
+<section id="launch-the-general-nodes-standalone">
+<h2>2. Launch the General Nodes (Standalone)<a class="headerlink" href="#launch-the-general-nodes-standalone" title="Link to this heading">#</a></h2>
+<p>Start the four robot-agnostic nodes (<code class="docutils literal notranslate"><span class="pre">wmx_engine_node</span></code>, <code class="docutils literal notranslate"><span class="pre">wmx_core_motion_node</span></code>, <code class="docutils literal notranslate"><span class="pre">wmx_io_node</span></code>, and <code class="docutils literal notranslate"><span class="pre">wmx_ethercat_node</span></code>).</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>--preserve-env<span class="o">=</span>PATH<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--preserve-env<span class="o">=</span>AMENT_PREFIX_PATH<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--preserve-env<span class="o">=</span>COLCON_PREFIX_PATH<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--preserve-env<span class="o">=</span>PYTHONPATH<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--preserve-env<span class="o">=</span>LD_LIBRARY_PATH<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--preserve-env<span class="o">=</span>ROS_DISTRO<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--preserve-env<span class="o">=</span>ROS_VERSION<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--preserve-env<span class="o">=</span>ROS_PYTHON_VERSION<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--preserve-env<span class="o">=</span>ROS_DOMAIN_ID<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--preserve-env<span class="o">=</span>RMW_IMPLEMENTATION<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>bash<span class="w"> </span>-c<span class="w"> </span><span class="s2">"source /opt/ros/</span><span class="si">${</span><span class="nv">ROS_DISTRO</span><span class="si">}</span><span class="s2">/setup.bash &amp;&amp; source </span><span class="nv">$HOME</span><span class="s2">/workspaces/movensys_ws/install/setup.bash &amp;&amp; \</span>
+<span class="s2">  ros2 launch wmx_r2_package wmx_r2_general_nodes.launch.py"</span>
 </pre></div>
 </div>
-</li>
-</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>1. <strong>Device creation</strong> – <code class="docutils literal notranslate"><span class="pre">wmx_engine_node</span></code> creates the WMX device handle,
+retrying up to five times if another application holds the lock
+(error 297). The remaining nodes then attach to that device.</p>
+<p>2. <strong>Communication start</strong> – <code class="docutils literal notranslate"><span class="pre">StartCommunication</span></code> brings up the real-time
+EtherCAT cycle, which discovers the drives on the bus.</p>
+<p>3. <strong>Ready</strong> – each node publishes on its <code class="docutils literal notranslate"><span class="pre">ready</span></code> topic and begins serving
+its services and topics.</p>
 </div>
+</section>
+<section id="test-services-and-topics">
+<h2>3. Test Services and Topics<a class="headerlink" href="#test-services-and-topics" title="Link to this heading">#</a></h2>
+<p>The general nodes expose the WMX engine, axis, I/O, and EtherCAT control
+interfaces as ROS2 services and topics. List what is available and confirm the
+engine is communicating:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>/wmx<span class="w">                                  </span><span class="c1"># Available WMX services</span>
+ros2<span class="w"> </span>topic<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>/wmx<span class="w">                                    </span><span class="c1"># Available WMX topics</span>
+ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/engine/get_status<span class="w"> </span>std_srvs/srv/Trigger<span class="w">  </span><span class="c1"># Expect: "Communicating"</span>
+ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/ecat/get_network_state<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span>wmx_r2_message/srv/EcatGetNetworkState<span class="w">                  </span><span class="c1"># EtherCAT master/slave status</span>
+</pre></div>
 </div>
+<p>For the complete list of services, topics, and message types exposed by the
+general nodes — engine control, axis motion, I/O, and EtherCAT — see the
+<a class="reference external" href="https://github.com/movensys/wmx-r2/blob/main/doc/reference_wmx_r2_general_nodes.md">WMX R2 General Nodes reference</a>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>The general nodes load no robot parameters and enable no
+servos.</strong></p>
+<p>These four nodes are robot-agnostic by design. They do <strong>not</strong> apply a
+<code class="docutils literal notranslate"><span class="pre">&lt;robot&gt;_wmx_parameters.xml</span></code> file, so the gear ratios, polarities,
+command modes, and limits in the engine are whatever was left there by a
+previous session — not your robot’s values. They also do not enable the
+servos; that is an explicit <code class="docutils literal notranslate"><span class="pre">/wmx/axis/set_on</span></code> call.</p>
+<p>Robot parameters are applied by the per-robot launches
+(<code class="docutils literal notranslate"><span class="pre">wmx_r2_&lt;robot&gt;_manipulator.launch.py</span></code> and
+<code class="docutils literal notranslate"><span class="pre">wmx_r2_diffbot_navigation.launch.py</span></code>), which pass
+<code class="docutils literal notranslate"><span class="pre">wmx_param_file_path</span></code> to their controllers, or by the <code class="docutils literal notranslate"><span class="pre">ros2_control</span></code>
+hardware plugin. If you command motion from the general nodes alone, load
+the parameters first:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/params/load<span class="w"> </span>wmx_r2_message/srv/LoadWmxParams<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span><span class="s2">"{file_path: '/abs/path/to/&lt;robot&gt;_wmx_parameters.xml'}"</span>
+ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/params/get<span class="w"> </span>wmx_r2_message/srv/GetWmxParams<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span><span class="s2">"{index: [0,1,2,3,4,5]}"</span>
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="../commissioning/robot_parameters.html"><span class="doc">Robot Parameter Configuration and Validation</span></a>.</p>
+</div>
+</section>
+<section id="shutdown">
+<h2>4. Shutdown<a class="headerlink" href="#shutdown" title="Link to this heading">#</a></h2>
+<p>Press <code class="docutils literal notranslate"><span class="pre">Ctrl+C</span></code> in the launch terminal. The nodes will automatically disable
+servos, stop EtherCAT communication, and close the WMX device.</p>
+</section>
 </section>
 
 
@@ -521,20 +563,20 @@ publish <code class="docutils literal notranslate"><span class="pre">/robot_desc
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="manual_driving.html"
+       href="examples.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Manual Driving</p>
+        <p class="prev-next-title">Example Applications</p>
       </div>
     </a>
     <a class="right-next"
-       href="autonomous_navigation.html"
+       href="isaacsim_setup.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Autonomous Navigation</p>
+        <p class="prev-next-title">NVIDIA Isaac ROS Setup (Optional)</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -544,6 +586,27 @@ publish <code class="docutils literal notranslate"><span class="pre">/robot_desc
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-operation-mode">1. Setup Operation Mode</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#launch-the-general-nodes-standalone">2. Launch the General Nodes (Standalone)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-services-and-topics">3. Test Services and Topics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shutdown">4. Shutdown</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
