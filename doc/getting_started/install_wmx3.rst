@@ -103,10 +103,3 @@ Expected:
    wmx_r2_package wmx_engine_node
    wmx_r2_package wmx_ethercat_node
    wmx_r2_package wmx_io_node
-
-
-
-Testing WMX R2
-----------------
-
-

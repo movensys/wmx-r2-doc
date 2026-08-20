@@ -5,9 +5,7 @@ Once WMX R2 is installed and built, you can validate it in two ways: in
 simulation (no physical hardware required) or against real EtherCAT hardware.
 Start with simulation to verify basic behavior, then move to real hardware.
 
-
-
-Step 1: Setup Operation Mode
+1. Setup Operation Mode
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
@@ -16,6 +14,15 @@ there is no built-in mock hardware mode. The mode is selected in
 ``/opt/wmx3/Module.ini`` by enabling either the simulation or the EtherCAT
 platform. Select your mode below, then continue with the common test steps
 that follow.
+
+
+.. warning:: **Real Hardware mode moves a physical machine.**
+
+   Start with the Simulation platform. Before switching to EtherCAT and
+   enabling servos on a robot, complete :doc:`../commissioning/index` —
+   parameter validation, the low-speed single-axis procedure, and the separate
+   safety measures described in :doc:`../commissioning/safety`.
+
 
 .. tab-set::
 
@@ -92,16 +99,10 @@ that follow.
          NumOfMaster = 1
          disable = 1
 
-.. warning:: **Real Hardware mode moves a physical machine.**
-
-   Start with the Simulation platform. Before switching to EtherCAT and
-   enabling servos on a robot, complete :doc:`../commissioning/index` —
-   parameter validation, the low-speed single-axis procedure, and the separate
-   safety measures described in :doc:`../commissioning/safety`.
 
 
 
-Step 2: Launch the General Nodes (Standalone)
+2. Launch the General Nodes (Standalone)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Start the four robot-agnostic nodes (wmx_engine_node, wmx_core_motion_node, wmx_io_node, and wmx_ethercat_node).
@@ -124,19 +125,19 @@ Start the four robot-agnostic nodes (wmx_engine_node, wmx_core_motion_node, wmx_
 
 .. note::
 
-   This roadmap covers example applications and platform support only. It is
-   not a commitment to provide sa
    1. **Device creation** -- ``wmx_engine_node`` creates the WMX device handle,
    retrying up to five times if another application holds the lock
    (error 297). The remaining nodes then attach to that device.
+   
    2. **Communication start** -- ``StartCommunication`` brings up the real-time
    EtherCAT cycle, which discovers the drives on the bus.
+   
    3. **Ready** -- each node publishes on its ``ready`` topic and begins serving
    its services and topics.
 
 
 
-Step 3: Test Services and Topics
+3. Test Services and Topics
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
@@ -186,7 +187,7 @@ general nodes — engine control, axis motion, I/O, and EtherCAT — see the
 
 
 
-Step 4: Shutdown
+4. Shutdown
 ^^^^^^^^^^^^^^^^
 
 Press ``Ctrl+C`` in the launch terminal. The nodes will automatically disable
