@@ -41,6 +41,7 @@ Every manipulator and navigation scenario runs in three execution modes:
    isaacsim_setup
    movensys_manipulator
    movensys_navigation
+   Testing WMX R2
 
 Common Requirements
 -------------------
