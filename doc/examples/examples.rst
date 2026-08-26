@@ -38,6 +38,7 @@ Every manipulator and navigation scenario runs in three execution modes:
    :hidden:
    :caption: Application stacks
 
+   Testing WMX R2
    isaacsim_setup
    movensys_manipulator
    movensys_navigation
