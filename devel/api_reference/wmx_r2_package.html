@@ -206,7 +206,7 @@ const runMermaid = async (rerun) => {
                                     // Apply zoom to the now-rendered diagram, matching
                                     // the decoration visible diagrams receive.
                                     if (true) {
-                                        addZoomToSvgs(d3.selectAll(".mermaid[data-zoom-id=id-69e87cad-f8bf-42c2-a5a8-11dd9460607a]").select(function() {
+                                        addZoomToSvgs(d3.selectAll(".mermaid[data-zoom-id=id-9aeae282-63e4-4b65-859e-44d45c679e18]").select(function() {
                                             return this.querySelector("svg");
                                         }));
                                     }
@@ -232,7 +232,7 @@ const runMermaid = async (rerun) => {
     if (true) {
         const mermaids_to_add_zoom = 1 === -1 ? mermaids_active.length : 1;
         if(mermaids_to_add_zoom > 0) {
-            var svgs = d3.selectAll(".mermaid[data-zoom-id=id-69e87cad-f8bf-42c2-a5a8-11dd9460607a]").select(function() {
+            var svgs = d3.selectAll(".mermaid[data-zoom-id=id-9aeae282-63e4-4b65-859e-44d45c679e18]").select(function() {
                 return this.querySelector("svg");
             });
             // Wait until every active (visible) diagram has rendered. Deferred
@@ -412,7 +412,7 @@ window.runMermaid = runMermaid;</script>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Aug 10, 2026"/>
+    <meta name="docbuild:last-update" content="Aug 26, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -611,6 +611,7 @@ window.runMermaid = runMermaid;</script>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/examples.html">Example Applications</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/Testing%20WMX%20R2.html">Testing WMX R2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples/isaacsim_setup.html">NVIDIA Isaac ROS Setup (Optional)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator.html">movensys-manipulator</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
@@ -955,7 +956,7 @@ Each node links only the libraries it needs:</p>
 topics so that dependent nodes only activate once the engine and motion
 layers are live:</p>
 <figure class="align-default" id="id1">
-<pre data-zoom-id="id-69e87cad-f8bf-42c2-a5a8-11dd9460607a" class="mermaid">
+<pre data-zoom-id="id-9aeae282-63e4-4b65-859e-44d45c679e18" class="mermaid">
         sequenceDiagram
     participant E as wmx_engine_node
     participant C as wmx_core_motion_node
@@ -1401,13 +1402,13 @@ controllers:</p>
 <span class="w">    </span><span class="nt">gripper_open_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.00</span>
 <span class="w">    </span><span class="nt">gripper_close_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.045</span>
 <span class="w">    </span><span class="nt">joint_axes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">2</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">3</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">4</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">5</span><span class="p p-Indicator">]</span>
-<span class="w">    </span><span class="nt">joint_name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;joint1&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;joint2&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;joint3&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;joint4&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;joint5&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;joint6&quot;</span><span class="p p-Indicator">]</span>
-<span class="w">    </span><span class="nt">gripper_joint_name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;picker_1_joint&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;picker_2_joint&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">joint_name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"joint1"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"joint2"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"joint3"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"joint4"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"joint5"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"joint6"</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">gripper_joint_name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"picker_1_joint"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"picker_2_joint"</span><span class="p p-Indicator">]</span>
 <span class="w">    </span><span class="nt">gripper_address</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">]</span>
 <span class="w">    </span><span class="nt">encoder_joint_topic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/joint_states</span>
 <span class="w">    </span><span class="nt">isaacsim_joint_topic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/isaacsim/joint_command</span>
 <span class="w">    </span><span class="nt">gazebo_joint_topic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/gazebo_position_controller/commands</span>
-<span class="w">    </span><span class="nt">wmx_param_file_path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w">   </span><span class="c1"># resolved at launch via get_package_share_directory</span>
+<span class="w">    </span><span class="nt">wmx_param_file_path</span><span class="p">:</span><span class="w"> </span><span class="s">""</span><span class="w">   </span><span class="c1"># resolved at launch via get_package_share_directory</span>
 
 <span class="nt">joint_trajectory_controller</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
@@ -1596,7 +1597,7 @@ wmx_r2_package wmx_io_node
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Aug 10, 2026</p>
+      <p>Last updated: Aug 26, 2026</p>
     
   </div>
   <div class="movensys-footer__links">

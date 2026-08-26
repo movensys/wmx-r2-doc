@@ -55,7 +55,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Aug 10, 2026"/>
+    <meta name="docbuild:last-update" content="Aug 26, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -254,6 +254,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/examples.html">Example Applications</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/Testing%20WMX%20R2.html">Testing WMX R2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples/isaacsim_setup.html">NVIDIA Isaac ROS Setup (Optional)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator.html">movensys-manipulator</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
@@ -574,9 +575,9 @@ sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> <
 has one and set <code class="docutils literal notranslate"><span class="pre">RTVER</span></code> to its revision. Browse the
 <a class="reference external" href="https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/">RT patch index</a>,
 or list the revisions available for a version from the terminal:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uname<span class="w"> </span>-r<span class="w">   </span><span class="c1"># your PC&#39;s current kernel version, e.g. 6.15.2-generic</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uname<span class="w"> </span>-r<span class="w">   </span><span class="c1"># your PC's current kernel version, e.g. 6.15.2-generic</span>
 <span class="c1"># RT patch revisions available for a kernel version (here 6.15)</span>
-wget<span class="w"> </span>-qO-<span class="w"> </span>https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.15/<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-oE<span class="w"> </span><span class="s1">&#39;patch-[0-9.]+-rt[0-9]+&#39;</span>
+wget<span class="w"> </span>-qO-<span class="w"> </span>https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.15/<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-oE<span class="w"> </span><span class="s1">'patch-[0-9.]+-rt[0-9]+'</span>
 </pre></div>
 </div>
 <p>Set the version you chose, then download it:</p>
@@ -605,15 +606,15 @@ make<span class="w"> </span>olddefconfig
 scripts/config<span class="w"> </span>--disable<span class="w"> </span>PREEMPT_VOLUNTARY<span class="w"> </span>--disable<span class="w"> </span>PREEMPT<span class="w"> </span><span class="se">\</span>
 <span class="w">               </span>--disable<span class="w"> </span>PREEMPT_DYNAMIC<span class="w"> </span>--enable<span class="w"> </span>PREEMPT_RT
 <span class="c1"># avoid distro signing-cert traps for a personal build</span>
-scripts/config<span class="w"> </span>--set-str<span class="w"> </span>SYSTEM_TRUSTED_KEYS<span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">               </span>--set-str<span class="w"> </span>SYSTEM_REVOCATION_KEYS<span class="w"> </span><span class="s2">&quot;&quot;</span>
+scripts/config<span class="w"> </span>--set-str<span class="w"> </span>SYSTEM_TRUSTED_KEYS<span class="w"> </span><span class="s2">""</span><span class="w"> </span><span class="se">\</span>
+<span class="w">               </span>--set-str<span class="w"> </span>SYSTEM_REVOCATION_KEYS<span class="w"> </span><span class="s2">""</span>
 scripts/config<span class="w"> </span>--disable<span class="w"> </span>MODULE_SIG
 make<span class="w"> </span>olddefconfig
-grep<span class="w"> </span><span class="s1">&#39;^CONFIG_PREEMPT_RT=y&#39;</span><span class="w"> </span>.config<span class="w">   </span><span class="c1"># expect a match</span>
+grep<span class="w"> </span><span class="s1">'^CONFIG_PREEMPT_RT=y'</span><span class="w"> </span>.config<span class="w">   </span><span class="c1"># expect a match</span>
 </pre></div>
 </div>
 <p><strong>Build and install the ``.deb`` packages, then reboot:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>-j<span class="s2">&quot;</span><span class="k">$(</span>nproc<span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span>bindeb-pkg
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>-j<span class="s2">"</span><span class="k">$(</span>nproc<span class="k">)</span><span class="s2">"</span><span class="w"> </span>bindeb-pkg
 sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>../linux-image-*<span class="si">${</span><span class="nv">RTVER</span><span class="si">}</span>*.deb<span class="w"> </span>../linux-headers-*<span class="si">${</span><span class="nv">RTVER</span><span class="si">}</span>*.deb
 sudo<span class="w"> </span>update-grub
 sudo<span class="w"> </span>reboot
@@ -637,16 +638,16 @@ ls<span class="w"> </span>/lib/modules/<span class="k">$(</span>uname<span class
 </div>
 <p class="sd-card-text">The driver source lands in <code class="docutils literal notranslate"><span class="pre">/usr/src/nvidia-&lt;version&gt;/</span></code>. Add the RT
 bypass to the <code class="docutils literal notranslate"><span class="pre">MAKE</span></code> line of its <code class="docutils literal notranslate"><span class="pre">dkms.conf</span></code>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">NVER</span><span class="o">=</span><span class="k">$(</span>dpkg<span class="w"> </span>-l<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-oP<span class="w"> </span><span class="s1">&#39;nvidia-kernel-source-\d+(-open)?\s+\K[0-9.]+&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-1<span class="k">)</span>
-sudo<span class="w"> </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s|^MAKE=.*|MAKE=&quot;IGNORE_PREEMPT_RT_PRESENCE=1 make -j$(nproc) modules SYSSRC=${kernel_source_dir}&quot;|&#39;</span><span class="w"> </span><span class="se">\</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">NVER</span><span class="o">=</span><span class="k">$(</span>dpkg<span class="w"> </span>-l<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-oP<span class="w"> </span><span class="s1">'nvidia-kernel-source-\d+(-open)?\s+\K[0-9.]+'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-1<span class="k">)</span>
+sudo<span class="w"> </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">'s|^MAKE=.*|MAKE="IGNORE_PREEMPT_RT_PRESENCE=1 make -j$(nproc) modules SYSSRC=${kernel_source_dir}"|'</span><span class="w"> </span><span class="se">\</span>
 <span class="w">     </span>/usr/src/nvidia-<span class="si">${</span><span class="nv">NVER</span><span class="si">}</span>/dkms.conf
 grep<span class="w"> </span>IGNORE_PREEMPT_RT_PRESENCE<span class="w"> </span>/usr/src/nvidia-<span class="si">${</span><span class="nv">NVER</span><span class="si">}</span>/dkms.conf<span class="w">   </span><span class="c1"># expect a match</span>
 </pre></div>
 </div>
 <p class="sd-card-text">Build and install the modules for the running RT kernel, then load and
 verify:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>dkms<span class="w"> </span>add<span class="w"> </span><span class="s2">&quot;nvidia/</span><span class="si">${</span><span class="nv">NVER</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
-sudo<span class="w"> </span>dkms<span class="w"> </span>install<span class="w"> </span>--force<span class="w"> </span><span class="s2">&quot;nvidia/</span><span class="si">${</span><span class="nv">NVER</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>-k<span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>uname<span class="w"> </span>-r<span class="k">)</span><span class="s2">&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>dkms<span class="w"> </span>add<span class="w"> </span><span class="s2">"nvidia/</span><span class="si">${</span><span class="nv">NVER</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+sudo<span class="w"> </span>dkms<span class="w"> </span>install<span class="w"> </span>--force<span class="w"> </span><span class="s2">"nvidia/</span><span class="si">${</span><span class="nv">NVER</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span>-k<span class="w"> </span><span class="s2">"</span><span class="k">$(</span>uname<span class="w"> </span>-r<span class="k">)</span><span class="s2">"</span>
 sudo<span class="w"> </span>modprobe<span class="w"> </span>nvidia<span class="w"> </span>nvidia-drm<span class="w"> </span>nvidia-uvm
 nvidia-smi
 </pre></div>
@@ -693,16 +694,16 @@ grep<span class="w"> </span>PREEMPT_RT<span class="w"> </span>.config<span class
 </pre></div>
 </div>
 <p><strong>Clear the distro signing keys for a personal build:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./scripts/config<span class="w"> </span>--set-str<span class="w"> </span>SYSTEM_TRUSTED_KEYS<span class="w"> </span><span class="s2">&quot;&quot;</span>
-./scripts/config<span class="w"> </span>--set-str<span class="w"> </span>SYSTEM_REVOCATION_KEYS<span class="w"> </span><span class="s2">&quot;&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./scripts/config<span class="w"> </span>--set-str<span class="w"> </span>SYSTEM_TRUSTED_KEYS<span class="w"> </span><span class="s2">""</span>
+./scripts/config<span class="w"> </span>--set-str<span class="w"> </span>SYSTEM_REVOCATION_KEYS<span class="w"> </span><span class="s2">""</span>
 make<span class="w"> </span>olddefconfig
-grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">&#39;SYSTEM_TRUSTED_KEYS|SYSTEM_REVOCATION_KEYS&#39;</span><span class="w"> </span>.config
+grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">'SYSTEM_TRUSTED_KEYS|SYSTEM_REVOCATION_KEYS'</span><span class="w"> </span>.config
 </pre></div>
 </div>
 <p><strong>Build the ``.deb`` packages:</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>update
 sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>debhelper<span class="w"> </span>libdw-dev<span class="w"> </span>gawk
-make<span class="w"> </span>-j<span class="s2">&quot;</span><span class="k">$(</span>nproc<span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span>bindeb-pkg<span class="w"> </span><span class="nv">LOCALVERSION</span><span class="o">=</span>-preempt-rt<span class="w"> </span><span class="nv">DPKG_FLAGS</span><span class="o">=</span>-d
+make<span class="w"> </span>-j<span class="s2">"</span><span class="k">$(</span>nproc<span class="k">)</span><span class="s2">"</span><span class="w"> </span>bindeb-pkg<span class="w"> </span><span class="nv">LOCALVERSION</span><span class="o">=</span>-preempt-rt<span class="w"> </span><span class="nv">DPKG_FLAGS</span><span class="o">=</span>-d
 ls<span class="w"> </span>-1<span class="w"> </span>~/linux-image-*preempt-rt*.deb<span class="w"> </span>~/linux-headers-*preempt-rt*.deb
 </pre></div>
 </div>
@@ -714,7 +715,7 @@ sudo<span class="w"> </span>reboot
 </div>
 <p><strong>Install the AI/accelerator stack</strong> — once the RT kernel has booted,
 install the GPU/NPU drivers and inference runtimes for the platform:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>bash<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>wget<span class="w"> </span>-qLO<span class="w"> </span>-<span class="w"> </span>https://raw.githubusercontent.com/open-edge-platform/edge-developer-kit-reference-scripts/refs/heads/main/main_installer.sh<span class="k">)</span><span class="s2">&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>bash<span class="w"> </span>-c<span class="w"> </span><span class="s2">"</span><span class="k">$(</span>wget<span class="w"> </span>-qLO<span class="w"> </span>-<span class="w"> </span>https://raw.githubusercontent.com/open-edge-platform/edge-developer-kit-reference-scripts/refs/heads/main/main_installer.sh<span class="k">)</span><span class="s2">"</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -790,7 +791,7 @@ Jazzy (Ubuntu 24.04)</label><div class="sd-tab-content docutils">
 <p>Follow the <a class="reference external" href="https://docs.ros.org/en/jazzy/Installation.html">ROS 2 Jazzy installation guide</a>, then install the
 CycloneDDS RMW:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ros-jazzy-rmw-cyclonedds-cpp
-<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
+<span class="nb">echo</span><span class="w"> </span><span class="s1">'export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp'</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
 </pre></div>
 </div>
 </div>
@@ -800,7 +801,7 @@ Humble (Ubuntu 22.04)</label><div class="sd-tab-content docutils">
 <p>Follow the <a class="reference external" href="https://docs.ros.org/en/humble/Installation.html">ROS 2 Humble installation guide</a>, then install the
 CycloneDDS RMW:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ros-humble-rmw-cyclonedds-cpp
-<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
+<span class="nb">echo</span><span class="w"> </span><span class="s1">'export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp'</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
 </pre></div>
 </div>
 </div>
@@ -817,8 +818,8 @@ curl<span class="w"> </span>-fsSL<span class="w"> </span>https://download.docker
 <span class="w">     </span>sudo<span class="w"> </span>gpg<span class="w"> </span>--dearmor<span class="w"> </span>-o<span class="w"> </span>/etc/apt/keyrings/docker.gpg
 sudo<span class="w"> </span>chmod<span class="w"> </span>a+r<span class="w"> </span>/etc/apt/keyrings/docker.gpg
 <span class="nb">echo</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">&quot;deb [arch=</span><span class="k">$(</span>dpkg<span class="w"> </span>--print-architecture<span class="k">)</span><span class="s2"> signed-by=/etc/apt/keyrings/docker.gpg] \</span>
-<span class="s2">  https://download.docker.com/linux/ubuntu </span><span class="k">$(</span>.<span class="w"> </span>/etc/os-release<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$VERSION_CODENAME</span><span class="s2">&quot;</span><span class="k">)</span><span class="s2"> stable&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s2">"deb [arch=</span><span class="k">$(</span>dpkg<span class="w"> </span>--print-architecture<span class="k">)</span><span class="s2"> signed-by=/etc/apt/keyrings/docker.gpg] \</span>
+<span class="s2">  https://download.docker.com/linux/ubuntu </span><span class="k">$(</span>.<span class="w"> </span>/etc/os-release<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$VERSION_CODENAME</span><span class="s2">"</span><span class="k">)</span><span class="s2"> stable"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>sudo<span class="w"> </span>tee<span class="w"> </span>/etc/apt/sources.list.d/docker.list<span class="w"> </span>&gt;<span class="w"> </span>/dev/null
 sudo<span class="w"> </span>apt-get<span class="w"> </span>update
 </pre></div>
@@ -925,7 +926,7 @@ newgrp<span class="w"> </span>docker
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Aug 10, 2026</p>
+      <p>Last updated: Aug 26, 2026</p>
     
   </div>
   <div class="movensys-footer__links">

@@ -55,7 +55,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Aug 10, 2026"/>
+    <meta name="docbuild:last-update" content="Aug 26, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -254,6 +254,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/examples.html">Example Applications</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/Testing%20WMX%20R2.html">Testing WMX R2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples/isaacsim_setup.html">NVIDIA Isaac ROS Setup (Optional)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator.html">movensys-manipulator</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
@@ -533,7 +534,7 @@ the general launch)</p></li>
 the <code class="docutils literal notranslate"><span class="pre">FollowJointTrajectory</span></code> action server. The robot moves from the current
 position to the specified joint targets.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
-<span class="sd">&quot;&quot;&quot;Send a joint trajectory to the WMX R2 joint_trajectory_controller.&quot;&quot;&quot;</span>
+<span class="sd">"""Send a joint trajectory to the WMX R2 joint_trajectory_controller."""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">rclpy</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">rclpy.action</span><span class="w"> </span><span class="kn">import</span> <span class="n">ActionClient</span>
@@ -545,27 +546,27 @@ position to the specified joint targets.</p>
 
 <span class="k">class</span><span class="w"> </span><span class="nc">TrajectoryClient</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">&#39;trajectory_client&#39;</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">'trajectory_client'</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_client</span> <span class="o">=</span> <span class="n">ActionClient</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">FollowJointTrajectory</span><span class="p">,</span>
-            <span class="s1">&#39;/movensys_manipulator_arm_controller/follow_joint_trajectory&#39;</span>
+            <span class="s1">'/movensys_manipulator_arm_controller/follow_joint_trajectory'</span>
         <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">send_trajectory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">positions</span><span class="p">,</span> <span class="n">duration_sec</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Send a trajectory that moves to the given joint positions.</span>
+<span class="w">        </span><span class="sd">"""Send a trajectory that moves to the given joint positions.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            positions: List of 6 joint angles in radians.</span>
 <span class="sd">            duration_sec: Time to reach the target in seconds.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Waiting for action server...&#39;</span><span class="p">)</span>
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">'Waiting for action server...'</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">wait_for_server</span><span class="p">()</span>
 
         <span class="n">goal</span> <span class="o">=</span> <span class="n">FollowJointTrajectory</span><span class="o">.</span><span class="n">Goal</span><span class="p">()</span>
         <span class="n">goal</span><span class="o">.</span><span class="n">trajectory</span><span class="o">.</span><span class="n">joint_names</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s1">&#39;joint1&#39;</span><span class="p">,</span> <span class="s1">&#39;joint2&#39;</span><span class="p">,</span> <span class="s1">&#39;joint3&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;joint4&#39;</span><span class="p">,</span> <span class="s1">&#39;joint5&#39;</span><span class="p">,</span> <span class="s1">&#39;joint6&#39;</span>
+            <span class="s1">'joint1'</span><span class="p">,</span> <span class="s1">'joint2'</span><span class="p">,</span> <span class="s1">'joint3'</span><span class="p">,</span>
+            <span class="s1">'joint4'</span><span class="p">,</span> <span class="s1">'joint5'</span><span class="p">,</span> <span class="s1">'joint6'</span>
         <span class="p">]</span>
 
         <span class="c1"># Start point (current position -- use zeros or read from /joint_states)</span>
@@ -581,7 +582,7 @@ position to the specified joint targets.</p>
         <span class="n">goal</span><span class="o">.</span><span class="n">trajectory</span><span class="o">.</span><span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="n">start_point</span><span class="p">,</span> <span class="n">target_point</span><span class="p">]</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s1">&#39;Sending trajectory: </span><span class="si">{</span><span class="n">positions</span><span class="si">}</span><span class="s1"> over </span><span class="si">{</span><span class="n">duration_sec</span><span class="si">}</span><span class="s1">s&#39;</span>
+            <span class="sa">f</span><span class="s1">'Sending trajectory: </span><span class="si">{</span><span class="n">positions</span><span class="si">}</span><span class="s1"> over </span><span class="si">{</span><span class="n">duration_sec</span><span class="si">}</span><span class="s1">s'</span>
         <span class="p">)</span>
         <span class="n">future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">send_goal_async</span><span class="p">(</span>
             <span class="n">goal</span><span class="p">,</span> <span class="n">feedback_callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_feedback_cb</span>
@@ -591,19 +592,19 @@ position to the specified joint targets.</p>
     <span class="k">def</span><span class="w"> </span><span class="nf">_goal_response_cb</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future</span><span class="p">):</span>
         <span class="n">goal_handle</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">goal_handle</span><span class="o">.</span><span class="n">accepted</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Goal rejected&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">'Goal rejected'</span><span class="p">)</span>
             <span class="k">return</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Goal accepted, waiting for result...&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">'Goal accepted, waiting for result...'</span><span class="p">)</span>
         <span class="n">result_future</span> <span class="o">=</span> <span class="n">goal_handle</span><span class="o">.</span><span class="n">get_result_async</span><span class="p">()</span>
         <span class="n">result_future</span><span class="o">.</span><span class="n">add_done_callback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_result_cb</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_result_cb</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future</span><span class="p">):</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">result</span>
         <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">error_code</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Trajectory executed successfully&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">'Trajectory executed successfully'</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s1">&#39;Trajectory failed with error code: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">error_code</span><span class="si">}</span><span class="s1">&#39;</span>
+                <span class="sa">f</span><span class="s1">'Trajectory failed with error code: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">error_code</span><span class="si">}</span><span class="s1">'</span>
             <span class="p">)</span>
         <span class="n">rclpy</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
 
@@ -622,7 +623,7 @@ position to the specified joint targets.</p>
     <span class="n">rclpy</span><span class="o">.</span><span class="n">spin</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>
 
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -652,10 +653,10 @@ waits for the result.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;memory&gt;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;chrono&gt;</span>
 
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;rclcpp/rclcpp.hpp&quot;</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;rclcpp_action/rclcpp_action.hpp&quot;</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;control_msgs/action/follow_joint_trajectory.hpp&quot;</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;trajectory_msgs/msg/joint_trajectory_point.hpp&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"rclcpp/rclcpp.hpp"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"rclcpp_action/rclcpp_action.hpp"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"control_msgs/action/follow_joint_trajectory.hpp"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"trajectory_msgs/msg/joint_trajectory_point.hpp"</span>
 
 <span class="k">using</span><span class="w"> </span><span class="n">FollowJointTrajectory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">control_msgs</span><span class="o">::</span><span class="n">action</span><span class="o">::</span><span class="n">FollowJointTrajectory</span><span class="p">;</span>
 <span class="k">using</span><span class="w"> </span><span class="n">GoalHandleFJT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rclcpp_action</span><span class="o">::</span><span class="n">ClientGoalHandle</span><span class="o">&lt;</span><span class="n">FollowJointTrajectory</span><span class="o">&gt;</span><span class="p">;</span>
@@ -664,23 +665,23 @@ waits for the result.</p>
 <span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="n">argv</span><span class="p">)</span>
 <span class="p">{</span>
 <span class="w">  </span><span class="n">rclcpp</span><span class="o">::</span><span class="n">init</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">);</span>
-<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rclcpp</span><span class="o">::</span><span class="n">Node</span><span class="o">::</span><span class="n">make_shared</span><span class="p">(</span><span class="s">&quot;trajectory_client_cpp&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rclcpp</span><span class="o">::</span><span class="n">Node</span><span class="o">::</span><span class="n">make_shared</span><span class="p">(</span><span class="s">"trajectory_client_cpp"</span><span class="p">);</span>
 
 <span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rclcpp_action</span><span class="o">::</span><span class="n">create_client</span><span class="o">&lt;</span><span class="n">FollowJointTrajectory</span><span class="o">&gt;</span><span class="p">(</span>
 <span class="w">    </span><span class="n">node</span><span class="p">,</span>
-<span class="w">    </span><span class="s">&quot;/movensys_manipulator_arm_controller/follow_joint_trajectory&quot;</span>
+<span class="w">    </span><span class="s">"/movensys_manipulator_arm_controller/follow_joint_trajectory"</span>
 <span class="w">  </span><span class="p">);</span>
 
 <span class="w">  </span><span class="c1">// Wait for action server</span>
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">client</span><span class="o">-&gt;</span><span class="n">wait_for_action_server</span><span class="p">(</span><span class="mi">10</span><span class="n">s</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">RCLCPP_ERROR</span><span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">get_logger</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;Action server not available&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">RCLCPP_ERROR</span><span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">get_logger</span><span class="p">(),</span><span class="w"> </span><span class="s">"Action server not available"</span><span class="p">);</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 <span class="w">  </span><span class="p">}</span>
 
 <span class="w">  </span><span class="c1">// Build goal</span>
 <span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">goal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FollowJointTrajectory</span><span class="o">::</span><span class="n">Goal</span><span class="p">();</span>
 <span class="w">  </span><span class="n">goal</span><span class="p">.</span><span class="n">trajectory</span><span class="p">.</span><span class="n">joint_names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="s">&quot;joint1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;joint2&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;joint3&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;joint4&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;joint5&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;joint6&quot;</span>
+<span class="w">    </span><span class="s">"joint1"</span><span class="p">,</span><span class="w"> </span><span class="s">"joint2"</span><span class="p">,</span><span class="w"> </span><span class="s">"joint3"</span><span class="p">,</span><span class="w"> </span><span class="s">"joint4"</span><span class="p">,</span><span class="w"> </span><span class="s">"joint5"</span><span class="p">,</span><span class="w"> </span><span class="s">"joint6"</span>
 <span class="w">  </span><span class="p">};</span>
 
 <span class="w">  </span><span class="c1">// Start point</span>
@@ -695,16 +696,16 @@ waits for the result.</p>
 
 <span class="w">  </span><span class="n">goal</span><span class="p">.</span><span class="n">trajectory</span><span class="p">.</span><span class="n">points</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">start_pt</span><span class="p">,</span><span class="w"> </span><span class="n">target_pt</span><span class="p">};</span>
 
-<span class="w">  </span><span class="n">RCLCPP_INFO</span><span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">get_logger</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;Sending trajectory goal...&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="n">RCLCPP_INFO</span><span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">get_logger</span><span class="p">(),</span><span class="w"> </span><span class="s">"Sending trajectory goal..."</span><span class="p">);</span>
 
 <span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">send_goal_options</span><span class="w"> </span><span class="o">=</span>
 <span class="w">    </span><span class="n">rclcpp_action</span><span class="o">::</span><span class="n">Client</span><span class="o">&lt;</span><span class="n">FollowJointTrajectory</span><span class="o">&gt;::</span><span class="n">SendGoalOptions</span><span class="p">();</span>
 <span class="w">  </span><span class="n">send_goal_options</span><span class="p">.</span><span class="n">result_callback</span><span class="w"> </span><span class="o">=</span>
 <span class="w">    </span><span class="p">[</span><span class="o">&amp;</span><span class="n">node</span><span class="p">](</span><span class="k">const</span><span class="w"> </span><span class="n">GoalHandleFJT</span><span class="o">::</span><span class="n">WrappedResult</span><span class="w"> </span><span class="o">&amp;</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="n">result</span><span class="o">-&gt;</span><span class="n">error_code</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">RCLCPP_INFO</span><span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">get_logger</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;Trajectory executed successfully&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">RCLCPP_INFO</span><span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">get_logger</span><span class="p">(),</span><span class="w"> </span><span class="s">"Trajectory executed successfully"</span><span class="p">);</span>
 <span class="w">      </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">RCLCPP_ERROR</span><span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">get_logger</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;Trajectory failed: error_code=%d&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">RCLCPP_ERROR</span><span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">get_logger</span><span class="p">(),</span><span class="w"> </span><span class="s">"Trajectory failed: error_code=%d"</span><span class="p">,</span>
 <span class="w">                     </span><span class="n">result</span><span class="p">.</span><span class="n">result</span><span class="o">-&gt;</span><span class="n">error_code</span><span class="p">);</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">      </span><span class="n">rclcpp</span><span class="o">::</span><span class="n">shutdown</span><span class="p">();</span>
@@ -742,7 +743,7 @@ waits for the result.</p>
 positions. The <code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code> node publishes this topic at 100 Hz
 with 8 values (6 joints + 2 gripper fingers).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
-<span class="sd">&quot;&quot;&quot;Subscribe to /joint_states and print joint positions.&quot;&quot;&quot;</span>
+<span class="sd">"""Subscribe to /joint_states and print joint positions."""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">rclpy</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">rclpy.node</span><span class="w"> </span><span class="kn">import</span> <span class="n">Node</span>
@@ -751,9 +752,9 @@ with 8 values (6 joints + 2 gripper fingers).</p>
 
 <span class="k">class</span><span class="w"> </span><span class="nc">JointStateReader</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">&#39;joint_state_reader&#39;</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">'joint_state_reader'</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_sub</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_subscription</span><span class="p">(</span>
-            <span class="n">JointState</span><span class="p">,</span> <span class="s1">&#39;/joint_states&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_callback</span><span class="p">,</span> <span class="mi">10</span>
+            <span class="n">JointState</span><span class="p">,</span> <span class="s1">'/joint_states'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_callback</span><span class="p">,</span> <span class="mi">10</span>
         <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
@@ -762,8 +763,8 @@ with 8 values (6 joints + 2 gripper fingers).</p>
         <span class="c1"># msg.velocity: 8 values in rad/s (gripper velocities are always 0.0)</span>
         <span class="n">joint_positions</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">msg</span><span class="o">.</span><span class="n">position</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s1">&#39;Positions: &#39;</span> <span class="o">+</span>
-            <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">=</span><span class="si">{</span><span class="n">p</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">joint_positions</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+            <span class="sa">f</span><span class="s1">'Positions: '</span> <span class="o">+</span>
+            <span class="s1">', '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">=</span><span class="si">{</span><span class="n">p</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">'</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">joint_positions</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
         <span class="p">)</span>
 
 
@@ -775,7 +776,7 @@ with 8 values (6 joints + 2 gripper fingers).</p>
     <span class="n">rclpy</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
 
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -793,7 +794,7 @@ with 8 values (6 joints + 2 gripper fingers).</p>
 <p>This example shows how to query the engine status, monitor detailed axis
 diagnostics, and control the gripper – combining services and topics.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
-<span class="sd">&quot;&quot;&quot;Query engine status and control gripper.&quot;&quot;&quot;</span>
+<span class="sd">"""Query engine status and control gripper."""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">rclpy</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">rclpy.node</span><span class="w"> </span><span class="kn">import</span> <span class="n">Node</span>
@@ -802,29 +803,29 @@ diagnostics, and control the gripper – combining services and topics.</p>
 
 <span class="k">class</span><span class="w"> </span><span class="nc">RobotController</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">&#39;robot_controller&#39;</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">'robot_controller'</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_status_client</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_client</span><span class="p">(</span>
-            <span class="n">Trigger</span><span class="p">,</span> <span class="s1">&#39;/wmx/engine/get_status&#39;</span>
+            <span class="n">Trigger</span><span class="p">,</span> <span class="s1">'/wmx/engine/get_status'</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_gripper_client</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_client</span><span class="p">(</span>
-            <span class="n">SetBool</span><span class="p">,</span> <span class="s1">&#39;/wmx/set_gripper&#39;</span>
+            <span class="n">SetBool</span><span class="p">,</span> <span class="s1">'/wmx/set_gripper'</span>
         <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">get_engine_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Query the WMX3 engine state.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Query the WMX3 engine state."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_status_client</span><span class="o">.</span><span class="n">wait_for_service</span><span class="p">()</span>
         <span class="n">future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_status_client</span><span class="o">.</span><span class="n">call_async</span><span class="p">(</span><span class="n">Trigger</span><span class="o">.</span><span class="n">Request</span><span class="p">())</span>
         <span class="n">rclpy</span><span class="o">.</span><span class="n">spin_until_future_complete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future</span><span class="p">)</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Engine status: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">message</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Engine status: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">message</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">message</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">set_gripper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">close</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Open or close the gripper.</span>
+<span class="w">        </span><span class="sd">"""Open or close the gripper.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            close: True to close, False to open.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_gripper_client</span><span class="o">.</span><span class="n">wait_for_service</span><span class="p">()</span>
         <span class="n">request</span> <span class="o">=</span> <span class="n">SetBool</span><span class="o">.</span><span class="n">Request</span><span class="p">()</span>
         <span class="n">request</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">close</span>
@@ -832,7 +833,7 @@ diagnostics, and control the gripper – combining services and topics.</p>
         <span class="n">rclpy</span><span class="o">.</span><span class="n">spin_until_future_complete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future</span><span class="p">)</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s1">&#39;Gripper: success=</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">success</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">message</span><span class="si">}</span><span class="s1">&#39;</span>
+            <span class="sa">f</span><span class="s1">'Gripper: success=</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">success</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">message</span><span class="si">}</span><span class="s1">'</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">success</span>
 
@@ -843,10 +844,10 @@ diagnostics, and control the gripper – combining services and topics.</p>
 
     <span class="c1"># Check engine is communicating</span>
     <span class="n">status</span> <span class="o">=</span> <span class="n">controller</span><span class="o">.</span><span class="n">get_engine_status</span><span class="p">()</span>
-    <span class="k">if</span> <span class="n">status</span> <span class="o">!=</span> <span class="s1">&#39;Communicating&#39;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">status</span> <span class="o">!=</span> <span class="s1">'Communicating'</span><span class="p">:</span>
         <span class="n">controller</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s1">&#39;Engine not ready (state: </span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s1">). &#39;</span>
-            <span class="s1">&#39;Launch the manipulator nodes first.&#39;</span>
+            <span class="sa">f</span><span class="s1">'Engine not ready (state: </span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s1">). '</span>
+            <span class="s1">'Launch the manipulator nodes first.'</span>
         <span class="p">)</span>
         <span class="n">rclpy</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
         <span class="k">return</span>
@@ -860,7 +861,7 @@ diagnostics, and control the gripper – combining services and topics.</p>
     <span class="n">rclpy</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
 
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -871,7 +872,7 @@ diagnostics, and control the gripper – combining services and topics.</p>
 <code class="docutils literal notranslate"><span class="pre">MoveGroupInterface</span></code> to plan and execute trajectories. MoveIt2 internally
 sends goals to the same <code class="docutils literal notranslate"><span class="pre">FollowJointTrajectory</span></code> action server.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
-<span class="sd">&quot;&quot;&quot;MoveIt2 Python example using moveit_py.&quot;&quot;&quot;</span>
+<span class="sd">"""MoveIt2 Python example using moveit_py."""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">rclpy</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">rclpy.node</span><span class="w"> </span><span class="kn">import</span> <span class="n">Node</span>
@@ -879,40 +880,40 @@ sends goals to the same <code class="docutils literal notranslate"><span class="
 
 <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
     <span class="n">rclpy</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
-    <span class="n">node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="s1">&#39;moveit2_example&#39;</span><span class="p">)</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="s1">'moveit2_example'</span><span class="p">)</span>
 
     <span class="c1"># MoveIt2 Python bindings (moveit_py) require the MoveIt configuration</span>
     <span class="c1"># package for your robot to be available.</span>
     <span class="c1">#</span>
     <span class="c1"># The typical workflow is:</span>
     <span class="c1"># 1. Launch the WMX R2 manipulator nodes (provides /joint_states)</span>
-    <span class="c1"># 2. Launch MoveIt2 with your robot&#39;s config package</span>
+    <span class="c1"># 2. Launch MoveIt2 with your robot's config package</span>
     <span class="c1"># 3. Use MoveGroupInterface to plan and execute</span>
     <span class="c1">#</span>
     <span class="c1"># Example using the MoveIt2 Python API:</span>
     <span class="c1">#</span>
     <span class="c1">#   from moveit.planning import MoveItPy</span>
-    <span class="c1">#   moveit = MoveItPy(node_name=&quot;moveit_py_node&quot;)</span>
-    <span class="c1">#   arm = moveit.get_planning_component(&quot;manipulator_arm&quot;)</span>
+    <span class="c1">#   moveit = MoveItPy(node_name="moveit_py_node")</span>
+    <span class="c1">#   arm = moveit.get_planning_component("manipulator_arm")</span>
     <span class="c1">#   arm.set_start_state_to_current_state()</span>
-    <span class="c1">#   arm.set_goal_state(configuration_name=&quot;home&quot;)</span>
+    <span class="c1">#   arm.set_goal_state(configuration_name="home")</span>
     <span class="c1">#   plan = arm.plan()</span>
     <span class="c1">#   if plan:</span>
     <span class="c1">#       arm.execute()</span>
 
     <span class="n">node</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-        <span class="s1">&#39;MoveIt2 integration requires:</span><span class="se">\n</span><span class="s1">&#39;</span>
-        <span class="s1">&#39;  1. WMX R2 manipulator nodes running</span><span class="se">\n</span><span class="s1">&#39;</span>
-        <span class="s1">&#39;  2. MoveIt2 config package for your robot</span><span class="se">\n</span><span class="s1">&#39;</span>
-        <span class="s1">&#39;  3. MoveIt2 move_group node running</span><span class="se">\n</span><span class="s1">&#39;</span>
-        <span class="s1">&#39;See: ros2 launch &lt;your_moveit_config&gt; move_group.launch.py&#39;</span>
+        <span class="s1">'MoveIt2 integration requires:</span><span class="se">\n</span><span class="s1">'</span>
+        <span class="s1">'  1. WMX R2 manipulator nodes running</span><span class="se">\n</span><span class="s1">'</span>
+        <span class="s1">'  2. MoveIt2 config package for your robot</span><span class="se">\n</span><span class="s1">'</span>
+        <span class="s1">'  3. MoveIt2 move_group node running</span><span class="se">\n</span><span class="s1">'</span>
+        <span class="s1">'See: ros2 launch &lt;your_moveit_config&gt; move_group.launch.py'</span>
     <span class="p">)</span>
 
     <span class="n">node</span><span class="o">.</span><span class="n">destroy_node</span><span class="p">()</span>
     <span class="n">rclpy</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
 
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -927,7 +928,7 @@ result to the <code class="docutils literal notranslate"><span class="pre">joint
 trajectory planning, publish directly to the motion topics. This requires
 the <code class="docutils literal notranslate"><span class="pre">wmx_core_motion_node</span></code> to be running.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
-<span class="sd">&quot;&quot;&quot;Direct axis velocity control via topic publishing.&quot;&quot;&quot;</span>
+<span class="sd">"""Direct axis velocity control via topic publishing."""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">rclpy</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">rclpy.node</span><span class="w"> </span><span class="kn">import</span> <span class="n">Node</span>
@@ -936,23 +937,23 @@ the <code class="docutils literal notranslate"><span class="pre">wmx_core_motion
 
 <span class="k">class</span><span class="w"> </span><span class="nc">DirectAxisControl</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">&#39;direct_axis_control&#39;</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">'direct_axis_control'</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_vel_pub</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_publisher</span><span class="p">(</span>
-            <span class="n">AxisVelocity</span><span class="p">,</span> <span class="s1">&#39;/wmx/axis/velocity&#39;</span><span class="p">,</span> <span class="mi">1</span>
+            <span class="n">AxisVelocity</span><span class="p">,</span> <span class="s1">'/wmx/axis/velocity'</span><span class="p">,</span> <span class="mi">1</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_pos_pub</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_publisher</span><span class="p">(</span>
-            <span class="n">AxisPose</span><span class="p">,</span> <span class="s1">&#39;/wmx/axis/position&#39;</span><span class="p">,</span> <span class="mi">1</span>
+            <span class="n">AxisPose</span><span class="p">,</span> <span class="s1">'/wmx/axis/position'</span><span class="p">,</span> <span class="mi">1</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_rel_pub</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_publisher</span><span class="p">(</span>
-            <span class="n">AxisPose</span><span class="p">,</span> <span class="s1">&#39;/wmx/axis/position/relative&#39;</span><span class="p">,</span> <span class="mi">1</span>
+            <span class="n">AxisPose</span><span class="p">,</span> <span class="s1">'/wmx/axis/position/relative'</span><span class="p">,</span> <span class="mi">1</span>
         <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">send_velocity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis_indices</span><span class="p">,</span> <span class="n">velocities</span><span class="p">,</span> <span class="n">acc</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">dec</span><span class="o">=</span><span class="mf">10.0</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Command velocity motion on specified axes.</span>
+<span class="w">        </span><span class="sd">"""Command velocity motion on specified axes.</span>
 
 <span class="sd">        The axes must be in velocity mode (set via /wmx/axis/set_mode</span>
 <span class="sd">        with data=[1]).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="n">AxisVelocity</span><span class="p">()</span>
         <span class="n">msg</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">axis_indices</span>
         <span class="n">msg</span><span class="o">.</span><span class="n">velocity</span> <span class="o">=</span> <span class="n">velocities</span>
@@ -960,11 +961,11 @@ the <code class="docutils literal notranslate"><span class="pre">wmx_core_motion
         <span class="n">msg</span><span class="o">.</span><span class="n">dec</span> <span class="o">=</span> <span class="p">[</span><span class="n">dec</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">axis_indices</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_vel_pub</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s1">&#39;Velocity command: axes=</span><span class="si">{</span><span class="n">axis_indices</span><span class="si">}</span><span class="s1">, vel=</span><span class="si">{</span><span class="n">velocities</span><span class="si">}</span><span class="s1">&#39;</span>
+            <span class="sa">f</span><span class="s1">'Velocity command: axes=</span><span class="si">{</span><span class="n">axis_indices</span><span class="si">}</span><span class="s1">, vel=</span><span class="si">{</span><span class="n">velocities</span><span class="si">}</span><span class="s1">'</span>
         <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">send_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis_indices</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="n">vel</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">acc</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">dec</span><span class="o">=</span><span class="mf">10.0</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Command absolute position motion on specified axes.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Command absolute position motion on specified axes."""</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="n">AxisPose</span><span class="p">()</span>
         <span class="n">msg</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">axis_indices</span>
         <span class="n">msg</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="n">targets</span>
@@ -973,12 +974,12 @@ the <code class="docutils literal notranslate"><span class="pre">wmx_core_motion
         <span class="n">msg</span><span class="o">.</span><span class="n">dec</span> <span class="o">=</span> <span class="p">[</span><span class="n">dec</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">axis_indices</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_pos_pub</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s1">&#39;Position command: axes=</span><span class="si">{</span><span class="n">axis_indices</span><span class="si">}</span><span class="s1">, targets=</span><span class="si">{</span><span class="n">targets</span><span class="si">}</span><span class="s1">&#39;</span>
+            <span class="sa">f</span><span class="s1">'Position command: axes=</span><span class="si">{</span><span class="n">axis_indices</span><span class="si">}</span><span class="s1">, targets=</span><span class="si">{</span><span class="n">targets</span><span class="si">}</span><span class="s1">'</span>
         <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">send_relative_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis_indices</span><span class="p">,</span> <span class="n">displacements</span><span class="p">,</span>
                                 <span class="n">vel</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">acc</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">dec</span><span class="o">=</span><span class="mf">10.0</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Command relative position motion on specified axes.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Command relative position motion on specified axes."""</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="n">AxisPose</span><span class="p">()</span>
         <span class="n">msg</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">axis_indices</span>
         <span class="n">msg</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="n">displacements</span>
@@ -987,7 +988,7 @@ the <code class="docutils literal notranslate"><span class="pre">wmx_core_motion
         <span class="n">msg</span><span class="o">.</span><span class="n">dec</span> <span class="o">=</span> <span class="p">[</span><span class="n">dec</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">axis_indices</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_rel_pub</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s1">&#39;Relative move: axes=</span><span class="si">{</span><span class="n">axis_indices</span><span class="si">}</span><span class="s1">, disp=</span><span class="si">{</span><span class="n">displacements</span><span class="si">}</span><span class="s1">&#39;</span>
+            <span class="sa">f</span><span class="s1">'Relative move: axes=</span><span class="si">{</span><span class="n">axis_indices</span><span class="si">}</span><span class="s1">, disp=</span><span class="si">{</span><span class="n">displacements</span><span class="si">}</span><span class="s1">'</span>
         <span class="p">)</span>
 
 
@@ -1007,7 +1008,7 @@ the <code class="docutils literal notranslate"><span class="pre">wmx_core_motion
     <span class="n">rclpy</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
 
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1079,9 +1080,9 @@ and update:</p>
 <span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">joint_axes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">2</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">3</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">4</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">5</span><span class="p p-Indicator">]</span><span class="w">   </span><span class="c1"># WMX axis indices</span>
 <span class="w">    </span><span class="nt">joint_feedback_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span><span class="w">         </span><span class="c1"># Hz</span>
-<span class="w">    </span><span class="nt">joint_name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;joint1&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;joint2&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;joint3&quot;</span><span class="p p-Indicator">,</span>
-<span class="w">                  </span><span class="s">&quot;joint4&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;joint5&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;joint6&quot;</span><span class="p p-Indicator">]</span>
-<span class="w">    </span><span class="nt">gripper_joint_name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;picker_1_joint&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;picker_2_joint&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">joint_name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"joint1"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"joint2"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"joint3"</span><span class="p p-Indicator">,</span>
+<span class="w">                  </span><span class="s">"joint4"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"joint5"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"joint6"</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">gripper_joint_name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"picker_1_joint"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"picker_2_joint"</span><span class="p p-Indicator">]</span>
 <span class="w">    </span><span class="nt">wmx_param_file_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/path/to/new_robot_wmx_parameters.xml</span>
 </pre></div>
 </div>
@@ -1200,7 +1201,7 @@ and <a class="reference internal" href="../api_reference/wmx_r2_message.html"><s
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Aug 10, 2026</p>
+      <p>Last updated: Aug 26, 2026</p>
     
   </div>
   <div class="movensys-footer__links">

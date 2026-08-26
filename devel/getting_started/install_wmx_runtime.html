@@ -55,7 +55,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Aug 10, 2026"/>
+    <meta name="docbuild:last-update" content="Aug 26, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -254,6 +254,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/examples.html">Example Applications</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/Testing%20WMX%20R2.html">Testing WMX R2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples/isaacsim_setup.html">NVIDIA Isaac ROS Setup (Optional)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator.html">movensys-manipulator</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
@@ -470,7 +471,7 @@ sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </spa
 <p>The installer places the WMX3 runtime at <code class="docutils literal notranslate"><span class="pre">/opt/wmx3/</span></code>. Confirm the required
 headers and libraries are present:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>/opt/wmx3/include/WMX3Api.h
-ls<span class="w"> </span>/opt/wmx3/lib/libwmx3api.so
+ls<span class="w"> </span>/opt/wmx3/lib/libwmx3api.a
 ls<span class="w"> </span>/opt/wmx3/lib/libimdll.so
 </pre></div>
 </div>
@@ -489,7 +490,7 @@ are isolated on every platform.</p>
 <label class="sd-tab-label" for="sd-tab-item-2">
 General x86/amd64</label><div class="sd-tab-content docutils">
 <p>Edit <code class="docutils literal notranslate"><span class="pre">/etc/default/grub</span></code> and set <code class="docutils literal notranslate"><span class="pre">GRUB_CMDLINE_LINUX</span></code>:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>GRUB_CMDLINE_LINUX=&quot;quiet splash isolcpus=2,3 nohz_full=2,3 rcu_nocbs=2,3 irqaffinity=0,1 acpi_irq_nobalance noirqbalance&quot;
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>GRUB_CMDLINE_LINUX="quiet splash isolcpus=2,3 nohz_full=2,3 rcu_nocbs=2,3 irqaffinity=0,1 acpi_irq_nobalance noirqbalance"
 </pre></div>
 </div>
 <p>Apply the change and reboot:</p>
@@ -502,7 +503,7 @@ sudo<span class="w"> </span>reboot
 <label class="sd-tab-label" for="sd-tab-item-3">
 Intel XPU (Core Ultra Series 3)</label><div class="sd-tab-content docutils">
 <p>Edit <code class="docutils literal notranslate"><span class="pre">/etc/default/grub</span></code> and set <code class="docutils literal notranslate"><span class="pre">GRUB_CMDLINE_LINUX_DEFAULT</span></code>:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>GRUB_CMDLINE_LINUX_DEFAULT=&quot;isolcpus=managed_irq,domain,2,3 nohz_full=2,3 rcu_nocbs=2,3 irqaffinity=0,1 intel_pstate=disable processor.max_cstate=1 idle=poll&quot;
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>GRUB_CMDLINE_LINUX_DEFAULT="isolcpus=managed_irq,domain,2,3 nohz_full=2,3 rcu_nocbs=2,3 irqaffinity=0,1 intel_pstate=disable processor.max_cstate=1 idle=poll"
 </pre></div>
 </div>
 <ul class="simple">
@@ -842,7 +843,7 @@ sudo<span class="w"> </span>./wmx3-stop-engine<span class="w">      </span><span
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Aug 10, 2026</p>
+      <p>Last updated: Aug 26, 2026</p>
     
   </div>
   <div class="movensys-footer__links">

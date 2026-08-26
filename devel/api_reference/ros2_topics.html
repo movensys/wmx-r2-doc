@@ -55,7 +55,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Aug 10, 2026"/>
+    <meta name="docbuild:last-update" content="Aug 26, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -254,6 +254,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/examples.html">Example Applications</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/Testing%20WMX%20R2.html">Testing WMX R2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples/isaacsim_setup.html">NVIDIA Isaac ROS Setup (Optional)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator.html">movensys-manipulator</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
@@ -919,12 +920,12 @@ the robot workspace is clear and all safety precautions are in place.</p>
 <code class="docutils literal notranslate"><span class="pre">/wmx/axis/set_mode</span></code> with <code class="docutils literal notranslate"><span class="pre">data=[1]</span></code>).</p>
 <p><strong>Example – Rotate axis 0 at 1.0 rad/s:</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>topic<span class="w"> </span>pub<span class="w"> </span>--once<span class="w"> </span>/wmx/axis/velocity<span class="w"> </span>wmx_r2_message/msg/AxisVelocity<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">&quot;{index: [0], velocity: [1.0], acc: [10.0], dec: [10.0]}&quot;</span>
+<span class="w">  </span><span class="s2">"{index: [0], velocity: [1.0], acc: [10.0], dec: [10.0]}"</span>
 </pre></div>
 </div>
 <p><strong>Example – Stop axis 0:</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>topic<span class="w"> </span>pub<span class="w"> </span>--once<span class="w"> </span>/wmx/axis/velocity<span class="w"> </span>wmx_r2_message/msg/AxisVelocity<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">&quot;{index: [0], velocity: [0.0], acc: [10.0], dec: [10.0]}&quot;</span>
+<span class="w">  </span><span class="s2">"{index: [0], velocity: [0.0], acc: [10.0], dec: [10.0]}"</span>
 </pre></div>
 </div>
 </section>
@@ -963,7 +964,7 @@ the robot workspace is clear and all safety precautions are in place.</p>
 position.</p>
 <p><strong>Example – Move axis 0 to 1.5 radians:</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>topic<span class="w"> </span>pub<span class="w"> </span>--once<span class="w"> </span>/wmx/axis/position<span class="w"> </span>wmx_r2_message/msg/AxisPose<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">&quot;{index: [0], target: [1.5], velocity: [5.0], acc: [10.0], dec: [10.0]}&quot;</span>
+<span class="w">  </span><span class="s2">"{index: [0], target: [1.5], velocity: [5.0], acc: [10.0], dec: [10.0]}"</span>
 </pre></div>
 </div>
 </section>
@@ -1002,7 +1003,7 @@ position.</p>
 position.</p>
 <p><strong>Example – Move axis 0 by +0.5 radians from current position:</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>topic<span class="w"> </span>pub<span class="w"> </span>--once<span class="w"> </span>/wmx/axis/position/relative<span class="w"> </span>wmx_r2_message/msg/AxisPose<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">&quot;{index: [0], target: [0.5], velocity: [5.0], acc: [10.0], dec: [10.0]}&quot;</span>
+<span class="w">  </span><span class="s2">"{index: [0], target: [0.5], velocity: [5.0], acc: [10.0], dec: [10.0]}"</span>
 </pre></div>
 </div>
 </section>
@@ -1273,7 +1274,7 @@ acceleration estimate (<code class="docutils literal notranslate"><span class="p
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Aug 10, 2026</p>
+      <p>Last updated: Aug 26, 2026</p>
     
   </div>
   <div class="movensys-footer__links">

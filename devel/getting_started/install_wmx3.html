@@ -55,7 +55,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Aug 10, 2026"/>
+    <meta name="docbuild:last-update" content="Aug 26, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -254,6 +254,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/examples.html">Example Applications</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/Testing%20WMX%20R2.html">Testing WMX R2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples/isaacsim_setup.html">NVIDIA Isaac ROS Setup (Optional)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator.html">movensys-manipulator</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
@@ -475,169 +476,6 @@ wmx_r2_package wmx_io_node
 </pre></div>
 </div>
 </section>
-<section id="testing-wmx-r2">
-<h2>Testing WMX R2<a class="headerlink" href="#testing-wmx-r2" title="Link to this heading">#</a></h2>
-<p>Once WMX R2 is installed and built, you can validate it in two ways: in
-simulation (no physical hardware required) or against real EtherCAT hardware.
-Start with simulation to verify basic behavior, then move to real hardware.</p>
-<p>The WMX R2 nodes communicate directly with the WMX engine over EtherCAT —
-there is no built-in mock hardware mode. The mode is selected in
-<code class="docutils literal notranslate"><span class="pre">/opt/wmx3/Module.ini</span></code> by enabling either the simulation or the EtherCAT
-platform. Select your mode below, then continue with the common test steps
-that follow.</p>
-<div class="sd-tab-set docutils">
-<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
-<label class="sd-tab-label" data-sync-group="tab" data-sync-id="sim" for="sd-tab-item-0">
-Simulation</label><div class="sd-tab-content docutils">
-<p>Use the simulation platform to test without any physical hardware
-connected.</p>
-<p><strong>Setup WMX in simulation mode</strong></p>
-<p>Modify <code class="docutils literal notranslate"><span class="pre">/opt/wmx3/Module.ini</span></code> to disable the EtherCAT platform and
-enable the simulation platform:</p>
-<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[Platform 0]</span>
-<span class="na">Location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">./platform/ethercat</span>
-<span class="na">DllName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">ec_platform.so</span>
-<span class="na">NumOfMaster</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">1</span>
-<span class="na">disable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">1</span>
-
-<span class="k">[Platform 1]</span>
-<span class="na">Location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">./platform/simu</span>
-<span class="na">DllName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">simu_platform.so</span>
-<span class="na">NumOfMaster</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">1</span>
-<span class="na">disable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">0</span>
-</pre></div>
-</div>
-</div>
-<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
-<label class="sd-tab-label" data-sync-group="tab" data-sync-id="real" for="sd-tab-item-1">
-Real Hardware</label><div class="sd-tab-content docutils">
-<p>This covers testing against any EtherCAT hardware (a robot, a standalone
-servo drive, an I/O module, etc.). The examples below use the Dobot CR3A
-manipulator, but the same procedure applies to any EtherCAT device.</p>
-<p><strong>Prerequisites</strong></p>
-<ul class="simple">
-<li><p>The WMX R2 workspace is built and sourced</p></li>
-<li><p>The WMX Runtime is installed at <code class="docutils literal notranslate"><span class="pre">/opt/wmx3/</span></code></p></li>
-<li><p>EtherCAT cable is connected between compute platform and first EtherCAT device</p></li>
-<li><p>The hardware and all servo drives are powered on</p></li>
-<li><p>You have <code class="docutils literal notranslate"><span class="pre">sudo</span></code> privileges</p></li>
-</ul>
-<p><strong>EtherCAT Wiring</strong></p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>┌──────────────┐    Ethernet     ┌──────────┐    ┌──────────┐         ┌──────────┐
-│  Compute PC  │────(EtherCAT)──►│ Servo J1 │───►│ Servo J2 │── ... ──│ Servo J6 │
-│  (dedicated  │                 └──────────┘    └──────────┘         └──────────┘
-│   NIC port)  │
-└──────────────┘
-</pre></div>
-</div>
-<ul class="simple">
-<li><p>Use a <strong>dedicated Ethernet port</strong> for EtherCAT</p></li>
-<li><p>Servo drives are daisy-chained (each drive has IN and OUT ports)</p></li>
-<li><p>The I/O module for gripper control is part of the same chain</p></li>
-</ul>
-<p><strong>Setup WMX in real hardware mode</strong></p>
-<p>Modify <code class="docutils literal notranslate"><span class="pre">/opt/wmx3/Module.ini</span></code> to enable the EtherCAT platform and
-disable the simulation platform:</p>
-<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[Platform 0]</span>
-<span class="na">Location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">./platform/ethercat</span>
-<span class="na">DllName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">ec_platform.so</span>
-<span class="na">NumOfMaster</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">1</span>
-<span class="na">disable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">0</span>
-
-<span class="k">[Platform 1]</span>
-<span class="na">Location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">./platform/simu</span>
-<span class="na">DllName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">simu_platform.so</span>
-<span class="na">NumOfMaster</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">1</span>
-<span class="na">disable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">1</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p><strong>Real Hardware mode moves a physical machine.</strong></p>
-<p>Start with the Simulation platform. Before switching to EtherCAT and
-enabling servos on a robot, complete <a class="reference internal" href="../commissioning/index.html"><span class="doc">Commissioning</span></a> —
-parameter validation, the low-speed single-axis procedure, and the separate
-safety measures described in <a class="reference internal" href="../commissioning/safety.html"><span class="doc">Safety Functions and Responsibility</span></a>.</p>
-</div>
-<section id="test-the-wmx-r2-general-nodes-standalone">
-<h3>Test the WMX R2 General Nodes (Standalone)<a class="headerlink" href="#test-the-wmx-r2-general-nodes-standalone" title="Link to this heading">#</a></h3>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>--preserve-env<span class="o">=</span>PATH<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--preserve-env<span class="o">=</span>AMENT_PREFIX_PATH<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--preserve-env<span class="o">=</span>COLCON_PREFIX_PATH<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--preserve-env<span class="o">=</span>PYTHONPATH<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--preserve-env<span class="o">=</span>LD_LIBRARY_PATH<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--preserve-env<span class="o">=</span>ROS_DISTRO<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--preserve-env<span class="o">=</span>ROS_VERSION<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--preserve-env<span class="o">=</span>ROS_PYTHON_VERSION<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--preserve-env<span class="o">=</span>ROS_DOMAIN_ID<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--preserve-env<span class="o">=</span>RMW_IMPLEMENTATION<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>bash<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;source /opt/ros/</span><span class="si">${</span><span class="nv">ROS_DISTRO</span><span class="si">}</span><span class="s2">/setup.bash &amp;&amp; source </span><span class="nv">$HOME</span><span class="s2">/workspaces/movensys_ws/install/setup.bash &amp;&amp; \</span>
-<span class="s2">  ros2 launch wmx_r2_package wmx_r2_general_nodes.launch.py&quot;</span>
-</pre></div>
-</div>
-</section>
-<section id="startup-sequence">
-<h3>Startup Sequence<a class="headerlink" href="#startup-sequence" title="Link to this heading">#</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">wmx_r2_general_nodes.launch.py</span></code> starts four robot-agnostic nodes —
-<code class="docutils literal notranslate"><span class="pre">wmx_engine_node</span></code>, <code class="docutils literal notranslate"><span class="pre">wmx_core_motion_node</span></code>, <code class="docutils literal notranslate"><span class="pre">wmx_io_node</span></code>, and
-<code class="docutils literal notranslate"><span class="pre">wmx_ethercat_node</span></code>:</p>
-<ol class="arabic simple">
-<li><p><strong>Device creation</strong> – <code class="docutils literal notranslate"><span class="pre">wmx_engine_node</span></code> creates the WMX device handle,
-retrying up to five times if another application holds the lock
-(error 297). The remaining nodes then attach to that device.</p></li>
-<li><p><strong>Communication start</strong> – <code class="docutils literal notranslate"><span class="pre">StartCommunication</span></code> brings up the real-time
-EtherCAT cycle, which discovers the drives on the bus.</p></li>
-<li><p><strong>Ready</strong> – each node publishes on its <code class="docutils literal notranslate"><span class="pre">ready</span></code> topic and begins serving
-its services and topics.</p></li>
-</ol>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p><strong>The general nodes load no robot parameters and enable no
-servos.</strong></p>
-<p>These four nodes are robot-agnostic by design. They do <strong>not</strong> apply a
-<code class="docutils literal notranslate"><span class="pre">&lt;robot&gt;_wmx_parameters.xml</span></code> file, so the gear ratios, polarities,
-command modes, and limits in the engine are whatever was left there by a
-previous session — not your robot’s values. They also do not enable the
-servos; that is an explicit <code class="docutils literal notranslate"><span class="pre">/wmx/axis/set_on</span></code> call.</p>
-<p>Robot parameters are applied by the per-robot launches
-(<code class="docutils literal notranslate"><span class="pre">wmx_r2_&lt;robot&gt;_manipulator.launch.py</span></code> and
-<code class="docutils literal notranslate"><span class="pre">wmx_r2_diffbot_navigation.launch.py</span></code>), which pass
-<code class="docutils literal notranslate"><span class="pre">wmx_param_file_path</span></code> to their controllers, or by the <code class="docutils literal notranslate"><span class="pre">ros2_control</span></code>
-hardware plugin. If you command motion from the general nodes alone, load
-the parameters first:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/params/load<span class="w"> </span>wmx_r2_message/srv/LoadWmxParams<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span><span class="s2">&quot;{file_path: &#39;/abs/path/to/&lt;robot&gt;_wmx_parameters.xml&#39;}&quot;</span>
-ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/params/get<span class="w"> </span>wmx_r2_message/srv/GetWmxParams<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span><span class="s2">&quot;{index: [0,1,2,3,4,5]}&quot;</span>
-</pre></div>
-</div>
-<p>See <a class="reference internal" href="../commissioning/robot_parameters.html"><span class="doc">Robot Parameter Configuration and Validation</span></a>.</p>
-</div>
-</section>
-<section id="testing-wmx-r2-services-and-topics">
-<h3>Testing WMX R2 Services and Topics<a class="headerlink" href="#testing-wmx-r2-services-and-topics" title="Link to this heading">#</a></h3>
-<p>The general nodes expose the WMX engine, axis, I/O, and EtherCAT control
-interfaces as ROS2 services and topics. List what is available and confirm the
-engine is communicating:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>/wmx<span class="w">                                  </span><span class="c1"># Available WMX services</span>
-ros2<span class="w"> </span>topic<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>/wmx<span class="w">                                    </span><span class="c1"># Available WMX topics</span>
-ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/engine/get_status<span class="w"> </span>std_srvs/srv/Trigger<span class="w">  </span><span class="c1"># Expect: &quot;Communicating&quot;</span>
-ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/ecat/get_network_state<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>wmx_r2_message/srv/EcatGetNetworkState<span class="w">                  </span><span class="c1"># EtherCAT master/slave status</span>
-</pre></div>
-</div>
-<p>For the complete list of services, topics, and message types exposed by the
-general nodes — engine control, axis motion, I/O, and EtherCAT — see the
-<a class="reference external" href="https://github.com/movensys/wmx-r2/blob/main/doc/reference_wmx_r2_general_nodes.md">WMX R2 General Nodes reference</a>.</p>
-</section>
-<section id="shutdown">
-<h3>Shutdown<a class="headerlink" href="#shutdown" title="Link to this heading">#</a></h3>
-<p>Press <code class="docutils literal notranslate"><span class="pre">Ctrl+C</span></code> in the launch terminal. The nodes will automatically disable
-servos, stop EtherCAT communication, and close the WMX device.</p>
-</section>
-</section>
 </section>
 
 
@@ -691,13 +529,6 @@ servos, stop EtherCAT communication, and close the WMX device.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-required-ros2-dependencies">Install Required ROS2 Dependencies</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-workspace-and-build">Create Workspace and Build</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#verify-installation">Verify Installation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-wmx-r2">Testing WMX R2</a><ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#test-the-wmx-r2-general-nodes-standalone">Test the WMX R2 General Nodes (Standalone)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#startup-sequence">Startup Sequence</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-wmx-r2-services-and-topics">Testing WMX R2 Services and Topics</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shutdown">Shutdown</a></li>
-</ul>
-</li>
 </ul>
   </nav></div>
 
@@ -727,7 +558,7 @@ servos, stop EtherCAT communication, and close the WMX device.</p>
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Aug 10, 2026</p>
+      <p>Last updated: Aug 26, 2026</p>
     
   </div>
   <div class="movensys-footer__links">

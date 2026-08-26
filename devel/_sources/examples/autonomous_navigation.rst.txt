@@ -11,6 +11,14 @@ commands run through ``nros``.
 
    .. tab-item:: Simulation
 
+      .. figure:: https://softservogroup.sharepoint.com/:i:/s/Storage/IQBEoMuUUOanToLngEBtM4EPAUVh_AuFLqR-ZRulUVSJkwo?e=DQN4t3&download=1
+         :alt: Autonomous navigation on simulation
+         :target: https://softservogroup.sharepoint.com/:i:/s/Storage/IQBEoMuUUOanToLngEBtM4EPAUVh_AuFLqR-ZRulUVSJkwo?e=DQN4t3&download=1
+         :align: center
+         :width: 100%
+
+         Autonomous navigation on simulation
+
       1. Open the scene:
 
          .. tab-set::
@@ -55,6 +63,14 @@ commands run through ``nros``.
               orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}}}}'"
 
    .. tab-item:: HIL
+
+      .. figure:: https://softservogroup.sharepoint.com/:i:/s/Storage/IQBEoMuUUOanToLngEBtM4EPAUVh_AuFLqR-ZRulUVSJkwo?e=DQN4t3&download=1
+         :alt: Autonomous navigation on HIL
+         :target: https://softservogroup.sharepoint.com/:i:/s/Storage/IQBEoMuUUOanToLngEBtM4EPAUVh_AuFLqR-ZRulUVSJkwo?e=DQN4t3&download=1
+         :align: center
+         :width: 100%
+
+         Autonomous navigation on HIL
 
       1. Open the scene:
 
