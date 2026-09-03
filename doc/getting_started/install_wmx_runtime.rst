@@ -290,21 +290,15 @@ Set the driver configuration of the real-time network device (``[rtnd0]`` for th
 ``/opt/wmx3/platform/ethercat/PrtTcpip.ini``. The ``UseNicDrvDll`` key selects
 the driver; each driver reads its own keys from the same section.
 
-EtherCAT runs directly on Ethernet, so it needs no IP address or
-subnet. The driver only needs the name of the NIC that is physically wired to
-the EtherCAT slaves. List the interfaces and confirm that name:
-
-.. code-block:: bash
-
-   ifconfig
-
 .. tab-set::
 
    .. tab-item:: sock_raw
 
-      Bind the driver to a kernel network interface: set ``ifname`` to the
-      interface name reported by ``ifconfig`` (the ``NIC_DRV_DLL_IFNAME``
-      environment variable overrides it):
+      ``ndd_sock_raw.so`` sends and receives EtherCAT frames through a standard
+      Linux ``AF_PACKET`` / ``SOCK_RAW`` socket, so the NIC keeps its normal
+      kernel driver and needs no extra setup.
+
+      Configure the port in ``PrtTcpip.ini``:
 
       .. code-block:: ini
 
@@ -314,14 +308,19 @@ the EtherCAT slaves. List the interfaces and confirm that name:
          rxprio=97               ; RX thread SCHED_FIFO priority (<=0 = default sched)
          rxcore=2                ; pin RX poll loop to an ISOLATED core
 
+      Set ``ifname`` to the interface name reported by ``ifconfig``; the
+      ``NIC_DRV_DLL_IFNAME`` environment variable overrides it.
+
       Opening the raw socket needs ``CAP_NET_RAW``, so run the nodes as root.
 
    .. tab-item:: af_xdp
 
-      AF_XDP is a kernel fast path: the NIC keeps its normal kernel driver (no
-      vfio bind, no hugepages). Bind to a kernel interface and a single RX
-      queue. AF_XDP receives only on the bound queue, so collapse the NIC to one
-      queue first:
+      ``ndd_af_xdp.so`` sends and receives EtherCAT frames through an AF_XDP
+      socket (XSK), a kernel fast path: the NIC keeps its normal kernel driver,
+      so no vfio bind and no hugepages are needed.
+
+      An XSK receives only on the RX queue it is bound to, so collapse the NIC
+      to a single queue first:
 
       .. code-block:: bash
 
@@ -333,17 +332,20 @@ the EtherCAT slaves. List the interfaces and confirm that name:
 
          [rtnd0]
          UseNicDrvDll=ndd_af_xdp.so
-         ifname=enp3s0            ; kernel interface to bind (required)
-         queue=0                  ; XSK binds to this RX queue
+         ifname=enp3s0           ; kernel interface to bind (required)
+         queue=0                 ; XSK binds to this RX queue
          xdpmode=skb             ; skb=generic | drv=native | zerocopy=native+ZC
          rxprio=97               ; RX thread SCHED_FIFO priority
          rxcore=2                ; pin RX poll loop to an ISOLATED core
          rxbusy=0                ; 0 = poll()/sleep (safe on a shared core)
                                  ; 1 = busy-poll (needs a dedicated isolated core)
 
+      Set ``ifname`` to the interface name reported by ``ifconfig``; the
+      ``NIC_DRV_DLL_IFNAME`` environment variable overrides it.
+
       Creating the XSK needs ``CAP_NET_RAW`` + ``CAP_NET_ADMIN`` (``CAP_BPF`` on
       newer kernels), so run the nodes as root.
-      
+
    .. tab-item:: dpdk
 
       DPDK bypasses the kernel network stack, so reserve hugepages and bind the
