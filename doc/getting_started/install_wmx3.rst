@@ -29,19 +29,26 @@ Install Required ROS2 Dependencies
 ----------------------------------------------
 
 .. code-block:: bash
-
    sudo apt update
+   # Install colcon and rosdep
+   sudo apt install python3-colcon-common-extensions python3-rosdep
+   # Install ROS2 dependencies for WMX R2 packages
    sudo apt install -y ros-${ROS_DISTRO}-graph-msgs \
-                    ros-${ROS_DISTRO}-moveit-ros \
-                    ros-${ROS_DISTRO}-moveit-planners \
-                    ros-${ROS_DISTRO}-moveit-plugins \
-                    ros-${ROS_DISTRO}-moveit-setup-assistant \
-                    ros-${ROS_DISTRO}-moveit-configs-utils \
-                    ros-${ROS_DISTRO}-moveit-task-constructor-core \
-                    ros-${ROS_DISTRO}-ros2-control \
-                    ros-${ROS_DISTRO}-ros2-controllers \
-                    ros-${ROS_DISTRO}-rmw-cyclonedds-cpp
-   sudo apt install -y python3-colcon-common-extensions python3-rosdep
+                       ros-${ROS_DISTRO}-moveit-ros \
+                       ros-${ROS_DISTRO}-moveit-planners \
+                       ros-${ROS_DISTRO}-moveit-plugins \
+                       ros-${ROS_DISTRO}-moveit-setup-assistant \
+                       ros-${ROS_DISTRO}-moveit-configs-utils \
+                       ros-${ROS_DISTRO}-moveit-task-constructor-core \
+                       ros-${ROS_DISTRO}-ros2-control \
+                       ros-${ROS_DISTRO}-ros2-controllers \
+                       ros-${ROS_DISTRO}-controller-manager \
+                       ros-${ROS_DISTRO}-diff-drive-controller \
+                       ros-${ROS_DISTRO}-joint-trajectory-controller \
+                       ros-${ROS_DISTRO}-joint-state-broadcaster \
+                       ros-${ROS_DISTRO}-xacro \
+                       ros-${ROS_DISTRO}-topic-tools \
+                       ros-${ROS_DISTRO}-rmw-cyclonedds-cpp
 
 
 Create Workspace and Build
@@ -52,8 +59,21 @@ Create Workspace and Build
 .. code-block:: bash
 
    mkdir -p ~/workspaces/movensys_ws/src
-   cd ~/workspaces/movensys_ws/src && \
+   cd ~/workspaces/movensys_ws/src
    git clone https://github.com/movensys/wmx-r2.git
+
+.. note::
+
+   If you are only using for the motors on ROS 2 environment,
+   you can safely ignore the missing ``movensys_manipulator_description``, 
+   ``movensys_navigation_description`` dependency error. 
+   To resolve this error, please clone the manipulator and navigation repositories into your workspace.
+
+   .. code-block:: bash
+
+      cd ~/workspaces/movensys_ws/src
+      git clone https://github.com/movensys/movensys-manipulator.git
+      git clone https://github.com/movensys/movensys-navigation.git
 
 **Rosdep update**
 
@@ -96,7 +116,7 @@ Expected:
    wmx_r2_package
    wmx_r2_package differential_drive_controller
    wmx_r2_package gripper_controller
-   wmx_r2_package joint_position_controller
+   wmx_r2_package jog_keyboard_node
    wmx_r2_package joint_state_broadcaster
    wmx_r2_package joint_trajectory_controller
    wmx_r2_package wmx_core_motion_node
