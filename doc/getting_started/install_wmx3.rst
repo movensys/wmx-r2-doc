@@ -64,10 +64,12 @@ Create Workspace and Build
 
 .. note::
 
-   If you are only using for the motors on ROS 2 environment,
-   you can safely ignore the missing ``movensys_manipulator_description``, 
-   ``movensys_navigation_description`` dependency error. 
-   To resolve this error, please clone the manipulator and navigation repositories into your workspace.
+   The manipulator and navigation descriptions are optional. If you only need
+   motor control in a ROS 2 environment, you can safely ignore the missing
+   ``movensys_manipulator_description`` and ``movensys_navigation_description``
+   dependency errors.
+
+   To resolve them, clone both repositories into your workspace:
 
    .. code-block:: bash
 
