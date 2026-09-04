@@ -518,53 +518,56 @@ count — <code class="docutils literal notranslate"><span class="pre">index:</s
 <code class="docutils literal notranslate"><span class="pre">data</span></code> the same length.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p><strong>Steps 7 and 8 rotate the axis.</strong></p>
+<p><strong>Steps 8 and 9 rotate the axis.</strong></p>
 <p>In Real Hardware mode, do this at low velocity on an axis that is free to
 move, with a hand on the emergency stop, after completing
 <a class="reference internal" href="../commissioning/first_motion.html"><span class="doc">Commissioning and First Motion</span></a>.</p>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. Engine communicating? The launch file already started the EtherCAT</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. Check the engine status. The launch file already started the EtherCAT</span>
 <span class="c1">#    cycle, so this should report "Communicating".</span>
 ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/engine/get_status<span class="w"> </span>std_srvs/srv/Trigger<span class="w"> </span><span class="s2">"{}"</span>
 
-<span class="c1"># 1b. Only if it is not — start the cycle by hand</span>
-ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/engine/set_comm<span class="w"> </span>std_srvs/srv/SetBool<span class="w"> </span><span class="s2">"{data: true}"</span>
+<span class="c1"># 2. Start the EtherCAT cycle by hand.</span>
+<span class="c1">#    Needed only if step 1 did not report "Communicating".</span>
+<span class="c1"># ros2 service call /wmx/engine/set_comm std_srvs/srv/SetBool "{data: true}"</span>
 
-<span class="c1"># 2. Set the gear ratio, which fixes the user units of every command below.</span>
-<span class="c1">#    23-bit encoder / 360 =&gt; one command unit is one degree.</span>
+<span class="c1"># 3. Set the gear ratio. It defines the user unit of every command below.</span>
+<span class="c1">#    8388608 pulses (23-bit encoder) per 360 degrees makes one command unit</span>
+<span class="c1">#    one degree.</span>
 ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axis/set_gear_ratio<span class="w"> </span>wmx_r2_message/srv/SetAxisGearRatio<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span><span class="s2">"{index: [0], numerator: [8388608.0], denominator: [360.0]}"</span>
 
-<span class="c1"># 3. Clear any amp alarms</span>
+<span class="c1"># 4. Clear any amp alarms.</span>
 ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axis/clear_alarm<span class="w"> </span>wmx_r2_message/srv/SetAxis<span class="w"> </span><span class="s2">"{index: [0], data: [0]}"</span>
 
-<span class="c1"># 4. Enable the servo</span>
+<span class="c1"># 5. Enable the servo.</span>
 ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axis/set_on<span class="w"> </span>wmx_r2_message/srv/SetAxis<span class="w"> </span><span class="s2">"{index: [0], data: [1]}"</span>
 
-<span class="c1"># 5. Home — the current encoder position becomes zero</span>
+<span class="c1"># 6. Home the axis. The current encoder position becomes zero.</span>
 ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axis/homing<span class="w"> </span>wmx_r2_message/srv/SetAxis<span class="w"> </span><span class="s2">"{index: [0], data: [0]}"</span>
 
-<span class="c1"># 6. Position mode (0). Required by both position moves and jog.</span>
+<span class="c1"># 7. Switch to position mode (0). Required by both position moves and jog.</span>
 ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axis/set_mode<span class="w"> </span>wmx_r2_message/srv/SetAxis<span class="w"> </span><span class="s2">"{index: [0], data: [0]}"</span>
 
-<span class="c1"># 7. First move: +10 degrees relative, slowly</span>
+<span class="c1"># 8. Command the first move, +10 degrees relative at low velocity.</span>
 ros2<span class="w"> </span>topic<span class="w"> </span>pub<span class="w"> </span>--once<span class="w"> </span>/wmx/axis/position/relative<span class="w"> </span>wmx_r2_message/msg/AxisPose<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span><span class="s2">"{index: [0], target: [10], velocity: [30], acc: [100], dec: [100]}"</span>
 
-<span class="c1"># 8. Or jog it by hand instead — hold-to-move, Ctrl+C releases</span>
+<span class="c1"># 9. Jog the axis by hand instead of step 8. It moves while the topic is</span>
+<span class="c1">#    published, and Ctrl+C releases it.</span>
 ros2<span class="w"> </span>topic<span class="w"> </span>pub<span class="w"> </span>-r<span class="w"> </span><span class="m">20</span><span class="w"> </span>/wmx/axis/jog<span class="w"> </span>wmx_r2_message/msg/AxisVelocity<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span><span class="s2">"{index: [0], velocity: [30], acc: [100], dec: [100]}"</span>
 
-<span class="c1"># 9. Stop</span>
+<span class="c1"># 10. Stop the axis.</span>
 ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axis/stop<span class="w"> </span>wmx_r2_message/srv/SetAxis<span class="w"> </span><span class="s2">"{index: [0], data: [0]}"</span>
 
-<span class="c1"># 10. Servo off — always before stopping communication</span>
+<span class="c1"># 11. Turn the servo off. Always do this before stopping communication.</span>
 ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axis/set_on<span class="w"> </span>wmx_r2_message/srv/SetAxis<span class="w"> </span><span class="s2">"{index: [0], data: [0]}"</span>
 </pre></div>
 </div>
 <p>Keep a second terminal on the axis feedback while you work through it — after
-step 4 <code class="docutils literal notranslate"><span class="pre">servo_on</span></code> should be <code class="docutils literal notranslate"><span class="pre">true</span></code>, after step 5 <code class="docutils literal notranslate"><span class="pre">home_done</span></code> should be
-<code class="docutils literal notranslate"><span class="pre">true</span></code>, and <code class="docutils literal notranslate"><span class="pre">actual_pos</span></code> should follow step 7:</p>
+step 5 <code class="docutils literal notranslate"><span class="pre">servo_on</span></code> should be <code class="docutils literal notranslate"><span class="pre">true</span></code>, after step 6 <code class="docutils literal notranslate"><span class="pre">home_done</span></code> should be
+<code class="docutils literal notranslate"><span class="pre">true</span></code>, and <code class="docutils literal notranslate"><span class="pre">actual_pos</span></code> should follow step 8:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/wmx/axis/state
 </pre></div>
 </div>
@@ -785,11 +788,11 @@ From the CLI</label><div class="sd-tab-content docutils">
 release.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Positive direction</span>
 ros2<span class="w"> </span>topic<span class="w"> </span>pub<span class="w"> </span>-r<span class="w"> </span><span class="m">20</span><span class="w"> </span>/wmx/axis/jog<span class="w"> </span>wmx_r2_message/msg/AxisVelocity<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span><span class="s2">"{index: [0], velocity: [10000], acc: [100000], dec: [100000]}"</span>
+<span class="w">     </span><span class="s2">"{index: [0], velocity: [1000], acc: [10000], dec: [10000]}"</span>
 
 <span class="c1"># Negative direction</span>
 ros2<span class="w"> </span>topic<span class="w"> </span>pub<span class="w"> </span>-r<span class="w"> </span><span class="m">20</span><span class="w"> </span>/wmx/axis/jog<span class="w"> </span>wmx_r2_message/msg/AxisVelocity<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span><span class="s2">"{index: [0], velocity: [-10000], acc: [100000], dec: [100000]}"</span>
+<span class="w">     </span><span class="s2">"{index: [0], velocity: [-1000], acc: [10000], dec: [10000]}"</span>
 </pre></div>
 </div>
 </div>

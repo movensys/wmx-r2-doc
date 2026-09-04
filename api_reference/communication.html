@@ -208,7 +208,7 @@ const runMermaid = async (rerun) => {
                                     // Apply zoom to the now-rendered diagram, matching
                                     // the decoration visible diagrams receive.
                                     if (true) {
-                                        addZoomToSvgs(d3.selectAll(".mermaid[data-zoom-id=id-831d73b4-a1a8-480f-b60e-5bffcb2431b3]").select(function() {
+                                        addZoomToSvgs(d3.selectAll(".mermaid[data-zoom-id=id-892f6571-1393-4a77-8818-2ef4878fc558]").select(function() {
                                             return this.querySelector("svg");
                                         }));
                                     }
@@ -234,7 +234,7 @@ const runMermaid = async (rerun) => {
     if (true) {
         const mermaids_to_add_zoom = 1 === -1 ? mermaids_active.length : 1;
         if(mermaids_to_add_zoom > 0) {
-            var svgs = d3.selectAll(".mermaid[data-zoom-id=id-831d73b4-a1a8-480f-b60e-5bffcb2431b3]").select(function() {
+            var svgs = d3.selectAll(".mermaid[data-zoom-id=id-892f6571-1393-4a77-8818-2ef4878fc558]").select(function() {
                 return this.querySelector("svg");
             });
             // Wait until every active (visible) diagram has rendered. Deferred
@@ -764,7 +764,7 @@ communicates with servo drives over EtherCAT.</p>
 </div>
 <p>The diagram below shows how the three layers stack and which libraries and buses connect them:</p>
 <figure class="align-default" id="id1">
-<pre data-zoom-id="id-831d73b4-a1a8-480f-b60e-5bffcb2431b3" class="mermaid">
+<pre data-zoom-id="id-892f6571-1393-4a77-8818-2ef4878fc558" class="mermaid">
         %%{init: {&quot;theme&quot;: &quot;base&quot;, &quot;themeVariables&quot;: {&quot;primaryColor&quot;: &quot;#1a73e8&quot;, &quot;primaryTextColor&quot;: &quot;#fff&quot;, &quot;primaryBorderColor&quot;: &quot;#1558b0&quot;, &quot;lineColor&quot;: &quot;#555&quot;}}}%%
 flowchart TB
     subgraph L1[&quot;Layer 1: ROS2 DDS&quot;]
