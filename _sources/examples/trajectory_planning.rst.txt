@@ -35,25 +35,11 @@ run through ``mros``. For the programmatic ``/wmx/moveit2/*`` service API, see
 
                   mros ros2 launch movensys_manipulator_description gazebo_trajectory_simulation.launch.py
 
-      2. Run the simulator bridge:
+      2. Run the simulator bridge. The same command serves both simulators:
 
-         .. tab-set::
+         .. code-block:: bash
 
-            .. tab-item:: Isaac Sim
-               :sync: isaacsim
-
-               .. code-block:: bash
-
-                  mros ros2 launch movensys_manipulator_moveit_config sim_bridge.launch.py \
-                       simulator:=isaacsim use_sim_time:=true
-
-            .. tab-item:: Gazebo
-               :sync: gazebo
-
-               .. code-block:: bash
-
-                  mros ros2 launch movensys_manipulator_moveit_config sim_bridge.launch.py \
-                       simulator:=gazebo use_sim_time:=true
+            mros ros2 launch movensys_manipulator_moveit_config sim_bridge.launch.py use_sim_time:=true
 
       3. Launch the planner and service API:
 
