@@ -49,6 +49,8 @@
 
 
 
+
+
 const initStyles = () => {
     const defaultStyle = document.createElement('style');
     defaultStyle.textContent = "pre.mermaid {\n    /* Same as .mermaid-container > pre */\n    display: block;\n    width: 100%;\n}\n\npre.mermaid > svg {\n    /* Same as .mermaid-container > pre > svg */\n    height: 500px;\n    width: 100%;\n    max-width: 100% !important;\n}";
@@ -206,7 +208,7 @@ const runMermaid = async (rerun) => {
                                     // Apply zoom to the now-rendered diagram, matching
                                     // the decoration visible diagrams receive.
                                     if (true) {
-                                        addZoomToSvgs(d3.selectAll(".mermaid[data-zoom-id=id-c3587773-c25a-4e7c-a1cc-eb7726c90901]").select(function() {
+                                        addZoomToSvgs(d3.selectAll(".mermaid[data-zoom-id=id-72fd35d0-d100-4fe0-a56b-4cb33e781778]").select(function() {
                                             return this.querySelector("svg");
                                         }));
                                     }
@@ -232,7 +234,7 @@ const runMermaid = async (rerun) => {
     if (true) {
         const mermaids_to_add_zoom = 1 === -1 ? mermaids_active.length : 1;
         if(mermaids_to_add_zoom > 0) {
-            var svgs = d3.selectAll(".mermaid[data-zoom-id=id-c3587773-c25a-4e7c-a1cc-eb7726c90901]").select(function() {
+            var svgs = d3.selectAll(".mermaid[data-zoom-id=id-72fd35d0-d100-4fe0-a56b-4cb33e781778]").select(function() {
                 return this.querySelector("svg");
             });
             // Wait until every active (visible) diagram has rendered. Deferred
@@ -412,7 +414,7 @@ window.runMermaid = runMermaid;</script>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Aug 20, 2026"/>
+    <meta name="docbuild:last-update" content="Sep 04, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -956,7 +958,7 @@ Each node links only the libraries it needs:</p>
 topics so that dependent nodes only activate once the engine and motion
 layers are live:</p>
 <figure class="align-default" id="id1">
-<pre data-zoom-id="id-c3587773-c25a-4e7c-a1cc-eb7726c90901" class="mermaid">
+<pre data-zoom-id="id-72fd35d0-d100-4fe0-a56b-4cb33e781778" class="mermaid">
         sequenceDiagram
     participant E as wmx_engine_node
     participant C as wmx_core_motion_node
@@ -1597,7 +1599,7 @@ wmx_r2_package wmx_io_node
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Aug 20, 2026</p>
+      <p>Last updated: Sep 04, 2026</p>
     
   </div>
   <div class="movensys-footer__links">
