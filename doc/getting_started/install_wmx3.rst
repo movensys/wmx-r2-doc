@@ -29,6 +29,7 @@ Install Required ROS2 Dependencies
 ----------------------------------------------
 
 .. code-block:: bash
+
    sudo apt update
    # Install colcon and rosdep
    sudo apt install python3-colcon-common-extensions python3-rosdep
