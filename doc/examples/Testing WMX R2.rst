@@ -151,7 +151,7 @@ The examples command **axis 0 only**. Extend the ``index`` array to your axis
 count — ``index: [0,1,2,3,4,5]`` for a six-axis arm — keeping ``index`` and
 ``data`` the same length.
 
-.. warning:: **Steps 7 and 8 rotate the axis.**
+.. warning:: **Steps 8 and 9 rotate the axis.**
 
    In Real Hardware mode, do this at low velocity on an axis that is free to
    move, with a hand on the emergency stop, after completing
@@ -159,47 +159,50 @@ count — ``index: [0,1,2,3,4,5]`` for a six-axis arm — keeping ``index`` and
 
 .. code-block:: bash
 
-   # 1. Engine communicating? The launch file already started the EtherCAT
+   # 1. Check the engine status. The launch file already started the EtherCAT
    #    cycle, so this should report "Communicating".
    ros2 service call /wmx/engine/get_status std_srvs/srv/Trigger "{}"
 
-   # 1b. Only if it is not — start the cycle by hand
-   ros2 service call /wmx/engine/set_comm std_srvs/srv/SetBool "{data: true}"
+   # 2. Start the EtherCAT cycle by hand. 
+   #    Needed only if step 1 did not report "Communicating".
+   # ros2 service call /wmx/engine/set_comm std_srvs/srv/SetBool "{data: true}"
 
-   # 2. Set the gear ratio, which fixes the user units of every command below.
-   #    23-bit encoder / 360 => one command unit is one degree.
+   # 3. Set the gear ratio. It defines the user unit of every command below.
+   #    8388608 pulses (23-bit encoder) per 360 degrees makes one command unit
+   #    one degree.
    ros2 service call /wmx/axis/set_gear_ratio wmx_r2_message/srv/SetAxisGearRatio \
      "{index: [0], numerator: [8388608.0], denominator: [360.0]}"
 
-   # 3. Clear any amp alarms
+   # 4. Clear any amp alarms.
    ros2 service call /wmx/axis/clear_alarm wmx_r2_message/srv/SetAxis "{index: [0], data: [0]}"
 
-   # 4. Enable the servo
+   # 5. Enable the servo.
    ros2 service call /wmx/axis/set_on wmx_r2_message/srv/SetAxis "{index: [0], data: [1]}"
 
-   # 5. Home — the current encoder position becomes zero
+   # 6. Home the axis. The current encoder position becomes zero.
    ros2 service call /wmx/axis/homing wmx_r2_message/srv/SetAxis "{index: [0], data: [0]}"
 
-   # 6. Position mode (0). Required by both position moves and jog.
+   # 7. Switch to position mode (0). Required by both position moves and jog.
    ros2 service call /wmx/axis/set_mode wmx_r2_message/srv/SetAxis "{index: [0], data: [0]}"
 
-   # 7. First move: +10 degrees relative, slowly
+   # 8. Command the first move, +10 degrees relative at low velocity.
    ros2 topic pub --once /wmx/axis/position/relative wmx_r2_message/msg/AxisPose \
      "{index: [0], target: [10], velocity: [30], acc: [100], dec: [100]}"
 
-   # 8. Or jog it by hand instead — hold-to-move, Ctrl+C releases
+   # 9. Jog the axis by hand instead of step 8. It moves while the topic is
+   #    published, and Ctrl+C releases it.
    ros2 topic pub -r 20 /wmx/axis/jog wmx_r2_message/msg/AxisVelocity \
      "{index: [0], velocity: [30], acc: [100], dec: [100]}"
 
-   # 9. Stop
+   # 10. Stop the axis.
    ros2 service call /wmx/axis/stop wmx_r2_message/srv/SetAxis "{index: [0], data: [0]}"
 
-   # 10. Servo off — always before stopping communication
+   # 11. Turn the servo off. Always do this before stopping communication.
    ros2 service call /wmx/axis/set_on wmx_r2_message/srv/SetAxis "{index: [0], data: [0]}"
 
 Keep a second terminal on the axis feedback while you work through it — after
-step 4 ``servo_on`` should be ``true``, after step 5 ``home_done`` should be
-``true``, and ``actual_pos`` should follow step 7:
+step 5 ``servo_on`` should be ``true``, after step 6 ``home_done`` should be
+``true``, and ``actual_pos`` should follow step 8:
 
 .. code-block:: bash
 
@@ -462,11 +465,11 @@ mode**. After the startup sequence in step 5:
 
          # Positive direction
          ros2 topic pub -r 20 /wmx/axis/jog wmx_r2_message/msg/AxisVelocity \
-              "{index: [0], velocity: [10000], acc: [100000], dec: [100000]}"
+              "{index: [0], velocity: [1000], acc: [10000], dec: [10000]}"
 
          # Negative direction
          ros2 topic pub -r 20 /wmx/axis/jog wmx_r2_message/msg/AxisVelocity \
-              "{index: [0], velocity: [-10000], acc: [100000], dec: [100000]}"
+              "{index: [0], velocity: [-1000], acc: [10000], dec: [10000]}"
 
    .. tab-item:: With the keyboard
       :sync: jog-keyboard
