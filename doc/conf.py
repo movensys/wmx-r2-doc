@@ -1,3 +1,8 @@
+import os
+import sys
+
+sys.path.insert(0, os.path.abspath('_ext'))
+
 # -- Project information -----------------------------------------------------
 project = 'WMX R2 Documentation'
 copyright = '2026, MOVENSYS'
@@ -12,7 +17,12 @@ extensions = [
     'sphinx.ext.todo',       # TODO directives
     'sphinxcontrib.mermaid', # Mermaid diagram support
     'sphinx_design',         # Tabs, cards, grids
+    'git_ref',               # Clone commands follow the version (_ext/git_ref.py)
 ]
+
+# Git ref (branch or tag) this build documents: main, release-0.1, ...
+# CI sets DOCS_GIT_REF; local builds default to main. See _ext/git_ref.py.
+git_ref = os.environ.get('DOCS_GIT_REF', 'main')
 
 # Markdown support
 source_suffix = {
