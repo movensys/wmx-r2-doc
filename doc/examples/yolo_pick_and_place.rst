@@ -68,7 +68,7 @@ setup. All commands run through ``mros``.
 
          .. code-block:: bash
 
-            ros2 run rqt_image_view rqt_image_view /yolo_cube_detector/debug_image
+            mros ros2 run rqt_image_view rqt_image_view /yolo_cube_detector/debug_image
 
    .. tab-item:: HIL
 
@@ -89,7 +89,7 @@ setup. All commands run through ``mros``.
 
       2. Start WMX R2 for the manipulator (real WMX runtime) with
          ``use_sim_time:=true`` (see
-         ``~/workspaces/movensys_ws/src/wmx-r2/doc/launch_<MANIPULATOR_MODEL>_manipulator.md``).
+         ``~/workspaces/movensys_ws/src/wmx-r2/doc/launch_manipulator.md``).
 
       3. Launch the planner and service API with ``use_sim_time:=true``:
 
@@ -140,7 +140,7 @@ setup. All commands run through ``mros``.
          ``~/workspaces/movensys-simulation/<MANIPULATOR_MODEL>/8c_yolo_pick_and_place_real.usd``
 
       2. Start WMX R2 for the manipulator on the robot (see
-         ``~/workspaces/movensys_ws/src/wmx-r2/doc/launch_<MANIPULATOR_MODEL>_manipulator.md``).
+         ``~/workspaces/movensys_ws/src/wmx-r2/doc/launch_manipulator.md``).
 
       3. Launch the planner and service API:
 
@@ -173,8 +173,8 @@ setup. All commands run through ``mros``.
 
          .. code-block:: bash
 
-            ros2 run rqt_image_view rqt_image_view /yolo_dice_detector/debug_image
-            ros2 run rqt_image_view rqt_image_view /yolo_cube_detector/debug_image
+            mros ros2 run rqt_image_view rqt_image_view /yolo_dice_detector/debug_image
+            mros ros2 run rqt_image_view rqt_image_view /yolo_cube_detector/debug_image
 
       5. (optional) Execute the YOLO pick-and-place:
 

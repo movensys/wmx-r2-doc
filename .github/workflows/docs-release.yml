@@ -1,0 +1,90 @@
+name: Build and Deploy Release Documentation
+
+# Publishes the docs of a release tag to /<tag>/ on GitHub Pages, next to
+# main (site root) and devel (/devel/), and adds the tag to the version
+# switcher (/switcher.json). Clone commands and source links in that build
+# point at the tag. Runs on every new release-* tag; nothing else to edit.
+# Run it by hand for a tag cut before this workflow existed (release-0.1).
+#
+# The workflow and the build tooling (doc/_ext) come from the branch it runs
+# on; only the page content comes from the tag. This lets tags cut before the
+# version switcher existed be built with it.
+
+on:
+  push:
+    tags: ['release-*']
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag to publish, e.g. release-0.1'
+        required: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gh-pages
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    env:
+      TAG: ${{ inputs.tag || github.ref_name }}
+    steps:
+      - name: Check tag name
+        run: |
+          if [[ ! "$TAG" =~ ^release-[0-9A-Za-z._-]+$ ]]; then
+            echo "::error::'$TAG' is not a release-* tag"; exit 1
+          fi
+
+      - name: Checkout build tooling
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'push' && 'main' || github.ref }}
+          path: tooling
+
+      - name: Checkout tag
+        uses: actions/checkout@v4
+        with:
+          ref: refs/tags/${{ env.TAG }}
+          path: release
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install -r tooling/doc/requirements.txt -r release/doc/requirements.txt
+
+      - name: Build Sphinx documentation
+        env:
+          DOCS_GIT_REF: ${{ env.TAG }}
+          DOCS_SRC: release/doc
+          DOCS_EXT_DIR: tooling/doc/_ext
+        run: |
+          mkdir -p conf
+          cp tooling/doc/_ext/release_conf.py conf/conf.py
+          sphinx-build -c conf release/doc _build
+
+      - name: Deploy to GitHub Pages (tag subdir)
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: _build
+          publish_branch: gh-pages
+          destination_dir: ${{ env.TAG }}
+          keep_files: true
+
+      - name: Write version switcher list
+        run: |
+          mkdir -p switcher
+          cd tooling && python3 .github/scripts/make_switcher.py ../switcher/switcher.json "$TAG"
+
+      - name: Deploy version switcher list (site root)
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: switcher
+          publish_branch: gh-pages
+          keep_files: true
