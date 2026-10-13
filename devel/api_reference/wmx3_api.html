@@ -1,0 +1,678 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>The WMX3 API Underneath WMX R2 &#8212; WMX R2 Documentation 1.0.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=cd36b759" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
+
+    <script src="../_static/documentation_options.js?v=8d563738"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api_reference/wmx3_api';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.19.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://movensys.github.io/wmx-r2-doc/switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'devel';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="icon" href="../_static/movensys_logo.png"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Support" href="../support.html" />
+    <link rel="prev" title="wmx_r2_control" href="wmx_r2_control.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="Oct 13, 2026"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="light">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../_static/movensys_logo.png" class="logo__image only-light" alt=""/>
+    <img src="../_static/movensys_logo.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">WMX R2 Documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/movensys/wmx-r2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/movensys/wmx-r2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item"><div class="sidebar-toc-header">
+  <p class="sidebar-toc-title">Table of Contents</p>
+  <p class="sidebar-toc-subtitle">Contents</p>
+</div></div>
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links" aria-label="Section Navigation">
+  <div class="bd-toc-item navbar-nav">
+    <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/computer_setup.html">Computer Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx_runtime.html">Install WMX Runtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx3.html">Install WMX R2 Package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/examples.html">Example Applications</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/testing_wmx_r2.html">Testing WMX R2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/isaacsim_setup.html">NVIDIA Isaac Setup (Optional)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator.html">movensys-manipulator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/trajectory_planning.html">Trajectory Planning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/apriltag_pick_and_place.html">AprilTag Pick-and-Place</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/obstacle_avoidance.html">Nvblox Obstacle Avoidance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/yolo_pick_and_place.html">YOLO Pick-and-Place</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/apriltag_obstacle_avoidance.html">AprilTag + Obstacle Avoidance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/robopoly_game.html">Robopoly Game (VLM / LLM)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/movensys_navigation.html">movensys-navigation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples/movensys_navigation_setup.html">movensys-navigation Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/manual_driving.html">Manual Driving</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/slam_mapping.html">SLAM Mapping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/autonomous_navigation.html">Autonomous Navigation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../try_your_robot/index.html">Try Your Robot</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/wmx_web_tools.html">WMX Web Tools (WOS, NetConfigurator, MotionScope)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/robot_parameters.html">Robot Parameter Configuration and Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/first_motion.html">First Motion on Hardware</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/safety.html">Safety Functions and Responsibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/validated_hardware.html">Hardware Compatibility and Validation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../integration/integration.html">Integration Scenarios</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../integration/moveit2_integration.html">MoveIt2 Motion Planning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/cumotion_integration.html">Isaac cuMotion Accelerated Planning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/nav2_integration.html">Nav2 Navigation (Mobile Base)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/custom_planner.html">Custom Planner Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/custom_application.html">Building Custom Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/intelligence_integration.html">Natural-Language and Vision Control (VLM / LLM)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="api_reference.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="communication.html">Communication Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ros2_services.html">ROS2 Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ros2_topics.html">ROS2 Topics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ros2_actions.html">ROS2 Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wmx_r2_message.html">wmx_r2_message</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wmx_r2_package.html">wmx_r2_package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wmx_r2_control.html">wmx_r2_control</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">The WMX3 API Underneath WMX R2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support.html">Support</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../licensing.html">Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About Us</a></li>
+</ul>
+
+  </div>
+</nav>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var navItems = document.querySelectorAll(".bd-docs-nav li");
+  navItems.forEach(function(li) {
+    var subList = li.querySelector(":scope > ul");
+    if (subList) {
+      var toggle = document.createElement("span");
+      toggle.className = "toc-toggle";
+      var isCurrent = li.classList.contains("current");
+      toggle.textContent = isCurrent ? "−" : "+";
+      if (!isCurrent) {
+        subList.classList.add("toc-collapsed");
+      }
+      toggle.addEventListener("click", function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        subList.classList.toggle("toc-collapsed");
+        toggle.textContent = subList.classList.contains("toc-collapsed") ? "+" : "−";
+      });
+      li.style.position = "relative";
+      var link = li.querySelector(":scope > a");
+      if (link) {
+        link.after(toggle);
+      }
+    }
+  });
+});
+</script></div>
+        <div class="sidebar-primary-item"><div class="sidebar-version-switcher">
+  <p class="sidebar-version-switcher__title">Version</p>
+  
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div>
+</div>
+<style>
+  .sidebar-version-switcher {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--pst-color-border);
+  }
+  .sidebar-version-switcher__title {
+    margin: 0 0 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--pst-color-text-muted);
+  }
+  .sidebar-version-switcher .version-switcher__button {
+    width: 100%;
+    text-align: left;
+  }
+  .sidebar-version-switcher .version-switcher__menu {
+    width: 100%;
+  }
+</style></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="api_reference.html" class="nav-link">API Reference</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">The WMX3 API Underneath WMX R2</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="the-wmx3-api-underneath-wmx-r2">
+<h1>The WMX3 API Underneath WMX R2<a class="headerlink" href="#the-wmx3-api-underneath-wmx-r2" title="Link to this heading">#</a></h1>
+<p>Every ROS 2 service on the preceding pages is a thin wrapper over a call into
+the <strong>WMX3 API</strong> — the C++ SDK that ships with the WMX Runtime. When a service
+answers <code class="docutils literal notranslate"><span class="pre">success:</span> <span class="pre">false</span></code> with an error code, that code is the engine’s, and
+its meaning is documented in the SDK reference rather than anywhere in WMX R2.</p>
+<p>This page says where that reference is and how the two layers line up.</p>
+<section id="where-the-reference-lives">
+<h2>Where the reference lives<a class="headerlink" href="#where-the-reference-lives" title="Link to this heading">#</a></h2>
+<p>The WMX Runtime installs both of its manuals under <code class="docutils literal notranslate"><span class="pre">/opt/wmx3/Doc/Web/</span></code>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/opt/wmx3/Doc/Web/
+├── API/API_UserManual.zip           the WMX3 API reference
+├── Application/App_UserManual.zip   the WMX web tools user guide
+├── certs/
+└── logs/
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">certs/</span></code> and <code class="docutils literal notranslate"><span class="pre">logs/</span></code> belong to the gateway that serves them; the content is
+the two archives. Both are also reachable as the <strong>WMX API Manual</strong> and
+<strong>WMX App Manual</strong> tiles on the WMX Home dashboard when the gateway is running
+— see <a class="reference internal" href="../try_your_robot/wmx_web_tools.html"><span class="doc">WMX Web Tools (WOS, NetConfigurator, MotionScope)</span></a>.</p>
+<p>To read the API manual from disk, unpack it and open the English entry point:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/wmx3-api-manual
+unzip<span class="w"> </span>/opt/wmx3/Doc/Web/API/API_UserManual.zip<span class="w"> </span>-d<span class="w"> </span>~/wmx3-api-manual
+xdg-open<span class="w"> </span>~/wmx3-api-manual/en/api-reference/index.html
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The API archive is about 90 MB unpacked, and carries <code class="docutils literal notranslate"><span class="pre">en</span></code>, <code class="docutils literal notranslate"><span class="pre">jp</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">kr</span></code> trees. The application manual is far smaller. Unpack only the
+language you need if space matters:
+<code class="docutils literal notranslate"><span class="pre">unzip</span> <span class="pre">...</span> <span class="pre">'en/*'</span> <span class="pre">-d</span> <span class="pre">~/wmx3-api-manual</span></code>.</p>
+</div>
+</section>
+<section id="what-is-in-the-api-manual">
+<h2>What is in the API manual<a class="headerlink" href="#what-is-in-the-api-manual" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Part</p></th>
+<th class="head"><p>Contents</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">en/api-reference/</span></code></p></td>
+<td><p>The API reference proper — functions grouped by module.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">en/api/html/</span></code></p></td>
+<td><p>The generated class documentation for the <code class="docutils literal notranslate"><span class="pre">wmx3_api</span></code> namespace:
+every class, its members, and the error-code enumerations.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">en/guide/general/</span></code></p></td>
+<td><p>How the engine is put together — device architecture, the console,
+servo-on and communication sequences, and function notes.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">en/guide/ec/</span></code></p></td>
+<td><p>The EtherCAT chapter: AL states, distributed clocks, hot connect,
+cyclic modes, the object dictionary, logging, and <strong>the ENI file</strong>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">en/guide/.../cpp_vs_net/</span></code></p></td>
+<td><p>Differences between the C++ and .NET bindings. WMX R2 uses C++.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The SDK headers themselves are in <code class="docutils literal notranslate"><span class="pre">/opt/wmx3/include/</span></code> and are the fastest
+way to check a signature: <code class="docutils literal notranslate"><span class="pre">WMX3Api.h</span></code> (device lifecycle),
+<code class="docutils literal notranslate"><span class="pre">CoreMotionApi.h</span></code> (axes and motion), <code class="docutils literal notranslate"><span class="pre">IOApi.h</span></code>, <code class="docutils literal notranslate"><span class="pre">EcApi.h</span></code> (EtherCAT),
+plus the advanced-motion, compensation, buffer, event, log, and user-memory
+modules.</p>
+</section>
+<section id="how-wmx-r2-maps-onto-it">
+<h2>How WMX R2 maps onto it<a class="headerlink" href="#how-wmx-r2-maps-onto-it" title="Link to this heading">#</a></h2>
+<p>The nodes in <code class="docutils literal notranslate"><span class="pre">wmx_r2_package</span></code> each own one SDK module, which is why the
+ROS 2 namespaces are shaped the way they are.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 32.0%" />
+<col style="width: 32.0%" />
+<col style="width: 36.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>WMX R2 node</p></th>
+<th class="head"><p>ROS 2 namespace</p></th>
+<th class="head"><p>WMX3 API</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">wmx_engine_node</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/wmx/engine/</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">WMX3Api</span></code> — <code class="docutils literal notranslate"><span class="pre">CreateDevice</span></code>, <code class="docutils literal notranslate"><span class="pre">StartCommunication</span></code>,
+<code class="docutils literal notranslate"><span class="pre">Config::ImportAndSetAll</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">wmx_core_motion_node</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/wmx/axes/</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">CoreMotion</span></code> — <code class="docutils literal notranslate"><span class="pre">Motion::StartPos</span></code>, <code class="docutils literal notranslate"><span class="pre">StartMov</span></code>, <code class="docutils literal notranslate"><span class="pre">StartJog</span></code>,
+<code class="docutils literal notranslate"><span class="pre">Home::StartHome</span></code>, <code class="docutils literal notranslate"><span class="pre">AxisControl::SetServoOn</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">wmx_io_node</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/wmx/io/</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Io</span></code> — bit and byte input and output</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">wmx_ethercat_node</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/wmx/ecat/</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Ecat</span></code> — master info, register access, network scan, hot connect</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_control</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ros2_control</span></code></p></td>
+<td><p>The same <code class="docutils literal notranslate"><span class="pre">CoreMotion</span></code> calls, driven by a controller manager instead
+of by services</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Two places where going to the SDK reference is usually faster than
+guessing:</p>
+<ul class="simple">
+<li><p><strong>An unfamiliar error code.</strong> <code class="docutils literal notranslate"><span class="pre">wmx_engine_node</span></code> logs the numeric code
+and its string; the enumerations in <code class="docutils literal notranslate"><span class="pre">en/api/html/</span></code> say what
+provokes it. <code class="docutils literal notranslate"><span class="pre">CreateDeviceLockError</span></code> on startup, for example, means
+something else already holds the device.</p></li>
+<li><p><strong>Exact units and profile semantics.</strong> <code class="docutils literal notranslate"><span class="pre">acc</span></code> and <code class="docutils literal notranslate"><span class="pre">dec</span></code> are
+accelerations on the ROS 2 wire but become ramp times inside the
+time-based profile the engine uses — the kind of detail that only the
+SDK documentation states.</p></li>
+</ul>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The WMX3 API is the vendor’s interface and changes on its own release
+schedule. Check the version the manual was built for against the
+<code class="docutils literal notranslate"><span class="pre">WMX</span></code> version in the gateway’s status bar before relying on a detail;
+this install reports <code class="docutils literal notranslate"><span class="pre">WMX</span> <span class="pre">3.7.0.0</span></code>.</p>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="wmx_r2_control.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">wmx_r2_control</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../support.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Support</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#where-the-reference-lives">Where the reference lives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-in-the-api-manual">What is in the API manual</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-wmx-r2-maps-onto-it">How WMX R2 maps onto it</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5"></script>
+
+<footer class="bd-footer">
+<div class="movensys-footer">
+  <div class="movensys-footer__logo">
+    <a href="https://www.movensys.com" target="_blank" rel="noopener">
+      <img src="../_static/movensys_wordmark.png" alt="Movensys" />
+    </a>
+  </div>
+  <div class="movensys-footer__info">
+    <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
+    
+      <p>Last updated: Oct 13, 2026</p>
+    
+  </div>
+  <div class="movensys-footer__links">
+    <a href="https://www.movensys.com" target="_blank" rel="noopener">MOVENSYS.com</a>
+    <a href="https://www.movensys.com/privacy" target="_blank" rel="noopener">Privacy Policy</a>
+  </div>
+</div>
+</footer>
+  </body>
+</html>

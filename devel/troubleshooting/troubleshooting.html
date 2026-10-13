@@ -45,6 +45,13 @@
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'troubleshooting/troubleshooting';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.19.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://movensys.github.io/wmx-r2-doc/switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'devel';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="icon" href="../_static/movensys_logo.png"/>
     <link rel="author" title="About these documents" href="../about.html" />
@@ -55,7 +62,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Sep 08, 2026"/>
+    <meta name="docbuild:last-update" content="Oct 13, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -254,8 +261,8 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/examples.html">Example Applications</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../examples/Testing%20WMX%20R2.html">Testing WMX R2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../examples/isaacsim_setup.html">NVIDIA Isaac ROS Setup (Optional)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/testing_wmx_r2.html">Testing WMX R2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/isaacsim_setup.html">NVIDIA Isaac Setup (Optional)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator.html">movensys-manipulator</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/trajectory_planning.html">Trajectory Planning</a></li>
@@ -275,6 +282,14 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../try_your_robot/index.html">Try Your Robot</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/wmx_web_tools.html">WMX Web Tools (WOS, NetConfigurator, MotionScope)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/robot_parameters.html">Robot Parameter Configuration and Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/first_motion.html">First Motion on Hardware</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/safety.html">Safety Functions and Responsibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/validated_hardware.html">Hardware Compatibility and Validation</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../integration/integration.html">Integration Scenarios</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../integration/moveit2_integration.html">MoveIt2 Motion Planning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../integration/cumotion_integration.html">Isaac cuMotion Accelerated Planning</a></li>
@@ -284,13 +299,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../integration/intelligence_integration.html">Natural-Language and Vision Control (VLM / LLM)</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../commissioning/index.html">Commissioning</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../commissioning/robot_parameters.html">Robot Parameter Configuration and Validation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../commissioning/first_motion.html">Commissioning and First Motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../commissioning/safety.html">Safety Functions and Responsibility</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../commissioning/validated_hardware.html">Hardware Compatibility and Validation</a></li>
-</ul>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="../api_reference/api_reference.html">API Reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/communication.html">Communication Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_services.html">ROS2 Services</a></li>
@@ -298,6 +306,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_actions.html">ROS2 Actions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_message.html">wmx_r2_message</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_package.html">wmx_r2_package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_control.html">wmx_r2_control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx3_api.html">The WMX3 API Underneath WMX R2</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="../support.html">Support</a><ul class="current">
@@ -339,6 +349,50 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 });
 </script></div>
+        <div class="sidebar-primary-item"><div class="sidebar-version-switcher">
+  <p class="sidebar-version-switcher__title">Version</p>
+  
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div>
+</div>
+<style>
+  .sidebar-version-switcher {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--pst-color-border);
+  }
+  .sidebar-version-switcher__title {
+    margin: 0 0 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--pst-color-text-muted);
+  }
+  .sidebar-version-switcher .version-switcher__button {
+    width: 100%;
+    text-align: left;
+  }
+  .sidebar-version-switcher .version-switcher__menu {
+    width: 100%;
+  }
+</style></div>
     </div>
   
   
@@ -398,7 +452,7 @@ to correct the parameter — not to compensate for it elsewhere. Scaling a
 URDF to hide a wrong gear ratio, or flipping a sign in application code to
 hide a wrong polarity, leaves the robot able to move unexpectedly in every
 path that does not go through your workaround. See
-<a class="reference internal" href="../commissioning/robot_parameters.html"><span class="doc">Robot Parameter Configuration and Validation</span></a>.</p>
+<a class="reference internal" href="../try_your_robot/robot_parameters.html"><span class="doc">Robot Parameter Configuration and Validation</span></a>.</p>
 </div>
 <section id="robot-moves-in-the-wrong-direction">
 <h2>Robot Moves in the Wrong Direction<a class="headerlink" href="#robot-moves-in-the-wrong-direction" title="Link to this heading">#</a></h2>
@@ -407,22 +461,22 @@ RViz and the physical robot move opposite ways.</p>
 <p><strong>Solutions:</strong></p>
 <ul>
 <li><p>Read back the polarity the engine actually holds:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/params/get<span class="w"> </span>wmx_r2_message/srv/GetWmxParams<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">"{index: [0,1,2,3,4,5]}"</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/engine/get_axis_param<span class="w"> </span>wmx_r2_message/srv/GetAxisParam<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s2">"{axis: [0,1,2,3,4,5]}"</span>
 </pre></div>
 </div>
 </li>
 <li><p>Correct <code class="docutils literal notranslate"><span class="pre">AxisPolarity</span></code> for that axis in the robot’s WMX parameter XML
 (<code class="docutils literal notranslate"><span class="pre">+1</span></code> or <code class="docutils literal notranslate"><span class="pre">-1</span></code>) and rebuild, or override it for testing:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axis/set_polarity<span class="w"> </span>wmx_r2_message/srv/SetAxis<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">"{index: [0], data: [-1]}"</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/set_axis_polarity<span class="w"> </span>wmx_r2_message/srv/SetAxes<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s2">"{axis: [0], data: [-1]}"</span>
 </pre></div>
 </div>
 </li>
 <li><p>Confirm the URDF’s sign convention for that joint (<code class="docutils literal notranslate"><span class="pre">&lt;axis</span> <span class="pre">xyz&gt;</span></code> together
 with the joint <code class="docutils literal notranslate"><span class="pre">&lt;origin</span> <span class="pre">rpy&gt;</span></code>) before deciding which sign is correct.</p></li>
 <li><p>Re-verify with the single-axis procedure in
-<a class="reference internal" href="../commissioning/first_motion.html"><span class="doc">Commissioning and First Motion</span></a>. A runtime polarity override is lost on
+<a class="reference internal" href="../try_your_robot/first_motion.html"><span class="doc">First Motion on Hardware</span></a>. A runtime polarity override is lost on
 the next engine restart — write the corrected value into the XML.</p></li>
 </ul>
 </section>
@@ -437,11 +491,11 @@ drive’s encoder resolution and the joint’s reducer ratio:
 <code class="docutils literal notranslate"><span class="pre">numerator</span> <span class="pre">=</span> <span class="pre">encoder</span> <span class="pre">counts</span> <span class="pre">per</span> <span class="pre">motor</span> <span class="pre">revolution</span> <span class="pre">×</span> <span class="pre">gear</span> <span class="pre">ratio</span></code>.</p></li>
 <li><p>Confirm <code class="docutils literal notranslate"><span class="pre">AxisGearRatioDenominator</span></code> is 2π. Any other value changes the unit
 of every position, velocity, and acceleration in the ROS 2 interface.</p></li>
-<li><p>Verify against the running engine with <code class="docutils literal notranslate"><span class="pre">/wmx/params/get</span></code>, not against the
+<li><p>Verify against the running engine with <code class="docutils literal notranslate"><span class="pre">/wmx/engine/get_axis_param</span></code>, not against the
 file — the engine may be holding values from a previous session, since the
 general nodes load no parameter file.</p></li>
 <li><p>Re-measure with a small commanded step and a physical reference; see
-<a class="reference internal" href="../commissioning/first_motion.html"><span class="doc">Commissioning and First Motion</span></a>.</p></li>
+<a class="reference internal" href="../try_your_robot/first_motion.html"><span class="doc">First Motion on Hardware</span></a>.</p></li>
 </ul>
 </section>
 <section id="wrong-joint-moves">
@@ -453,8 +507,8 @@ general nodes load no parameter file.</p></li>
 They are matched by position: <code class="docutils literal notranslate"><span class="pre">joint_name[i]</span></code> is driven by
 <code class="docutils literal notranslate"><span class="pre">joint_axes[i]</span></code>.</p></li>
 <li><p>Confirm the EtherCAT chain order, which is what assigns the axis indices:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/ecat/get_network_state<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>wmx_r2_message/srv/EcatGetNetworkState
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/ecat/get_master_info<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>wmx_r2_message/srv/EcatGetMasterInfo<span class="w"> </span><span class="s2">"{master_id: 0}"</span>
 </pre></div>
 </div>
 </li>
@@ -474,6 +528,76 @@ the URDF zero — a per-unit property, not a per-model one.</p></li>
 <li><p>Move each joint to a known mechanical reference and compare <code class="docutils literal notranslate"><span class="pre">actual_pos</span></code>
 against the value the URDF zero implies.</p></li>
 </ul>
+</section>
+<section id="no-wmx-services-or-topics-at-all">
+<h2>No /wmx Services or Topics at All<a class="headerlink" href="#no-wmx-services-or-topics-at-all" title="Link to this heading">#</a></h2>
+<p><strong>Symptom:</strong> <code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">service</span> <span class="pre">list</span> <span class="pre">|</span> <span class="pre">grep</span> <span class="pre">/wmx</span></code> shows only
+<code class="docutils literal notranslate"><span class="pre">/wmx/engine/*</span></code> and <code class="docutils literal notranslate"><span class="pre">/wmx/lifecycle/*</span></code>. No <code class="docutils literal notranslate"><span class="pre">/wmx/axes/</span></code>,
+<code class="docutils literal notranslate"><span class="pre">/wmx/io/</span></code>, or <code class="docutils literal notranslate"><span class="pre">/wmx/ecat/</span></code>. <code class="docutils literal notranslate"><span class="pre">/joint_states</span></code> is silent.</p>
+<p>This is the most common “nothing works” report, and it is usually not a
+crash.</p>
+<p><strong>Cause:</strong> <code class="docutils literal notranslate"><span class="pre">wmx_core_motion_node</span></code>, <code class="docutils literal notranslate"><span class="pre">wmx_io_node</span></code>, <code class="docutils literal notranslate"><span class="pre">wmx_ethercat_node</span></code>,
+and every controller are managed (lifecycle) nodes. They advertise their
+interfaces only while they are <code class="docutils literal notranslate"><span class="pre">active</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">wmx_lifecycle_manager_node</span></code> activates them only once the engine reports
+<code class="docutils literal notranslate"><span class="pre">Communicating</span></code>.</p>
+<p><strong>Solutions:</strong></p>
+<ul>
+<li><p>Read the actual node states first:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/lifecycle/get_node_states<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>wmx_r2_message/srv/GetNodeStates<span class="w"> </span><span class="s2">"{}"</span>
+</pre></div>
+</div>
+</li>
+<li><p>If they are <code class="docutils literal notranslate"><span class="pre">unconfigured</span></code>, the engine is not communicating. Fix that
+first:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/engine/get_engine_status<span class="w"> </span>std_srvs/srv/Trigger<span class="w"> </span><span class="s2">"{}"</span>
+</pre></div>
+</div>
+</li>
+<li><p>If the engine <em>is</em> communicating and the nodes are still down, bring them
+up by hand and read the error the failed transition logs:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/lifecycle/set_node_state<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>wmx_r2_message/srv/SetNodeState<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s2">"{node_name: '', transition: 'bringup'}"</span>
+</pre></div>
+</div>
+</li>
+<li><p>A node missing from the list entirely was never started — check the launch
+file and the <code class="docutils literal notranslate"><span class="pre">managed_nodes</span></code> list in the config YAML.</p></li>
+</ul>
+</section>
+<section id="motion-service-answers-success-false">
+<h2>Motion Service Answers success: false<a class="headerlink" href="#motion-service-answers-success-false" title="Link to this heading">#</a></h2>
+<p><strong>Symptom:</strong> <code class="docutils literal notranslate"><span class="pre">/wmx/axes/start_pos</span></code>, <code class="docutils literal notranslate"><span class="pre">start_mov</span></code>, <code class="docutils literal notranslate"><span class="pre">start_vel</span></code>,
+<code class="docutils literal notranslate"><span class="pre">start_jog</span></code>, or <code class="docutils literal notranslate"><span class="pre">start_home</span></code> returns <code class="docutils literal notranslate"><span class="pre">success:</span> <span class="pre">false</span></code> with a message
+about a controller.</p>
+<p><strong>Cause:</strong> A node listed in <code class="docutils literal notranslate"><span class="pre">motion_controllers</span></code> — the trajectory,
+position, or differential controller — is <code class="docutils literal notranslate"><span class="pre">active</span></code> and owns the axes.
+<code class="docutils literal notranslate"><span class="pre">wmx_core_motion_node</span></code> blocks manual motion so a jog cannot fight a
+running trajectory.</p>
+<p><strong>Solutions:</strong></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">/wmx/axes/stop</span></code> is never blocked; use it to stop the machine.</p></li>
+<li><p>To take manual control, deactivate the controller:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/lifecycle/set_node_state<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>wmx_r2_message/srv/SetNodeState<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s2">"{node_name: 'joint_trajectory_controller', transition: 'deactivate'}"</span>
+</pre></div>
+</div>
+</li>
+<li><p>Note that deactivating <code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code> switches the <strong>servos
+off</strong>, which drops an arm’s holding torque. Deactivate the motion
+controller, not the broadcaster.</p></li>
+</ul>
+</section>
+<section id="parameter-change-has-no-effect">
+<h2>Parameter Change Has No Effect<a class="headerlink" href="#parameter-change-has-no-effect" title="Link to this heading">#</a></h2>
+<p><strong>Symptom:</strong> <code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">param</span> <span class="pre">set</span></code> succeeds but nothing changes.</p>
+<p><strong>Cause:</strong> Every WMX R2 node reads its parameters <strong>once at construction</strong>.
+There is no parameter-set callback; rclcpp accepts the change and the node
+ignores it.</p>
+<p><strong>Solution:</strong> Edit the config YAML and restart the node.</p>
 </section>
 <section id="device-creation-failures">
 <h2>Device Creation Failures<a class="headerlink" href="#device-creation-failures" title="Link to this heading">#</a></h2>
@@ -496,8 +620,8 @@ stale device locks</p></li>
 <li><p>Verify the EtherCAT cable is connected to the correct dedicated Ethernet
 port</p></li>
 <li><p>Ensure all servo drives are powered on</p></li>
-<li><p>Check the <code class="docutils literal notranslate"><span class="pre">eni/</span></code> directory has the correct EtherCAT Network Information
-files for your servo drives</p></li>
+<li><p>Check that <code class="docutils literal notranslate"><span class="pre">/opt/wmx3/ESI/</span></code> holds a matching EtherCAT Slave Information
+(ESI) file for each servo drive on the chain</p></li>
 <li><p>Verify the EtherCAT Ethernet port does <strong>not</strong> have an IP address assigned</p></li>
 </ul>
 </section>
@@ -511,7 +635,7 @@ errors in the log)</p></li>
 <li><p>Verify servo drives are properly daisy-chained (IN port to OUT port)</p></li>
 <li><p>Remove any IP address from the EtherCAT network interface</p></li>
 <li><p>Check the WMX engine status:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/engine/get_status<span class="w"> </span>std_srvs/srv/Trigger
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/engine/get_engine_status<span class="w"> </span>std_srvs/srv/Trigger<span class="w"> </span><span class="s2">"{}"</span>
 </pre></div>
 </div>
 </li>
@@ -524,15 +648,16 @@ errors in the log)</p></li>
 <ul>
 <li><p>Verify engine is in <code class="docutils literal notranslate"><span class="pre">Communicating</span></code> state (see above)</p></li>
 <li><p>Check that servo drives are enabled (no amplifier alarms):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/wmx/axis/state<span class="w"> </span>--field<span class="w"> </span>amp_alarm
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/wmx/axes/status<span class="w"> </span>--field<span class="w"> </span>amp_alarm
 </pre></div>
 </div>
 </li>
-<li><p>Verify <code class="docutils literal notranslate"><span class="pre">wmx_param_file_path</span></code> in the config YAML points to the correct
-WMX parameter XML file for your robot</p></li>
+<li><p>Verify the <code class="docutils literal notranslate"><span class="pre">wmx_param_file</span></code> launch argument points to the correct WMX
+parameter XML for your robot (the launch file injects it into the engine
+node as <code class="docutils literal notranslate"><span class="pre">wmx_param_file_path</span></code>)</p></li>
 <li><p>Clear alarms and re-enable servos:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axis/clear_alarm<span class="w"> </span>wmx_r2_message/srv/SetAxis<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">"{index: [0,1,2,3,4,5], data: [0,0,0,0,0,0]}"</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/clear_amp_alarm<span class="w"> </span>wmx_r2_message/srv/SetAxes<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s2">"{axis: [0,1,2,3,4,5], data: [0,0,0,0,0,0]}"</span>
 </pre></div>
 </div>
 </li>
@@ -545,27 +670,45 @@ rejected.</p>
 <p><strong>Solutions:</strong></p>
 <ul>
 <li><p>Clear alarms via the service:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axis/clear_alarm<span class="w"> </span>wmx_r2_message/srv/SetAxis<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">"{index: [0,1,2,3,4,5], data: [0,0,0,0,0,0]}"</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/clear_amp_alarm<span class="w"> </span>wmx_r2_message/srv/SetAxes<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s2">"{axis: [0,1,2,3,4,5], data: [0,0,0,0,0,0]}"</span>
 </pre></div>
 </div>
 </li>
 <li><p>Check for physical obstructions or overcurrent conditions on the robot</p></li>
 <li><p>Verify gear ratios and polarities match the physical servo configuration
-(see <a class="reference internal" href="../commissioning/robot_parameters.html"><span class="doc">Robot Parameter Configuration and Validation</span></a>). A wrong polarity drives the
+(see <a class="reference internal" href="../try_your_robot/robot_parameters.html"><span class="doc">Robot Parameter Configuration and Validation</span></a>). A wrong polarity drives the
 joint away from its target, which shows up as a following error or an
 overcurrent alarm rather than as an obviously wrong direction.</p></li>
 </ul>
 </section>
 <section id="trajectory-execution-failures">
 <h2>Trajectory Execution Failures<a class="headerlink" href="#trajectory-execution-failures" title="Link to this heading">#</a></h2>
-<p><strong>Symptom:</strong> <code class="docutils literal notranslate"><span class="pre">FollowJointTrajectory</span></code> goal is aborted with a WMX error
-code.</p>
-<p><strong>Solutions:</strong></p>
+<p><strong>Symptom:</strong> A <code class="docutils literal notranslate"><span class="pre">FollowJointTrajectory</span></code> goal is rejected or aborted.</p>
+<p><strong>Rejected before any motion:</strong></p>
 <ul class="simple">
-<li><p>Check that the trajectory has at most 1000 waypoints</p></li>
-<li><p>Verify all servos are enabled and in the correct mode</p></li>
-<li><p>Check the WMX error description in the action result <code class="docutils literal notranslate"><span class="pre">error_string</span></code></p></li>
+<li><p>The node is not <code class="docutils literal notranslate"><span class="pre">active</span></code> — see <em>No /wmx Services or Topics at All</em>.</p></li>
+<li><p>Another goal is already running. Only one at a time.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">joint_names</span></code> in the goal does not map cleanly onto the <code class="docutils literal notranslate"><span class="pre">joint_name</span></code>
+parameter: an unknown name, a repeated name, or a missing one. Compare the
+MoveIt2 controller configuration against the robot’s YAML.</p></li>
+</ul>
+<p><strong>Aborted during execution:</strong></p>
+<ul class="simple">
+<li><p>More than <strong>1000</strong> waypoints. The limit is compile-time; re-time or
+decimate the trajectory.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">error_code</span></code> set to a raw WMX code — read the message in the log for the
+WMX error description.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GOAL_TOLERANCE_VIOLATED</span></code> means the motion did not finish within 10 s
+after its planned duration. Usually a servo that cannot keep up, an axis
+still alarmed, or a gear ratio that makes the commanded distance far larger
+than intended.</p></li>
+</ul>
+<p><strong>Also check:</strong></p>
+<ul class="simple">
+<li><p>All servos are enabled and free of alarms (<code class="docutils literal notranslate"><span class="pre">/wmx/axes/status</span></code>).</p></li>
+<li><p>The action name matches on both sides: <code class="docutils literal notranslate"><span class="pre">joint_trajectory_action</span></code> in the
+robot YAML and the controller name in the MoveIt2 controllers YAML.</p></li>
 </ul>
 </section>
 <section id="gripper-not-responding">
@@ -577,7 +720,18 @@ does not move.</p>
 <li><p>Verify the I/O module is part of the EtherCAT daisy chain</p></li>
 <li><p>Check EtherCAT communication is active (engine state = <code class="docutils literal notranslate"><span class="pre">Communicating</span></code>)</p></li>
 <li><p>Test the I/O directly:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/set_gripper<span class="w"> </span>std_srvs/srv/SetBool<span class="w"> </span><span class="s2">"{data: true}"</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/set_gripper<span class="w"> </span>std_srvs/srv/SetBool<span class="w"> </span><span class="s2">"{data: true}"</span>
+</pre></div>
+</div>
+</li>
+<li><p>Check <code class="docutils literal notranslate"><span class="pre">pre_setup_io</span></code>. It defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>, and with it false the
+controller skips the gripper power-up sequence at <code class="docutils literal notranslate"><span class="pre">configure</span></code> — the
+service then toggles a bit on an unpowered gripper. The power-up addresses
+are compiled in, so set it <code class="docutils literal notranslate"><span class="pre">true</span></code> only if your gripper matches them.</p></li>
+<li><p>Confirm <code class="docutils literal notranslate"><span class="pre">gripper_address:</span> <span class="pre">[byte,</span> <span class="pre">bit]</span></code> matches the wiring, and drive the
+bit directly to isolate the controller:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/io/set_out_bit<span class="w"> </span>wmx_r2_message/srv/SetIoBit<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s2">"{addr: 0, bit: 0, data: 1}"</span>
 </pre></div>
 </div>
 </li>
@@ -585,11 +739,13 @@ does not move.</p>
 </section>
 <section id="nodes-not-found">
 <h2>Nodes Not Found<a class="headerlink" href="#nodes-not-found" title="Link to this heading">#</a></h2>
-<p><strong>Symptom:</strong> <code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">pkg</span> <span class="pre">list</span> <span class="pre">|</span> <span class="pre">grep</span> <span class="pre">wmx</span></code> returns nothing.</p>
+<p><strong>Symptom:</strong> <code class="docutils literal notranslate"><span class="pre">wros</span> <span class="pre">ros2</span> <span class="pre">pkg</span> <span class="pre">list</span> <span class="pre">|</span> <span class="pre">grep</span> <span class="pre">wmx</span></code> returns nothing.</p>
 <p><strong>Solutions:</strong></p>
 <ul class="simple">
-<li><p>Source the workspace: <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">~/wmx_r2_ws/install/setup.bash</span></code></p></li>
-<li><p>Rebuild if needed: <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">~/wmx_r2_ws</span> <span class="pre">&amp;&amp;</span> <span class="pre">colcon</span> <span class="pre">build</span></code></p></li>
+<li><p>Check the container is running: <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">ps</span> <span class="pre">|</span> <span class="pre">grep</span> <span class="pre">wmx_r2_container</span></code>. The
+packages live inside it, not on the host — <code class="docutils literal notranslate"><span class="pre">wros</span></code> sources the workspace
+for you, so there is nothing to source by hand.</p></li>
+<li><p>Rebuild if needed: <code class="docutils literal notranslate"><span class="pre">wros</span> <span class="pre">colcon</span> <span class="pre">build</span></code></p></li>
 <li><p>Check the two-stage build was done correctly (message package first).
 See <a class="reference internal" href="../getting_started/index.html"><span class="doc">Getting Started</span></a>.</p></li>
 </ul>
@@ -609,7 +765,7 @@ without them (see <a class="reference internal" href="../licensing.html"><span c
 </div>
 </li>
 <li><p>Install missing ROS2 dependencies:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/wmx_r2_ws
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/workspaces/movensys_ws
 rosdep<span class="w"> </span>install<span class="w"> </span>--from-paths<span class="w"> </span>src<span class="w"> </span>--ignore-src<span class="w"> </span>-y
 </pre></div>
 </div>
@@ -674,6 +830,9 @@ issue on the project repository.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#robot-moves-the-wrong-distance">Robot Moves the Wrong Distance</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wrong-joint-moves">Wrong Joint Moves</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#all-joints-offset-by-a-constant">All Joints Offset by a Constant</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#no-wmx-services-or-topics-at-all">No /wmx Services or Topics at All</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#motion-service-answers-success-false">Motion Service Answers success: false</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parameter-change-has-no-effect">Parameter Change Has No Effect</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#device-creation-failures">Device Creation Failures</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ethercat-scan-failures">EtherCAT Scan Failures</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#communication-start-failures">Communication Start Failures</a></li>
@@ -713,7 +872,7 @@ issue on the project repository.</p>
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Sep 08, 2026</p>
+      <p>Last updated: Oct 13, 2026</p>
     
   </div>
   <div class="movensys-footer__links">

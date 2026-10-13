@@ -45,6 +45,13 @@
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'integration/cumotion_integration';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.19.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://movensys.github.io/wmx-r2-doc/switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'devel';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="icon" href="../_static/movensys_logo.png"/>
     <link rel="author" title="About these documents" href="../about.html" />
@@ -55,7 +62,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Sep 08, 2026"/>
+    <meta name="docbuild:last-update" content="Oct 13, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -254,8 +261,8 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/examples.html">Example Applications</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../examples/Testing%20WMX%20R2.html">Testing WMX R2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../examples/isaacsim_setup.html">NVIDIA Isaac ROS Setup (Optional)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/testing_wmx_r2.html">Testing WMX R2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/isaacsim_setup.html">NVIDIA Isaac Setup (Optional)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator.html">movensys-manipulator</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/trajectory_planning.html">Trajectory Planning</a></li>
@@ -275,6 +282,14 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../try_your_robot/index.html">Try Your Robot</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/wmx_web_tools.html">WMX Web Tools (WOS, NetConfigurator, MotionScope)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/robot_parameters.html">Robot Parameter Configuration and Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/first_motion.html">First Motion on Hardware</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/safety.html">Safety Functions and Responsibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/validated_hardware.html">Hardware Compatibility and Validation</a></li>
+</ul>
+</li>
 <li class="toctree-l1 current"><a class="reference internal" href="integration.html">Integration Scenarios</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="moveit2_integration.html">MoveIt2 Motion Planning</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Isaac cuMotion Accelerated Planning</a></li>
@@ -284,13 +299,6 @@
 <li class="toctree-l2"><a class="reference internal" href="intelligence_integration.html">Natural-Language and Vision Control (VLM / LLM)</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../commissioning/index.html">Commissioning</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../commissioning/robot_parameters.html">Robot Parameter Configuration and Validation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../commissioning/first_motion.html">Commissioning and First Motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../commissioning/safety.html">Safety Functions and Responsibility</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../commissioning/validated_hardware.html">Hardware Compatibility and Validation</a></li>
-</ul>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="../api_reference/api_reference.html">API Reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/communication.html">Communication Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_services.html">ROS2 Services</a></li>
@@ -298,6 +306,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_actions.html">ROS2 Actions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_message.html">wmx_r2_message</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_package.html">wmx_r2_package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_control.html">wmx_r2_control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx3_api.html">The WMX3 API Underneath WMX R2</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../support.html">Support</a><ul>
@@ -339,6 +349,50 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 });
 </script></div>
+        <div class="sidebar-primary-item"><div class="sidebar-version-switcher">
+  <p class="sidebar-version-switcher__title">Version</p>
+  
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div>
+</div>
+<style>
+  .sidebar-version-switcher {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--pst-color-border);
+  }
+  .sidebar-version-switcher__title {
+    margin: 0 0 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--pst-color-text-muted);
+  }
+  .sidebar-version-switcher .version-switcher__button {
+    width: 100%;
+    text-align: left;
+  }
+  .sidebar-version-switcher .version-switcher__menu {
+    width: 100%;
+  }
+</style></div>
     </div>
   
   
@@ -396,7 +450,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>NVIDIA Isaac cuMotion provides GPU-accelerated trajectory planning as an
 alternative to the default MoveIt2 OMPL planners. It plugs into MoveIt2 as the
 planning pipeline, so the rest of the stack is unchanged: planned trajectories
-still flow through the <code class="docutils literal notranslate"><span class="pre">trajectory_api</span></code> services and execute on the WMX
+still flow through the <code class="docutils literal notranslate"><span class="pre">moveit2_api</span></code> services and execute on the WMX
 <code class="docutils literal notranslate"><span class="pre">joint_trajectory_controller</span></code>. cuMotion is provided by the
 <code class="docutils literal notranslate"><span class="pre">movensys_manipulator_isaac_ros_config</span></code> package in the
 <a class="reference external" href="https://github.com/movensys/movensys-manipulator">movensys-manipulator</a>
@@ -418,14 +472,19 @@ container workflow.</p>
 </section>
 <section id="running-cumotion">
 <h2>Running cuMotion<a class="headerlink" href="#running-cumotion" title="Link to this heading">#</a></h2>
-<p>cuMotion runs alongside the MoveIt2 stack. Start <code class="docutils literal notranslate"><span class="pre">move_group</span></code> and the
-trajectory services as usual, then launch the cuMotion planner. Commands run
-through the <code class="docutils literal notranslate"><span class="pre">mros</span></code> container helper.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><code class="docutils literal notranslate"><span class="pre">isaac_cumotion.launch.py</span></code> <strong>replaces</strong> <code class="docutils literal notranslate"><span class="pre">moveit.launch.py</span></code>. It starts
+its own <code class="docutils literal notranslate"><span class="pre">move_group</span></code>, <code class="docutils literal notranslate"><span class="pre">robot_state_publisher</span></code>, RViz, MoveIt Servo, and
+the <code class="docutils literal notranslate"><span class="pre">moveit2_api</span></code> services, with the cuMotion planner in place of OMPL.
+Do not run both — they would fight over <code class="docutils literal notranslate"><span class="pre">move_group</span></code>.</p>
+<p>Every walkthrough in <code class="docutils literal notranslate"><span class="pre">movensys-manipulator</span></code> offers them as step <strong>3a</strong>
+(OMPL) or step <strong>3b</strong> (cuMotion), never both.</p>
+</div>
+<p>Commands run through the <code class="docutils literal notranslate"><span class="pre">mros</span></code> container helper.</p>
 <p><strong>Real robot:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># MoveIt2 (move_group + trajectory_api services)</span>
-mros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>movensys_manipulator_moveit_config<span class="w"> </span>moveit.launch.py
-
-<span class="c1"># Isaac cuMotion planner</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Isaac cuMotion: move_group with the cuMotion planner, plus the</span>
+<span class="c1"># moveit2_api services</span>
 mros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>movensys_manipulator_isaac_ros_config<span class="w"> </span>isaac_cumotion.launch.py
 
 <span class="c1"># Run a trajectory</span>
@@ -435,12 +494,14 @@ mros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> <
 <p><strong>Simulation / hardware-in-the-loop:</strong> start the simulator bridge first and add
 <code class="docutils literal notranslate"><span class="pre">use_sim_time:=true</span></code> to each command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>movensys_manipulator_moveit_config<span class="w"> </span>sim_bridge.launch.py<span class="w"> </span>use_sim_time:<span class="o">=</span><span class="nb">true</span>
-mros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>movensys_manipulator_moveit_config<span class="w"> </span>moveit.launch.py<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>use_sim_time:<span class="o">=</span><span class="nb">true</span>
 mros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>movensys_manipulator_isaac_ros_config<span class="w"> </span>isaac_cumotion.launch.py<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span>use_sim_time:<span class="o">=</span><span class="nb">true</span>
+mros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>movensys_manipulator_moveit_config<span class="w"> </span>trajectory_test.launch.py<span class="w"> </span><span class="se">\</span>
 <span class="w">     </span>use_sim_time:<span class="o">=</span><span class="nb">true</span>
 </pre></div>
 </div>
+<p>Add <code class="docutils literal notranslate"><span class="pre">rsp:=false</span></code> when the robot description is already published by Gazebo
+or by <code class="docutils literal notranslate"><span class="pre">ros2_control</span></code>.</p>
 </section>
 <section id="obstacle-avoidance-nvblox">
 <h2>Obstacle Avoidance (Nvblox)<a class="headerlink" href="#obstacle-avoidance-nvblox" title="Link to this heading">#</a></h2>
@@ -473,7 +534,7 @@ AprilTag and combined perception scenarios.</p>
 <td><p>GPU-accelerated planner that replaces OMPL inside MoveIt2</p></td>
 </tr>
 <tr class="row-odd"><td><p>Execution</p></td>
-<td><p>Same <code class="docutils literal notranslate"><span class="pre">trajectory_api</span></code> services and WMX <code class="docutils literal notranslate"><span class="pre">joint_trajectory_controller</span></code></p></td>
+<td><p>Same <code class="docutils literal notranslate"><span class="pre">moveit2_api</span></code> services and WMX <code class="docutils literal notranslate"><span class="pre">joint_trajectory_controller</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p>Best for</p></td>
 <td><p>Collision-constrained planning, obstacle avoidance with Nvblox</p></td>
@@ -578,7 +639,7 @@ repository for the AprilTag, Nvblox, and YOLO walkthroughs</p></li>
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Sep 08, 2026</p>
+      <p>Last updated: Oct 13, 2026</p>
     
   </div>
   <div class="movensys-footer__links">

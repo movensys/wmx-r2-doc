@@ -1,0 +1,1577 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Testing WMX R2 &#8212; WMX R2 Documentation 1.0.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=cd36b759" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
+
+    <script src="../_static/documentation_options.js?v=8d563738"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs";
+
+
+
+
+
+const initStyles = () => {
+    const defaultStyle = document.createElement('style');
+    defaultStyle.textContent = "pre.mermaid {\n    /* Same as .mermaid-container > pre */\n    display: block;\n    width: 100%;\n}\n\npre.mermaid > svg {\n    /* Same as .mermaid-container > pre > svg */\n    height: 500px;\n    width: 100%;\n    max-width: 100% !important;\n}";
+    document.head.appendChild(defaultStyle);
+
+    const fullscreenStyle = document.createElement('style');
+    fullscreenStyle.textContent = ".mermaid-container {\n    position: relative;\n    display: flex;\n    flex-direction: row;\n    width: 100%;\n}\n\n.mermaid-container > pre {\n    display: block;\n    width: 100%;\n}\n\n.mermaid-container > pre > svg {\n    height: 500px;\n    width: 100%;\n    max-width: 100% !important;\n}\n\n.mermaid-fullscreen-btn {\n    position: absolute;\n    width: 28px;\n    height: 28px;\n    background: rgba(255, 255, 255, 0.95);\n    border: 1px solid rgba(0, 0, 0, 0.3);\n    border-radius: 4px;\n    cursor: pointer;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    transition: all 0.2s;\n    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);\n    font-size: 14px;\n    line-height: 1;\n    padding: 0;\n    color: #333;\n}\n\n.mermaid-fullscreen-btn:hover {\n    opacity: 100% !important;\n    background: rgba(255, 255, 255, 1);\n    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);\n    transform: scale(1.1);\n}\n\n.mermaid-fullscreen-btn.dark-theme {\n    background: rgba(50, 50, 50, 0.95);\n    border: 1px solid rgba(255, 255, 255, 0.3);\n    color: #e0e0e0;\n}\n\n.mermaid-fullscreen-btn.dark-theme:hover {\n    background: rgba(60, 60, 60, 1);\n    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.2);\n}\n\n.mermaid-fullscreen-modal {\n    display: none;\n    position: fixed !important;\n    top: 0 !important;\n    left: 0 !important;\n    width: 95vw;\n    height: 100vh;\n    background: rgba(255, 255, 255, 0.98);\n    z-index: 9999;\n    padding: 20px;\n    overflow: auto;\n}\n\n.mermaid-fullscreen-modal.dark-theme {\n    background: rgba(0, 0, 0, 0.98);\n}\n\n.mermaid-fullscreen-modal.active {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.mermaid-container-fullscreen {\n    position: relative;\n    width: 95vw;\n    height: 90vh;\n    max-width: 95vw;\n    max-height: 90vh;\n    background: white;\n    border-radius: 8px;\n    padding: 20px;\n    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);\n    overflow: auto;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.mermaid-container-fullscreen.dark-theme {\n    background: #1a1a1a;\n    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);\n}\n\n.mermaid-container-fullscreen pre.mermaid {\n    width: 100%;\n    height: 100%;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.mermaid-container-fullscreen .mermaid svg {\n    height: 100% !important;\n    width: 100% !important;\n    cursor: grab;\n}\n\n.mermaid-fullscreen-close {\n    position: fixed !important;\n    top: 20px !important;\n    right: 20px !important;\n    width: 40px;\n    height: 40px;\n    background: rgba(255, 255, 255, 0.95);\n    border: 1px solid rgba(0, 0, 0, 0.2);\n    border-radius: 50%;\n    cursor: pointer;\n    z-index: 10000;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);\n    transition: all 0.2s;\n    font-size: 24px;\n    line-height: 1;\n    color: #333;\n}\n\n.mermaid-fullscreen-close:hover {\n    background: white;\n    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);\n    transform: scale(1.1);\n}\n\n.mermaid-fullscreen-close.dark-theme {\n    background: rgba(50, 50, 50, 0.95);\n    border: 1px solid rgba(255, 255, 255, 0.2);\n    color: #e0e0e0;\n}\n\n.mermaid-fullscreen-close.dark-theme:hover {\n    background: rgba(60, 60, 60, 1);\n    box-shadow: 0 6px 16px rgba(255, 255, 255, 0.2);\n}\n\n.mermaid-fullscreen-modal .mermaid-fullscreen-btn {\n    display: none !important;\n}";
+    document.head.appendChild(fullscreenStyle);
+}
+
+// Detect if page has dark background
+const isDarkTheme = () => {
+    // We use a set of heuristics:
+    // 1. Check for common dark mode classes or attributes
+    // 2. Check computed background color brightness
+    if (document.documentElement.classList.contains('dark') ||
+        document.documentElement.getAttribute('data-theme') === 'dark' ||
+        document.body.classList.contains('dark') ||
+        document.body.getAttribute('data-theme') === 'dark') {
+        // console.log("Dark theme detected via class/attribute");
+        return true;
+    }
+    if (document.documentElement.classList.contains('light') ||
+        document.documentElement.getAttribute('data-theme') === 'light' ||
+        document.body.classList.contains('light') ||
+        document.body.getAttribute('data-theme') === 'light') {
+        // console.log("Light theme detected via class/attribute");
+        return false;
+    }
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        // console.log("Dark theme detected via prefers-color-scheme");
+        return true;
+    }
+    const bgColor = window.getComputedStyle(document.body).backgroundColor;
+    const match = bgColor.match(/rgb\((\d+),\s*(\d+),\s*(\d+)/);
+    if (match) {
+        const r = parseInt(match[1]);
+        const g = parseInt(match[2]);
+        const b = parseInt(match[3]);
+        const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+        // console.log("Background color brightness:", brightness);
+        return brightness < 128;
+    }
+    // console.log("No dark or light theme detected, defaulting to light theme");
+    return false;
+};
+
+let darkTheme = isDarkTheme();
+let modal = null;
+let modalContent = null;
+let previousScrollOffset = [window.scrollX, window.scrollY];
+let _lazyObserver = null;
+let _renderQueue = Promise.resolve();
+let closeModal = () => {};
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal?.classList.contains('active')) {
+        closeModal();
+    }
+});
+
+// Apply d3 zoom to each SVG. Idempotent: an SVG already wrapped is skipped,
+// so this is safe to call both for the initial batch and for diagrams that
+// render lazily once they become visible.
+const addZoomToSvgs = (svgs) => {
+    svgs.each(function() {
+        if (this.getAttribute('data-zoom-applied') === 'true') return;
+        var svg = d3.select(this);
+        svg.html("<g class='wrapper'>" + svg.html() + "</g>");
+        var inner = svg.select("g");
+        var zoom = d3.zoom().on("zoom", function(event) {
+            inner.attr("transform", event.transform);
+        });
+        svg.call(zoom);
+        this.setAttribute('data-zoom-applied', 'true');
+    });
+};
+
+const runMermaid = async (rerun) => {
+    console.log("Running mermaid diagrams, rerun =", rerun);
+    // clear all existing mermaid charts
+    let all_mermaids = document.querySelectorAll(".mermaid");
+
+    if (rerun) {
+        // Disconnect any previous lazy rendering observer
+        if (_lazyObserver) {
+            _lazyObserver.disconnect();
+            _lazyObserver = null;
+        }
+
+        all_mermaids.forEach((el) => {
+            el.removeAttribute('data-mermaid-deferred');
+            el.removeAttribute('data-mermaid-render-failed');
+            if(!el.hasAttribute("data-original-code")) {
+                // store original code
+                // console.log(`Storing original code for first run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+            if(el.getAttribute("data-processed") === "true") {
+                // remove and restore original
+                el.removeAttribute("data-processed");
+                // console.log(`Restoring original code for re-run: `, el.getAttribute('data-original-code'));
+                el.innerHTML = el.getAttribute('data-original-code');
+            } else {
+                // store original code
+                // console.log(`Storing original code for re-run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+        });
+
+        // Separate visible and hidden elements. Mermaid's layout engine measures
+        // text dimensions via the DOM, which fails for elements hidden by a parent
+        // (e.g., Reveal.js non-active slides, sphinx-design unopened tabs),
+        // producing broken SVGs. Render visible elements now, defer hidden ones.
+        const visible = [];
+        const hidden = [];
+        all_mermaids.forEach((el) => {
+            // offsetParent is null for display:none ancestors.
+            // getClientRects().length > 0 catches position:fixed elements
+            // (which also have null offsetParent but are still visible).
+            if (el.offsetParent !== null || el.getClientRects().length > 0) {
+                visible.push(el);
+            } else {
+                hidden.push(el);
+                el.setAttribute('data-mermaid-deferred', 'true');
+            }
+        });
+
+        if (visible.length > 0) {
+            try {
+                await mermaid.run({ nodes: visible });
+            } catch (e) {
+                console.error("Mermaid rendering failed:", e);
+            }
+        }
+
+        // Lazily render hidden elements when they become visible.
+        // Uses a promise chain (_renderQueue) to serialize rendering,
+        // since IntersectionObserver may report multiple entries at once
+        // and mermaid.run() is not safe to call concurrently.
+        if (hidden.length > 0) {
+            if (typeof IntersectionObserver === 'undefined') {
+                console.warn("IntersectionObserver not available; hidden mermaid diagrams will not render.");
+            } else {
+                _renderQueue = Promise.resolve();
+                _lazyObserver = new IntersectionObserver((entries) => {
+                    for (const entry of entries) {
+                        if (entry.isIntersecting && entry.target.getAttribute("data-processed") !== "true") {
+                            _lazyObserver.unobserve(entry.target);
+                            const el = entry.target;
+                            _renderQueue = _renderQueue.then(async () => {
+                                try {
+                                    await mermaid.run({ nodes: [el] });
+                                    el.removeAttribute('data-mermaid-deferred');
+                                    // Apply zoom to the now-rendered diagram, matching
+                                    // the decoration visible diagrams receive.
+                                    if (false) {
+                                        addZoomToSvgs(d3.selectAll("").select(function() {
+                                            return this.querySelector("svg");
+                                        }));
+                                    }
+                                } catch (e) {
+                                    console.error("Mermaid deferred rendering failed:", e);
+                                    el.removeAttribute('data-mermaid-deferred');
+                                    el.setAttribute('data-mermaid-render-failed', 'true');
+                                }
+                            });
+                        }
+                    }
+                });
+                hidden.forEach((el) => _lazyObserver.observe(el));
+            }
+        }
+    }
+
+    all_mermaids = document.querySelectorAll(".mermaid");
+    // Exclude deferred (hidden) and render-failed elements from completion checks
+    const mermaids_active = document.querySelectorAll(".mermaid:not([data-mermaid-deferred]):not([data-mermaid-render-failed])");
+    const mermaids_processed = document.querySelectorAll(".mermaid:not([data-mermaid-deferred]):not([data-mermaid-render-failed])[data-processed='true']");
+
+    if (false) {
+        const mermaids_to_add_zoom = 0 === -1 ? mermaids_active.length : 0;
+        if(mermaids_to_add_zoom > 0) {
+            var svgs = d3.selectAll("").select(function() {
+                return this.querySelector("svg");
+            });
+            // Wait until every active (visible) diagram has rendered. Deferred
+            // diagrams are excluded, so a fixed d3_node_count that counts a
+            // hidden diagram no longer loops forever waiting for its SVG.
+            if(mermaids_active.length !== mermaids_processed.length) {
+                setTimeout(() => runMermaid(false), 200);
+                return;
+            }
+            addZoomToSvgs(svgs);
+        }
+    } else if(mermaids_active.length !== mermaids_processed.length) {
+        // Wait for mermaid to process all diagrams
+        setTimeout(() => runMermaid(false), 200);
+        return;
+    }
+
+    // Stop here if not adding fullscreen capability
+    if (!true) return;
+
+    if (modal !== null ) {
+        // Destroy existing modal
+        modal.remove();
+        modal = null;
+        modalContent = null;
+    }
+
+    modal = document.createElement('div');
+    modal.className = 'mermaid-fullscreen-modal' + (darkTheme ? ' dark-theme' : '');
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-label', 'Fullscreen diagram viewer');
+    modal.innerHTML = `
+        <button class="mermaid-fullscreen-close${darkTheme ? ' dark-theme' : ''}" aria-label="Close fullscreen">✕</button>
+        <div class="mermaid-container-fullscreen${darkTheme ? ' dark-theme' : ''}"></div>
+    `;
+    document.body.appendChild(modal);
+
+    modalContent = modal.querySelector('.mermaid-container-fullscreen');
+    const closeBtn = modal.querySelector('.mermaid-fullscreen-close');
+
+    closeModal = () => {
+        modal.classList.remove('active');
+        modalContent.innerHTML = '';
+        document.body.style.overflow = ''
+        window.scrollTo({left: previousScrollOffset[0], top: previousScrollOffset[1], behavior: 'instant'});
+    };
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    document.querySelectorAll('.mermaid').forEach((mermaidDiv) => {
+        if (mermaidDiv.parentNode.classList.contains('mermaid-container') ||
+            mermaidDiv.closest('.mermaid-fullscreen-modal')) {
+            // Already processed, adjust button class if needed
+            const existingBtn = mermaidDiv.parentNode.querySelector('.mermaid-fullscreen-btn');
+            if (existingBtn) {
+                existingBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+            }
+            return;
+        }
+
+        const container = document.createElement('div');
+        container.className = 'mermaid-container';
+        mermaidDiv.parentNode.insertBefore(container, mermaidDiv);
+        container.appendChild(mermaidDiv);
+
+        const fullscreenBtn = document.createElement('button');
+        fullscreenBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+        fullscreenBtn.setAttribute('aria-label', 'View diagram in fullscreen');
+        fullscreenBtn.textContent = "\u26f6";
+        fullscreenBtn.style.opacity = "50%";
+
+        // Calculate dynamic position based on diagram's margin and padding
+        const diagramStyle = window.getComputedStyle(mermaidDiv);
+        const marginTop = parseFloat(diagramStyle.marginTop) || 0;
+        const marginRight = parseFloat(diagramStyle.marginRight) || 0;
+        const paddingTop = parseFloat(diagramStyle.paddingTop) || 0;
+        const paddingRight = parseFloat(diagramStyle.paddingRight) || 0;
+        fullscreenBtn.style.top = `${marginTop + paddingTop + 4}px`;
+        fullscreenBtn.style.right = `${marginRight + paddingRight + 4}px`;
+
+        fullscreenBtn.addEventListener('click', () => {
+            previousScrollOffset = [window.scrollX, window.scrollY];
+            const clone = mermaidDiv.cloneNode(true);
+            modalContent.innerHTML = '';
+            modalContent.appendChild(clone);
+
+            const svg = clone.querySelector('svg');
+            if (svg) {
+                svg.removeAttribute('width');
+                svg.removeAttribute('height');
+                svg.style.width = '100%';
+                svg.style.height = 'auto';
+                svg.style.maxWidth = '100%';
+                svg.style.display = 'block';
+
+                if (false) {
+                    setTimeout(() => {
+                        const g = svg.querySelector('g');
+                        if (g) {
+                            var svgD3 = d3.select(svg);
+                            svgD3.html("<g class='wrapper'>" + svgD3.html() + "</g>");
+                            var inner = svgD3.select("g");
+                            var zoom = d3.zoom().on("zoom", function(event) {
+                                inner.attr("transform", event.transform);
+                            });
+                            svgD3.call(zoom);
+                        }
+                    }, 100);
+                }
+            }
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        container.appendChild(fullscreenBtn);
+    });
+};
+
+
+
+const load = async () => {
+    initStyles();
+
+
+    await runMermaid(true);
+
+    const reRunIfThemeChanges = async () => {
+        const newDarkTheme = isDarkTheme();
+        if (newDarkTheme !== darkTheme) {
+            darkTheme = newDarkTheme;
+            console.log("Theme change detected, re-running mermaid with", darkTheme ? "dark" : "default", "theme");
+            await mermaid.initialize(
+                {...{"startOnLoad": false, "flowchart": {"useMaxWidth": false}, "sequence": {"useMaxWidth": false}},
+                ...{ darkMode: darkTheme, theme: darkTheme ? "dark" : "default" },
+                }
+            );
+            await runMermaid(true);
+        }
+    };
+
+    // Update theme classes when theme changes
+    const themeObserver = new MutationObserver(reRunIfThemeChanges);
+    themeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+    themeObserver.observe(document.body, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+};
+
+
+
+
+
+console.log("Initializing mermaid with", darkTheme ? "dark" : "default", "theme");
+mermaid.initialize(
+    {...{"startOnLoad": false, "flowchart": {"useMaxWidth": false}, "sequence": {"useMaxWidth": false}},
+    ...{ darkMode: darkTheme, theme: darkTheme ? "dark" : "default" },
+    }
+);
+
+window.addEventListener("load", load);
+window.runMermaid = runMermaid;</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'examples/testing_wmx_r2';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.19.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://movensys.github.io/wmx-r2-doc/switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'devel';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="icon" href="../_static/movensys_logo.png"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="NVIDIA Isaac Setup (Optional)" href="isaacsim_setup.html" />
+    <link rel="prev" title="Example Applications" href="examples.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="Oct 13, 2026"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="light">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../_static/movensys_logo.png" class="logo__image only-light" alt=""/>
+    <img src="../_static/movensys_logo.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">WMX R2 Documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/movensys/wmx-r2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/movensys/wmx-r2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item"><div class="sidebar-toc-header">
+  <p class="sidebar-toc-title">Table of Contents</p>
+  <p class="sidebar-toc-subtitle">Contents</p>
+</div></div>
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links" aria-label="Section Navigation">
+  <div class="bd-toc-item navbar-nav">
+    <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/computer_setup.html">Computer Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx_runtime.html">Install WMX Runtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx3.html">Install WMX R2 Package</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="examples.html">Example Applications</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Testing WMX R2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="isaacsim_setup.html">NVIDIA Isaac Setup (Optional)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="movensys_manipulator.html">movensys-manipulator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="trajectory_planning.html">Trajectory Planning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="apriltag_pick_and_place.html">AprilTag Pick-and-Place</a></li>
+<li class="toctree-l3"><a class="reference internal" href="obstacle_avoidance.html">Nvblox Obstacle Avoidance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="yolo_pick_and_place.html">YOLO Pick-and-Place</a></li>
+<li class="toctree-l3"><a class="reference internal" href="apriltag_obstacle_avoidance.html">AprilTag + Obstacle Avoidance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="robopoly_game.html">Robopoly Game (VLM / LLM)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="movensys_navigation.html">movensys-navigation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="movensys_navigation_setup.html">movensys-navigation Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual_driving.html">Manual Driving</a></li>
+<li class="toctree-l3"><a class="reference internal" href="slam_mapping.html">SLAM Mapping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autonomous_navigation.html">Autonomous Navigation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../try_your_robot/index.html">Try Your Robot</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/wmx_web_tools.html">WMX Web Tools (WOS, NetConfigurator, MotionScope)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/robot_parameters.html">Robot Parameter Configuration and Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/first_motion.html">First Motion on Hardware</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/safety.html">Safety Functions and Responsibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/validated_hardware.html">Hardware Compatibility and Validation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../integration/integration.html">Integration Scenarios</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../integration/moveit2_integration.html">MoveIt2 Motion Planning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/cumotion_integration.html">Isaac cuMotion Accelerated Planning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/nav2_integration.html">Nav2 Navigation (Mobile Base)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/custom_planner.html">Custom Planner Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/custom_application.html">Building Custom Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/intelligence_integration.html">Natural-Language and Vision Control (VLM / LLM)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/api_reference.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/communication.html">Communication Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_services.html">ROS2 Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_topics.html">ROS2 Topics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_actions.html">ROS2 Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_message.html">wmx_r2_message</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_package.html">wmx_r2_package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_control.html">wmx_r2_control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx3_api.html">The WMX3 API Underneath WMX R2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support.html">Support</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../licensing.html">Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About Us</a></li>
+</ul>
+
+  </div>
+</nav>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var navItems = document.querySelectorAll(".bd-docs-nav li");
+  navItems.forEach(function(li) {
+    var subList = li.querySelector(":scope > ul");
+    if (subList) {
+      var toggle = document.createElement("span");
+      toggle.className = "toc-toggle";
+      var isCurrent = li.classList.contains("current");
+      toggle.textContent = isCurrent ? "−" : "+";
+      if (!isCurrent) {
+        subList.classList.add("toc-collapsed");
+      }
+      toggle.addEventListener("click", function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        subList.classList.toggle("toc-collapsed");
+        toggle.textContent = subList.classList.contains("toc-collapsed") ? "+" : "−";
+      });
+      li.style.position = "relative";
+      var link = li.querySelector(":scope > a");
+      if (link) {
+        link.after(toggle);
+      }
+    }
+  });
+});
+</script></div>
+        <div class="sidebar-primary-item"><div class="sidebar-version-switcher">
+  <p class="sidebar-version-switcher__title">Version</p>
+  
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div>
+</div>
+<style>
+  .sidebar-version-switcher {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--pst-color-border);
+  }
+  .sidebar-version-switcher__title {
+    margin: 0 0 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--pst-color-text-muted);
+  }
+  .sidebar-version-switcher .version-switcher__button {
+    width: 100%;
+    text-align: left;
+  }
+  .sidebar-version-switcher .version-switcher__menu {
+    width: 100%;
+  }
+</style></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="examples.html" class="nav-link">Example Applications</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Testing WMX R2</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="testing-wmx-r2">
+<h1>Testing WMX R2<a class="headerlink" href="#testing-wmx-r2" title="Link to this heading">#</a></h1>
+<p>Once WMX R2 is installed and built, you can validate it in two ways: in
+simulation, with no physical hardware, or against real EtherCAT hardware.
+Start with simulation, then move to real hardware.</p>
+<p>Everything on this page uses the <strong>general nodes</strong> — the five robot-agnostic
+nodes in <code class="docutils literal notranslate"><span class="pre">wmx_r2_package</span></code>. They are the lowest layer of WMX R2: no URDF, no
+planner, no robot model. If you can move an axis and read an I/O bit here,
+the engine, the EtherCAT bus, and the ROS2 interface are all working.</p>
+<p><strong>Every command on this page runs inside the</strong> <code class="docutils literal notranslate"><span class="pre">wmx_r2_container</span></code> <strong>Docker
+container</strong>, through the <code class="docutils literal notranslate"><span class="pre">wros</span></code> helper — it runs a command in the container
+as root, with ROS 2 and the workspace already sourced, and opens an
+interactive shell when called with no arguments. Start the container first;
+see <a class="reference internal" href="../getting_started/install_wmx3.html"><span class="doc">Install WMX R2 Package</span></a>.</p>
+<section id="set-the-operation-mode">
+<h2>1. Set the operation mode<a class="headerlink" href="#set-the-operation-mode" title="Link to this heading">#</a></h2>
+<p>The WMX R2 nodes talk to the WMX engine, which talks to EtherCAT — there is
+no built-in mock hardware mode in ROS. The mode is selected in
+<code class="docutils literal notranslate"><span class="pre">/opt/wmx3/Module.ini</span></code> by enabling either the simulation platform or the
+EtherCAT platform.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">Module.ini</span></code> is part of the WMX Runtime, which lives <strong>on the host</strong> at
+<code class="docutils literal notranslate"><span class="pre">/opt/wmx3/</span></code> and is bind-mounted into the container. Edit it on the host
+and restart the nodes; there is no need to rebuild the image.</p>
+</div>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="sim" for="sd-tab-item-0">
+Simulation</label><div class="sd-tab-content docutils">
+<p>Disable the EtherCAT platform and enable the simulation platform:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[Platform 0]</span>
+<span class="na">Location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">./platform/ethercat</span>
+<span class="na">DllName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">ec_platform.so</span>
+<span class="na">NumOfMaster</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">1</span>
+<span class="na">disable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">1</span>
+
+<span class="k">[Platform 1]</span>
+<span class="na">Location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">./platform/simu</span>
+<span class="na">DllName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">simu_platform.so</span>
+<span class="na">NumOfMaster</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">1</span>
+<span class="na">disable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">0</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="real" for="sd-tab-item-1">
+Real Hardware</label><div class="sd-tab-content docutils">
+<p>This covers any EtherCAT hardware — a robot, a standalone servo drive,
+an I/O module.</p>
+<p><strong>Prerequisites</strong></p>
+<ul class="simple">
+<li><p>The WMX R2 workspace is built and sourced</p></li>
+<li><p>The WMX Runtime is installed at <code class="docutils literal notranslate"><span class="pre">/opt/wmx3/</span></code></p></li>
+<li><p>An EtherCAT cable runs from the compute platform to the first device</p></li>
+<li><p>The hardware and all servo drives are powered on</p></li>
+<li><p>You have <code class="docutils literal notranslate"><span class="pre">sudo</span></code> privileges</p></li>
+</ul>
+<p><strong>Wiring</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>┌──────────────┐    Ethernet     ┌──────────┐    ┌──────────┐         ┌──────────┐
+│  Compute PC  │────(EtherCAT)──►│ Servo J1 │───►│ Servo J2 │── ... ──│ Servo J6 │
+│  (dedicated  │                 └──────────┘    └──────────┘         └──────────┘
+│   NIC port)  │
+└──────────────┘
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Use a <strong>dedicated Ethernet port</strong> for EtherCAT</p></li>
+<li><p>Servo drives are daisy-chained; each drive has an IN and an OUT port</p></li>
+<li><p>The I/O module for gripper control sits on the same chain</p></li>
+</ul>
+<p>Enable the EtherCAT platform and disable the simulation platform:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[Platform 0]</span>
+<span class="na">Location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">./platform/ethercat</span>
+<span class="na">DllName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">ec_platform.so</span>
+<span class="na">NumOfMaster</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">1</span>
+<span class="na">disable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">0</span>
+
+<span class="k">[Platform 1]</span>
+<span class="na">Location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">./platform/simu</span>
+<span class="na">DllName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">simu_platform.so</span>
+<span class="na">NumOfMaster</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">1</span>
+<span class="na">disable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>Real Hardware mode moves a physical machine.</strong></p>
+<p>Start with the Simulation platform. Before switching to EtherCAT and
+enabling servos on a robot, complete <a class="reference internal" href="../try_your_robot/index.html"><span class="doc">Try Your Robot</span></a> —
+parameter validation, the low-speed single-axis procedure, and the
+separate safety measures described in <a class="reference internal" href="../try_your_robot/safety.html"><span class="doc">Safety Functions and Responsibility</span></a>.</p>
+</div>
+</section>
+<section id="launch-the-general-nodes">
+<h2>2. Launch the general nodes<a class="headerlink" href="#launch-the-general-nodes" title="Link to this heading">#</a></h2>
+<p>The launch file starts five nodes: <code class="docutils literal notranslate"><span class="pre">wmx_engine_node</span></code>,
+<code class="docutils literal notranslate"><span class="pre">wmx_lifecycle_manager_node</span></code>, <code class="docutils literal notranslate"><span class="pre">wmx_core_motion_node</span></code>, <code class="docutils literal notranslate"><span class="pre">wmx_io_node</span></code>,
+and <code class="docutils literal notranslate"><span class="pre">wmx_ethercat_node</span></code>.</p>
+<p>Launch them inside the WMX R2 container:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>wmx_r2_package<span class="w"> </span>wmx_r2_general_nodes.launch.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>use_sim_time:<span class="o">=</span><span class="nb">false</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s1">'config_file:=$(ros2 pkg prefix --share wmx_r2_package)/config/wmx_r2_general_nodes_config.yaml'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s1">'wmx_param_file:=$(ros2 pkg prefix --share wmx_r2_package)/config/wmx_parameters.xml'</span>
+</pre></div>
+</div>
+<section id="what-happens-at-startup">
+<h3>What happens at startup<a class="headerlink" href="#what-happens-at-startup" title="Link to this heading">#</a></h3>
+<figure class="align-default" id="id1">
+<pre  class="mermaid">
+        sequenceDiagram
+    autonumber
+    participant L as launch
+    participant E as wmx_engine_node
+    participant M as wmx_lifecycle_manager_node
+    participant N as wmx_core_motion_node&lt;br/&gt;wmx_io_node&lt;br/&gt;wmx_ethercat_node
+    participant W as WMX3 engine
+
+    L-&gt;&gt;E: start (ordinary node)
+    L-&gt;&gt;M: start (ordinary node)
+    L-&gt;&gt;N: start (lifecycle, unconfigured)
+    E-&gt;&gt;W: CreateDevice, retry up to 5x on lock error 297
+    E-&gt;&gt;W: StartCommunication
+    W--&gt;&gt;E: Communicating
+    loop every discovery_period
+        M-&gt;&gt;E: get_engine_status
+    end
+    E--&gt;&gt;M: Communicating
+    M-&gt;&gt;N: configure
+    M-&gt;&gt;N: activate
+    Note over N: services and topics appear only now
+    </pre><figcaption>
+<p><span class="caption-text">From launch to a node that answers</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<ol class="arabic simple">
+<li><p><strong>Device creation</strong> — <code class="docutils literal notranslate"><span class="pre">wmx_engine_node</span></code> creates the WMX device handle,
+retrying up to five times if another application holds the lock
+(error 297).</p></li>
+<li><p><strong>Communication start</strong> — <code class="docutils literal notranslate"><span class="pre">StartCommunication</span></code> brings up the real-time
+EtherCAT cycle, which discovers the drives on the bus. The engine node
+does this itself at startup; you do not have to call a service.</p></li>
+<li><p><strong>Bring-up</strong> — <code class="docutils literal notranslate"><span class="pre">wmx_lifecycle_manager_node</span></code> polls the engine status. Once
+it reads <code class="docutils literal notranslate"><span class="pre">Communicating</span></code>, it drives the three lifecycle nodes through
+<code class="docutils literal notranslate"><span class="pre">configure</span></code> and <code class="docutils literal notranslate"><span class="pre">activate</span></code>, in the order given by <code class="docutils literal notranslate"><span class="pre">managed_nodes</span></code>.</p></li>
+</ol>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><strong>A lifecycle node advertises nothing until it is</strong> <code class="docutils literal notranslate"><span class="pre">active</span></code>. If
+<code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">service</span> <span class="pre">list</span></code> shows no <code class="docutils literal notranslate"><span class="pre">/wmx/axes/*</span></code>, the node has not been
+brought up — that is not a crash. Check the states first.</p>
+</div>
+</section>
+</section>
+<section id="typical-startup-sequence">
+<h2>3. Typical startup sequence<a class="headerlink" href="#typical-startup-sequence" title="Link to this heading">#</a></h2>
+<p>The whole path from freshly launched nodes to a first commanded move and back
+to a safe stop. Run it once end to end to confirm the stack works; each step
+is explained in sections 4 to 7.</p>
+<p>These examples command <strong>axis 0 only</strong>. Extend the <code class="docutils literal notranslate"><span class="pre">axis</span></code> array to your axis
+count — <code class="docutils literal notranslate"><span class="pre">axis:</span> <span class="pre">[0,1,2,3,4,5]</span></code> for a six-axis arm — keeping <code class="docutils literal notranslate"><span class="pre">axis</span></code> and
+<code class="docutils literal notranslate"><span class="pre">data</span></code> the same length.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>Steps 7 and 8 rotate the axis.</strong></p>
+<p>In Real Hardware mode, do this at low velocity on an axis that is free to
+move, with a hand on the emergency stop, after completing
+<a class="reference internal" href="../try_your_robot/first_motion.html"><span class="doc">First Motion on Hardware</span></a>.</p>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. Check that every node came up.</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/lifecycle/get_node_states<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>wmx_r2_message/srv/GetNodeStates<span class="w"> </span><span class="s2">"{}"</span>
+
+<span class="c1"># 2. Check the engine status. The launch already started the EtherCAT</span>
+<span class="c1">#    cycle, so this should report "Communicating".</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/engine/get_engine_status<span class="w"> </span>std_srvs/srv/Trigger<span class="w"> </span><span class="s2">"{}"</span>
+
+<span class="c1"># 3. Set the gear ratio. It defines the user unit of every command below.</span>
+<span class="c1">#    8388608 counts (23-bit encoder) per 360 degrees makes one command</span>
+<span class="c1">#    unit equal one degree.</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/set_gear_ratio<span class="w"> </span>wmx_r2_message/srv/SetAxesGearRatio<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s2">"{axis: [0], numerator: [8388608.0], denominator: [360.0]}"</span>
+
+<span class="c1"># 4. Clear any amp alarms.</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/clear_amp_alarm<span class="w"> </span>wmx_r2_message/srv/SetAxes<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s2">"{axis: [0], data: [0]}"</span>
+
+<span class="c1"># 5. Enable the servo.</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/set_servo_on<span class="w"> </span>wmx_r2_message/srv/SetAxes<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s2">"{axis: [0], data: [1]}"</span>
+
+<span class="c1"># 6. Home the axis. With the shipped parameter file the current encoder</span>
+<span class="c1">#    position becomes zero.</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/start_home<span class="w"> </span>wmx_r2_message/srv/SetAxes<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s2">"{axis: [0], data: [0]}"</span>
+
+<span class="c1"># 7. First move: +10 degrees relative, at low velocity.</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/start_mov<span class="w"> </span>wmx_r2_message/srv/StartAxesPose<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s2">"{axis: [0], target: [10], velocity: [30], acc: [100], dec: [100]}"</span>
+
+<span class="c1"># 8. Or jog by hand instead of step 7. Ctrl+C releases it.</span>
+<span class="c1">#    (see section 7 for the loop)</span>
+
+<span class="c1"># 9. Stop the axis.</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/stop<span class="w"> </span>wmx_r2_message/srv/SetAxes<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s2">"{axis: [0], data: [0]}"</span>
+
+<span class="c1"># 10. Turn the servo off. Always do this before stopping communication.</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/set_servo_on<span class="w"> </span>wmx_r2_message/srv/SetAxes<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s2">"{axis: [0], data: [0]}"</span>
+</pre></div>
+</div>
+<p>Keep a second terminal on the axis feedback while you work through it. After
+step 5 <code class="docutils literal notranslate"><span class="pre">servo_on</span></code> should be <code class="docutils literal notranslate"><span class="pre">true</span></code>, after step 6 <code class="docutils literal notranslate"><span class="pre">home_done</span></code> should be
+<code class="docutils literal notranslate"><span class="pre">true</span></code>, and <code class="docutils literal notranslate"><span class="pre">actual_pos</span></code> should follow step 7:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/wmx/axes/status
+</pre></div>
+</div>
+<p>Then <code class="docutils literal notranslate"><span class="pre">Ctrl+C</span></code> the launch terminal to shut down — see section 10.</p>
+</section>
+<section id="verify-the-nodes-are-up">
+<h2>4. Verify the nodes are up<a class="headerlink" href="#verify-the-nodes-are-up" title="Link to this heading">#</a></h2>
+<p>Each node owns one slice of the interface:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 28.0%" />
+<col style="width: 12.0%" />
+<col style="width: 22.0%" />
+<col style="width: 38.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Node</p></th>
+<th class="head"><p>Lifecycle</p></th>
+<th class="head"><p>Namespace</p></th>
+<th class="head"><p>Owns</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">wmx_engine_node</span></code></p></td>
+<td><p>no</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/wmx/engine/</span></code></p></td>
+<td><p>Device handle, EtherCAT communication, engine status, WMX parameter
+import and inspection</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">wmx_lifecycle_manager_node</span></code></p></td>
+<td><p>no</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/wmx/lifecycle/</span></code></p></td>
+<td><p>Brings every managed node up and down, following the engine</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">wmx_core_motion_node</span></code></p></td>
+<td><p>yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/wmx/axes/</span></code></p></td>
+<td><p>Servo on/off, alarms, command mode, polarity, gear ratio, homing,
+stop, motion, and <code class="docutils literal notranslate"><span class="pre">/wmx/axes/status</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">wmx_io_node</span></code></p></td>
+<td><p>yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/wmx/io/</span></code></p></td>
+<td><p>Digital input and output, by bit and by byte</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">wmx_ethercat_node</span></code></p></td>
+<td><p>yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/wmx/ecat/</span></code></p></td>
+<td><p>Master info, ESC register reads, statistics reset, network scan,
+hot-connect</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>node<span class="w"> </span>list<span class="w">                    </span><span class="c1"># expect the five wmx_* nodes</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>/wmx<span class="w">     </span><span class="c1"># available WMX services</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>/wmx<span class="w">       </span><span class="c1"># available WMX topics</span>
+
+<span class="c1"># engine state: expect "Communicating"</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/engine/get_engine_status<span class="w"> </span>std_srvs/srv/Trigger<span class="w"> </span><span class="s2">"{}"</span>
+
+<span class="c1"># every lifecycle node and its state</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/lifecycle/get_node_states<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span>wmx_r2_message/srv/GetNodeStates<span class="w"> </span><span class="s2">"{}"</span>
+
+<span class="c1"># EtherCAT master and slave status</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/ecat/get_master_info<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span>wmx_r2_message/srv/EcatGetMasterInfo<span class="w"> </span><span class="s2">"{master_id: 0}"</span>
+</pre></div>
+</div>
+<p>If a node is stuck in <code class="docutils literal notranslate"><span class="pre">unconfigured</span></code>, drive it by hand:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/lifecycle/set_node_state<span class="w"> </span>wmx_r2_message/srv/SetNodeState<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span><span class="s2">"{node_name: 'wmx_core_motion_node', transition: 'bringup'}"</span>
+
+<span class="c1"># or everything at once</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/lifecycle/set_node_state<span class="w"> </span>wmx_r2_message/srv/SetNodeState<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span><span class="s2">"{node_name: '', transition: 'bringup'}"</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">wmx_core_motion_node</span></code> publishes axis feedback at <code class="docutils literal notranslate"><span class="pre">axes_status_rate</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/wmx/axes/status<span class="w"> </span>--once
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">/wmx/axes/status</span></code> (<code class="docutils literal notranslate"><span class="pre">wmx_r2_message/msg/AxesStatus</span></code>) carries one entry per
+axis in each of its arrays: <code class="docutils literal notranslate"><span class="pre">amp_alarm</span></code>, <code class="docutils literal notranslate"><span class="pre">servo_on</span></code>, <code class="docutils literal notranslate"><span class="pre">home_done</span></code>,
+<code class="docutils literal notranslate"><span class="pre">home_switch</span></code>, <code class="docutils literal notranslate"><span class="pre">negative_ls</span></code>, <code class="docutils literal notranslate"><span class="pre">positive_ls</span></code>, <code class="docutils literal notranslate"><span class="pre">motion_complete</span></code>,
+<code class="docutils literal notranslate"><span class="pre">pos_cmd</span></code>, <code class="docutils literal notranslate"><span class="pre">velocity_cmd</span></code>, <code class="docutils literal notranslate"><span class="pre">actual_pos</span></code>, <code class="docutils literal notranslate"><span class="pre">actual_velocity</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">actual_torque</span></code>. It is the single best thing to keep echoing in a second
+terminal.</p>
+<p>The full interface list is in <a class="reference internal" href="../api_reference/ros2_services.html"><span class="doc">ROS2 Services</span></a> and
+<a class="reference internal" href="../api_reference/ros2_topics.html"><span class="doc">ROS2 Topics</span></a>, and in the <a class="reference external" href="https://github.com/movensys/wmx-r2/blob/devel/doc/reference_general_nodes.md">general nodes reference</a>.</p>
+</section>
+<section id="bring-the-axes-online">
+<h2>5. Bring the axes online<a class="headerlink" href="#bring-the-axes-online" title="Link to this heading">#</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>The general nodes enable no servos.</strong></p>
+<p>These nodes are robot-agnostic by design. They do not enable the servos —
+that is an explicit <code class="docutils literal notranslate"><span class="pre">/wmx/axes/set_servo_on</span></code> call — and if you launch
+them with an empty <code class="docutils literal notranslate"><span class="pre">wmx_param_file</span></code>, no axis parameters are imported at
+all: the gear ratios, polarities, command modes, and limits in the engine
+are whatever a previous session left there.</p>
+<p>The per-robot launches (<code class="docutils literal notranslate"><span class="pre">wmx_r2_manipulator.launch.py</span></code>,
+<code class="docutils literal notranslate"><span class="pre">wmx_r2_differential.launch.py</span></code>) pass their own
+<code class="docutils literal notranslate"><span class="pre">example/&lt;robot&gt;_wmx_parameters.xml</span></code>, and their
+<code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code> enables the servos when it activates. If you
+command motion from the general nodes alone, run the sequence below first.</p>
+<p>See <a class="reference internal" href="../try_your_robot/robot_parameters.html"><span class="doc">Robot Parameter Configuration and Validation</span></a>.</p>
+</div>
+<p>The sequence is the same in Simulation and Real Hardware mode. The examples
+below use six axes; use however many your machine has. The <code class="docutils literal notranslate"><span class="pre">axis</span></code> and
+<code class="docutils literal notranslate"><span class="pre">data</span></code> arrays must always be the same length.</p>
+<p><strong>5-1. Read the active axis parameters</strong></p>
+<p>The engine holds whatever axis configuration was last written to it — by a
+per-robot launch, by WOS, or by a previous session. Read it back before you
+trust it:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/engine/get_axis_param<span class="w"> </span>wmx_r2_message/srv/GetAxisParam<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span><span class="s2">"{axis: [0,1,2,3,4,5]}"</span>
+</pre></div>
+</div>
+<p>The reply returns one human-readable dump per axis in <code class="docutils literal notranslate"><span class="pre">axis_param</span></code>, and the
+engine must already be communicating. In the dump, <code class="docutils literal notranslate"><span class="pre">CommandMode</span></code> is
+<code class="docutils literal notranslate"><span class="pre">0</span></code>=Position, <code class="docutils literal notranslate"><span class="pre">1</span></code>=Velocity, <code class="docutils literal notranslate"><span class="pre">2</span></code>=Torque; <code class="docutils literal notranslate"><span class="pre">HomeType</span></code> is
+<code class="docutils literal notranslate"><span class="pre">0</span></code>=CurrentPos, <code class="docutils literal notranslate"><span class="pre">1</span></code>=ZPulse, <code class="docutils literal notranslate"><span class="pre">2</span></code>=HS, <code class="docutils literal notranslate"><span class="pre">4</span></code>=HSZPulse; and
+<code class="docutils literal notranslate"><span class="pre">HomeDirection</span></code> is <code class="docutils literal notranslate"><span class="pre">0</span></code>=Positive, <code class="docutils literal notranslate"><span class="pre">1</span></code>=Negative.</p>
+<p>To load a parameter file into the running engine without restarting:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/engine/import_and_set_all<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span>wmx_r2_message/srv/ImportAndSetAll<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span><span class="s2">"{path: '/opt/wmx3/wmx_parameters.xml'}"</span>
+</pre></div>
+</div>
+<p>The path must be absolute.</p>
+<p><strong>5-2. Set the gear ratio</strong></p>
+<p>The gear ratio converts encoder counts into the user units every later command
+uses, so get it right before commanding anything. If a per-robot launch has
+already applied your robot’s parameter file, the ratio is already correct —
+confirm it with step 5-1 rather than overwriting it.</p>
+<p>For a Panasonic MADLN05BE driver with a 23-bit encoder (8388608 counts per
+motor revolution), dividing by 360 makes one command unit equal one degree of
+motor shaft rotation:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/set_gear_ratio<span class="w"> </span>wmx_r2_message/srv/SetAxesGearRatio<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span><span class="s2">"{axis: [0], numerator: [8388608.0], denominator: [360.0]}"</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Every <code class="docutils literal notranslate"><span class="pre">target</span></code>, <code class="docutils literal notranslate"><span class="pre">velocity</span></code>, <code class="docutils literal notranslate"><span class="pre">acc</span></code>, and <code class="docutils literal notranslate"><span class="pre">dec</span></code> value below is in
+these user units — degrees with the ratio above, raw encoder counts with a
+1:1 ratio. Check the ratio before you trust a number, and remember that a
+gearbox between the motor and the joint shifts it again.</p>
+</div>
+<p><strong>5-3. Clear alarms, enable servos, home</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clear any amp alarms (data is ignored)</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/clear_amp_alarm<span class="w"> </span>wmx_r2_message/srv/SetAxes<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span><span class="s2">"{axis: [0,1,2,3,4,5], data: [0,0,0,0,0,0]}"</span>
+
+<span class="c1"># Enable the servos (1 = on, 0 = off)</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/set_servo_on<span class="w"> </span>wmx_r2_message/srv/SetAxes<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span><span class="s2">"{axis: [0,1,2,3,4,5], data: [1,1,1,1,1,1]}"</span>
+
+<span class="c1"># Home all axes (data is ignored)</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/start_home<span class="w"> </span>wmx_r2_message/srv/SetAxes<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span><span class="s2">"{axis: [0,1,2,3,4,5], data: [0,0,0,0,0,0]}"</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">start_home</span></code> uses the <code class="docutils literal notranslate"><span class="pre">HomeType</span></code> configured in the WMX parameter file for
+that axis. The shipped files use <code class="docutils literal notranslate"><span class="pre">CurrentPos</span></code>, which makes the current
+encoder position zero. The service does not write the home configuration, so
+a switch-based or Z-pulse setup is left alone.</p>
+<p>Confirm on <code class="docutils literal notranslate"><span class="pre">/wmx/axes/status</span></code> that <code class="docutils literal notranslate"><span class="pre">amp_alarm</span></code> is all <code class="docutils literal notranslate"><span class="pre">false</span></code>,
+<code class="docutils literal notranslate"><span class="pre">servo_on</span></code> all <code class="docutils literal notranslate"><span class="pre">true</span></code>, and <code class="docutils literal notranslate"><span class="pre">home_done</span></code> all <code class="docutils literal notranslate"><span class="pre">true</span></code> before commanding
+motion.</p>
+<p>Two more axis settings are available when a machine needs them:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Command mode: 0 = Position, 1 = Velocity, 2 = Torque</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/set_axis_command_mode<span class="w"> </span>wmx_r2_message/srv/SetAxes<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span><span class="s2">"{axis: [0,1], data: [0,0]}"</span>
+
+<span class="c1"># Polarity: 1 = normal, -1 = reversed</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/set_axis_polarity<span class="w"> </span>wmx_r2_message/srv/SetAxes<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span><span class="s2">"{axis: [0,1], data: [1,1]}"</span>
+</pre></div>
+</div>
+</section>
+<section id="command-motion">
+<h2>6. Command motion<a class="headerlink" href="#command-motion" title="Link to this heading">#</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>These commands rotate the axes.</strong></p>
+<p>On real hardware, start with one axis, a small relative move, and a low
+velocity, with a hand on the emergency stop. Follow the low-speed
+single-axis procedure in <a class="reference internal" href="../try_your_robot/first_motion.html"><span class="doc">First Motion on Hardware</span></a> before doing
+this on a robot for the first time.</p>
+</div>
+<p>Motion is a <strong>service call</strong>, not a topic publish. All of them take parallel
+arrays, so one call can command several axes at once.</p>
+<p><strong>Absolute position</strong> — move to <code class="docutils literal notranslate"><span class="pre">target</span></code> in user units:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/start_pos<span class="w"> </span>wmx_r2_message/srv/StartAxesPose<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span><span class="s2">"{axis: [0,1], target: [45, -90], velocity: [10, 20], \</span>
+<span class="s2">       acc: [10, 20], dec: [10, 20]}"</span>
+</pre></div>
+</div>
+<p><strong>Relative position</strong> — move by <code class="docutils literal notranslate"><span class="pre">target</span></code> from wherever the axis is now.
+This is the safer of the two for a first move: a small number stays a small
+move regardless of where the axis happens to be.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/start_mov<span class="w"> </span>wmx_r2_message/srv/StartAxesPose<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span><span class="s2">"{axis: [0,1], target: [10, -10], velocity: [10, 20], \</span>
+<span class="s2">       acc: [10, 10], dec: [10, 20]}"</span>
+</pre></div>
+</div>
+<p><strong>Continuous velocity</strong> — the axis keeps turning until you stop it. The sign
+of <code class="docutils literal notranslate"><span class="pre">velocity</span></code> selects the direction.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/start_vel<span class="w"> </span>wmx_r2_message/srv/StartAxesVelocity<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span><span class="s2">"{axis: [0,1], velocity: [10, -10], acc: [10, 20], dec: [10, 20]}"</span>
+</pre></div>
+</div>
+<p><strong>Stop</strong> — decelerate to a standstill. <code class="docutils literal notranslate"><span class="pre">data</span></code> is ignored:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/stop<span class="w"> </span>wmx_r2_message/srv/SetAxes<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span><span class="s2">"{axis: [0,1], data: [0,0]}"</span>
+</pre></div>
+</div>
+<p>Watch <code class="docutils literal notranslate"><span class="pre">motion_complete</span></code> and <code class="docutils literal notranslate"><span class="pre">actual_pos</span></code> to confirm each move finished
+where you expected:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/wmx/axes/status<span class="w"> </span>--field<span class="w"> </span>actual_pos
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>If a motion service answers</strong> <code class="docutils literal notranslate"><span class="pre">success:</span> <span class="pre">false</span></code></p>
+<p>While any node listed in <code class="docutils literal notranslate"><span class="pre">motion_controllers</span></code> is <code class="docutils literal notranslate"><span class="pre">active</span></code> — the
+trajectory, position, and differential controllers — it owns the axes, and
+<code class="docutils literal notranslate"><span class="pre">start_pos</span></code>, <code class="docutils literal notranslate"><span class="pre">start_mov</span></code>, <code class="docutils literal notranslate"><span class="pre">start_vel</span></code>, <code class="docutils literal notranslate"><span class="pre">start_jog</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">start_home</span></code> all refuse. This is deliberate: a manual jog must not fight
+a running trajectory.</p>
+<p><code class="docutils literal notranslate"><span class="pre">stop</span></code> is never blocked. To take manual control, deactivate the
+controller:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/lifecycle/set_node_state<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span>wmx_r2_message/srv/SetNodeState<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span><span class="s2">"{node_name: 'joint_trajectory_controller', transition: 'deactivate'}"</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="jog-an-axis-hold-to-move">
+<h2>7. Jog an axis (hold to move)<a class="headerlink" href="#jog-an-axis-hold-to-move" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">/wmx/axes/start_jog</span></code> is a dead-man command: keep calling it to keep moving,
+stop calling it to release. <code class="docutils literal notranslate"><span class="pre">wmx_core_motion_node</span></code> stops the axis once
+refreshes stop arriving (<code class="docutils literal notranslate"><span class="pre">jog_timeout_ms</span></code>, default 200 ms). The sign of
+<code class="docutils literal notranslate"><span class="pre">velocity</span></code> selects the direction.</p>
+<p>Jog runs <code class="docutils literal notranslate"><span class="pre">Motion::StartJog</span></code>, which requires the axis to be in <strong>Position
+mode</strong>. After the sequence in section 5:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/set_axis_command_mode<span class="w"> </span>wmx_r2_message/srv/SetAxes<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span><span class="s2">"{axis: [0], data: [0]}"</span>
+</pre></div>
+</div>
+<p>Then loop the call. <code class="docutils literal notranslate"><span class="pre">Ctrl+C</span></code> acts as the release:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># positive direction</span>
+<span class="k">while</span><span class="w"> </span>true<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/start_jog<span class="w"> </span>wmx_r2_message/srv/StartAxesVelocity<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s2">"{axis: [0], velocity: [10], acc: [100], dec: [100]}"</span>
+<span class="w">  </span>sleep<span class="w"> </span><span class="m">0</span>.05
+<span class="k">done</span>
+
+<span class="c1"># negative direction: negate velocity</span>
+<span class="k">while</span><span class="w"> </span>true<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/start_jog<span class="w"> </span>wmx_r2_message/srv/StartAxesVelocity<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s2">"{axis: [0], velocity: [-10], acc: [100], dec: [100]}"</span>
+<span class="w">  </span>sleep<span class="w"> </span><span class="m">0</span>.05
+<span class="k">done</span>
+</pre></div>
+</div>
+<p>Stop explicitly at any time:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/stop<span class="w"> </span>wmx_r2_message/srv/SetAxes<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span><span class="s2">"{axis: [0], data: [0]}"</span>
+</pre></div>
+</div>
+<p><strong>Tuning.</strong> These are <code class="docutils literal notranslate"><span class="pre">wmx_core_motion_node</span></code> parameters, read once at
+startup — set them in the config YAML, not with <code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">param</span> <span class="pre">set</span></code>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 26.0%" />
+<col style="width: 14.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">jog_timeout_ms</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">200.0</span></code></p></td>
+<td><p>Axis stops this long after refreshes stop arriving</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">jog_run_time_ms</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">2000.0</span></code></p></td>
+<td><p>Maximum duration of one jog, enforced engine-side</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">jog_jerk_ratio</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.75</span></code></p></td>
+<td><p>Jerk ratio of the jog profile</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">jog_run_time_ms</span></code> is enforced by the engine, so the axis still stops if
+the calling process dies. Once it elapses the axis stays stopped until
+you release and start again.</p></li>
+<li><p>Repeating the same call only refreshes the dead-man; it does not
+re-issue <code class="docutils literal notranslate"><span class="pre">StartJog</span></code> — jog-over-jog override is undefined in WMX3.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">acc</span></code> and <code class="docutils literal notranslate"><span class="pre">dec</span></code> are accelerations on the wire but are converted to
+ramp times internally, because the <code class="docutils literal notranslate"><span class="pre">TimeAccJerkRatio</span></code> profile used here
+— the same one WOS uses — is time-based.</p></li>
+</ul>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>For jogging a <em>robot</em> rather than a bare axis, use the keyboard teleop in
+<code class="docutils literal notranslate"><span class="pre">movensys-manipulator</span></code>, which drives the end effector through MoveIt2:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mros<span class="w"> </span>ros2<span class="w"> </span>run<span class="w"> </span>movensys_manipulator_moveit_config<span class="w"> </span>keyboard_teleop
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="trajectory_planning.html"><span class="doc">Trajectory Planning</span></a>.</p>
+</div>
+</section>
+<section id="read-and-write-digital-i-o">
+<h2>8. Read and write digital I/O<a class="headerlink" href="#read-and-write-digital-i-o" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">wmx_io_node</span></code> exposes the EtherCAT I/O image. <code class="docutils literal notranslate"><span class="pre">addr</span></code> is the I/O byte
+address and <code class="docutils literal notranslate"><span class="pre">bit</span></code> is the index within that byte (0–7). Byte values are
+decimal on the wire (<code class="docutils literal notranslate"><span class="pre">15</span></code> = <code class="docutils literal notranslate"><span class="pre">0x0F</span></code>).</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Read a single input bit / output bit</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/io/get_in_bit<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span>wmx_r2_message/srv/GetIoBit<span class="w"> </span><span class="s2">"{addr: 0, bit: 0}"</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/io/get_out_bit<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span>wmx_r2_message/srv/GetIoBit<span class="w"> </span><span class="s2">"{addr: 0, bit: 0}"</span>
+
+<span class="c1"># Read scattered bits in one call</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/io/get_in_bits<span class="w"> </span>wmx_r2_message/srv/GetIoBits<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span><span class="s2">"{addr: [0, 2], bit: [1, 5]}"</span>
+
+<span class="c1"># Read a single byte, or a run of bytes</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/io/get_in_byte<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span>wmx_r2_message/srv/GetIoByte<span class="w"> </span><span class="s2">"{addr: 0}"</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/io/get_in_bytes<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span>wmx_r2_message/srv/GetIoBytes<span class="w"> </span><span class="s2">"{addr: 0, size: 4}"</span>
+
+<span class="c1"># Set and clear an output bit (e.g. a gripper solenoid)</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/io/set_out_bit<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span>wmx_r2_message/srv/SetIoBit<span class="w"> </span><span class="s2">"{addr: 0, bit: 0, data: 1}"</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/io/set_out_bit<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span>wmx_r2_message/srv/SetIoBit<span class="w"> </span><span class="s2">"{addr: 0, bit: 0, data: 0}"</span>
+
+<span class="c1"># Write output byte 2 to 0x0F, then bytes 2 and 3 to 0x0F and 0x0E</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/io/set_out_byte<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span>wmx_r2_message/srv/SetIoByte<span class="w"> </span><span class="s2">"{addr: 2, data: 15}"</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/io/set_out_bytes<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span>wmx_r2_message/srv/SetIoBytes<span class="w"> </span><span class="s2">"{addr: 2, data: [15, 14]}"</span>
+</pre></div>
+</div>
+<p>A quick way to find which bit a device is wired to: read the input bytes,
+toggle the device by hand, read them again.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>In Real Hardware mode <code class="docutils literal notranslate"><span class="pre">set_out_bit</span></code> drives real outputs — grippers,
+valves, brakes. Confirm what each output is wired to before writing it.</p>
+</div>
+</section>
+<section id="ethercat-diagnostics">
+<h2>9. EtherCAT diagnostics<a class="headerlink" href="#ethercat-diagnostics" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">wmx_ethercat_node</span></code> is where you look when the bus itself is the suspect —
+a slave stuck below <code class="docutils literal notranslate"><span class="pre">Op</span></code>, packet loss, or a drive that does not appear.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Master and per-slave state; master 0 unless you run several rings</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/ecat/get_master_info<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span>wmx_r2_message/srv/EcatGetMasterInfo<span class="w"> </span><span class="s2">"{master_id: 0}"</span>
+</pre></div>
+</div>
+<p>The reply gives the master state and mode, the communication period, the
+packet-loss, timeout, and over-cycle counters, and parallel arrays describing
+every slave — state, AL status code, vendor and product IDs, PDO sizes, axis
+count. Master states are <code class="docutils literal notranslate"><span class="pre">None</span></code>=0, <code class="docutils literal notranslate"><span class="pre">Init</span></code>=1, <code class="docutils literal notranslate"><span class="pre">Preop</span></code>=2,
+<code class="docutils literal notranslate"><span class="pre">Boot</span></code>=4, <code class="docutils literal notranslate"><span class="pre">Safeop</span></code>=8, <code class="docutils literal notranslate"><span class="pre">Op</span></code>=16; modes are <code class="docutils literal notranslate"><span class="pre">Cyclic</span></code>=0,
+<code class="docutils literal notranslate"><span class="pre">PP</span></code>=1, <code class="docutils literal notranslate"><span class="pre">Monitor</span></code>=2. A healthy running bus reports <code class="docutils literal notranslate"><span class="pre">Op</span></code> for the
+master and every slave.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Read ESC registers directly (reg_addr is decimal, 0x000-0xFFF)</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/ecat/register_read<span class="w"> </span>wmx_r2_message/srv/EcatRegisterRead<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span><span class="s2">"{master_id: 0, slave_id: 0, reg_addr: 0, len: 1}"</span><span class="w">      </span><span class="c1"># 0x000 type</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/ecat/register_read<span class="w"> </span>wmx_r2_message/srv/EcatRegisterRead<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span><span class="s2">"{master_id: 0, slave_id: 0, reg_addr: 16, len: 4}"</span><span class="w">     </span><span class="c1"># 0x010 vendor ID</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/ecat/register_read<span class="w"> </span>wmx_r2_message/srv/EcatRegisterRead<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span><span class="s2">"{master_id: 0, slave_id: 1, reg_addr: 256, len: 16}"</span><span class="w">   </span><span class="c1"># 0x100 DL status</span>
+
+<span class="c1"># Reset ref-clock and transmit statistics, then re-scan the network</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/ecat/reset_statistics<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span>wmx_r2_message/srv/EcatResetStatistics<span class="w"> </span><span class="s2">"{master_id: 0}"</span>
+
+<span class="c1"># Re-scan the network for slaves</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/ecat/scan_network<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span>wmx_r2_message/srv/EcatScanNetwork<span class="w"> </span><span class="s2">"{master_id: 0}"</span>
+
+<span class="c1"># Enable dynamic slave discovery (call once after the network reaches Op)</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/ecat/start_hotconnect<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span>wmx_r2_message/srv/EcatStartHotconnect<span class="w"> </span><span class="s2">"{master_id: 0}"</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">reg_addr</span> <span class="pre">+</span> <span class="pre">len</span></code> must not exceed <code class="docutils literal notranslate"><span class="pre">0x1000</span></code> (4096 bytes).</p>
+</section>
+<section id="engine-and-device-control">
+<h2>10. Engine and device control<a class="headerlink" href="#engine-and-device-control" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">wmx_engine_node</span></code> creates the device and starts communication at startup,
+so these services are only needed to cycle either one without restarting the
+nodes — after changing <code class="docutils literal notranslate"><span class="pre">Module.ini</span></code>, for instance, or to reproduce a
+startup fault.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Stop / start the real-time EtherCAT cycle</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/engine/set_communication<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span>std_srvs/srv/SetBool<span class="w"> </span><span class="s2">"{data: false}"</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/engine/set_communication<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span>std_srvs/srv/SetBool<span class="w"> </span><span class="s2">"{data: true}"</span>
+
+<span class="c1"># Close / create the WMX3 device</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/engine/set_engine<span class="w"> </span>std_srvs/srv/SetBool<span class="w"> </span><span class="s2">"{data: false}"</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/engine/set_engine<span class="w"> </span>std_srvs/srv/SetBool<span class="w"> </span><span class="s2">"{data: true}"</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Servos must be off before you stop communication. Stopping the cycle under
+an enabled servo drops the drive on a communication fault.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Closing the device takes the managed nodes down with it: the lifecycle
+manager sees the engine leave <code class="docutils literal notranslate"><span class="pre">Communicating</span></code> and cleans every node back
+to <code class="docutils literal notranslate"><span class="pre">unconfigured</span></code>, because their device handles are dead. They come back
+up on their own when the engine returns.</p>
+</div>
+</section>
+<section id="shutdown">
+<h2>11. Shutdown<a class="headerlink" href="#shutdown" title="Link to this heading">#</a></h2>
+<p>Press <code class="docutils literal notranslate"><span class="pre">Ctrl+C</span></code> in the launch terminal. The nodes disable the servos, stop
+EtherCAT communication, and close the WMX device.</p>
+</section>
+<section id="next-steps">
+<h2>Next steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="movensys_manipulator_setup.html"><span class="doc">movensys-manipulator Setup</span></a> — bring up a full manipulator stack</p></li>
+<li><p><a class="reference internal" href="movensys_navigation_setup.html"><span class="doc">movensys-navigation Setup</span></a> — bring up the differential-drive base</p></li>
+<li><p><a class="reference internal" href="../api_reference/api_reference.html"><span class="doc">API Reference</span></a> — the complete interface reference</p></li>
+<li><p><a class="reference internal" href="../try_your_robot/index.html"><span class="doc">Try Your Robot</span></a> — before moving a physical robot</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="examples.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Example Applications</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="isaacsim_setup.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">NVIDIA Isaac Setup (Optional)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-the-operation-mode">1. Set the operation mode</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#launch-the-general-nodes">2. Launch the general nodes</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-happens-at-startup">What happens at startup</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#typical-startup-sequence">3. Typical startup sequence</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#verify-the-nodes-are-up">4. Verify the nodes are up</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bring-the-axes-online">5. Bring the axes online</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#command-motion">6. Command motion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jog-an-axis-hold-to-move">7. Jog an axis (hold to move)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-and-write-digital-i-o">8. Read and write digital I/O</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ethercat-diagnostics">9. EtherCAT diagnostics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#engine-and-device-control">10. Engine and device control</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shutdown">11. Shutdown</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next steps</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5"></script>
+
+<footer class="bd-footer">
+<div class="movensys-footer">
+  <div class="movensys-footer__logo">
+    <a href="https://www.movensys.com" target="_blank" rel="noopener">
+      <img src="../_static/movensys_wordmark.png" alt="Movensys" />
+    </a>
+  </div>
+  <div class="movensys-footer__info">
+    <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
+    
+      <p>Last updated: Oct 13, 2026</p>
+    
+  </div>
+  <div class="movensys-footer__links">
+    <a href="https://www.movensys.com" target="_blank" rel="noopener">MOVENSYS.com</a>
+    <a href="https://www.movensys.com/privacy" target="_blank" rel="noopener">Privacy Policy</a>
+  </div>
+</div>
+</footer>
+  </body>
+</html>
