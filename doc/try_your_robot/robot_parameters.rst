@@ -12,54 +12,79 @@ Robot Parameter Configuration and Validation
 Where the parameters live
 -------------------------
 
-A working robot configuration is spread over four files. They must agree with
-each other; nothing in the stack checks that they do.
+A robot configuration is **data, not code**. Everything that makes the stack
+drive one machine rather than another lives in four kinds of file, and a
+different robot, a different drive brand, or a different axis count is a
+change to those files only — no C++ or Python in ``wmx-r2``,
+``movensys-manipulator``, or ``movensys-navigation`` is modified, and the
+launch files take each file as an argument rather than hard-coding it.
 
 .. list-table::
    :header-rows: 1
-   :widths: 30 24 46
+   :widths: 38 62
 
    * - File
-     - Owned by
      - Defines
-   * - ``<robot>_wmx_parameters.xml``
+   * - **1. ENI file**
 
-       (``wmx_r2_package/config/``)
-     - WMX engine
-     - Gear ratio, encoder resolution, axis polarity, command mode, torque and
-       motor-speed limits, homing, soft limits, limit-switch and E-stop
-       configuration — everything the motion engine needs, **per WMX axis
-       index**.
-   * - ``<robot>_<application>_config.yaml``
+       The EtherCAT network description
+     - Which slaves are on the bus and how the master communicates with them.
+   * - **2. WMX parameter file**
 
-       (``wmx_r2_package/config/``)
-     - WMX R2 nodes
-     - The mapping from ROS 2 joint names to WMX axis indices
-       (``joint_name`` ↔ ``joint_axes``), feedback rate, topic and action
-       names, gripper I/O addresses and open/close values.
-   * - ``<robot>.xacro`` / ``.urdf``
+       ``wmx_r2_package/example/<robot>_wmx_parameters.xml``
+     - Gear ratio, encoder resolution, polarity, command mode, torque and
+       speed limits, homing, and soft limits — per WMX axis index.
+   * - **3. URDF / xacro**
 
-       (``movensys_manipulator_description`` /
-       ``movensys_navigation_description``)
-     - ROS 2 / MoveIt / Nav2
-     - Link geometry, joint axes and origins, and the position, velocity, and
-       effort limits used for planning and collision checking.
-   * - ``joint_limits.yaml``
+       ``movensys_*_description/urdf/<model>/``, ``wmx_r2_control/urdf/``
+     - Link geometry, joint axes and origins, the limits used for planning
+       and collision checking, and the ``ros2_control`` hardware interface.
+   * - **4. ROS 2 parameter YAML**
 
-       (``movensys_manipulator_moveit_config/config/<model>/``)
-     - MoveIt 2
-     - Velocity and acceleration limits that override or augment the URDF for
-       trajectory generation.
+       ``wmx_r2_package/example/``, ``wmx_r2_control/config/``, and the
+       MoveIt, Nav2, and perception ``config/<model>/`` directories
+     - Joint name ↔ axis index, feedback rate, topic and action names,
+       gripper I/O addresses, and the planner and controller settings.
+
+The ENI is generated from a scan of the real network by the NetConfigurator
+app in the WMX web gateway; see :doc:`wmx_web_tools` for the
+Scan → Quick Create → Start Communication procedure and for where the
+generated ENI is written.
 
 .. note::
 
-   The WMX parameter file is applied by the node that owns the axes. The
-   manipulator controllers call ``Config::ImportAndSetAll`` on the path in
-   ``wmx_param_file_path`` at startup; the ``ros2_control`` hardware plugin
-   does the same with the ``wmx_param_file`` hardware parameter from
-   ``<robot>.wmx.ros2_control.xacro``. Both resolve the path at launch time
-   through ``get_package_share_directory``, so an edit to the file in
-   ``src/`` only takes effect after a rebuild (or an install-space edit).
+   **ESI** files are not on this list. They are the device descriptions the
+   drive manufacturer supplies, and they are input to ENI generation rather
+   than something you author or edit.
+
+They must agree with each other; nothing in the stack checks that they do.
+The rest of this page is about the values inside them and how to verify each
+one.
+
+.. note::
+
+   "Only four files" is a statement about *where* the work is, not about how
+   much of it there is. Producing a correct parameter set, URDF, and planning
+   configuration for a machine nobody has commissioned yet is an integration
+   project — see :doc:`validated_hardware`. What it is *not* is a change to
+   WMX R2.
+
+.. note::
+
+   The WMX parameter file is applied by the node that owns the **engine**.
+   ``wmx_engine_node`` calls ``Config::ImportAndSetAll`` on the path in its
+   ``wmx_param_file_path`` parameter right after the device is created; the
+   launch files inject that from their ``wmx_param_file`` argument. The
+   ``ros2_control`` hardware plugin does the same with the ``wmx_param_file``
+   hardware parameter from ``<robot>.wmx.ros2_control.xacro``.
+
+   Paths are normally written as
+   ``$(ros2 pkg prefix --share wmx_r2_package)/example/...``, which resolves to
+   the **install** space — so an edit to the file in ``src/`` only takes
+   effect after a rebuild, or after editing the installed copy.
+
+   To reload without restarting, call ``/wmx/engine/import_and_set_all`` with
+   an absolute path.
 
 Mapping between ROS 2 joint names and physical axes
 ---------------------------------------------------
@@ -111,7 +136,7 @@ wiring, not configuration.
      - 6th drive
      - Wrist 3
 
-For the differential-drive base, ``diffbot_navigation_config.yaml`` binds the
+For the differential-drive base, ``diffbot_differential_config.yaml`` binds the
 axes twice — once for feedback and once for the drive controller — and both
 must agree:
 
@@ -156,8 +181,9 @@ Every shipped parameter file sets:
 That denominator is 2π, which makes **one WMX user unit equal to one radian**.
 This is the only reason the ROS 2 interface can pass positions straight
 through: ``joint_state_broadcaster`` publishes ``actualPos`` into
-``/joint_states`` with no scaling, and ``/wmx/axis/position`` targets are
-consumed as radians.
+``/joint_states`` with no scaling, ``/wmx/axes/start_pos`` targets are
+consumed as radians, and ``joint_trajectory_controller`` writes goal positions
+straight into the WMX C-spline.
 
 .. important::
 
@@ -378,7 +404,7 @@ Limits are enforced in more than one place, and the shipped configuration does
    With ``SoftLimitType = 0``, the WMX engine will accept and execute a
    position command outside the robot's mechanical range. The only thing
    keeping motion inside the joint limits is MoveIt's planning-time check
-   against the URDF — which does not apply to direct ``/wmx/axis/position``
+   against the URDF — which does not apply to direct ``/wmx/axes/start_pos``
    commands, to ``keyboard_teleop`` jogging, or to anything else that
    bypasses the planner.
 
@@ -396,13 +422,18 @@ trusting any axis index:
 
 .. code-block:: bash
 
-   ros2 service call /wmx/ecat/get_network_state \
-        wmx_r2_message/srv/EcatGetNetworkState
+   wros ros2 service call /wmx/ecat/get_master_info \
+        wmx_r2_message/srv/EcatGetMasterInfo "{master_id: 0}"
 
-The scan matches each discovered slave against the EtherCAT Network
-Information files in ``wmx-r2/eni/``. A drive whose ENI file is missing will
-fail the scan, and a chain that is re-cabled in a different order shifts every
-axis index after the change — silently, from ROS 2's point of view.
+The scan matches each discovered slave against the EtherCAT Slave
+Information (ESI) files installed with the WMX Runtime at ``/opt/wmx3/ESI/``,
+and the network as a whole is described by the EtherCAT Network Information
+(ENI) file, generated from a scan by **NetConfigurator → ENI File →
+Quick Create** and written to the folder named by that app's **Eni Folder**
+setting (see :doc:`wmx_web_tools`). A
+drive with no matching ESI file will fail the scan, and a chain that is
+re-cabled in a different order shifts every axis index after the change —
+silently, from ROS 2's point of view.
 
 The gripper I/O module is part of the same chain. Its bit addresses are
 configured separately in the application YAML, not by axis index:
@@ -450,7 +481,7 @@ to agree, and none of them is checked automatically.
      - URDF wheel ``<cylinder radius>`` = 0.095 m and wheel joint origins
        ``y = ±0.275`` m
      - ``wheel_radius: 0.095`` and ``wheel_to_wheel: 0.55`` in
-       ``diffbot_navigation_config.yaml``
+       ``diffbot_differential_config.yaml``
 
 Source of each parameter, and how to verify it
 -----------------------------------------------
@@ -469,7 +500,7 @@ Source of each parameter, and how to verify it
    * - Encoder resolution
      - Servo drive / motor datasheet
      - Command one full revolution of the motor and compare the count delta
-       reported by ``/wmx/axis/state``
+       reported by ``/wmx/axes/status``
    * - Gear ratio
      - Robot mechanical specification (reducer ratio per joint)
      - Command a known joint angle and measure the physical rotation with an
@@ -490,7 +521,7 @@ Source of each parameter, and how to verify it
      - Time a known move and compare against the commanded profile
    * - Torque limits
      - Motor rated torque and the robot's payload rating
-     - Read ``actual_torque`` from ``/wmx/axis/state`` during a representative
+     - Read ``actual_torque`` from ``/wmx/axes/status`` during a representative
        move
 
 Reading back what the engine actually loaded
@@ -499,30 +530,33 @@ Reading back what the engine actually loaded
 The values that matter are the ones in the running engine, not the ones in the
 file. Two mechanisms expose them.
 
-**1. The parameter dump service.** ``/wmx/params/get`` returns the gear ratio,
+**1. The parameter dump service.** ``/wmx/engine/get_axis_param`` returns the gear ratio,
 axis unit, polarity, command mode, torque limits, motor speed, and the homing
 parameters that the engine currently holds, per axis:
 
 .. code-block:: bash
 
-   ros2 service call /wmx/params/get wmx_r2_message/srv/GetWmxParams \
-        "{index: [0,1,2,3,4,5]}"
+   wros ros2 service call /wmx/engine/get_axis_param wmx_r2_message/srv/GetAxisParam \
+        "{axis: [0,1,2,3,4,5]}"
 
 Compare the ``GearRatio``, ``AxisPolarity``, and ``CommandMode`` lines in the
 response against the table you built for your robot. This is the definitive
 check — it reflects the engine state after the parameter file was applied.
 
-**2. The controller startup log.** ``joint_trajectory_controller`` logs the
-numerator, denominator, polarity, absolute-encoder mode, and command mode for
-each configured axis at startup, and logs ``Success to set WMX params`` when
-``ImportAndSetAll`` succeeds. If the import fails, it logs the failing field
-for every axis, which identifies the offending parameter directly.
+**2. The broadcaster startup log.** At ``configure``,
+``joint_state_broadcaster`` calls ``/wmx/engine/get_axis_param`` for its own
+``joint_axes`` and logs the dump at INFO, so the axis setup a run actually
+used is captured in the startup log. A missing engine service only warns —
+configuration still succeeds, so an empty dump is not an error you will see
+as a failure.
+
+``wmx_engine_node`` logs the result of importing ``wmx_param_file`` at engine
+start. If the import fails, it logs the failing field.
 
 .. note::
 
-   ``Success to set WMX params`` means the file was syntactically valid and
-   accepted by the engine. It says nothing about whether the values describe
-   your robot.
+   A successful import means the file was syntactically valid and accepted by
+   the engine. It says nothing about whether the values describe your robot.
 
 Changing parameters at runtime
 -------------------------------
@@ -533,17 +567,17 @@ immediately on a live engine.
 .. code-block:: bash
 
    # Load a different parameter file wholesale
-   ros2 service call /wmx/params/load wmx_r2_message/srv/LoadWmxParams \
-        "{file_path: '/abs/path/to/<robot>_wmx_parameters.xml'}"
+   wros ros2 service call /wmx/engine/import_and_set_all wmx_r2_message/srv/ImportAndSetAll \
+        "{path: '/abs/path/to/<robot>_wmx_parameters.xml'}"
 
    # Override the gear ratio on selected axes
-   ros2 service call /wmx/axis/set_gear_ratio \
-        wmx_r2_message/srv/SetAxisGearRatio \
-        "{index: [0], numerator: [52953088.0], denominator: [6.283185307179586]}"
+   wros ros2 service call /wmx/axes/set_gear_ratio \
+        wmx_r2_message/srv/SetAxesGearRatio \
+        "{axis: [0], numerator: [52953088.0], denominator: [6.283185307179586]}"
 
    # Override the polarity on selected axes (+1 or -1)
-   ros2 service call /wmx/axis/set_polarity wmx_r2_message/srv/SetAxis \
-        "{index: [0], data: [-1]}"
+   wros ros2 service call /wmx/axes/set_axis_polarity wmx_r2_message/srv/SetAxes \
+        "{axis: [0], data: [-1]}"
 
 .. warning::
 

@@ -1,3 +1,8 @@
+import os
+import sys
+
+sys.path.insert(0, os.path.abspath('_ext'))
+
 # -- Project information -----------------------------------------------------
 project = 'WMX R2 Documentation'
 copyright = '2026, MOVENSYS'
@@ -12,7 +17,12 @@ extensions = [
     'sphinx.ext.todo',       # TODO directives
     'sphinxcontrib.mermaid', # Mermaid diagram support
     'sphinx_design',         # Tabs, cards, grids
+    'git_ref',               # Clone commands follow the version (_ext/git_ref.py)
 ]
+
+# Git ref (branch or tag) this build documents: main, release-0.1, ...
+# CI sets DOCS_GIT_REF; local builds default to main. See _ext/git_ref.py.
+git_ref = os.environ.get('DOCS_GIT_REF', 'main')
 
 # Markdown support
 source_suffix = {
@@ -26,7 +36,17 @@ rst_prolog = """
 """
 
 templates_path = ['_templates']
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', '_redirects']
+
+# -- Redirects ---------------------------------------------------------------
+# Copied verbatim into the build output. GitHub Pages is deployed with
+# ``keep_files: true``, so a page that is renamed keeps serving its old, stale
+# HTML at the old URL forever. A stub here overwrites it with a redirect.
+#
+#   examples/Testing WMX R2.html -> examples/testing_wmx_r2.html
+#
+# Add a stub whenever a published page is renamed or moved.
+html_extra_path = ['_redirects']
 
 # -- Mermaid ----------------------------------------------------------------
 # Render diagrams at their natural size instead of clamping every SVG to the

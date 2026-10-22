@@ -1,17 +1,23 @@
 Hardware Compatibility and Validation
 =====================================
 
-.. important:: **WMX R2 does not "work with any robot".**
+.. important:: **"Any EtherCAT machine" is about the software, not about**
+   **what has been validated.**
 
-   WMX R2 controls EtherCAT servo drives. Whether it can drive *your* robot
-   depends on whether the drives speak EtherCAT CoE in a supported mode,
-   whether an EtherCAT Network Information (ENI) file exists for them, and
-   whether someone has produced and verified a correct parameter set,
-   URDF, and planning configuration for that specific machine.
+   WMX R2 controls axes over EtherCAT CoE rather than a specific robot model,
+   and moving it to a new machine changes only configuration files — see
+   :doc:`index`. That is a real property of the stack, and it is not the same
+   thing as the machine being ready to run.
 
-   The robots below are the ones for which this project ships a parameter set
-   and a configuration. Everything else is an integration project, not a
-   configuration change.
+   Whether WMX R2 can drive *your* robot today depends on whether the drives
+   speak EtherCAT CoE in a supported mode, whether a matching ESI file is
+   installed for them and an EtherCAT Network Information (ENI) file exists
+   for the network, and whether someone has produced and verified a correct
+   parameter set, URDF, and planning configuration for that specific machine.
+
+   The robots below are the ones for which this project ships and has verified
+   that configuration. For anything else the files exist but their contents do
+   not yet — producing and validating them is an integration project.
 
 Status definitions
 ------------------
@@ -166,7 +172,7 @@ Homing, absolute position, brakes, and safety
    * - **Homing**
      - Not used on any shipped robot. ``AbsoluteEncoderMode = 1`` on every
        axis, so position is known at power-on. The homing service
-       (``/wmx/axis/homing``) and the ``HomeParam`` block exist and are
+       (``/wmx/axes/start_home``) and the ``HomeParam`` block exist and are
        populated with defaults, but no shipped configuration exercises them.
        A robot with incremental encoders requires a homing strategy that this
        project does not provide.
@@ -195,7 +201,7 @@ Homing, absolute position, brakes, and safety
 Validated parameter files
 --------------------------
 
-The parameter files shipped in ``wmx_r2_package/config/`` are the starting
+The parameter files shipped in ``wmx_r2_package/example/`` are the starting
 point for the corresponding robot model:
 
 .. list-table::
@@ -213,7 +219,7 @@ point for the corresponding robot model:
      - ``cr5a_manipulator_config.yaml``
    * - ``diffbot_wmx_parameters.xml``
      - Differential-drive base
-     - ``diffbot_navigation_config.yaml``
+     - ``diffbot_differential_config.yaml``
 
 .. warning::
 
@@ -232,9 +238,9 @@ There is no supported path that consists only of editing configuration. At
 minimum you need:
 
 1. **EtherCAT compatibility.** Drives reachable by the WMX EtherCAT master,
-   with an ENI file present in ``wmx-r2/eni/`` for each slave, in a supported
-   CoE mode (position mode for the manipulators, velocity mode for the
-   differential-drive base).
+   with a matching ESI file in ``/opt/wmx3/ESI/`` for each slave, in a
+   supported CoE mode (position mode for the manipulators, velocity mode for
+   the differential-drive base).
 2. **A parameter file.** Gear ratio numerator and denominator, polarity,
    command mode, and limits for every axis, derived from the drive and
    mechanical specifications — see :doc:`robot_parameters`.
