@@ -22,9 +22,9 @@ Isaac Sim Desktop Setup
 1. Download
 ~~~~~~~~~~~
 
-Download Isaac Sim 5.0.0 (the ``isaac-sim-standalone-5.0.0-linux-x86_64.zip``
-package) from the `Isaac Sim download page
-<https://docs.isaacsim.omniverse.nvidia.com/latest/installation/download.html>`_.
+Download `Isaac Sim 5.1.0
+<https://docs.isaacsim.omniverse.nvidia.com/5.1.0/installation/download.html>`_
+(the ``isaac-sim-standalone-5.1.0-linux-x86_64.zip`` package).
 
 2. Install
 ~~~~~~~~~~
@@ -33,7 +33,7 @@ package) from the `Isaac Sim download page
 
    mkdir ~/isaacsim
    cd ~/Downloads
-   unzip "isaac-sim-standalone-5.0.0-linux-x86_64.zip" -d ~/isaacsim
+   unzip "isaac-sim-standalone-5.1.0-linux-x86_64.zip" -d ~/isaacsim
    cd ~/isaacsim
    ./post_install.sh
 
