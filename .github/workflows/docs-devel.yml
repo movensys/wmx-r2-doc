@@ -26,8 +26,6 @@ jobs:
         run: pip install -r doc/requirements.txt
 
       - name: Build Sphinx documentation
-        env:
-          DOCS_GIT_REF: devel
         run: sphinx-build doc doc/_build
 
       - name: Deploy to GitHub Pages (devel subdir)

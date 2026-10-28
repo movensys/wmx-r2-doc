@@ -5,10 +5,6 @@ WMX R2 keeps its topic surface small on purpose. Commands are services and
 actions; topics carry only streamed data — feedback going out, and
 trajectory or velocity streams coming in.
 
-.. contents:: On this page
-   :local:
-   :depth: 2
-
 Topic summary
 -------------
 

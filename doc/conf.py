@@ -1,8 +1,3 @@
-import os
-import sys
-
-sys.path.insert(0, os.path.abspath('_ext'))
-
 # -- Project information -----------------------------------------------------
 project = 'WMX R2 Documentation'
 copyright = '2026, MOVENSYS'
@@ -17,12 +12,7 @@ extensions = [
     'sphinx.ext.todo',       # TODO directives
     'sphinxcontrib.mermaid', # Mermaid diagram support
     'sphinx_design',         # Tabs, cards, grids
-    'git_ref',               # Clone commands follow the version (_ext/git_ref.py)
 ]
-
-# Git ref (branch or tag) this build documents: main, release-0.1, ...
-# CI sets DOCS_GIT_REF; local builds default to main. See _ext/git_ref.py.
-git_ref = os.environ.get('DOCS_GIT_REF', 'main')
 
 # Markdown support
 source_suffix = {
@@ -63,6 +53,7 @@ mermaid_init_config = {
 html_theme = 'pydata_sphinx_theme'
 html_static_path = ['_static']
 html_css_files = ['custom.css']
+html_js_files = ['toc-sidebar.js']
 
 html_logo = '_static/movensys_logo.png'
 html_favicon = '_static/movensys_logo.png'
@@ -85,7 +76,6 @@ html_theme_options = {
     "navbar_align": "left",
     "navigation_depth": 2,
     "show_nav_level": 1,
-    "show_toc_level": 2,
     "collapse_navigation": True,
     "navbar_start": ["navbar-logo"],
     "navbar_center": [],
@@ -94,7 +84,7 @@ html_theme_options = {
     "sidebar_includehidden": True,
     "footer_start": [],
     "footer_end": [],
-    "secondary_sidebar_items": ["page-toc"],
+    "secondary_sidebar_items": [],
 }
 
 html_sidebars = {

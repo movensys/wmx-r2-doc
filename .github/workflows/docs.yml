@@ -26,12 +26,7 @@ jobs:
         run: pip install -r doc/requirements.txt
 
       - name: Build Sphinx documentation
-        env:
-          DOCS_GIT_REF: main
         run: sphinx-build doc doc/_build
-
-      - name: Write version switcher list
-        run: python3 .github/scripts/make_switcher.py doc/_build/switcher.json
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
