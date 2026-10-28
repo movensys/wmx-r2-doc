@@ -45,10 +45,6 @@ The services come from the five nodes started by
    ``wmx_engine_node`` and ``wmx_lifecycle_manager_node`` are ordinary nodes
    and are always up.
 
-.. contents:: On this page
-   :local:
-   :depth: 2
-
 Service summary
 ---------------
 

@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=cd36b759" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=bcda8ffe" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
@@ -403,30 +403,36 @@ mermaid.initialize(
 window.addEventListener("load", load);
 window.runMermaid = runMermaid;</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'examples/testing_wmx_r2';</script>
-    <script>
-        DOCUMENTATION_OPTIONS.theme_version = '0.19.0';
-        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://movensys.github.io/wmx-r2-doc/switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'devel';
-        DOCUMENTATION_OPTIONS.show_version_warning_banner =
-            false;
-        </script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/toc-sidebar.js?v=ae5e43d1"></script>
     <link rel="icon" href="../_static/movensys_logo.png"/>
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="NVIDIA Isaac Setup (Optional)" href="isaacsim_setup.html" />
     <link rel="prev" title="Example Applications" href="examples.html" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Oct 22, 2026"/>
+    <meta name="docbuild:last-update" content="Oct 28, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
     <script src="../_static/language_data.js"></script>
     <script src="../searchindex.js"></script>
   
+<script>
+  try {
+    if (localStorage.getItem("toc-hidden") === "1") {
+      document.documentElement.classList.add("toc-hidden");
+    }
+    var tocWidth = localStorage.getItem("toc-width");
+    if (tocWidth) {
+      document.documentElement.style.setProperty("--toc-width", tocWidth);
+    }
+  } catch (e) {}
+</script>
   </head>
   <body data-default-mode="light">
   
@@ -552,10 +558,6 @@ window.runMermaid = runMermaid;</script>
     </div>
   
 
-  
-    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
-      <span class="fa-solid fa-outdent"></span>
-    </button>
   
 </div>
 
@@ -707,50 +709,6 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 });
 </script></div>
-        <div class="sidebar-primary-item"><div class="sidebar-version-switcher">
-  <p class="sidebar-version-switcher__title">Version</p>
-  
-<div class="version-switcher__container dropdown pst-js-only">
-  <button id="pst-version-switcher-button-2"
-    type="button"
-    class="version-switcher__button btn btn-sm dropdown-toggle"
-    data-bs-toggle="dropdown"
-    aria-haspopup="listbox"
-    aria-controls="pst-version-switcher-list-2"
-    aria-label="Version switcher list"
-  >
-    Choose version  <!-- this text may get changed later by javascript -->
-    <span class="caret"></span>
-  </button>
-  <div id="pst-version-switcher-list-2"
-    class="version-switcher__menu dropdown-menu list-group-flush py-0"
-    role="listbox" aria-labelledby="pst-version-switcher-button-2">
-    <!-- dropdown will be populated by javascript on page load -->
-  </div>
-</div>
-</div>
-<style>
-  .sidebar-version-switcher {
-    margin-top: 1.5rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--pst-color-border);
-  }
-  .sidebar-version-switcher__title {
-    margin: 0 0 0.5rem;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--pst-color-text-muted);
-  }
-  .sidebar-version-switcher .version-switcher__button {
-    width: 100%;
-    text-align: left;
-  }
-  .sidebar-version-switcher .version-switcher__menu {
-    width: 100%;
-  }
-</style></div>
     </div>
   
   
@@ -1108,7 +1066,7 @@ axis in each of its arrays: <code class="docutils literal notranslate"><span cla
 <code class="docutils literal notranslate"><span class="pre">actual_torque</span></code>. It is the single best thing to keep echoing in a second
 terminal.</p>
 <p>The full interface list is in <a class="reference internal" href="../api_reference/ros2_services.html"><span class="doc">ROS2 Services</span></a> and
-<a class="reference internal" href="../api_reference/ros2_topics.html"><span class="doc">ROS2 Topics</span></a>, and in the <a class="reference external" href="https://github.com/movensys/wmx-r2/blob/devel/doc/reference_general_nodes.md">general nodes reference</a>.</p>
+<a class="reference internal" href="../api_reference/ros2_topics.html"><span class="doc">ROS2 Topics</span></a>, and in the <a class="reference external" href="https://github.com/movensys/wmx-r2/blob/main/doc/reference_general_nodes.md">general nodes reference</a>.</p>
 </section>
 <section id="bring-the-axes-online">
 <h2>5. Bring the axes online<a class="headerlink" href="#bring-the-axes-online" title="Link to this heading">#</a></h2>
@@ -1508,38 +1466,6 @@ EtherCAT communication, and close the WMX device.</p>
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-<div
-    id="pst-page-navigation-heading-2"
-    class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> On this page
-  </div>
-  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
-    <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-the-operation-mode">1. Set the operation mode</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#launch-the-general-nodes">2. Launch the general nodes</a><ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-happens-at-startup">What happens at startup</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#typical-startup-sequence">3. Typical startup sequence</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#verify-the-nodes-are-up">4. Verify the nodes are up</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bring-the-axes-online">5. Bring the axes online</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#command-motion">6. Command motion</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jog-an-axis-hold-to-move">7. Jog an axis (hold to move)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-and-write-digital-i-o">8. Read and write digital I/O</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ethercat-diagnostics">9. EtherCAT diagnostics</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#engine-and-device-control">10. Engine and device control</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shutdown">11. Shutdown</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next steps</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
-              
             
           </div>
           <footer class="bd-footer-content">
@@ -1564,7 +1490,7 @@ EtherCAT communication, and close the WMX device.</p>
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Oct 22, 2026</p>
+      <p>Last updated: Oct 28, 2026</p>
     
   </div>
   <div class="movensys-footer__links">

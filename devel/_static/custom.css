@@ -122,6 +122,7 @@ html[data-theme="light"] {
 
 /* "Table of Contents" / "Contents" header — matches NVIDIA Isaac ROS */
 .sidebar-toc-header {
+    position: relative;
     padding: 1.5rem 1rem 0.75rem 1rem;
 }
 
@@ -237,12 +238,6 @@ html[data-theme="light"] {
     margin-right: 0.4rem;
     border-radius: 2px;
     vertical-align: middle;
-}
-
-/* ---------- Table of Contents (right sidebar) ---------- */
-.bd-sidebar-secondary .toc-entry a.active {
-    color: var(--movensys-green-dark);
-    border-left-color: var(--movensys-green);
 }
 
 /* ---------- Buttons & Interactive Elements ---------- */
@@ -489,4 +484,92 @@ a.sd-btn.wmx-download-btn {
     padding: 0.6rem 1.4rem;
     font-weight: 600;
     margin: 0.25rem 0 0.75rem;
+}
+
+/* ---------- Table of Contents: hide/show and drag to resize ----------
+   Wide screens only; below 960px the theme shows the sidebar as a drawer.
+   Behaviour lives in _static/toc-sidebar.js. */
+.toc-hide-button,
+.toc-show-button,
+.toc-resize-handle {
+    display: none;
+}
+
+@media (min-width: 960px) {
+    .bd-sidebar-primary {
+        width: var(--toc-width, var(--pst-sidebar-primary-width));
+    }
+
+    .toc-hide-button {
+        display: inline-flex;
+        position: absolute;
+        top: 1.4rem;
+        right: 0.5rem;
+        padding: 0.25rem 0.45rem;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        background: none;
+        color: var(--movensys-gray);
+        cursor: pointer;
+    }
+
+    .toc-hide-button:hover {
+        border-color: #e0e0e0;
+        color: var(--movensys-green-dark);
+    }
+
+    .toc-show-button {
+        position: sticky;
+        top: calc(var(--pst-header-height) + 1.5rem);
+        align-self: flex-start;
+        flex: 0 0 auto;
+        margin-top: 1.5rem;
+        z-index: 10;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.4rem 0.75rem;
+        border: 1px solid #e0e0e0;
+        border-left: 0;
+        border-radius: 0 4px 4px 0;
+        background-color: #fff;
+        color: #333;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .toc-show-button:hover {
+        color: var(--movensys-green-dark);
+    }
+
+    .toc-resize-handle {
+        display: block;
+        flex: 0 0 6px;
+        margin-left: -6px;
+        position: sticky;
+        top: var(--pst-header-height);
+        height: calc(100vh - var(--pst-header-height));
+        z-index: 10;
+        cursor: col-resize;
+    }
+
+    .toc-resize-handle:hover,
+    .toc-resizing .toc-resize-handle {
+        background-color: var(--movensys-green);
+    }
+
+    .toc-resizing,
+    .toc-resizing * {
+        cursor: col-resize !important;
+        user-select: none;
+    }
+
+    .toc-hidden .bd-sidebar-primary,
+    .toc-hidden .toc-resize-handle {
+        display: none;
+    }
+
+    .toc-hidden .toc-show-button {
+        display: inline-flex;
+    }
 }

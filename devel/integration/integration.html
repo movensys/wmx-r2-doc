@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=cd36b759" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=bcda8ffe" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
@@ -208,7 +208,7 @@ const runMermaid = async (rerun) => {
                                     // Apply zoom to the now-rendered diagram, matching
                                     // the decoration visible diagrams receive.
                                     if (true) {
-                                        addZoomToSvgs(d3.selectAll(".mermaid[data-zoom-id=id-66bde0e8-2812-49b2-a6f7-c728b1bd7347]").select(function() {
+                                        addZoomToSvgs(d3.selectAll(".mermaid[data-zoom-id=id-13445349-360c-44a4-aa0e-0abbfbb1e9b2]").select(function() {
                                             return this.querySelector("svg");
                                         }));
                                     }
@@ -234,7 +234,7 @@ const runMermaid = async (rerun) => {
     if (true) {
         const mermaids_to_add_zoom = 1 === -1 ? mermaids_active.length : 1;
         if(mermaids_to_add_zoom > 0) {
-            var svgs = d3.selectAll(".mermaid[data-zoom-id=id-66bde0e8-2812-49b2-a6f7-c728b1bd7347]").select(function() {
+            var svgs = d3.selectAll(".mermaid[data-zoom-id=id-13445349-360c-44a4-aa0e-0abbfbb1e9b2]").select(function() {
                 return this.querySelector("svg");
             });
             // Wait until every active (visible) diagram has rendered. Deferred
@@ -404,30 +404,36 @@ mermaid.initialize(
 window.addEventListener("load", load);
 window.runMermaid = runMermaid;</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'integration/integration';</script>
-    <script>
-        DOCUMENTATION_OPTIONS.theme_version = '0.19.0';
-        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://movensys.github.io/wmx-r2-doc/switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'devel';
-        DOCUMENTATION_OPTIONS.show_version_warning_banner =
-            false;
-        </script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/toc-sidebar.js?v=ae5e43d1"></script>
     <link rel="icon" href="../_static/movensys_logo.png"/>
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="MoveIt2 Motion Planning" href="moveit2_integration.html" />
     <link rel="prev" title="Hardware Compatibility and Validation" href="../try_your_robot/validated_hardware.html" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Oct 22, 2026"/>
+    <meta name="docbuild:last-update" content="Oct 28, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
     <script src="../_static/language_data.js"></script>
     <script src="../searchindex.js"></script>
   
+<script>
+  try {
+    if (localStorage.getItem("toc-hidden") === "1") {
+      document.documentElement.classList.add("toc-hidden");
+    }
+    var tocWidth = localStorage.getItem("toc-width");
+    if (tocWidth) {
+      document.documentElement.style.setProperty("--toc-width", tocWidth);
+    }
+  } catch (e) {}
+</script>
   </head>
   <body data-default-mode="light">
   
@@ -704,50 +710,6 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 });
 </script></div>
-        <div class="sidebar-primary-item"><div class="sidebar-version-switcher">
-  <p class="sidebar-version-switcher__title">Version</p>
-  
-<div class="version-switcher__container dropdown pst-js-only">
-  <button id="pst-version-switcher-button-2"
-    type="button"
-    class="version-switcher__button btn btn-sm dropdown-toggle"
-    data-bs-toggle="dropdown"
-    aria-haspopup="listbox"
-    aria-controls="pst-version-switcher-list-2"
-    aria-label="Version switcher list"
-  >
-    Choose version  <!-- this text may get changed later by javascript -->
-    <span class="caret"></span>
-  </button>
-  <div id="pst-version-switcher-list-2"
-    class="version-switcher__menu dropdown-menu list-group-flush py-0"
-    role="listbox" aria-labelledby="pst-version-switcher-button-2">
-    <!-- dropdown will be populated by javascript on page load -->
-  </div>
-</div>
-</div>
-<style>
-  .sidebar-version-switcher {
-    margin-top: 1.5rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--pst-color-border);
-  }
-  .sidebar-version-switcher__title {
-    margin: 0 0 0.5rem;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--pst-color-text-muted);
-  }
-  .sidebar-version-switcher .version-switcher__button {
-    width: 100%;
-    text-align: left;
-  }
-  .sidebar-version-switcher .version-switcher__menu {
-    width: 100%;
-  }
-</style></div>
     </div>
   
   
@@ -804,7 +766,7 @@ standalone applications.</p>
 <p>Use the decision tree below to find the right integration for your use case,
 then follow the corresponding guide.</p>
 <figure class="align-default" id="id1">
-<pre data-zoom-id="id-66bde0e8-2812-49b2-a6f7-c728b1bd7347" class="mermaid">
+<pre data-zoom-id="id-13445349-360c-44a4-aa0e-0abbfbb1e9b2" class="mermaid">
         %%{init: {&quot;theme&quot;: &quot;base&quot;, &quot;themeVariables&quot;: {&quot;primaryColor&quot;: &quot;#2563eb&quot;, &quot;primaryTextColor&quot;: &quot;#0f172a&quot;, &quot;primaryBorderColor&quot;: &quot;#1e40af&quot;, &quot;lineColor&quot;: &quot;#475569&quot;, &quot;fontSize&quot;: &quot;14px&quot;, &quot;edgeLabelBackground&quot;: &quot;#f1f5f9&quot;, &quot;tertiaryColor&quot;: &quot;#f1f5f9&quot;}}}%%
 flowchart TD
     START([&quot; What do I need? &quot;])
@@ -1008,7 +970,7 @@ through a FastAPI service (an application layer on top of MoveIt2)</p></li>
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Oct 22, 2026</p>
+      <p>Last updated: Oct 28, 2026</p>
     
   </div>
   <div class="movensys-footer__links">
