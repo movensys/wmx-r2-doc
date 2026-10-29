@@ -26,7 +26,17 @@ rst_prolog = """
 """
 
 templates_path = ['_templates']
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', '_redirects']
+
+# -- Redirects ---------------------------------------------------------------
+# Copied verbatim into the build output. GitHub Pages is deployed with
+# ``keep_files: true``, so a page that is renamed keeps serving its old, stale
+# HTML at the old URL forever. A stub here overwrites it with a redirect.
+#
+#   examples/Testing WMX R2.html -> examples/testing_wmx_r2.html
+#
+# Add a stub whenever a published page is renamed or moved.
+html_extra_path = ['_redirects']
 
 # -- Mermaid ----------------------------------------------------------------
 # Render diagrams at their natural size instead of clamping every SVG to the
@@ -43,6 +53,7 @@ mermaid_init_config = {
 html_theme = 'pydata_sphinx_theme'
 html_static_path = ['_static']
 html_css_files = ['custom.css']
+html_js_files = ['toc-sidebar.js']
 
 html_logo = '_static/movensys_logo.png'
 html_favicon = '_static/movensys_logo.png'
@@ -65,7 +76,6 @@ html_theme_options = {
     "navbar_align": "left",
     "navigation_depth": 2,
     "show_nav_level": 1,
-    "show_toc_level": 2,
     "collapse_navigation": True,
     "navbar_start": ["navbar-logo"],
     "navbar_center": [],
@@ -74,7 +84,7 @@ html_theme_options = {
     "sidebar_includehidden": True,
     "footer_start": [],
     "footer_end": [],
-    "secondary_sidebar_items": ["page-toc"],
+    "secondary_sidebar_items": [],
 }
 
 html_sidebars = {
