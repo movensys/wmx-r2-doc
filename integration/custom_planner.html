@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=cd36b759" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=bcda8ffe" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
@@ -46,22 +46,35 @@
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'integration/custom_planner';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/toc-sidebar.js?v=ae5e43d1"></script>
     <link rel="icon" href="../_static/movensys_logo.png"/>
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Building Custom Applications" href="custom_application.html" />
     <link rel="prev" title="Nav2 Navigation (Mobile Base)" href="nav2_integration.html" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Sep 08, 2026"/>
+    <meta name="docbuild:last-update" content="Oct 29, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
     <script src="../_static/language_data.js"></script>
     <script src="../searchindex.js"></script>
   
+<script>
+  try {
+    if (localStorage.getItem("toc-hidden") === "1") {
+      document.documentElement.classList.add("toc-hidden");
+    }
+    var tocWidth = localStorage.getItem("toc-width");
+    if (tocWidth) {
+      document.documentElement.style.setProperty("--toc-width", tocWidth);
+    }
+  } catch (e) {}
+</script>
   </head>
   <body data-default-mode="light">
   
@@ -188,10 +201,6 @@
   
 
   
-    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
-      <span class="fa-solid fa-outdent"></span>
-    </button>
-  
 </div>
 
     </header>
@@ -254,8 +263,8 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/examples.html">Example Applications</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../examples/Testing%20WMX%20R2.html">Testing WMX R2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../examples/isaacsim_setup.html">NVIDIA Isaac ROS Setup (Optional)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/testing_wmx_r2.html">Testing WMX R2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/isaacsim_setup.html">NVIDIA Isaac Setup (Optional)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator.html">movensys-manipulator</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/trajectory_planning.html">Trajectory Planning</a></li>
@@ -275,6 +284,14 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../try_your_robot/index.html">Try Your Robot</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/wmx_web_tools.html">WMX Web Tools (WOS, NetConfigurator, MotionScope)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/robot_parameters.html">Robot Parameter Configuration and Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/first_motion.html">First Motion on Hardware</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/safety.html">Safety Functions and Responsibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/validated_hardware.html">Hardware Compatibility and Validation</a></li>
+</ul>
+</li>
 <li class="toctree-l1 current"><a class="reference internal" href="integration.html">Integration Scenarios</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="moveit2_integration.html">MoveIt2 Motion Planning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cumotion_integration.html">Isaac cuMotion Accelerated Planning</a></li>
@@ -284,13 +301,6 @@
 <li class="toctree-l2"><a class="reference internal" href="intelligence_integration.html">Natural-Language and Vision Control (VLM / LLM)</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../commissioning/index.html">Commissioning</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../commissioning/robot_parameters.html">Robot Parameter Configuration and Validation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../commissioning/first_motion.html">Commissioning and First Motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../commissioning/safety.html">Safety Functions and Responsibility</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../commissioning/validated_hardware.html">Hardware Compatibility and Validation</a></li>
-</ul>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="../api_reference/api_reference.html">API Reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/communication.html">Communication Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_services.html">ROS2 Services</a></li>
@@ -298,6 +308,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_actions.html">ROS2 Actions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_message.html">wmx_r2_message</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_package.html">wmx_r2_package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_control.html">wmx_r2_control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx3_api.html">The WMX3 API Underneath WMX R2</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../support.html">Support</a><ul>
@@ -662,31 +674,42 @@ ensure the robot workspace is clear before running.</p>
 </section>
 <section id="standalone-axis-control">
 <h2>Standalone Axis Control<a class="headerlink" href="#standalone-axis-control" title="Link to this heading">#</a></h2>
-<p>For applications that don’t use trajectory-based planning, the
-<code class="docutils literal notranslate"><span class="pre">wmx_core_motion_node</span></code> provides direct axis control through:</p>
+<p>For applications that do not use trajectory-based planning,
+<code class="docutils literal notranslate"><span class="pre">wmx_core_motion_node</span></code> provides direct axis control through <strong>services</strong>:</p>
 <ul class="simple">
-<li><p><strong>Velocity commands</strong> via <code class="docutils literal notranslate"><span class="pre">/wmx/axis/velocity</span></code>
-(<code class="docutils literal notranslate"><span class="pre">wmx_r2_message/msg/AxisVelocity</span></code>)</p></li>
-<li><p><strong>Absolute position commands</strong> via <code class="docutils literal notranslate"><span class="pre">/wmx/axis/position</span></code>
-(<code class="docutils literal notranslate"><span class="pre">wmx_r2_message/msg/AxisPose</span></code>)</p></li>
-<li><p><strong>Relative position commands</strong> via <code class="docutils literal notranslate"><span class="pre">/wmx/axis/position/relative</span></code>
-(<code class="docutils literal notranslate"><span class="pre">wmx_r2_message/msg/AxisPose</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/wmx/axes/start_pos</span></code> — absolute move
+(<code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/StartAxesPose</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/wmx/axes/start_mov</span></code> — relative move
+(<code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/StartAxesPose</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/wmx/axes/start_vel</span></code> — constant velocity
+(<code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/StartAxesVelocity</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/wmx/axes/start_jog</span></code> — dead-man jog
+(<code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/StartAxesVelocity</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/wmx/axes/stop</span></code> — controlled stop (<code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/SetAxes</span></code>)</p></li>
 </ul>
-<p>These topics bypass the action server and control motors directly using
-<code class="docutils literal notranslate"><span class="pre">CoreMotion::StartVel()</span></code>, <code class="docutils literal notranslate"><span class="pre">CoreMotion::StartPos()</span></code>, and
-<code class="docutils literal notranslate"><span class="pre">CoreMotion::StartMov()</span></code> respectively. All commands use trapezoidal
-velocity profiles.</p>
-<p>See <a class="reference internal" href="custom_application.html"><span class="doc">Building Custom Applications</span></a> for Python examples using direct axis control
-and <a class="reference internal" href="../api_reference/ros2_topics.html"><span class="doc">ROS2 Topics</span></a> for message field details.</p>
-<p>The full setup sequence for standalone axis control is documented in
-<a class="reference internal" href="../api_reference/ros2_services.html"><span class="doc">ROS2 Services</span></a> (Service Call Workflow section).</p>
+<p>These bypass the action server and drive the motors through
+<code class="docutils literal notranslate"><span class="pre">CoreMotion::StartPos()</span></code>, <code class="docutils literal notranslate"><span class="pre">StartMov()</span></code>, <code class="docutils literal notranslate"><span class="pre">StartVel()</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">StartJog()</span></code>, with trapezoidal velocity profiles.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>They are <strong>mutually exclusive with a running controller.</strong> While
+<code class="docutils literal notranslate"><span class="pre">joint_trajectory_controller</span></code>, <code class="docutils literal notranslate"><span class="pre">joint_position_controller</span></code>, or
+<code class="docutils literal notranslate"><span class="pre">differential_drive_controller</span></code> is <code class="docutils literal notranslate"><span class="pre">active</span></code>, every one of these except
+<code class="docutils literal notranslate"><span class="pre">stop</span></code> answers <code class="docutils literal notranslate"><span class="pre">success:</span> <span class="pre">false</span></code>. If your planner drives the axes
+directly, do not also run the trajectory controller — either deactivate it
+through <code class="docutils literal notranslate"><span class="pre">/wmx/lifecycle/set_node_state</span></code>, or drop it from
+<code class="docutils literal notranslate"><span class="pre">managed_nodes</span></code> in the config YAML.</p>
+</div>
+<p>See <a class="reference internal" href="custom_application.html"><span class="doc">Building Custom Applications</span></a> for Python examples using direct axis control,
+and <a class="reference internal" href="../api_reference/ros2_services.html"><span class="doc">ROS2 Services</span></a> for every field and the startup
+sequence.</p>
 </section>
 <section id="see-also">
 <h2>See Also<a class="headerlink" href="#see-also" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="../api_reference/ros2_actions.html"><span class="doc">ROS2 Actions</span></a> – Complete action interface reference</p></li>
-<li><p><a class="reference internal" href="../api_reference/ros2_topics.html"><span class="doc">ROS2 Topics</span></a> – Topic message formats</p></li>
-<li><p><a class="reference internal" href="../api_reference/ros2_services.html"><span class="doc">ROS2 Services</span></a> – Service call workflow</p></li>
+<li><p><a class="reference internal" href="../api_reference/ros2_actions.html"><span class="doc">ROS2 Actions</span></a> – the <code class="docutils literal notranslate"><span class="pre">FollowJointTrajectory</span></code> contract</p></li>
+<li><p><a class="reference internal" href="../api_reference/ros2_topics.html"><span class="doc">ROS2 Topics</span></a> – topic formats, QoS, and rates</p></li>
+<li><p><a class="reference internal" href="../api_reference/ros2_services.html"><span class="doc">ROS2 Services</span></a> – every service and the startup sequence</p></li>
 <li><p><a class="reference internal" href="custom_application.html"><span class="doc">Building Custom Applications</span></a> – Building custom applications with code examples</p></li>
 <li><p><a class="reference internal" href="moveit2_integration.html"><span class="doc">MoveIt2 Motion Planning</span></a> – MoveIt2 configuration</p></li>
 </ul>
@@ -728,30 +751,6 @@ and <a class="reference internal" href="../api_reference/ros2_topics.html"><span
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-<div
-    id="pst-page-navigation-heading-2"
-    class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> On this page
-  </div>
-  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
-    <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#replacing-the-default-planner">Replacing the Default Planner</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interface-requirements">Interface Requirements</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#constraints-and-limitations">Constraints and Limitations</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-example-custom-trajectory-generator">Python Example: Custom Trajectory Generator</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standalone-axis-control">Standalone Axis Control</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#see-also">See Also</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
-              
             
           </div>
           <footer class="bd-footer-content">
@@ -776,7 +775,7 @@ and <a class="reference internal" href="../api_reference/ros2_topics.html"><span
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Sep 08, 2026</p>
+      <p>Last updated: Oct 29, 2026</p>
     
   </div>
   <div class="movensys-footer__links">

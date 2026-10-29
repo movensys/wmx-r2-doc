@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=cd36b759" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=bcda8ffe" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
@@ -44,7 +44,6 @@
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
-    <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
     <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs";
 
 
@@ -207,8 +206,8 @@ const runMermaid = async (rerun) => {
                                     el.removeAttribute('data-mermaid-deferred');
                                     // Apply zoom to the now-rendered diagram, matching
                                     // the decoration visible diagrams receive.
-                                    if (true) {
-                                        addZoomToSvgs(d3.selectAll(".mermaid[data-zoom-id=id-d9cf2376-f998-43d7-9b6c-9fb688a760a3]").select(function() {
+                                    if (false) {
+                                        addZoomToSvgs(d3.selectAll("").select(function() {
                                             return this.querySelector("svg");
                                         }));
                                     }
@@ -231,10 +230,10 @@ const runMermaid = async (rerun) => {
     const mermaids_active = document.querySelectorAll(".mermaid:not([data-mermaid-deferred]):not([data-mermaid-render-failed])");
     const mermaids_processed = document.querySelectorAll(".mermaid:not([data-mermaid-deferred]):not([data-mermaid-render-failed])[data-processed='true']");
 
-    if (true) {
-        const mermaids_to_add_zoom = 1 === -1 ? mermaids_active.length : 1;
+    if (false) {
+        const mermaids_to_add_zoom = 0 === -1 ? mermaids_active.length : 0;
         if(mermaids_to_add_zoom > 0) {
-            var svgs = d3.selectAll(".mermaid[data-zoom-id=id-d9cf2376-f998-43d7-9b6c-9fb688a760a3]").select(function() {
+            var svgs = d3.selectAll("").select(function() {
                 return this.querySelector("svg");
             });
             // Wait until every active (visible) diagram has rendered. Deferred
@@ -333,7 +332,7 @@ const runMermaid = async (rerun) => {
                 svg.style.maxWidth = '100%';
                 svg.style.display = 'block';
 
-                if (true) {
+                if (false) {
                     setTimeout(() => {
                         const g = svg.querySelector('g');
                         if (g) {
@@ -405,22 +404,35 @@ window.addEventListener("load", load);
 window.runMermaid = runMermaid;</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api_reference/wmx_r2_package';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/toc-sidebar.js?v=ae5e43d1"></script>
     <link rel="icon" href="../_static/movensys_logo.png"/>
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Support" href="../support.html" />
+    <link rel="next" title="wmx_r2_control" href="wmx_r2_control.html" />
     <link rel="prev" title="wmx_r2_message" href="wmx_r2_message.html" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Sep 08, 2026"/>
+    <meta name="docbuild:last-update" content="Oct 29, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
     <script src="../_static/language_data.js"></script>
     <script src="../searchindex.js"></script>
   
+<script>
+  try {
+    if (localStorage.getItem("toc-hidden") === "1") {
+      document.documentElement.classList.add("toc-hidden");
+    }
+    var tocWidth = localStorage.getItem("toc-width");
+    if (tocWidth) {
+      document.documentElement.style.setProperty("--toc-width", tocWidth);
+    }
+  } catch (e) {}
+</script>
   </head>
   <body data-default-mode="light">
   
@@ -547,10 +559,6 @@ window.runMermaid = runMermaid;</script>
   
 
   
-    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
-      <span class="fa-solid fa-outdent"></span>
-    </button>
-  
 </div>
 
     </header>
@@ -613,8 +621,8 @@ window.runMermaid = runMermaid;</script>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/examples.html">Example Applications</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../examples/Testing%20WMX%20R2.html">Testing WMX R2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../examples/isaacsim_setup.html">NVIDIA Isaac ROS Setup (Optional)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/testing_wmx_r2.html">Testing WMX R2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/isaacsim_setup.html">NVIDIA Isaac Setup (Optional)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator.html">movensys-manipulator</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/trajectory_planning.html">Trajectory Planning</a></li>
@@ -634,6 +642,14 @@ window.runMermaid = runMermaid;</script>
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../try_your_robot/index.html">Try Your Robot</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/wmx_web_tools.html">WMX Web Tools (WOS, NetConfigurator, MotionScope)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/robot_parameters.html">Robot Parameter Configuration and Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/first_motion.html">First Motion on Hardware</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/safety.html">Safety Functions and Responsibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/validated_hardware.html">Hardware Compatibility and Validation</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../integration/integration.html">Integration Scenarios</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../integration/moveit2_integration.html">MoveIt2 Motion Planning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../integration/cumotion_integration.html">Isaac cuMotion Accelerated Planning</a></li>
@@ -643,13 +659,6 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l2"><a class="reference internal" href="../integration/intelligence_integration.html">Natural-Language and Vision Control (VLM / LLM)</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../commissioning/index.html">Commissioning</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../commissioning/robot_parameters.html">Robot Parameter Configuration and Validation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../commissioning/first_motion.html">Commissioning and First Motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../commissioning/safety.html">Safety Functions and Responsibility</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../commissioning/validated_hardware.html">Hardware Compatibility and Validation</a></li>
-</ul>
-</li>
 <li class="toctree-l1 current"><a class="reference internal" href="api_reference.html">API Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="communication.html">Communication Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ros2_services.html">ROS2 Services</a></li>
@@ -657,6 +666,8 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l2"><a class="reference internal" href="ros2_actions.html">ROS2 Actions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wmx_r2_message.html">wmx_r2_message</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">wmx_r2_package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wmx_r2_control.html">wmx_r2_control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wmx3_api.html">The WMX3 API Underneath WMX R2</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../support.html">Support</a><ul>
@@ -752,523 +763,426 @@ document.addEventListener("DOMContentLoaded", function() {
 <h1>wmx_r2_package<a class="headerlink" href="#wmx-r2-package" title="Link to this heading">#</a></h1>
 <section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">wmx_r2_package</span></code> is the main application package of the WMX R2
-system. It contains all executable nodes, launch files, and configuration
-files for driving robots — such as the manipulators —
-through the WMX motion control engine over EtherCAT.</p>
-<p>The package provides two groups of nodes:</p>
-<ul class="simple">
-<li><p><strong>General nodes</strong> – <code class="docutils literal notranslate"><span class="pre">wmx_engine_node</span></code>, <code class="docutils literal notranslate"><span class="pre">wmx_core_motion_node</span></code>,
-<code class="docutils literal notranslate"><span class="pre">wmx_io_node</span></code>, and <code class="docutils literal notranslate"><span class="pre">wmx_ethercat_node</span></code> expose the WMX engine, axis,
-I/O, and EtherCAT interfaces as ROS2 services and topics. They are
-robot-agnostic.</p></li>
-<li><p><strong>Manipulator controllers</strong> – <code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code>,
-<code class="docutils literal notranslate"><span class="pre">joint_trajectory_controller</span></code>, and <code class="docutils literal notranslate"><span class="pre">gripper_controller</span></code> add joint-state
-feedback, MoveIt2 trajectory execution, and gripper control for a specific
-robot, configured from a per-robot YAML file.</p></li>
-</ul>
-<p><strong>Package Metadata:</strong></p>
-<div class="pst-scrollable-table-container"><table class="table">
-<colgroup>
-<col style="width: 25.0%" />
-<col style="width: 75.0%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><strong>Package Name</strong></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_package</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><strong>Version</strong></p></td>
-<td><p>0.1.0</p></td>
-</tr>
-<tr class="row-odd"><td><p><strong>License</strong></p></td>
-<td><p>MIT (source code only; the WMX engine and SDK it links against are
-proprietary — see <a class="reference internal" href="../licensing.html"><span class="doc">Licensing</span></a>)</p></td>
-</tr>
-<tr class="row-even"><td><p><strong>Build Type</strong></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">ament_cmake</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><strong>C++ Standard</strong></p></td>
-<td><p>C++17</p></td>
-</tr>
-</tbody>
-</table>
-</div>
+<p><code class="docutils literal notranslate"><span class="pre">wmx_r2_package</span></code> is where WMX R2 actually runs. It holds the ten nodes
+that talk to the WMX3 SDK, the three launch files that start them, and the
+per-robot example configurations.</p>
+<p>Two rules shape the whole package:</p>
+<p><strong>No robot is baked into any launch file.</strong> Every launch file takes its
+paths as arguments — <code class="docutils literal notranslate"><span class="pre">config_file</span></code> and <code class="docutils literal notranslate"><span class="pre">wmx_param_file</span></code>, plus
+<code class="docutils literal notranslate"><span class="pre">urdf_file</span></code> and <code class="docutils literal notranslate"><span class="pre">controllers_file</span></code> on the <code class="docutils literal notranslate"><span class="pre">ros2_control</span></code> variants — so
+one launch file serves every robot of that kind. Moving to a different robot
+changes the files you pass, not the code.</p>
+<p><strong>Every node except the engine and the lifecycle manager is a managed
+(lifecycle) node.</strong> They start <code class="docutils literal notranslate"><span class="pre">unconfigured</span></code> and attach to the WMX device
+only at <code class="docutils literal notranslate"><span class="pre">configure</span></code>. Their ROS interfaces are created at <code class="docutils literal notranslate"><span class="pre">activate</span></code> and
+destroyed at <code class="docutils literal notranslate"><span class="pre">deactivate</span></code>, so an inactive node advertises nothing.</p>
+<figure class="align-default" id="id2">
+<pre  class="mermaid">
+        flowchart TB
+    subgraph GEN[&quot;wmx_r2_general_nodes.launch.py&quot;]
+        ENG[&quot;wmx_engine_node&lt;br/&gt;&lt;i&gt;owns the engine&lt;/i&gt;&quot;]
+        LCM[&quot;wmx_lifecycle_manager_node&lt;br/&gt;&lt;i&gt;drives every managed node&lt;/i&gt;&quot;]
+        CM[&quot;wmx_core_motion_node&lt;br/&gt;&lt;i&gt;lifecycle&lt;/i&gt;&quot;]
+        IO[&quot;wmx_io_node&lt;br/&gt;&lt;i&gt;lifecycle&lt;/i&gt;&quot;]
+        EC[&quot;wmx_ethercat_node&lt;br/&gt;&lt;i&gt;lifecycle&lt;/i&gt;&quot;]
+    end
+
+    subgraph MAN[&quot;+ wmx_r2_manipulator.launch.py&quot;]
+        JSB[&quot;joint_state_broadcaster&quot;]
+        JTC[&quot;joint_trajectory_controller&quot;]
+        JPC[&quot;joint_position_controller&quot;]
+        GC[&quot;gripper_controller&lt;br/&gt;&lt;i&gt;use_gripper:=true&lt;/i&gt;&quot;]
+    end
+
+    subgraph DIF[&quot;+ wmx_r2_differential.launch.py&quot;]
+        JSB2[&quot;joint_state_broadcaster&quot;]
+        DDC[&quot;differential_drive_controller&quot;]
+    end
+
+    ENG --&gt;|engine status| LCM
+    LCM --&gt;|configure / activate| CM &amp; IO &amp; EC
+    LCM --&gt;|configure / activate| JSB &amp; JTC &amp; JPC &amp; GC
+    LCM --&gt;|configure / activate| JSB2 &amp; DDC
+    SDK[&quot;WMX3 SDK  /opt/wmx3&quot;]
+    ENG --&gt; SDK
+    CM --&gt; SDK
+    IO --&gt; SDK
+    EC --&gt; SDK
+    JSB --&gt; SDK
+    JTC --&gt; SDK
+    JPC --&gt; SDK
+    DDC --&gt; SDK
+    </pre><figcaption>
+<p><span class="caption-text">wmx_r2_package node layout</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
 </section>
 <section id="package-structure">
-<h2>Package Structure<a class="headerlink" href="#package-structure" title="Link to this heading">#</a></h2>
+<h2>Package structure<a class="headerlink" href="#package-structure" title="Link to this heading">#</a></h2>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>wmx_r2_package/
-├── CMakeLists.txt
-├── package.xml
-├── include/
-│   ├── wmx_engine_node.hpp               # WmxEngineNode class definition
-│   ├── wmx_core_motion_node.hpp          # WmxCoreMotionNode class definition
-│   ├── wmx_io_node.hpp                   # WmxIoNode class definition
-│   └── wmx_ethercat_node.hpp             # WmxEtherCatNode class definition
 ├── src/
-│   ├── wmx_engine_node.cpp               # Engine lifecycle node
-│   ├── wmx_core_motion_node.cpp          # Axis control + parameter node
-│   ├── wmx_io_node.cpp                   # Digital I/O node
-│   ├── wmx_ethercat_node.cpp             # EtherCAT diagnostics node
-│   ├── joint_state_broadcaster.cpp       # Joint state publisher node
-│   ├── joint_trajectory_controller.cpp   # FollowJointTrajectory action node
-│   └── gripper_controller.cpp            # Gripper control node
+│   ├── wmx_engine_node.cpp                # engine + device
+│   ├── wmx_lifecycle_manager_node.cpp     # lifecycle supervisor
+│   ├── wmx_core_motion_node.cpp           # axes services + status
+│   ├── wmx_io_node.cpp                    # digital I/O
+│   ├── wmx_ethercat_node.cpp              # EtherCAT master
+│   ├── joint_state_broadcaster.cpp        # encoder feedback
+│   ├── joint_trajectory_controller.cpp    # FollowJointTrajectory
+│   ├── joint_position_controller.cpp      # MoveIt Servo stream
+│   ├── gripper_controller.cpp             # gripper output bit
+│   └── differential_drive_controller.cpp  # diff-drive + odometry
+├── include/                               # one header per node
 ├── launch/
 │   ├── wmx_r2_general_nodes.launch.py
-│   ├── wmx_r2_cr3a_manipulator.launch.py
-│   └── wmx_r2_cr5a_manipulator.launch.py
+│   ├── wmx_r2_manipulator.launch.py
+│   └── wmx_r2_differential.launch.py
 ├── config/
+│   ├── wmx_r2_general_nodes_config.yaml   # generic, no robot
+│   └── wmx_parameters.xml
+├── example/
 │   ├── cr3a_manipulator_config.yaml
-│   ├── cr3a_wmx_parameters.xml           # WMX3 axis params for CR3A
+│   ├── cr3a_wmx_parameters.xml
 │   ├── cr5a_manipulator_config.yaml
-│   ├── cr5a_wmx_parameters.xml           # WMX3 axis params for CR5A
-│   └── diffbot_wmx_parameters.xml        # WMX3 axis params for a diff-drive base
-└── test/
+│   ├── cr5a_wmx_parameters.xml
+│   ├── diffbot_differential_config.yaml
+│   └── diffbot_wmx_parameters.xml
+├── test/                                  # launch tests, no hardware needed
+├── CMakeLists.txt
+└── package.xml
 </pre></div>
 </div>
 </section>
 <section id="dependencies">
 <h2>Dependencies<a class="headerlink" href="#dependencies" title="Link to this heading">#</a></h2>
 <section id="package-dependencies-package-xml">
-<h3>Package Dependencies (package.xml)<a class="headerlink" href="#package-dependencies-package-xml" title="Link to this heading">#</a></h3>
+<h3>Package dependencies (<code class="docutils literal notranslate"><span class="pre">package.xml</span></code>)<a class="headerlink" href="#package-dependencies-package-xml" title="Link to this heading">#</a></h3>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;depend&gt;</span>rclcpp<span class="nt">&lt;/depend&gt;</span>
+<span class="nt">&lt;depend&gt;</span>rclcpp_action<span class="nt">&lt;/depend&gt;</span>
+<span class="nt">&lt;depend&gt;</span>rclcpp_lifecycle<span class="nt">&lt;/depend&gt;</span>
+<span class="nt">&lt;depend&gt;</span>lifecycle_msgs<span class="nt">&lt;/depend&gt;</span>
+<span class="nt">&lt;depend&gt;</span>std_srvs<span class="nt">&lt;/depend&gt;</span>
+<span class="nt">&lt;depend&gt;</span>std_msgs<span class="nt">&lt;/depend&gt;</span>
+<span class="nt">&lt;depend&gt;</span>sensor_msgs<span class="nt">&lt;/depend&gt;</span>
+<span class="nt">&lt;depend&gt;</span>control_msgs<span class="nt">&lt;/depend&gt;</span>
+<span class="nt">&lt;depend&gt;</span>trajectory_msgs<span class="nt">&lt;/depend&gt;</span>
+<span class="nt">&lt;depend&gt;</span>geometry_msgs<span class="nt">&lt;/depend&gt;</span>
+<span class="nt">&lt;depend&gt;</span>nav_msgs<span class="nt">&lt;/depend&gt;</span>
+<span class="nt">&lt;depend&gt;</span>tf2<span class="nt">&lt;/depend&gt;</span>
+<span class="nt">&lt;depend&gt;</span>tf2_ros<span class="nt">&lt;/depend&gt;</span>
+<span class="nt">&lt;depend&gt;</span>wmx_r2_message<span class="nt">&lt;/depend&gt;</span>
+
+<span class="nt">&lt;exec_depend&gt;</span>ros2launch<span class="nt">&lt;/exec_depend&gt;</span>
+<span class="nt">&lt;exec_depend&gt;</span>joint_state_publisher<span class="nt">&lt;/exec_depend&gt;</span>
+<span class="nt">&lt;exec_depend&gt;</span>robot_state_publisher<span class="nt">&lt;/exec_depend&gt;</span>
+<span class="nt">&lt;exec_depend&gt;</span>rviz2<span class="nt">&lt;/exec_depend&gt;</span>
+<span class="nt">&lt;exec_depend&gt;</span>xacro<span class="nt">&lt;/exec_depend&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="wmx-libraries-external">
+<h3>WMX libraries (external)<a class="headerlink" href="#wmx-libraries-external" title="Link to this heading">#</a></h3>
+<p>The package compiles against the WMX3 SDK at the CMake cache path
+<code class="docutils literal notranslate"><span class="pre">WMX3_SDK_PATH</span></code>, default <code class="docutils literal notranslate"><span class="pre">/opt/wmx3</span></code>. The same path is compiled in and
+passed to <code class="docutils literal notranslate"><span class="pre">CreateDevice</span></code> at runtime by every node.</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <colgroup>
-<col style="width: 35.0%" />
-<col style="width: 20.0%" />
-<col style="width: 45.0%" />
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>Dependency</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Purpose</p></th>
+<tr class="row-odd"><th class="head"><p>Library</p></th>
+<th class="head"><p>Used for</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ament_cmake</span></code></p></td>
-<td><p>buildtool</p></td>
-<td><p>CMake build system</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">libwmx3api</span></code></p></td>
+<td><p>Device create/close, engine and communication control</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">rclcpp</span></code></p></td>
-<td><p>depend</p></td>
-<td><p>ROS2 C++ client library</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">libcoremotionapi</span></code></p></td>
+<td><p>Axis status, servo power, position/velocity/jog motion</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">rclcpp_action</span></code></p></td>
-<td><p>depend</p></td>
-<td><p>Action server support (FollowJointTrajectory)</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">libadvancedmotionapi</span></code></p></td>
+<td><p>C-spline trajectory execution (<code class="docutils literal notranslate"><span class="pre">joint_trajectory_controller</span></code> only)</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">std_srvs</span></code></p></td>
-<td><p>depend</p></td>
-<td><p>Standard service types (<code class="docutils literal notranslate"><span class="pre">SetBool</span></code>, <code class="docutils literal notranslate"><span class="pre">Trigger</span></code>)</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">libioapi</span></code></p></td>
+<td><p>Digital input and output</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">std_msgs</span></code></p></td>
-<td><p>depend</p></td>
-<td><p>Standard message types (<code class="docutils literal notranslate"><span class="pre">Bool</span></code>, <code class="docutils literal notranslate"><span class="pre">Float64MultiArray</span></code>)</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">sensor_msgs</span></code></p></td>
-<td><p>depend</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">JointState</span></code> messages</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">control_msgs</span></code></p></td>
-<td><p>depend</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">FollowJointTrajectory</span></code> action type</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">trajectory_msgs</span></code></p></td>
-<td><p>depend</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">JointTrajectory</span></code> messages</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message</span></code></p></td>
-<td><p>depend</p></td>
-<td><p>Custom message and service definitions</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ros2launch</span></code></p></td>
-<td><p>exec</p></td>
-<td><p>Launch system</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">joint_state_publisher</span></code></p></td>
-<td><p>exec</p></td>
-<td><p>Joint state publishing utilities</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">robot_state_publisher</span></code></p></td>
-<td><p>exec</p></td>
-<td><p>Robot TF broadcasting</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">rviz2</span></code></p></td>
-<td><p>exec</p></td>
-<td><p>Visualization</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">xacro</span></code></p></td>
-<td><p>exec</p></td>
-<td><p>URDF preprocessing</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">libecapi</span></code></p></td>
+<td><p>EtherCAT master and slave diagnostics</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-</section>
-<section id="cmake-dependencies-find-package">
-<h3>CMake Dependencies (find_package)<a class="headerlink" href="#cmake-dependencies-find-package" title="Link to this heading">#</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">ament_cmake</span></code>, <code class="docutils literal notranslate"><span class="pre">rclcpp</span></code>, <code class="docutils literal notranslate"><span class="pre">rclcpp_action</span></code>, <code class="docutils literal notranslate"><span class="pre">std_msgs</span></code>, <code class="docutils literal notranslate"><span class="pre">std_srvs</span></code>,
-<code class="docutils literal notranslate"><span class="pre">sensor_msgs</span></code>, <code class="docutils literal notranslate"><span class="pre">control_msgs</span></code>, <code class="docutils literal notranslate"><span class="pre">trajectory_msgs</span></code>, and
-<code class="docutils literal notranslate"><span class="pre">wmx_r2_message</span></code>.</p>
-</section>
-<section id="wmx-libraries-external">
-<h3>WMX Libraries (External)<a class="headerlink" href="#wmx-libraries-external" title="Link to this heading">#</a></h3>
-<p>Executables link against the WMX shared libraries at <code class="docutils literal notranslate"><span class="pre">/opt/wmx3/lib/</span></code>.
-Each node links only the libraries it needs:</p>
-<div class="pst-scrollable-table-container"><table class="table">
-<colgroup>
-<col style="width: 32.0%" />
-<col style="width: 40.0%" />
-<col style="width: 28.0%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Library</p></th>
-<th class="head"><p>Executable(s)</p></th>
-<th class="head"><p>Purpose</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">libwmx3api.so</span></code> / <code class="docutils literal notranslate"><span class="pre">libimdll.so</span></code></p></td>
-<td><p>All nodes</p></td>
-<td><p>Core WMX device/engine management (and internal dependency)</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">libcoremotionapi.so</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">wmx_core_motion_node</span></code>, <code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code>,
-<code class="docutils literal notranslate"><span class="pre">joint_trajectory_controller</span></code>, <code class="docutils literal notranslate"><span class="pre">gripper_controller</span></code></p></td>
-<td><p>Position, velocity, and axis control</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">libadvancedmotionapi.so</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">joint_trajectory_controller</span></code></p></td>
-<td><p>Cubic spline trajectory execution</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">libioapi.so</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">wmx_io_node</span></code>, <code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code>, <code class="docutils literal notranslate"><span class="pre">gripper_controller</span></code></p></td>
-<td><p>Digital I/O (gripper control)</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">libecapi.so</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">wmx_engine_node</span></code>, <code class="docutils literal notranslate"><span class="pre">wmx_ethercat_node</span></code></p></td>
-<td><p>EtherCAT network scan and diagnostics</p></td>
-</tr>
-</tbody>
-</table>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>At <strong>runtime</strong> the dynamic linker must find the SDK’s shared libraries
+(<code class="docutils literal notranslate"><span class="pre">libimdll.so</span></code> and friends): either an <code class="docutils literal notranslate"><span class="pre">ld.so.conf.d</span></code> entry for
+<code class="docutils literal notranslate"><span class="pre">/opt/wmx3/lib</span></code> — the SDK installer’s default — or
+<code class="docutils literal notranslate"><span class="pre">LD_LIBRARY_PATH=/opt/wmx3/lib</span></code>. This matters in containers that only
+mount the SDK.</p>
+<p>Manipulator and differential launches need <strong>root</strong> for real-time
+scheduling. Start them with <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">--preserve-env</span></code> on the host, or with
+<code class="docutils literal notranslate"><span class="pre">wros</span></code> in the container.</p>
 </div>
 </section>
 </section>
 <section id="node-coordination">
-<h2>Node Coordination<a class="headerlink" href="#node-coordination" title="Link to this heading">#</a></h2>
-<p>Nodes start up in a fixed order, coordinated by two <code class="docutils literal notranslate"><span class="pre">ready</span></code> heartbeat
-topics so that dependent nodes only activate once the engine and motion
-layers are live:</p>
-<figure class="align-default" id="id1">
-<pre data-zoom-id="id-d9cf2376-f998-43d7-9b6c-9fb688a760a3" class="mermaid">
-        sequenceDiagram
-    participant E as wmx_engine_node
-    participant C as wmx_core_motion_node
-    participant I as wmx_io_node / wmx_ethercat_node
-    participant M as manipulator controllers
+<h2>Node coordination<a class="headerlink" href="#node-coordination" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">wmx_engine_node</span></code> owns the WMX3 engine and nothing else.
+<code class="docutils literal notranslate"><span class="pre">wmx_lifecycle_manager_node</span></code> watches it and drives every other node.</p>
+<p>While the engine is communicating, every managed node found on the graph is
+brought up to <code class="docutils literal notranslate"><span class="pre">active</span></code>; a node that joins late or respawns is picked up on
+a later sweep. When the engine stops or its device is closed, all of them are
+deactivated and cleaned back to <code class="docutils literal notranslate"><span class="pre">unconfigured</span></code>, because their device
+handles are dead, and brought up again when the engine returns.</p>
+<p>This is not limited to WMX nodes. Any managed node in the same namespace — a
+lifecycle <code class="docutils literal notranslate"><span class="pre">joint_state_publisher</span></code>, a Nav2 node, one of your own — is driven
+the same way. Order it with the manager’s <code class="docutils literal notranslate"><span class="pre">managed_nodes</span></code> parameter, or
+drive nodes by hand through <code class="docutils literal notranslate"><span class="pre">/wmx/lifecycle/set_node_state</span></code>.</p>
+<figure class="align-default" id="id3">
+<pre  class="mermaid">
+        stateDiagram-v2
+    direction LR
+    [*] --&gt; unconfigured : process starts
 
-    E-&gt;&gt;E: CreateDevice + StartCommunication
-    E--&gt;&gt;C: /wmx/engine/ready (Bool)
-    E--&gt;&gt;I: /wmx/engine/ready (Bool)
-    E--&gt;&gt;M: /wmx/engine/ready (Bool)
-    C--&gt;&gt;M: /wmx/core_motion/ready (Bool)
-    Note over M: joint_state_broadcaster waits on&lt;br/&gt;/wmx/core_motion/ready before publishing
+    unconfigured --&gt; inactive : configure
+    inactive --&gt; unconfigured : cleanup
+    inactive --&gt; active : activate
+    active --&gt; inactive : deactivate
+    unconfigured --&gt; [*] : shutdown
+
+    note left of unconfigured
+        No WMX device.
+        No ROS interfaces.
+    end note
+
+    note right of inactive
+        WMX device attached
+        (CreateDevice done).
+        Still no ROS interfaces.
+    end note
+
+    note right of active
+        Publishers, subscriptions,
+        services, action servers
+        and timers exist.
+        This is the only state
+        that answers.
+    end note
     </pre><figcaption>
-<p><span class="caption-text">Node startup coordination via ready signals</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+<p><span class="caption-text">What each lifecycle state means for a WMX node</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
+<div class="pst-scrollable-table-container"><table class="table" id="id4">
+<caption><span class="caption-text">What drives the transitions</span><a class="headerlink" href="#id4" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Trigger</p></th>
+<th class="head"><p>Effect</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Engine reaches <code class="docutils literal notranslate"><span class="pre">Communicating</span></code></p></td>
+<td><p>The manager brings every managed node up to <code class="docutils literal notranslate"><span class="pre">active</span></code>, in
+<code class="docutils literal notranslate"><span class="pre">managed_nodes</span></code> order</p></td>
+</tr>
+<tr class="row-odd"><td><p>Engine stops, or its device closes</p></td>
+<td><p>Every node is deactivated and cleaned back to <code class="docutils literal notranslate"><span class="pre">unconfigured</span></code> — their
+device handles are dead</p></td>
+</tr>
+<tr class="row-even"><td><p>A node joins late or respawns</p></td>
+<td><p>Picked up on the next discovery sweep and brought up</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">set_node_state</span></code> / <code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">lifecycle</span> <span class="pre">set</span></code></p></td>
+<td><p>Manual override for one node, or for all of them with an empty
+<code class="docutils literal notranslate"><span class="pre">node_name</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Two consequences worth remembering:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">wmx_engine_node</span></code> creates the WMX device, starts EtherCAT communication,
-and publishes <code class="docutils literal notranslate"><span class="pre">/wmx/engine/ready</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">wmx_core_motion_node</span></code>, <code class="docutils literal notranslate"><span class="pre">wmx_io_node</span></code>, <code class="docutils literal notranslate"><span class="pre">wmx_ethercat_node</span></code>,
-<code class="docutils literal notranslate"><span class="pre">gripper_controller</span></code>, and <code class="docutils literal notranslate"><span class="pre">joint_trajectory_controller</span></code> wait for
-<code class="docutils literal notranslate"><span class="pre">/wmx/engine/ready</span></code> before activating.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">wmx_core_motion_node</span></code> publishes <code class="docutils literal notranslate"><span class="pre">/wmx/core_motion/ready</span></code>;
-<code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code> waits for it before loading parameters and
-publishing joint feedback.</p></li>
+<li><p><strong>A configured-but-inactive node advertises nothing.</strong> An empty
+<code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">service</span> <span class="pre">list</span></code> is a state problem far more often than a crash.</p></li>
+<li><p><strong>Deactivating</strong> <code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code> <strong>switches the servos off</strong>,
+which drops an arm’s holding torque. It is the only node in the stack
+that touches servo power.</p></li>
 </ul>
+</div>
 </section>
 <section id="general-nodes">
-<h2>General Nodes<a class="headerlink" href="#general-nodes" title="Link to this heading">#</a></h2>
+<h2>General nodes<a class="headerlink" href="#general-nodes" title="Link to this heading">#</a></h2>
 <section id="wmx-engine-node">
 <h3>wmx_engine_node<a class="headerlink" href="#wmx-engine-node" title="Link to this heading">#</a></h3>
-<p>Manages the WMX device lifecycle: creates the device, starts/stops EtherCAT
-communication, and publishes a ready signal to coordinate dependent nodes.
-On startup it automatically calls <code class="docutils literal notranslate"><span class="pre">CreateDevice</span></code> and <code class="docutils literal notranslate"><span class="pre">StartCommunication</span></code>,
-and also exposes manual-override services.</p>
-<p><strong>Source:</strong> <code class="docutils literal notranslate"><span class="pre">src/wmx_engine_node.cpp</span></code> — <strong>Node name:</strong> <code class="docutils literal notranslate"><span class="pre">wmx_engine_node</span></code></p>
-<div class="pst-scrollable-table-container"><table class="table" id="id2">
-<caption><span class="caption-text">Services</span><a class="headerlink" href="#id2" title="Link to this table">#</a></caption>
+<p>Creates the WMX3 device, starts and stops EtherCAT communication, reports the
+engine state, and imports the WMX parameter XML. It is an ordinary node, not
+a lifecycle node — it is what the lifecycle manager follows.</p>
+<div class="pst-scrollable-table-container"><table class="table">
 <colgroup>
-<col style="width: 35.0%" />
-<col style="width: 35.0%" />
-<col style="width: 30.0%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Service</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/engine/set_device</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/SetEngine</span></code></p></td>
-<td><p>Create or close the WMX device handle</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/engine/set_comm</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">std_srvs/srv/SetBool</span></code></p></td>
-<td><p>Start or stop EtherCAT communication</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/engine/get_status</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">std_srvs/srv/Trigger</span></code></p></td>
-<td><p>Query engine state (Idle/Running/Communicating/Shutdown)</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/engine/scan_network</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">std_srvs/srv/Trigger</span></code></p></td>
-<td><p>Trigger EtherCAT network scan to discover slaves</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>Publishes <code class="docutils literal notranslate"><span class="pre">/wmx/engine/ready</span></code> (<code class="docutils literal notranslate"><span class="pre">std_msgs/msg/Bool</span></code>) — <code class="docutils literal notranslate"><span class="pre">true</span></code> when
-communication is active, <code class="docutils literal notranslate"><span class="pre">false</span></code> on shutdown.</p>
-</section>
-<section id="wmx-core-motion-node">
-<h3>wmx_core_motion_node<a class="headerlink" href="#wmx-core-motion-node" title="Link to this heading">#</a></h3>
-<p>Provides service-based axis control, XML parameter load/get, topic-based
-motion commands, and per-axis state publishing. Waits for
-<code class="docutils literal notranslate"><span class="pre">/wmx/engine/ready</span></code> before activating.</p>
-<p><strong>Source:</strong> <code class="docutils literal notranslate"><span class="pre">src/wmx_core_motion_node.cpp</span></code> — <strong>Node name:</strong> <code class="docutils literal notranslate"><span class="pre">wmx_core_motion_node</span></code></p>
-<div class="pst-scrollable-table-container"><table class="table" id="id3">
-<caption><span class="caption-text">Services</span><a class="headerlink" href="#id3" title="Link to this table">#</a></caption>
-<colgroup>
-<col style="width: 35.0%" />
-<col style="width: 35.0%" />
-<col style="width: 30.0%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Service</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/axis/set_on</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/SetAxis</span></code></p></td>
-<td><p>Enable/disable servo drives</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/axis/clear_alarm</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/SetAxis</span></code></p></td>
-<td><p>Clear amplifier faults</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/axis/set_mode</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/SetAxis</span></code></p></td>
-<td><p>Set position (0) or velocity (1) mode</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/axis/set_polarity</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/SetAxis</span></code></p></td>
-<td><p>Set rotation direction (1 or -1)</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/axis/set_gear_ratio</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/SetAxisGearRatio</span></code></p></td>
-<td><p>Configure encoder gear ratio</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/axis/homing</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/SetAxis</span></code></p></td>
-<td><p>Set current position as home (zero)</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/params/load</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/LoadWmxParams</span></code></p></td>
-<td><p>Load axis parameters from a WMX3 XML file</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/params/get</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/GetWmxParams</span></code></p></td>
-<td><p>Retrieve active axis parameters as text</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<p><strong>Published topic:</strong> <code class="docutils literal notranslate"><span class="pre">/wmx/axis/state</span></code> (<code class="docutils literal notranslate"><span class="pre">wmx_r2_message/msg/AxisState</span></code>,
-100 Hz) — full per-axis status.</p>
-<p><strong>Subscribed topics:</strong> <code class="docutils literal notranslate"><span class="pre">/wmx/axis/velocity</span></code> (<code class="docutils literal notranslate"><span class="pre">AxisVelocity</span></code> →
-<code class="docutils literal notranslate"><span class="pre">CoreMotion::StartVel()</span></code>), <code class="docutils literal notranslate"><span class="pre">/wmx/axis/position</span></code> (<code class="docutils literal notranslate"><span class="pre">AxisPose</span></code> →
-<code class="docutils literal notranslate"><span class="pre">CoreMotion::StartPos()</span></code>), <code class="docutils literal notranslate"><span class="pre">/wmx/axis/position/relative</span></code> (<code class="docutils literal notranslate"><span class="pre">AxisPose</span></code> →
-<code class="docutils literal notranslate"><span class="pre">CoreMotion::StartMov()</span></code>). Also publishes <code class="docutils literal notranslate"><span class="pre">/wmx/core_motion/ready</span></code>.</p>
-</section>
-<section id="wmx-io-node">
-<h3>wmx_io_node<a class="headerlink" href="#wmx-io-node" title="Link to this heading">#</a></h3>
-<p>Service-based access to EtherCAT digital I/O. Waits for <code class="docutils literal notranslate"><span class="pre">/wmx/engine/ready</span></code>.</p>
-<p><strong>Source:</strong> <code class="docutils literal notranslate"><span class="pre">src/wmx_io_node.cpp</span></code> — <strong>Node name:</strong> <code class="docutils literal notranslate"><span class="pre">wmx_io_node</span></code></p>
-<div class="pst-scrollable-table-container"><table class="table" id="id4">
-<caption><span class="caption-text">Services</span><a class="headerlink" href="#id4" title="Link to this table">#</a></caption>
-<colgroup>
-<col style="width: 35.0%" />
-<col style="width: 35.0%" />
-<col style="width: 30.0%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Service</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/io/get_input_bit</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/GetIoBit</span></code></p></td>
-<td><p>Read a single digital input bit</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/io/get_output_bit</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/GetIoBit</span></code></p></td>
-<td><p>Read back a digital output bit</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/io/get_input_bytes</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/GetIoBytes</span></code></p></td>
-<td><p>Read a block of digital input bytes</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/io/get_output_bytes</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/GetIoBytes</span></code></p></td>
-<td><p>Read a block of digital output bytes</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/io/set_output_bit</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/SetIoBit</span></code></p></td>
-<td><p>Write a single digital output bit</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/io/set_output_bytes</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/SetIoBytes</span></code></p></td>
-<td><p>Write a block of digital output bytes</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
-<section id="wmx-ethercat-node">
-<h3>wmx_ethercat_node<a class="headerlink" href="#wmx-ethercat-node" title="Link to this heading">#</a></h3>
-<p>EtherCAT diagnostic services for network monitoring and debugging. Waits for
-<code class="docutils literal notranslate"><span class="pre">/wmx/engine/ready</span></code>.</p>
-<p><strong>Source:</strong> <code class="docutils literal notranslate"><span class="pre">src/wmx_ethercat_node.cpp</span></code> — <strong>Node name:</strong> <code class="docutils literal notranslate"><span class="pre">wmx_ethercat_node</span></code></p>
-<div class="pst-scrollable-table-container"><table class="table" id="id5">
-<caption><span class="caption-text">Services</span><a class="headerlink" href="#id5" title="Link to this table">#</a></caption>
-<colgroup>
-<col style="width: 35.0%" />
-<col style="width: 40.0%" />
-<col style="width: 25.0%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Service</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/ecat/get_network_state</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/EcatGetNetworkState</span></code></p></td>
-<td><p>Full network state: master + all slaves</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/ecat/register_read</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/EcatRegisterRead</span></code></p></td>
-<td><p>Read raw EtherCAT register from a slave</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/ecat/reset_statistics</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/EcatResetStatistics</span></code></p></td>
-<td><p>Reset packet loss / timing counters</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/ecat/start_hotconnect</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/EcatStartHotconnect</span></code></p></td>
-<td><p>Initiate hot-connect for dynamic slave addition</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
-</section>
-<section id="manipulator-controllers">
-<h2>Manipulator Controllers<a class="headerlink" href="#manipulator-controllers" title="Link to this heading">#</a></h2>
-<section id="joint-state-broadcaster">
-<h3>joint_state_broadcaster<a class="headerlink" href="#joint-state-broadcaster" title="Link to this heading">#</a></h3>
-<p>Loads the robot’s WMX axis parameters and publishes encoder feedback as
-<code class="docutils literal notranslate"><span class="pre">JointState</span></code> (plus simulator mirrors). Waits for <code class="docutils literal notranslate"><span class="pre">/wmx/core_motion/ready</span></code>
-before publishing.</p>
-<p><strong>Source:</strong> <code class="docutils literal notranslate"><span class="pre">src/joint_state_broadcaster.cpp</span></code> — <strong>Node name:</strong> <code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code></p>
-<div class="pst-scrollable-table-container"><table class="table" id="id6">
-<caption><span class="caption-text">Parameters</span><a class="headerlink" href="#id6" title="Link to this table">#</a></caption>
-<colgroup>
-<col style="width: 32.0%" />
-<col style="width: 16.0%" />
-<col style="width: 52.0%" />
+<col style="width: 27.0%" />
+<col style="width: 15.0%" />
+<col style="width: 58.0%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Parameter</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">core</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-1</span></code></p></td>
+<td><p>CPU core for the real-time engine (<code class="docutils literal notranslate"><span class="pre">-1</span></code> = SDK default)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">affinity_mask</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p>CPU affinity bitmask (<code class="docutils literal notranslate"><span class="pre">0</span></code> = SDK default)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">wmx_param_file_path</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code></p></td>
+<td><p>XML imported right after the device is created; injected by launch
+from the <code class="docutils literal notranslate"><span class="pre">wmx_param_file</span></code> argument</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Services: <code class="docutils literal notranslate"><span class="pre">/wmx/engine/set_engine</span></code>, <code class="docutils literal notranslate"><span class="pre">set_communication</span></code>,
+<code class="docutils literal notranslate"><span class="pre">get_engine_status</span></code>, <code class="docutils literal notranslate"><span class="pre">import_and_set_all</span></code>, <code class="docutils literal notranslate"><span class="pre">get_axis_param</span></code>.</p>
+</section>
+<section id="wmx-lifecycle-manager-node">
+<h3>wmx_lifecycle_manager_node<a class="headerlink" href="#wmx-lifecycle-manager-node" title="Link to this heading">#</a></h3>
+<p>Polls <code class="docutils literal notranslate"><span class="pre">/wmx/engine/get_engine_status</span></code> every <code class="docutils literal notranslate"><span class="pre">discovery_period</span></code> seconds
+and drives every managed node to match.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 27.0%" />
+<col style="width: 15.0%" />
+<col style="width: 58.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">managed_nodes</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
+<td><p>Bring-up order; take-down is the reverse</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">discovery_period</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">2.0</span></code></p></td>
+<td><p>Seconds between engine-state sweeps</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Services: <code class="docutils literal notranslate"><span class="pre">/wmx/lifecycle/set_node_state</span></code>,
+<code class="docutils literal notranslate"><span class="pre">/wmx/lifecycle/get_node_states</span></code>.</p>
+</section>
+<section id="wmx-core-motion-node">
+<h3>wmx_core_motion_node<a class="headerlink" href="#wmx-core-motion-node" title="Link to this heading">#</a></h3>
+<p><em>Lifecycle.</em> Serves all <code class="docutils literal notranslate"><span class="pre">/wmx/axes/*</span></code> services and publishes
+<code class="docutils literal notranslate"><span class="pre">/wmx/axes/status</span></code>. It also arbitrates: while any node listed in
+<code class="docutils literal notranslate"><span class="pre">motion_controllers</span></code> is <code class="docutils literal notranslate"><span class="pre">active</span></code>, the manual motion services answer
+<code class="docutils literal notranslate"><span class="pre">success:</span> <span class="pre">false</span></code>. See <a class="reference internal" href="ros2_services.html"><span class="doc">ROS2 Services</span></a>.</p>
+</section>
+<section id="wmx-io-node">
+<h3>wmx_io_node<a class="headerlink" href="#wmx-io-node" title="Link to this heading">#</a></h3>
+<p><em>Lifecycle.</em> Serves all <code class="docutils literal notranslate"><span class="pre">/wmx/io/*</span></code> services — input and output, by bit
+and by byte, scalar and scattered.</p>
+</section>
+<section id="wmx-ethercat-node">
+<h3>wmx_ethercat_node<a class="headerlink" href="#wmx-ethercat-node" title="Link to this heading">#</a></h3>
+<p><em>Lifecycle.</em> Serves all <code class="docutils literal notranslate"><span class="pre">/wmx/ecat/*</span></code> services — master info, register
+read, statistics reset, network scan, hot-connect.</p>
+</section>
+</section>
+<section id="manipulator-controllers">
+<h2>Manipulator controllers<a class="headerlink" href="#manipulator-controllers" title="Link to this heading">#</a></h2>
+<p>Four lifecycle nodes on top of the general nodes. Each attaches to the WMX3
+device itself and calls CoreMotion / AdvancedMotion / IO directly — the
+general nodes own the engine, not the motion these controllers command.</p>
+<section id="joint-state-broadcaster">
+<h3>joint_state_broadcaster<a class="headerlink" href="#joint-state-broadcaster" title="Link to this heading">#</a></h3>
+<p>Reads the encoder every cycle and publishes <code class="docutils literal notranslate"><span class="pre">/joint_states</span></code>, plus the
+optional Isaac Sim and Gazebo mirrors.</p>
+<p>It is also <strong>the only node in the stack that touches servo power.</strong> At
+<code class="docutils literal notranslate"><span class="pre">activate</span></code> it calls <code class="docutils literal notranslate"><span class="pre">/wmx/axes/clear_amp_alarm</span></code> then
+<code class="docutils literal notranslate"><span class="pre">/wmx/axes/set_servo_on</span></code> for every <code class="docutils literal notranslate"><span class="pre">joint_axes</span></code> entry, retrying up to
+five times before failing the transition. At <code class="docutils literal notranslate"><span class="pre">deactivate</span></code> it switches the
+servos <strong>off</strong> — so deactivating the broadcaster drops the arm’s holding
+torque.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 32.0%" />
+<col style="width: 18.0%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Meaning</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">joint_axes</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">int[]</span></code></p></td>
-<td><p>WMX axis indices for the robot joints (e.g. <code class="docutils literal notranslate"><span class="pre">[0,1,2,3,4,5]</span></code>)</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">joint_feedback_rate</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
-<td><p>Encoder publish rate in Hz</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">gripper_open_value</span></code> / <code class="docutils literal notranslate"><span class="pre">gripper_close_value</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">double</span></code></p></td>
-<td><p>Joint position reported when the gripper is open / closed</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
+<td><p>WMX3 axis index per joint</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">joint_name</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">string[]</span></code></p></td>
-<td><p>Joint names for the JointState message</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[j1..j6]</span></code></p></td>
+<td><p>Joint names published in <code class="docutils literal notranslate"><span class="pre">JointState.name</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">gripper_joint_name</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">string[]</span></code></p></td>
-<td><p>Gripper finger joint names (e.g. <code class="docutils literal notranslate"><span class="pre">picker_1_joint</span></code>, <code class="docutils literal notranslate"><span class="pre">picker_2_joint</span></code>)</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">joint_feedback_rate</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p>Publish rate in Hz; <code class="docutils literal notranslate"><span class="pre">0</span></code> falls back to 100 with a warning. Prefer
+rates that divide 1000.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">gripper_address</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">int[]</span></code></p></td>
-<td><p>I/O <code class="docutils literal notranslate"><span class="pre">[byte,</span> <span class="pre">bit]</span></code> address read for gripper state</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">encoder_joint_topic</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/encoder_joint_topic/no_param</span></code></p></td>
+<td><p>Real-robot feedback topic; deployments set <code class="docutils literal notranslate"><span class="pre">/joint_states</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">encoder_joint_topic</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
-<td><p>Primary joint state topic (typically <code class="docutils literal notranslate"><span class="pre">/joint_states</span></code>)</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">isaacsim_joint_topic</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/isaacsim_joint_topic/no_param</span></code></p></td>
+<td><p>Isaac Sim mirror, published with a zero header stamp</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">isaacsim_joint_topic</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
-<td><p>Isaac Sim joint command topic</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">gazebo_position_joint_topic</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Float64MultiArray</span></code> of positions; empty disables the publisher</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">gazebo_joint_topic</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
-<td><p>Gazebo position controller topic</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">gazebo_position_joint_axes</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
+<td><p>Axis order for that topic</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">wmx_param_file_path</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
-<td><p>Absolute path to the WMX axis parameter XML (resolved at launch)</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">gazebo_velocity_joint_topic</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Float64MultiArray</span></code> of velocities, for continuous joints</p></td>
 </tr>
-</tbody>
-</table>
-</div>
-<div class="pst-scrollable-table-container"><table class="table" id="id7">
-<caption><span class="caption-text">Published Topics</span><a class="headerlink" href="#id7" title="Link to this table">#</a></caption>
-<colgroup>
-<col style="width: 35.0%" />
-<col style="width: 35.0%" />
-<col style="width: 30.0%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Topic (param)</p></th>
-<th class="head"><p>Message Type</p></th>
-<th class="head"><p>Description</p></th>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">gazebo_velocity_joint_axes</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
+<td><p>Axis order for that topic</p></td>
 </tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">encoder_joint_topic</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">sensor_msgs/msg/JointState</span></code></p></td>
-<td><p>Joint positions + gripper state</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">gripper_joint_name</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
+<td><p>Extra joint names appended to the feedback message</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">isaacsim_joint_topic</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">sensor_msgs/msg/JointState</span></code></p></td>
-<td><p>Mirror for Isaac Sim</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">gripper_address</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">0]</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[byte,</span> <span class="pre">bit]</span></code> of the output bit read back for gripper state</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">gazebo_joint_topic</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">std_msgs/msg/Float64MultiArray</span></code></p></td>
-<td><p>Joint positions for Gazebo</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">gripper_open_value</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.0</span></code></p></td>
+<td><p>Reported joint value while the bit is 0</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">gripper_close_value</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.0</span></code></p></td>
+<td><p>Reported joint value while the bit is 1</p></td>
 </tr>
 </tbody>
 </table>
@@ -1276,215 +1190,525 @@ before publishing.</p>
 </section>
 <section id="joint-trajectory-controller">
 <h3>joint_trajectory_controller<a class="headerlink" href="#joint-trajectory-controller" title="Link to this heading">#</a></h3>
-<p>Action server that executes MoveIt2-planned trajectories on the robot using
-WMX cubic spline interpolation. Waits for <code class="docutils literal notranslate"><span class="pre">/wmx/engine/ready</span></code>.</p>
-<p><strong>Source:</strong> <code class="docutils literal notranslate"><span class="pre">src/joint_trajectory_controller.cpp</span></code> — <strong>Node name:</strong> <code class="docutils literal notranslate"><span class="pre">joint_trajectory_controller</span></code></p>
-<div class="pst-scrollable-table-container"><table class="table" id="id8">
-<caption><span class="caption-text">Parameters</span><a class="headerlink" href="#id8" title="Link to this table">#</a></caption>
+<p>Serves <code class="docutils literal notranslate"><span class="pre">FollowJointTrajectory</span></code> and executes it as a WMX3 time-based
+C-spline. See <a class="reference internal" href="ros2_actions.html"><span class="doc">ROS2 Actions</span></a> for the full execution contract.</p>
+<div class="pst-scrollable-table-container"><table class="table">
 <colgroup>
 <col style="width: 32.0%" />
-<col style="width: 16.0%" />
-<col style="width: 52.0%" />
+<col style="width: 18.0%" />
+<col style="width: 50.0%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Parameter</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Meaning</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">joint_axes</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">int[]</span></code></p></td>
-<td><p>WMX axis indices (sets the spline <code class="docutils literal notranslate"><span class="pre">dimensionCount</span></code>)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
+<td><p>WMX3 axis index per trajectory joint</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">joint_trajectory_action</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
-<td><p>Action server name for <code class="docutils literal notranslate"><span class="pre">FollowJointTrajectory</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">joint_name</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
+<td><p>Joint name per axis; goal columns are matched by name</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">joint_trajectory_action</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/joint_trajectory_action/no_param</span></code></p></td>
+<td><p>Action server name; must equal the controller name in MoveIt2</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>Hosts the <code class="docutils literal notranslate"><span class="pre">FollowJointTrajectory</span></code> action
-(<code class="docutils literal notranslate"><span class="pre">control_msgs/action/FollowJointTrajectory</span></code>). See
-<a class="reference internal" href="ros2_actions.html"><span class="doc">ROS2 Actions</span></a> for the full execution details.</p>
 </section>
-<section id="gripper-controller">
-<h3>gripper_controller<a class="headerlink" href="#gripper-controller" title="Link to this heading">#</a></h3>
-<p>Controls the pneumatic gripper via EtherCAT digital I/O. Waits for
-<code class="docutils literal notranslate"><span class="pre">/wmx/engine/ready</span></code>.</p>
-<p><strong>Source:</strong> <code class="docutils literal notranslate"><span class="pre">src/gripper_controller.cpp</span></code> — <strong>Node name:</strong> <code class="docutils literal notranslate"><span class="pre">gripper_controller</span></code></p>
-<div class="pst-scrollable-table-container"><table class="table" id="id9">
-<caption><span class="caption-text">Parameters</span><a class="headerlink" href="#id9" title="Link to this table">#</a></caption>
+<section id="joint-position-controller">
+<h3>joint_position_controller<a class="headerlink" href="#joint-position-controller" title="Link to this heading">#</a></h3>
+<p>Follows MoveIt Servo’s streamed <code class="docutils literal notranslate"><span class="pre">JointTrajectory</span></code> using WMX3 linear
+interpolation, so every axis arrives at the same instant. Only the last point
+of each message is used.</p>
+<div class="pst-scrollable-table-container"><table class="table">
 <colgroup>
 <col style="width: 32.0%" />
-<col style="width: 16.0%" />
-<col style="width: 52.0%" />
+<col style="width: 18.0%" />
+<col style="width: 50.0%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Parameter</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">joint_axes</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
+<td><p>WMX3 axis index per joint</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">joint_name</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[j1..j6]</span></code></p></td>
+<td><p>Name-to-axis map for incoming <code class="docutils literal notranslate"><span class="pre">joint_names</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">joint_trajectory_topic</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/joint_trajectory_topic/no_param</span></code></p></td>
+<td><p>Streamed trajectory input from MoveIt Servo</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">default_velocity</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.1</span></code></p></td>
+<td><p>Velocity used when <code class="docutils literal notranslate"><span class="pre">time_from_start</span></code> is 0; deployments use <code class="docutils literal notranslate"><span class="pre">0.5</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">accel_ratio</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.5</span></code></p></td>
+<td><p>Fraction of the step spent accelerating; deployments use <code class="docutils literal notranslate"><span class="pre">0.3</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">min_step</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.1</span></code></p></td>
+<td><p>Deadband against the <em>commanded</em> position; deployments use <code class="docutils literal notranslate"><span class="pre">0.001</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="gripper-controller">
+<h3>gripper_controller<a class="headerlink" href="#gripper-controller" title="Link to this heading">#</a></h3>
+<p>Serves <code class="docutils literal notranslate"><span class="pre">/wmx/set_gripper</span></code> (<code class="docutils literal notranslate"><span class="pre">std_srvs/SetBool</span></code>) and drives one WMX output
+bit. Started only with <code class="docutils literal notranslate"><span class="pre">use_gripper:=true</span></code>.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 32.0%" />
+<col style="width: 18.0%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Meaning</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">wmx_gripper_topic</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
-<td><p>Service name for gripper open/close (typically <code class="docutils literal notranslate"><span class="pre">/wmx/set_gripper</span></code>)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/wmx_gripper_topic/no_param</span></code></p></td>
+<td><p>Service name (the parameter is called “topic” for historical reasons)</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">gripper_address</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">int[]</span></code></p></td>
-<td><p>I/O <code class="docutils literal notranslate"><span class="pre">[byte,</span> <span class="pre">bit]</span></code> address written to actuate the gripper</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">0]</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[byte,</span> <span class="pre">bit]</span></code> of the output bit driven by the service</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">pre_setup_io</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+<td><p>Run the gripper power-up sequence at <code class="docutils literal notranslate"><span class="pre">configure</span></code>. The addresses are
+compiled in — leave it <code class="docutils literal notranslate"><span class="pre">false</span></code> unless your gripper matches them.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>The gripper service is a <code class="docutils literal notranslate"><span class="pre">std_srvs/srv/SetBool</span></code> (<code class="docutils literal notranslate"><span class="pre">true</span></code> = close,
-<code class="docutils literal notranslate"><span class="pre">false</span></code> = open) backed by <code class="docutils literal notranslate"><span class="pre">Io::SetOutBit</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The defaults here are deliberate non-values. Topic and action names
+default to <code class="docutils literal notranslate"><span class="pre">/&lt;name&gt;/no_param</span></code> and the axis lists default to empty, so an
+unconfigured node is loud and inert rather than silently wrong. Every
+deployment supplies a YAML.</p>
+<p>All parameters are read <strong>once at node construction</strong>. There is no
+parameter-set callback: <code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">param</span> <span class="pre">set</span></code> is accepted by rclcpp but
+changes nothing. Edit the YAML and restart.</p>
+</div>
+</section>
+</section>
+<section id="differential-drive-controller">
+<h2>Differential drive controller<a class="headerlink" href="#differential-drive-controller" title="Link to this heading">#</a></h2>
+<section id="id1">
+<h3>differential_drive_controller<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p><em>Lifecycle.</em> Drives two EtherCAT wheel axes with CoreMotion <code class="docutils literal notranslate"><span class="pre">StartVel</span></code> and
+exposes the autonomy contract: <code class="docutils literal notranslate"><span class="pre">/cmd_vel_safe</span></code> in, <code class="docutils literal notranslate"><span class="pre">/odom_enc</span></code> and the
+wheel-velocity topics out. See <a class="reference internal" href="ros2_topics.html"><span class="doc">ROS2 Topics</span></a>.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 28.0%" />
+<col style="width: 16.0%" />
+<col style="width: 56.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">left_axis</span></code> / <code class="docutils literal notranslate"><span class="pre">right_axis</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code> / <code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p>WMX3 axis index of each drive wheel</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">wheel_radius</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.095</span></code></p></td>
+<td><p>Drive-wheel radius in m; must be &gt; 0</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">wheel_to_wheel</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.55</span></code></p></td>
+<td><p>Wheel separation in m; must be &gt; 0</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">rate</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">100</span></code></p></td>
+<td><p>Control-loop rate in Hz; one loop does one <code class="docutils literal notranslate"><span class="pre">GetStatus</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">acc_time</span></code> / <code class="docutils literal notranslate"><span class="pre">dec_time</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1.0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">StartVel</span></code> ramp times in <strong>milliseconds</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">cmd_vel_timeout</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.25</span></code></p></td>
+<td><p>Seconds without a command before the wheel target is forced to zero</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">publish_tf</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+<td><p>Publish <code class="docutils literal notranslate"><span class="pre">odom</span> <span class="pre">→</span> <span class="pre">base_link</span></code>. Keep false when an EKF owns that TF.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">odom_frame</span></code> / <code class="docutils literal notranslate"><span class="pre">base_frame</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">odom</span></code> / <code class="docutils literal notranslate"><span class="pre">base_link</span></code></p></td>
+<td><p>Frame ids for <code class="docutils literal notranslate"><span class="pre">/odom_enc</span></code> and the optional TF</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">joint_name</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[left,</span> <span class="pre">right]</span></code></p></td>
+<td><p>Wheel joint names, in <code class="docutils literal notranslate"><span class="pre">[left,</span> <span class="pre">right]</span></code> order; needs exactly 2</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </section>
 </section>
 <section id="launch-files">
-<h2>Launch Files<a class="headerlink" href="#launch-files" title="Link to this heading">#</a></h2>
+<h2>Launch files<a class="headerlink" href="#launch-files" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 34.0%" />
+<col style="width: 66.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Launch file</p></th>
+<th class="head"><p>Starts</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_general_nodes.launch.py</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_engine_node</span></code>, <code class="docutils literal notranslate"><span class="pre">wmx_lifecycle_manager_node</span></code>,
+<code class="docutils literal notranslate"><span class="pre">wmx_core_motion_node</span></code>, <code class="docutils literal notranslate"><span class="pre">wmx_io_node</span></code>, <code class="docutils literal notranslate"><span class="pre">wmx_ethercat_node</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_manipulator.launch.py</span></code></p></td>
+<td><p>the general nodes, plus <code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code>,
+<code class="docutils literal notranslate"><span class="pre">joint_trajectory_controller</span></code>, <code class="docutils literal notranslate"><span class="pre">joint_position_controller</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">gripper_controller</span></code> when <code class="docutils literal notranslate"><span class="pre">use_gripper:=true</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_differential.launch.py</span></code></p></td>
+<td><p>the general nodes, plus <code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code> and
+<code class="docutils literal notranslate"><span class="pre">differential_drive_controller</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">ros2_control</span></code> variants live in the <code class="docutils literal notranslate"><span class="pre">wmx_r2_control</span></code> package; see
+<a class="reference internal" href="../integration/moveit2_integration.html"><span class="doc">MoveIt2 Motion Planning</span></a> and
+<a class="reference internal" href="../integration/nav2_integration.html"><span class="doc">Nav2 Navigation (Mobile Base)</span></a>.</p>
 <section id="wmx-r2-general-nodes-launch-py">
 <h3>wmx_r2_general_nodes.launch.py<a class="headerlink" href="#wmx-r2-general-nodes-launch-py" title="Link to this heading">#</a></h3>
-<p>Starts the four general nodes for standalone axis/IO/EtherCAT control without
-manipulator controllers.</p>
-<p><strong>Nodes launched:</strong> <code class="docutils literal notranslate"><span class="pre">wmx_engine_node</span></code>, <code class="docutils literal notranslate"><span class="pre">wmx_core_motion_node</span></code>,
-<code class="docutils literal notranslate"><span class="pre">wmx_io_node</span></code>, <code class="docutils literal notranslate"><span class="pre">wmx_ethercat_node</span></code>.</p>
-<p><strong>Arguments:</strong> <code class="docutils literal notranslate"><span class="pre">use_sim_time</span></code> (default <code class="docutils literal notranslate"><span class="pre">false</span></code>). <strong>Config:</strong> none.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>wmx_r2_package<span class="w"> </span>wmx_r2_general_nodes.launch.py
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 24.0%" />
+<col style="width: 16.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">use_sim_time</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+<td><p>Use the simulation clock</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">config_file</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code></p></td>
+<td><p>YAML with the general node parameters. Empty loads no parameter file:
+launch warns and every node falls back to its compiled defaults.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">wmx_param_file</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code></p></td>
+<td><p>WMX3 parameter XML imported at engine start. Empty imports nothing.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>wmx_r2_package<span class="w"> </span>wmx_r2_general_nodes.launch.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>use_sim_time:<span class="o">=</span><span class="nb">false</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s1">'config_file:=$(ros2 pkg prefix --share wmx_r2_package)/config/wmx_r2_general_nodes_config.yaml'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s1">'wmx_param_file:=$(ros2 pkg prefix --share wmx_r2_package)/config/wmx_parameters.xml'</span>
 </pre></div>
 </div>
 </section>
-<section id="wmx-r2-cr3a-manipulator-launch-py">
-<h3>wmx_r2_cr3a_manipulator.launch.py<a class="headerlink" href="#wmx-r2-cr3a-manipulator-launch-py" title="Link to this heading">#</a></h3>
-<p>Full manipulator launch. Includes
-<code class="docutils literal notranslate"><span class="pre">wmx_r2_general_nodes.launch.py</span></code> and then starts the manipulator
-controllers.</p>
-<p><strong>Nodes launched:</strong> the four general nodes (via include), plus
-<code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code>, <code class="docutils literal notranslate"><span class="pre">joint_trajectory_controller</span></code>, and
-<code class="docutils literal notranslate"><span class="pre">gripper_controller</span></code>.</p>
-<p><strong>Arguments:</strong> <code class="docutils literal notranslate"><span class="pre">use_sim_time</span></code> (default <code class="docutils literal notranslate"><span class="pre">false</span></code>).
-<strong>Config:</strong> <code class="docutils literal notranslate"><span class="pre">config/cr3a_manipulator_config.yaml</span></code> and
-<code class="docutils literal notranslate"><span class="pre">config/cr3a_wmx_parameters.xml</span></code> (the WMX parameter path is resolved at
-launch time).</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>wmx_r2_package<span class="w"> </span>wmx_r2_cr3a_manipulator.launch.py<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>use_sim_time:<span class="o">=</span><span class="nb">false</span>
+<section id="wmx-r2-manipulator-launch-py">
+<h3>wmx_r2_manipulator.launch.py<a class="headerlink" href="#wmx-r2-manipulator-launch-py" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 24.0%" />
+<col style="width: 16.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">use_sim_time</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+<td><p>Use the simulation clock</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">config_file</span></code></p></td>
+<td><p><strong>required</strong></p></td>
+<td><p>YAML with the manipulator node parameters</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">wmx_param_file</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code></p></td>
+<td><p>WMX3 parameter XML imported at engine start</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">use_gripper</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+<td><p>Start <code class="docutils literal notranslate"><span class="pre">gripper_controller</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The manipulator launch passes <code class="docutils literal notranslate"><span class="pre">config_file</span></code> down to the general-nodes
+launch unchanged, so engine core and affinity, the WMX parameter path, and
+the bring-up order all live in that one YAML.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Dobot CR3A</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>wmx_r2_package<span class="w"> </span>wmx_r2_manipulator.launch.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>use_sim_time:<span class="o">=</span><span class="nb">false</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s1">'config_file:=$(ros2 pkg prefix --share wmx_r2_package)/example/cr3a_manipulator_config.yaml'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s1">'wmx_param_file:=$(ros2 pkg prefix --share wmx_r2_package)/example/cr3a_wmx_parameters.xml'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>use_gripper:<span class="o">=</span><span class="nb">true</span>
+
+<span class="c1"># Dobot CR5A</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>wmx_r2_package<span class="w"> </span>wmx_r2_manipulator.launch.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>use_sim_time:<span class="o">=</span><span class="nb">false</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s1">'config_file:=$(ros2 pkg prefix --share wmx_r2_package)/example/cr5a_manipulator_config.yaml'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s1">'wmx_param_file:=$(ros2 pkg prefix --share wmx_r2_package)/example/cr5a_wmx_parameters.xml'</span>
 </pre></div>
 </div>
 </section>
-<section id="wmx-r2-cr5a-manipulator-launch-py">
-<h3>wmx_r2_cr5a_manipulator.launch.py<a class="headerlink" href="#wmx-r2-cr5a-manipulator-launch-py" title="Link to this heading">#</a></h3>
-<p>Full manipulator launch. Includes the general nodes and starts
-<code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code> and <code class="docutils literal notranslate"><span class="pre">joint_trajectory_controller</span></code>.</p>
-<p><strong>Arguments:</strong> <code class="docutils literal notranslate"><span class="pre">use_sim_time</span></code> (default <code class="docutils literal notranslate"><span class="pre">false</span></code>).
-<strong>Config:</strong> <code class="docutils literal notranslate"><span class="pre">config/cr5a_manipulator_config.yaml</span></code> and
-<code class="docutils literal notranslate"><span class="pre">config/cr5a_wmx_parameters.xml</span></code>.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>wmx_r2_package<span class="w"> </span>wmx_r2_cr5a_manipulator.launch.py<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>use_sim_time:<span class="o">=</span><span class="nb">false</span>
+<section id="wmx-r2-differential-launch-py">
+<h3>wmx_r2_differential.launch.py<a class="headerlink" href="#wmx-r2-differential-launch-py" title="Link to this heading">#</a></h3>
+<p>Same three arguments as the general-nodes launch, with <code class="docutils literal notranslate"><span class="pre">config_file</span></code>
+required.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>wmx_r2_package<span class="w"> </span>wmx_r2_differential.launch.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>use_sim_time:<span class="o">=</span><span class="nb">false</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s1">'config_file:=$(ros2 pkg prefix --share wmx_r2_package)/example/diffbot_differential_config.yaml'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s1">'wmx_param_file:=$(ros2 pkg prefix --share wmx_r2_package)/example/diffbot_wmx_parameters.xml'</span>
 </pre></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The launch commands above assume the workspace is already sourced. On real
-hardware the nodes require <code class="docutils literal notranslate"><span class="pre">sudo</span></code> with the ROS2 environment preserved —
-see <a class="reference internal" href="../getting_started/install_wmx3.html"><span class="doc">Install WMX R2 Package</span></a> for the full <code class="docutils literal notranslate"><span class="pre">sudo</span>
-<span class="pre">--preserve-env</span></code> invocation.</p>
 </div>
 </section>
 </section>
 <section id="configuration-files">
-<h2>Configuration Files<a class="headerlink" href="#configuration-files" title="Link to this heading">#</a></h2>
+<h2>Configuration files<a class="headerlink" href="#configuration-files" title="Link to this heading">#</a></h2>
+<p>A deployment is <strong>one YAML plus one XML</strong>.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 22.0%" />
+<col style="width: 78.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>File</p></th>
+<th class="head"><p>Owns</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ROS parameter YAML</p></td>
+<td><p>Everything on the ROS side: which axis is which joint, topic and
+action names, feedback rates, gripper wiring, bring-up order.</p></td>
+</tr>
+<tr class="row-odd"><td><p>WMX parameter XML</p></td>
+<td><p>Everything on the engine side: gear ratio, feedback, soft limits,
+<code class="docutils literal notranslate"><span class="pre">inPos</span></code> window, home type. This is where “one axis user unit =
+1 rad at the joint” is set.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Joint values pass through the ROS nodes <strong>unconverted</strong>. There is no
+gear-ratio or offset parameter anywhere in <code class="docutils literal notranslate"><span class="pre">wmx_r2_package</span></code>. If the
+robot moves the wrong distance, the XML is wrong — not the YAML. See
+<a class="reference internal" href="../try_your_robot/robot_parameters.html"><span class="doc">Robot Parameter Configuration and Validation</span></a>.</p>
+</div>
 <section id="cr3a-manipulator-config-yaml">
 <h3>cr3a_manipulator_config.yaml<a class="headerlink" href="#cr3a-manipulator-config-yaml" title="Link to this heading">#</a></h3>
-<p>Parameters for the manipulator, shared by the three manipulator
-controllers:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">joint_state_broadcaster</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">joint_feedback_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
-<span class="w">    </span><span class="nt">gripper_open_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.00</span>
-<span class="w">    </span><span class="nt">gripper_close_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.045</span>
 <span class="w">    </span><span class="nt">joint_axes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">2</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">3</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">4</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">5</span><span class="p p-Indicator">]</span>
 <span class="w">    </span><span class="nt">joint_name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"joint1"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"joint2"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"joint3"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"joint4"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"joint5"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"joint6"</span><span class="p p-Indicator">]</span>
 <span class="w">    </span><span class="nt">gripper_joint_name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"picker_1_joint"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"picker_2_joint"</span><span class="p p-Indicator">]</span>
 <span class="w">    </span><span class="nt">gripper_address</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">gripper_open_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.00</span>
+<span class="w">    </span><span class="nt">gripper_close_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.045</span>
 <span class="w">    </span><span class="nt">encoder_joint_topic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/joint_states</span>
 <span class="w">    </span><span class="nt">isaacsim_joint_topic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/isaacsim/joint_command</span>
-<span class="w">    </span><span class="nt">gazebo_joint_topic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/gazebo_position_controller/commands</span>
-<span class="w">    </span><span class="nt">wmx_param_file_path</span><span class="p">:</span><span class="w"> </span><span class="s">""</span><span class="w">   </span><span class="c1"># resolved at launch via get_package_share_directory</span>
+<span class="w">    </span><span class="nt">gazebo_position_joint_topic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/gazebo_position_controller/commands</span>
+<span class="w">    </span><span class="nt">gazebo_position_joint_axes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">2</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">3</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">4</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">5</span><span class="p p-Indicator">]</span>
 
 <span class="nt">joint_trajectory_controller</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">joint_axes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">2</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">3</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">4</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">5</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">joint_name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"joint1"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"joint2"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"joint3"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"joint4"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"joint5"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"joint6"</span><span class="p p-Indicator">]</span>
 <span class="w">    </span><span class="nt">joint_trajectory_action</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/movensys_manipulator_arm_controller/follow_joint_trajectory</span>
+
+<span class="nt">joint_position_controller</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">joint_axes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">2</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">3</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">4</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">5</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">joint_name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"joint1"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"joint2"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"joint3"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"joint4"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"joint5"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"joint6"</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">joint_trajectory_topic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/movensys_manipulator_arm_controller/joint_trajectory</span>
+<span class="w">    </span><span class="nt">accel_ratio</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.3</span>
+<span class="w">    </span><span class="nt">default_velocity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span>
+<span class="w">    </span><span class="nt">min_step</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.001</span>
 
 <span class="nt">gripper_controller</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">wmx_gripper_topic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/wmx/set_gripper</span>
 <span class="w">    </span><span class="nt">gripper_address</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">pre_setup_io</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class="nt">wmx_engine_node</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">core</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-1</span>
+<span class="w">    </span><span class="nt">affinity_mask</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+
+<span class="nt">wmx_core_motion_node</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">axes_status_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class="w">    </span><span class="nt">motion_controllers</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">joint_trajectory_controller</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">joint_position_controller</span>
+
+<span class="nt">wmx_lifecycle_manager_node</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">managed_nodes</span><span class="p">:</span><span class="w">                 </span><span class="c1"># device-level nodes first</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wmx_core_motion_node</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wmx_io_node</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wmx_ethercat_node</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">joint_state_broadcaster</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">joint_trajectory_controller</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">joint_position_controller</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gripper_controller</span>
+<span class="w">    </span><span class="nt">discovery_period</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">cr5a_manipulator_config.yaml</span></code> is the same file with the CR5A’s values.
+On a gripperless arm, drop <code class="docutils literal notranslate"><span class="pre">gripper_controller</span></code> from <code class="docutils literal notranslate"><span class="pre">managed_nodes</span></code> and
+leave <code class="docutils literal notranslate"><span class="pre">use_gripper</span></code> at <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+</section>
+<section id="diffbot-differential-config-yaml">
+<h3>diffbot_differential_config.yaml<a class="headerlink" href="#diffbot-differential-config-yaml" title="Link to this heading">#</a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">differential_drive_controller</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">left_axis</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">right_axis</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class="w">    </span><span class="nt">wheel_radius</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.095</span>
+<span class="w">    </span><span class="nt">wheel_to_wheel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.55</span>
+<span class="w">    </span><span class="nt">cmd_vel_timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.25</span>
+<span class="w">    </span><span class="nt">publish_tf</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">odom_frame</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">odom</span>
+<span class="w">    </span><span class="nt">base_frame</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">base_link</span>
+<span class="w">    </span><span class="nt">joint_name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"drivewheel_left_joint"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"drivewheel_right_joint"</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">cmd_vel_topic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/cmd_vel_safe</span>
+<span class="w">    </span><span class="nt">cmd_omega_topic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/omega_cmd</span>
+<span class="w">    </span><span class="nt">encoder_odometry_topic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/odom_enc</span>
+<span class="w">    </span><span class="nt">encoder_omega_topic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/omega_enc</span>
+
+<span class="nt">joint_state_broadcaster</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">joint_feedback_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class="w">    </span><span class="nt">joint_axes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">joint_name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"drivewheel_left_joint"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"drivewheel_right_joint"</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">encoder_joint_topic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/joint_states</span>
+<span class="w">    </span><span class="nt">gazebo_velocity_joint_topic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/velocity_controller/commands</span>
+<span class="w">    </span><span class="nt">gazebo_velocity_joint_axes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">]</span>
+
+<span class="nt">wmx_core_motion_node</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">motion_controllers</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">differential_drive_controller</span>
+
+<span class="nt">wmx_lifecycle_manager_node</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">managed_nodes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wmx_core_motion_node</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wmx_io_node</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wmx_ethercat_node</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">joint_state_broadcaster</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">differential_drive_controller</span>
 </pre></div>
 </div>
 </section>
-<section id="cr5a-manipulator-config-yaml">
-<h3>cr5a_manipulator_config.yaml<a class="headerlink" href="#cr5a-manipulator-config-yaml" title="Link to this heading">#</a></h3>
-<p>The CR5A equivalent of the CR3A config, used by the CR5A launch file. It
-configures <code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code> and <code class="docutils literal notranslate"><span class="pre">joint_trajectory_controller</span></code> for
-the CR5A robot.</p>
-</section>
-<section id="wmx-parameter-xml-files">
-<h3>WMX Parameter XML Files<a class="headerlink" href="#wmx-parameter-xml-files" title="Link to this heading">#</a></h3>
-<p>Robot-specific WMX parameter files define per-axis motor configuration (gear
-ratios, polarities, limits, home positions):</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">cr3a_wmx_parameters.xml</span></code> – Dobot CR3A manipulator (6 joints)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">cr5a_wmx_parameters.xml</span></code> – Dobot CR5A manipulator (6 joints)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">diffbot_wmx_parameters.xml</span></code> – differential-drive base axes</p></li>
-</ul>
-<p>These files are loaded at runtime via
-<code class="docutils literal notranslate"><span class="pre">CoreMotion::config-&gt;ImportAndSetAll(path)</span></code>, by the controller that owns the
-axes — <code class="docutils literal notranslate"><span class="pre">joint_trajectory_controller</span></code> or <code class="docutils literal notranslate"><span class="pre">differential_drive_controller</span></code>,
-using the <code class="docutils literal notranslate"><span class="pre">wmx_param_file_path</span></code> parameter. The four general nodes load no
-parameter file.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>These are the parameters that decide how far and in which direction each
-joint moves. A shipped file describes the robot MOVENSYS commissioned, not
-your unit. For what every field means, where its value comes from, and how
-to verify it against the running engine, see
-<a class="reference internal" href="../commissioning/robot_parameters.html"><span class="doc">Robot Parameter Configuration and Validation</span></a>.</p>
+<section id="what-to-change-per-robot">
+<h3>What to change per robot<a class="headerlink" href="#what-to-change-per-robot" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Always per robot</p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">joint_axes</span></code> and <code class="docutils literal notranslate"><span class="pre">joint_name</span></code> — identical lists across the three
+motion nodes — <code class="docutils literal notranslate"><span class="pre">joint_feedback_rate</span></code>, and the WMX parameter XML</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Per gripper</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">gripper_address</span></code>, <code class="docutils literal notranslate"><span class="pre">gripper_open_value</span></code> / <code class="docutils literal notranslate"><span class="pre">gripper_close_value</span></code>,
+<code class="docutils literal notranslate"><span class="pre">gripper_joint_name</span></code>, <code class="docutils literal notranslate"><span class="pre">wmx_gripper_topic</span></code>, <code class="docutils literal notranslate"><span class="pre">pre_setup_io</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Per planning stack</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">joint_trajectory_action</span></code> and <code class="docutils literal notranslate"><span class="pre">joint_trajectory_topic</span></code>, which must
+match the MoveIt2 controller config and the Servo output topic</p></td>
+</tr>
+<tr class="row-even"><td><p>Usually defaults</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">accel_ratio</span></code>, <code class="docutils literal notranslate"><span class="pre">default_velocity</span></code>, <code class="docutils literal notranslate"><span class="pre">min_step</span></code>, and the simulator
+mirror topics</p></td>
+</tr>
+<tr class="row-odd"><td><p>Never</p></td>
+<td><p>The 1000-point spline buffer size, the arbitration topics, the
+clear-alarm/servo-on sequence, and any gear-ratio scaling — the WMX
+XML owns that one</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </section>
 </section>
 <section id="building-the-package">
-<h2>Building the Package<a class="headerlink" href="#building-the-package" title="Link to this heading">#</a></h2>
-<p>This package depends on <code class="docutils literal notranslate"><span class="pre">wmx_r2_message</span></code> and must be built after it:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/workspaces/movensys_ws
-
-<span class="c1"># Stage 1: Build message package</span>
-colcon<span class="w"> </span>build<span class="w"> </span>--packages-select<span class="w"> </span>wmx_r2_message
-<span class="nb">source</span><span class="w"> </span>install/setup.bash
-
-<span class="c1"># Stage 2: Build application package</span>
-colcon<span class="w"> </span>build<span class="w"> </span>--packages-select<span class="w"> </span>wmx_r2_package
-<span class="nb">source</span><span class="w"> </span>install/setup.bash
+<h2>Building the package<a class="headerlink" href="#building-the-package" title="Link to this heading">#</a></h2>
+<p>Build the messages first, then the rest:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>colcon<span class="w"> </span>build<span class="w"> </span>--packages-select<span class="w"> </span>wmx_r2_message
+wros<span class="w"> </span>colcon<span class="w"> </span>build
 </pre></div>
 </div>
-<p>Verify executables are available:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>pkg<span class="w"> </span>executables<span class="w"> </span>wmx_r2_package
+<p>The package builds only where the WMX3 SDK is present. <code class="docutils literal notranslate"><span class="pre">wmx_r2_message</span></code>
+does not need the SDK and can be built anywhere.</p>
+<p>Tests under <code class="docutils literal notranslate"><span class="pre">test/</span></code> are launch tests and need no hardware:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>colcon<span class="w"> </span><span class="nb">test</span><span class="w"> </span>--packages-select<span class="w"> </span>wmx_r2_package
 </pre></div>
 </div>
-<p>Expected:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>wmx_r2_package differential_drive_controller
-wmx_r2_package gripper_controller
-wmx_r2_package joint_position_controller
-wmx_r2_package joint_state_broadcaster
-wmx_r2_package joint_trajectory_controller
-wmx_r2_package wmx_core_motion_node
-wmx_r2_package wmx_engine_node
-wmx_r2_package wmx_ethercat_node
-wmx_r2_package wmx_io_node
-wmx_r2_package wmx_io_node
-</pre></div>
-</div>
+</section>
+<section id="see-also">
+<h2>See also<a class="headerlink" href="#see-also" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="ros2_services.html"><span class="doc">ROS2 Services</span></a> – every service, with call examples</p></li>
+<li><p><a class="reference internal" href="ros2_topics.html"><span class="doc">ROS2 Topics</span></a> – every topic, with QoS and rates</p></li>
+<li><p><a class="reference internal" href="ros2_actions.html"><span class="doc">ROS2 Actions</span></a> – the <code class="docutils literal notranslate"><span class="pre">FollowJointTrajectory</span></code> contract</p></li>
+<li><p><a class="reference internal" href="wmx_r2_message.html"><span class="doc">wmx_r2_message</span></a> – interface definitions</p></li>
+<li><p><a class="reference internal" href="../try_your_robot/robot_parameters.html"><span class="doc">Robot Parameter Configuration and Validation</span></a> – what belongs in the WMX XML</p></li>
+</ul>
 </section>
 </section>
 
@@ -1508,11 +1732,11 @@ wmx_r2_package wmx_io_node
       </div>
     </a>
     <a class="right-next"
-       href="../support.html"
+       href="wmx_r2_control.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Support</p>
+        <p class="prev-next-title">wmx_r2_control</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1522,58 +1746,6 @@ wmx_r2_package wmx_io_node
             </div>
             
             
-              
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-<div
-    id="pst-page-navigation-heading-2"
-    class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> On this page
-  </div>
-  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
-    <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#package-structure">Package Structure</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dependencies">Dependencies</a><ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#package-dependencies-package-xml">Package Dependencies (package.xml)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cmake-dependencies-find-package">CMake Dependencies (find_package)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wmx-libraries-external">WMX Libraries (External)</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#node-coordination">Node Coordination</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#general-nodes">General Nodes</a><ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wmx-engine-node">wmx_engine_node</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wmx-core-motion-node">wmx_core_motion_node</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wmx-io-node">wmx_io_node</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wmx-ethercat-node">wmx_ethercat_node</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#manipulator-controllers">Manipulator Controllers</a><ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#joint-state-broadcaster">joint_state_broadcaster</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#joint-trajectory-controller">joint_trajectory_controller</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gripper-controller">gripper_controller</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#launch-files">Launch Files</a><ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wmx-r2-general-nodes-launch-py">wmx_r2_general_nodes.launch.py</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wmx-r2-cr3a-manipulator-launch-py">wmx_r2_cr3a_manipulator.launch.py</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wmx-r2-cr5a-manipulator-launch-py">wmx_r2_cr5a_manipulator.launch.py</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuration-files">Configuration Files</a><ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cr3a-manipulator-config-yaml">cr3a_manipulator_config.yaml</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cr5a-manipulator-config-yaml">cr5a_manipulator_config.yaml</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wmx-parameter-xml-files">WMX Parameter XML Files</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-the-package">Building the Package</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
               
             
           </div>
@@ -1599,7 +1771,7 @@ wmx_r2_package wmx_io_node
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Sep 08, 2026</p>
+      <p>Last updated: Oct 29, 2026</p>
     
   </div>
   <div class="movensys-footer__links">

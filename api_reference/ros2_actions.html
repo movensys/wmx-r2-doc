@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=cd36b759" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=bcda8ffe" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
@@ -44,24 +44,395 @@
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs";
+
+
+
+
+
+const initStyles = () => {
+    const defaultStyle = document.createElement('style');
+    defaultStyle.textContent = "pre.mermaid {\n    /* Same as .mermaid-container > pre */\n    display: block;\n    width: 100%;\n}\n\npre.mermaid > svg {\n    /* Same as .mermaid-container > pre > svg */\n    height: 500px;\n    width: 100%;\n    max-width: 100% !important;\n}";
+    document.head.appendChild(defaultStyle);
+
+    const fullscreenStyle = document.createElement('style');
+    fullscreenStyle.textContent = ".mermaid-container {\n    position: relative;\n    display: flex;\n    flex-direction: row;\n    width: 100%;\n}\n\n.mermaid-container > pre {\n    display: block;\n    width: 100%;\n}\n\n.mermaid-container > pre > svg {\n    height: 500px;\n    width: 100%;\n    max-width: 100% !important;\n}\n\n.mermaid-fullscreen-btn {\n    position: absolute;\n    width: 28px;\n    height: 28px;\n    background: rgba(255, 255, 255, 0.95);\n    border: 1px solid rgba(0, 0, 0, 0.3);\n    border-radius: 4px;\n    cursor: pointer;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    transition: all 0.2s;\n    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);\n    font-size: 14px;\n    line-height: 1;\n    padding: 0;\n    color: #333;\n}\n\n.mermaid-fullscreen-btn:hover {\n    opacity: 100% !important;\n    background: rgba(255, 255, 255, 1);\n    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);\n    transform: scale(1.1);\n}\n\n.mermaid-fullscreen-btn.dark-theme {\n    background: rgba(50, 50, 50, 0.95);\n    border: 1px solid rgba(255, 255, 255, 0.3);\n    color: #e0e0e0;\n}\n\n.mermaid-fullscreen-btn.dark-theme:hover {\n    background: rgba(60, 60, 60, 1);\n    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.2);\n}\n\n.mermaid-fullscreen-modal {\n    display: none;\n    position: fixed !important;\n    top: 0 !important;\n    left: 0 !important;\n    width: 95vw;\n    height: 100vh;\n    background: rgba(255, 255, 255, 0.98);\n    z-index: 9999;\n    padding: 20px;\n    overflow: auto;\n}\n\n.mermaid-fullscreen-modal.dark-theme {\n    background: rgba(0, 0, 0, 0.98);\n}\n\n.mermaid-fullscreen-modal.active {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.mermaid-container-fullscreen {\n    position: relative;\n    width: 95vw;\n    height: 90vh;\n    max-width: 95vw;\n    max-height: 90vh;\n    background: white;\n    border-radius: 8px;\n    padding: 20px;\n    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);\n    overflow: auto;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.mermaid-container-fullscreen.dark-theme {\n    background: #1a1a1a;\n    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);\n}\n\n.mermaid-container-fullscreen pre.mermaid {\n    width: 100%;\n    height: 100%;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.mermaid-container-fullscreen .mermaid svg {\n    height: 100% !important;\n    width: 100% !important;\n    cursor: grab;\n}\n\n.mermaid-fullscreen-close {\n    position: fixed !important;\n    top: 20px !important;\n    right: 20px !important;\n    width: 40px;\n    height: 40px;\n    background: rgba(255, 255, 255, 0.95);\n    border: 1px solid rgba(0, 0, 0, 0.2);\n    border-radius: 50%;\n    cursor: pointer;\n    z-index: 10000;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);\n    transition: all 0.2s;\n    font-size: 24px;\n    line-height: 1;\n    color: #333;\n}\n\n.mermaid-fullscreen-close:hover {\n    background: white;\n    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);\n    transform: scale(1.1);\n}\n\n.mermaid-fullscreen-close.dark-theme {\n    background: rgba(50, 50, 50, 0.95);\n    border: 1px solid rgba(255, 255, 255, 0.2);\n    color: #e0e0e0;\n}\n\n.mermaid-fullscreen-close.dark-theme:hover {\n    background: rgba(60, 60, 60, 1);\n    box-shadow: 0 6px 16px rgba(255, 255, 255, 0.2);\n}\n\n.mermaid-fullscreen-modal .mermaid-fullscreen-btn {\n    display: none !important;\n}";
+    document.head.appendChild(fullscreenStyle);
+}
+
+// Detect if page has dark background
+const isDarkTheme = () => {
+    // We use a set of heuristics:
+    // 1. Check for common dark mode classes or attributes
+    // 2. Check computed background color brightness
+    if (document.documentElement.classList.contains('dark') ||
+        document.documentElement.getAttribute('data-theme') === 'dark' ||
+        document.body.classList.contains('dark') ||
+        document.body.getAttribute('data-theme') === 'dark') {
+        // console.log("Dark theme detected via class/attribute");
+        return true;
+    }
+    if (document.documentElement.classList.contains('light') ||
+        document.documentElement.getAttribute('data-theme') === 'light' ||
+        document.body.classList.contains('light') ||
+        document.body.getAttribute('data-theme') === 'light') {
+        // console.log("Light theme detected via class/attribute");
+        return false;
+    }
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        // console.log("Dark theme detected via prefers-color-scheme");
+        return true;
+    }
+    const bgColor = window.getComputedStyle(document.body).backgroundColor;
+    const match = bgColor.match(/rgb\((\d+),\s*(\d+),\s*(\d+)/);
+    if (match) {
+        const r = parseInt(match[1]);
+        const g = parseInt(match[2]);
+        const b = parseInt(match[3]);
+        const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+        // console.log("Background color brightness:", brightness);
+        return brightness < 128;
+    }
+    // console.log("No dark or light theme detected, defaulting to light theme");
+    return false;
+};
+
+let darkTheme = isDarkTheme();
+let modal = null;
+let modalContent = null;
+let previousScrollOffset = [window.scrollX, window.scrollY];
+let _lazyObserver = null;
+let _renderQueue = Promise.resolve();
+let closeModal = () => {};
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal?.classList.contains('active')) {
+        closeModal();
+    }
+});
+
+// Apply d3 zoom to each SVG. Idempotent: an SVG already wrapped is skipped,
+// so this is safe to call both for the initial batch and for diagrams that
+// render lazily once they become visible.
+const addZoomToSvgs = (svgs) => {
+    svgs.each(function() {
+        if (this.getAttribute('data-zoom-applied') === 'true') return;
+        var svg = d3.select(this);
+        svg.html("<g class='wrapper'>" + svg.html() + "</g>");
+        var inner = svg.select("g");
+        var zoom = d3.zoom().on("zoom", function(event) {
+            inner.attr("transform", event.transform);
+        });
+        svg.call(zoom);
+        this.setAttribute('data-zoom-applied', 'true');
+    });
+};
+
+const runMermaid = async (rerun) => {
+    console.log("Running mermaid diagrams, rerun =", rerun);
+    // clear all existing mermaid charts
+    let all_mermaids = document.querySelectorAll(".mermaid");
+
+    if (rerun) {
+        // Disconnect any previous lazy rendering observer
+        if (_lazyObserver) {
+            _lazyObserver.disconnect();
+            _lazyObserver = null;
+        }
+
+        all_mermaids.forEach((el) => {
+            el.removeAttribute('data-mermaid-deferred');
+            el.removeAttribute('data-mermaid-render-failed');
+            if(!el.hasAttribute("data-original-code")) {
+                // store original code
+                // console.log(`Storing original code for first run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+            if(el.getAttribute("data-processed") === "true") {
+                // remove and restore original
+                el.removeAttribute("data-processed");
+                // console.log(`Restoring original code for re-run: `, el.getAttribute('data-original-code'));
+                el.innerHTML = el.getAttribute('data-original-code');
+            } else {
+                // store original code
+                // console.log(`Storing original code for re-run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+        });
+
+        // Separate visible and hidden elements. Mermaid's layout engine measures
+        // text dimensions via the DOM, which fails for elements hidden by a parent
+        // (e.g., Reveal.js non-active slides, sphinx-design unopened tabs),
+        // producing broken SVGs. Render visible elements now, defer hidden ones.
+        const visible = [];
+        const hidden = [];
+        all_mermaids.forEach((el) => {
+            // offsetParent is null for display:none ancestors.
+            // getClientRects().length > 0 catches position:fixed elements
+            // (which also have null offsetParent but are still visible).
+            if (el.offsetParent !== null || el.getClientRects().length > 0) {
+                visible.push(el);
+            } else {
+                hidden.push(el);
+                el.setAttribute('data-mermaid-deferred', 'true');
+            }
+        });
+
+        if (visible.length > 0) {
+            try {
+                await mermaid.run({ nodes: visible });
+            } catch (e) {
+                console.error("Mermaid rendering failed:", e);
+            }
+        }
+
+        // Lazily render hidden elements when they become visible.
+        // Uses a promise chain (_renderQueue) to serialize rendering,
+        // since IntersectionObserver may report multiple entries at once
+        // and mermaid.run() is not safe to call concurrently.
+        if (hidden.length > 0) {
+            if (typeof IntersectionObserver === 'undefined') {
+                console.warn("IntersectionObserver not available; hidden mermaid diagrams will not render.");
+            } else {
+                _renderQueue = Promise.resolve();
+                _lazyObserver = new IntersectionObserver((entries) => {
+                    for (const entry of entries) {
+                        if (entry.isIntersecting && entry.target.getAttribute("data-processed") !== "true") {
+                            _lazyObserver.unobserve(entry.target);
+                            const el = entry.target;
+                            _renderQueue = _renderQueue.then(async () => {
+                                try {
+                                    await mermaid.run({ nodes: [el] });
+                                    el.removeAttribute('data-mermaid-deferred');
+                                    // Apply zoom to the now-rendered diagram, matching
+                                    // the decoration visible diagrams receive.
+                                    if (false) {
+                                        addZoomToSvgs(d3.selectAll("").select(function() {
+                                            return this.querySelector("svg");
+                                        }));
+                                    }
+                                } catch (e) {
+                                    console.error("Mermaid deferred rendering failed:", e);
+                                    el.removeAttribute('data-mermaid-deferred');
+                                    el.setAttribute('data-mermaid-render-failed', 'true');
+                                }
+                            });
+                        }
+                    }
+                });
+                hidden.forEach((el) => _lazyObserver.observe(el));
+            }
+        }
+    }
+
+    all_mermaids = document.querySelectorAll(".mermaid");
+    // Exclude deferred (hidden) and render-failed elements from completion checks
+    const mermaids_active = document.querySelectorAll(".mermaid:not([data-mermaid-deferred]):not([data-mermaid-render-failed])");
+    const mermaids_processed = document.querySelectorAll(".mermaid:not([data-mermaid-deferred]):not([data-mermaid-render-failed])[data-processed='true']");
+
+    if (false) {
+        const mermaids_to_add_zoom = 0 === -1 ? mermaids_active.length : 0;
+        if(mermaids_to_add_zoom > 0) {
+            var svgs = d3.selectAll("").select(function() {
+                return this.querySelector("svg");
+            });
+            // Wait until every active (visible) diagram has rendered. Deferred
+            // diagrams are excluded, so a fixed d3_node_count that counts a
+            // hidden diagram no longer loops forever waiting for its SVG.
+            if(mermaids_active.length !== mermaids_processed.length) {
+                setTimeout(() => runMermaid(false), 200);
+                return;
+            }
+            addZoomToSvgs(svgs);
+        }
+    } else if(mermaids_active.length !== mermaids_processed.length) {
+        // Wait for mermaid to process all diagrams
+        setTimeout(() => runMermaid(false), 200);
+        return;
+    }
+
+    // Stop here if not adding fullscreen capability
+    if (!true) return;
+
+    if (modal !== null ) {
+        // Destroy existing modal
+        modal.remove();
+        modal = null;
+        modalContent = null;
+    }
+
+    modal = document.createElement('div');
+    modal.className = 'mermaid-fullscreen-modal' + (darkTheme ? ' dark-theme' : '');
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-label', 'Fullscreen diagram viewer');
+    modal.innerHTML = `
+        <button class="mermaid-fullscreen-close${darkTheme ? ' dark-theme' : ''}" aria-label="Close fullscreen">✕</button>
+        <div class="mermaid-container-fullscreen${darkTheme ? ' dark-theme' : ''}"></div>
+    `;
+    document.body.appendChild(modal);
+
+    modalContent = modal.querySelector('.mermaid-container-fullscreen');
+    const closeBtn = modal.querySelector('.mermaid-fullscreen-close');
+
+    closeModal = () => {
+        modal.classList.remove('active');
+        modalContent.innerHTML = '';
+        document.body.style.overflow = ''
+        window.scrollTo({left: previousScrollOffset[0], top: previousScrollOffset[1], behavior: 'instant'});
+    };
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    document.querySelectorAll('.mermaid').forEach((mermaidDiv) => {
+        if (mermaidDiv.parentNode.classList.contains('mermaid-container') ||
+            mermaidDiv.closest('.mermaid-fullscreen-modal')) {
+            // Already processed, adjust button class if needed
+            const existingBtn = mermaidDiv.parentNode.querySelector('.mermaid-fullscreen-btn');
+            if (existingBtn) {
+                existingBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+            }
+            return;
+        }
+
+        const container = document.createElement('div');
+        container.className = 'mermaid-container';
+        mermaidDiv.parentNode.insertBefore(container, mermaidDiv);
+        container.appendChild(mermaidDiv);
+
+        const fullscreenBtn = document.createElement('button');
+        fullscreenBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+        fullscreenBtn.setAttribute('aria-label', 'View diagram in fullscreen');
+        fullscreenBtn.textContent = "\u26f6";
+        fullscreenBtn.style.opacity = "50%";
+
+        // Calculate dynamic position based on diagram's margin and padding
+        const diagramStyle = window.getComputedStyle(mermaidDiv);
+        const marginTop = parseFloat(diagramStyle.marginTop) || 0;
+        const marginRight = parseFloat(diagramStyle.marginRight) || 0;
+        const paddingTop = parseFloat(diagramStyle.paddingTop) || 0;
+        const paddingRight = parseFloat(diagramStyle.paddingRight) || 0;
+        fullscreenBtn.style.top = `${marginTop + paddingTop + 4}px`;
+        fullscreenBtn.style.right = `${marginRight + paddingRight + 4}px`;
+
+        fullscreenBtn.addEventListener('click', () => {
+            previousScrollOffset = [window.scrollX, window.scrollY];
+            const clone = mermaidDiv.cloneNode(true);
+            modalContent.innerHTML = '';
+            modalContent.appendChild(clone);
+
+            const svg = clone.querySelector('svg');
+            if (svg) {
+                svg.removeAttribute('width');
+                svg.removeAttribute('height');
+                svg.style.width = '100%';
+                svg.style.height = 'auto';
+                svg.style.maxWidth = '100%';
+                svg.style.display = 'block';
+
+                if (false) {
+                    setTimeout(() => {
+                        const g = svg.querySelector('g');
+                        if (g) {
+                            var svgD3 = d3.select(svg);
+                            svgD3.html("<g class='wrapper'>" + svgD3.html() + "</g>");
+                            var inner = svgD3.select("g");
+                            var zoom = d3.zoom().on("zoom", function(event) {
+                                inner.attr("transform", event.transform);
+                            });
+                            svgD3.call(zoom);
+                        }
+                    }, 100);
+                }
+            }
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        container.appendChild(fullscreenBtn);
+    });
+};
+
+
+
+const load = async () => {
+    initStyles();
+
+
+    await runMermaid(true);
+
+    const reRunIfThemeChanges = async () => {
+        const newDarkTheme = isDarkTheme();
+        if (newDarkTheme !== darkTheme) {
+            darkTheme = newDarkTheme;
+            console.log("Theme change detected, re-running mermaid with", darkTheme ? "dark" : "default", "theme");
+            await mermaid.initialize(
+                {...{"startOnLoad": false, "flowchart": {"useMaxWidth": false}, "sequence": {"useMaxWidth": false}},
+                ...{ darkMode: darkTheme, theme: darkTheme ? "dark" : "default" },
+                }
+            );
+            await runMermaid(true);
+        }
+    };
+
+    // Update theme classes when theme changes
+    const themeObserver = new MutationObserver(reRunIfThemeChanges);
+    themeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+    themeObserver.observe(document.body, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+};
+
+
+
+
+
+console.log("Initializing mermaid with", darkTheme ? "dark" : "default", "theme");
+mermaid.initialize(
+    {...{"startOnLoad": false, "flowchart": {"useMaxWidth": false}, "sequence": {"useMaxWidth": false}},
+    ...{ darkMode: darkTheme, theme: darkTheme ? "dark" : "default" },
+    }
+);
+
+window.addEventListener("load", load);
+window.runMermaid = runMermaid;</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api_reference/ros2_actions';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/toc-sidebar.js?v=ae5e43d1"></script>
     <link rel="icon" href="../_static/movensys_logo.png"/>
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="wmx_r2_message" href="wmx_r2_message.html" />
     <link rel="prev" title="ROS2 Topics" href="ros2_topics.html" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Sep 08, 2026"/>
+    <meta name="docbuild:last-update" content="Oct 29, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
     <script src="../_static/language_data.js"></script>
     <script src="../searchindex.js"></script>
   
+<script>
+  try {
+    if (localStorage.getItem("toc-hidden") === "1") {
+      document.documentElement.classList.add("toc-hidden");
+    }
+    var tocWidth = localStorage.getItem("toc-width");
+    if (tocWidth) {
+      document.documentElement.style.setProperty("--toc-width", tocWidth);
+    }
+  } catch (e) {}
+</script>
   </head>
   <body data-default-mode="light">
   
@@ -188,10 +559,6 @@
   
 
   
-    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
-      <span class="fa-solid fa-outdent"></span>
-    </button>
-  
 </div>
 
     </header>
@@ -254,8 +621,8 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/examples.html">Example Applications</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../examples/Testing%20WMX%20R2.html">Testing WMX R2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../examples/isaacsim_setup.html">NVIDIA Isaac ROS Setup (Optional)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/testing_wmx_r2.html">Testing WMX R2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/isaacsim_setup.html">NVIDIA Isaac Setup (Optional)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator.html">movensys-manipulator</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/trajectory_planning.html">Trajectory Planning</a></li>
@@ -275,6 +642,14 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../try_your_robot/index.html">Try Your Robot</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/wmx_web_tools.html">WMX Web Tools (WOS, NetConfigurator, MotionScope)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/robot_parameters.html">Robot Parameter Configuration and Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/first_motion.html">First Motion on Hardware</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/safety.html">Safety Functions and Responsibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/validated_hardware.html">Hardware Compatibility and Validation</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../integration/integration.html">Integration Scenarios</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../integration/moveit2_integration.html">MoveIt2 Motion Planning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../integration/cumotion_integration.html">Isaac cuMotion Accelerated Planning</a></li>
@@ -284,13 +659,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../integration/intelligence_integration.html">Natural-Language and Vision Control (VLM / LLM)</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../commissioning/index.html">Commissioning</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../commissioning/robot_parameters.html">Robot Parameter Configuration and Validation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../commissioning/first_motion.html">Commissioning and First Motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../commissioning/safety.html">Safety Functions and Responsibility</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../commissioning/validated_hardware.html">Hardware Compatibility and Validation</a></li>
-</ul>
-</li>
 <li class="toctree-l1 current"><a class="reference internal" href="api_reference.html">API Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="communication.html">Communication Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ros2_services.html">ROS2 Services</a></li>
@@ -298,6 +666,8 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">ROS2 Actions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wmx_r2_message.html">wmx_r2_message</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wmx_r2_package.html">wmx_r2_package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wmx_r2_control.html">wmx_r2_control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wmx3_api.html">The WMX3 API Underneath WMX R2</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../support.html">Support</a><ul>
@@ -487,9 +857,14 @@ with timestamps) and executes it on the physical robot using the WMX
 <p class="admonition-title">Note</p>
 <p>Only the <code class="docutils literal notranslate"><span class="pre">positions</span></code> and <code class="docutils literal notranslate"><span class="pre">time_from_start</span></code> fields of each trajectory
 point are used. The <code class="docutils literal notranslate"><span class="pre">velocities</span></code>, <code class="docutils literal notranslate"><span class="pre">accelerations</span></code>, and <code class="docutils literal notranslate"><span class="pre">effort</span></code>
-fields are logged for diagnostics but not passed to the WMX engine –
-the cubic spline interpolation is computed internally by WMX.</p>
+fields are logged and discarded – the WMX C-spline derives the profile
+from the position/time sequence itself.</p>
 </div>
+<p><strong>Joint mapping.</strong> When the goal carries <code class="docutils literal notranslate"><span class="pre">joint_names</span></code>, each goal column is
+matched to its axis by name against the <code class="docutils literal notranslate"><span class="pre">joint_name</span></code> parameter. A goal that
+names an unknown joint, repeats one, or leaves one out is <strong>rejected</strong>. Only
+when <code class="docutils literal notranslate"><span class="pre">joint_name</span></code> is left empty does the server fall back to positional
+mapping, and it warns about that at startup.</p>
 </section>
 <section id="result">
 <h3>Result<a class="headerlink" href="#result" title="Link to this heading">#</a></h3>
@@ -517,54 +892,96 @@ the cubic spline interpolation is computed internally by WMX.</p>
 </tbody>
 </table>
 </div>
+<p><code class="docutils literal notranslate"><span class="pre">error_code</span></code> is the raw WMX error code on a motion failure, and
+<code class="docutils literal notranslate"><span class="pre">GOAL_TOLERANCE_VIOLATED</span></code> when the goal outruns its deadline (see below).</p>
 </section>
 <section id="feedback">
 <h3>Feedback<a class="headerlink" href="#feedback" title="Link to this heading">#</a></h3>
-<p>No intermediate feedback is published during execution. After starting the
-spline motion, the server runs a polling loop (10 ms interval) that checks
-each axis’s <code class="docutils literal notranslate"><span class="pre">inPos</span></code> status via <code class="docutils literal notranslate"><span class="pre">CoreMotion::GetStatus()</span></code> until all joints
-have reached position, or until the goal is canceled.</p>
+<p>No feedback messages are published during execution, and there is no path
+tolerance or goal tolerance check beyond the deadline described below. Watch
+<code class="docutils literal notranslate"><span class="pre">/joint_states</span></code> or <code class="docutils literal notranslate"><span class="pre">/wmx/axes/status</span></code> if you need progress.</p>
 </section>
 <section id="execution-details">
 <h3>Execution Details<a class="headerlink" href="#execution-details" title="Link to this heading">#</a></h3>
 <p>The server processes the trajectory as follows:</p>
 <ol class="arabic simple">
-<li><p><strong>Goal acceptance</strong> – All incoming goals are accepted unconditionally
-(<code class="docutils literal notranslate"><span class="pre">ACCEPT_AND_EXECUTE</span></code>). No goal validation beyond point count is performed.</p></li>
-<li><p><strong>Thread dispatch</strong> – The <code class="docutils literal notranslate"><span class="pre">execute()</span></code> callback runs in a <strong>detached
-thread</strong> spawned from <code class="docutils literal notranslate"><span class="pre">handle_accepted()</span></code>, allowing the action server
-to remain responsive.</p></li>
-<li><p><strong>Validation</strong> – Rejects goals with more than 1000 waypoints (aborts
-immediately with a warning). If the adjusted point count is 0, the server
-succeeds immediately without commanding motion.</p></li>
-<li><p><strong>Timing adjustment</strong> – The first point’s <code class="docutils literal notranslate"><span class="pre">time_from_start</span></code> is forced
-to zero. If the last point has a time interval less than 1 ms from the
-previous point, it is dropped to prevent interpolation errors.</p></li>
-<li><p><strong>Spline construction</strong> – For each trajectory point, positions are packed
-into a <code class="docutils literal notranslate"><span class="pre">CSplinePosData</span></code> structure and timestamps are converted to
-milliseconds. The <code class="docutils literal notranslate"><span class="pre">dimensionCount</span></code> and <code class="docutils literal notranslate"><span class="pre">axis[]</span></code> array are set from the
-<code class="docutils literal notranslate"><span class="pre">joint_axes</span></code> parameter (<code class="docutils literal notranslate"><span class="pre">dimensionCount</span> <span class="pre">=</span> <span class="pre">jointAxes_.size()</span></code>, typically
-6 joints).</p></li>
-<li><p><strong>Execution</strong> – <code class="docutils literal notranslate"><span class="pre">AdvancedMotion::StartCSplinePos(0,</span> <span class="pre">...)</span></code> begins the
-interpolated motion on buffer index 0 across all joints simultaneously.</p></li>
-<li><p><strong>Poll until done</strong> – The server loops every 10 ms, reading
-<code class="docutils literal notranslate"><span class="pre">CoreMotion::GetStatus()</span></code> and checking the <code class="docutils literal notranslate"><span class="pre">inPos</span></code> flag of each axis in
-<code class="docutils literal notranslate"><span class="pre">joint_axes</span></code>. The loop exits once all joints are in position.</p></li>
-<li><p><strong>Result</strong> – On success, <code class="docutils literal notranslate"><span class="pre">error_code</span> <span class="pre">=</span> <span class="pre">0</span></code> and the goal succeeds.
-On failure, the WMX error code is returned and the goal is aborted.</p></li>
+<li><p><strong>Goal acceptance</strong> – A goal is <strong>rejected</strong> if the node is not
+<code class="docutils literal notranslate"><span class="pre">active</span></code>, if another goal is already running, or if its <code class="docutils literal notranslate"><span class="pre">joint_names</span></code>
+do not map cleanly onto <code class="docutils literal notranslate"><span class="pre">joint_name</span></code>. Accepted goals run
+<code class="docutils literal notranslate"><span class="pre">ACCEPT_AND_EXECUTE</span></code>.</p></li>
+<li><p><strong>Thread dispatch</strong> – <code class="docutils literal notranslate"><span class="pre">execute()</span></code> runs on one execution thread that the
+node owns and joins, so no goal outlives the WMX device handle. The action
+server stays responsive while a goal runs.</p></li>
+<li><p><strong>Validation</strong> – A goal with more than <strong>1000</strong> points is aborted with no
+motion. <code class="docutils literal notranslate"><span class="pre">MAX_TRAJ_POINTS</span></code> is a compile-time constant, not a parameter: it
+sizes the WMX spline buffer allocated at <code class="docutils literal notranslate"><span class="pre">configure</span></code>.</p></li>
+<li><p><strong>Timing adjustment</strong> – The first point’s <code class="docutils literal notranslate"><span class="pre">time_from_start</span></code> is forced to
+zero. A final point less than 1 ms after its predecessor is dropped;
+planners routinely emit such a duplicate endpoint.</p></li>
+<li><p><strong>Spline construction</strong> – Positions are packed into a <code class="docutils literal notranslate"><span class="pre">CSplinePosData</span></code>
+structure with timestamps in milliseconds. <code class="docutils literal notranslate"><span class="pre">dimensionCount</span></code> and the
+<code class="docutils literal notranslate"><span class="pre">axis[]</span></code> array come from the <code class="docutils literal notranslate"><span class="pre">joint_axes</span></code> parameter.</p></li>
+<li><p><strong>Execution</strong> – <code class="docutils literal notranslate"><span class="pre">AdvancedMotion::StartCSplinePos(0,</span> <span class="pre">...)</span></code> starts the
+interpolated motion on buffer 0 across all joints at once. A WMX error
+aborts the goal with <code class="docutils literal notranslate"><span class="pre">error_code</span></code> set to the raw WMX code.</p></li>
+<li><p><strong>Wait, then poll</strong> – The server first waits out the planned duration of
+the trajectory, taken from the last <code class="docutils literal notranslate"><span class="pre">time_from_start</span></code>, then polls every
+10 ms until <strong>both</strong> <code class="docutils literal notranslate"><span class="pre">motionComplete</span></code> and <code class="docutils literal notranslate"><span class="pre">inPos</span></code> are set on every
+<code class="docutils literal notranslate"><span class="pre">joint_axes</span></code> entry. Because it waits out the planned duration, a goal
+cannot report success before the motion has had time to run.</p></li>
+<li><p><strong>Deadline</strong> – A goal that has not finished <strong>10 s past</strong> its planned
+duration is stopped and aborted with <code class="docutils literal notranslate"><span class="pre">GOAL_TOLERANCE_VIOLATED</span></code>.</p></li>
+<li><p><strong>Exit</strong> – On every exit path – success, abort, or cancel – the server
+publishes <code class="docutils literal notranslate"><span class="pre">execution_active:</span> <span class="pre">false</span></code> and a zero-velocity <code class="docutils literal notranslate"><span class="pre">JointJog</span></code> on
+<code class="docutils literal notranslate"><span class="pre">/servo_node/delta_joint_cmds</span></code>, so MoveIt Servo does not resume with a
+stale delta.</p></li>
 </ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Cancellation is supported. The <code class="docutils literal notranslate"><span class="pre">handle_cancel()</span></code> callback accepts the
-request, and the polling loop checks <code class="docutils literal notranslate"><span class="pre">goal_handle-&gt;is_canceling()</span></code> each
-iteration – on cancel it calls <code class="docutils literal notranslate"><span class="pre">CoreMotion::Stop()</span></code> then <code class="docutils literal notranslate"><span class="pre">Wait()</span></code>,
-reports <code class="docutils literal notranslate"><span class="pre">error_code</span> <span class="pre">=</span> <span class="pre">0</span></code>, and marks the goal <code class="docutils literal notranslate"><span class="pre">canceled</span></code>.</p>
+<p>Cancellation is supported. <code class="docutils literal notranslate"><span class="pre">handle_cancel()</span></code> accepts the request and the
+polling loop checks <code class="docutils literal notranslate"><span class="pre">is_canceling()</span></code> each iteration – on cancel it calls
+<code class="docutils literal notranslate"><span class="pre">CoreMotion::Stop()</span></code> then <code class="docutils literal notranslate"><span class="pre">Wait()</span></code>, reports <code class="docutils literal notranslate"><span class="pre">error_code</span> <span class="pre">=</span> <span class="pre">0</span></code>, and
+marks the goal <code class="docutils literal notranslate"><span class="pre">canceled</span></code>.</p>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Deactivating the controller destroys the action server, so no new goal can
+arrive. A goal already running sees the deactivation, stops the axes, and
+aborts; <code class="docutils literal notranslate"><span class="pre">on_deactivate</span></code> waits for it.</p>
+</div>
+</section>
+<section id="arbitration-with-moveit-servo">
+<h3>Arbitration with MoveIt Servo<a class="headerlink" href="#arbitration-with-moveit-servo" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">joint_trajectory_controller</span></code> (planned motion) and
+<code class="docutils literal notranslate"><span class="pre">joint_position_controller</span></code> (streamed servo motion) command the same axes,
+so they interlock over <code class="docutils literal notranslate"><span class="pre">/moveit2_trajectory/execution_active</span></code>:</p>
+<figure class="align-default" id="id2">
+<pre  class="mermaid">
+        sequenceDiagram
+    participant MG as MoveIt2 move_group
+    participant JTC as joint_trajectory_controller
+    participant JPC as joint_position_controller
+    participant SV as MoveIt Servo
+
+    MG-&gt;&gt;JTC: FollowJointTrajectory goal
+    JTC--&gt;&gt;JPC: execution_active = true (latched)
+    Note over JPC: drops every streamed trajectory while true
+    JTC-&gt;&gt;JTC: StartCSplinePos, wait, poll
+    JTC--&gt;&gt;MG: succeeded / aborted / canceled
+    JTC--&gt;&gt;JPC: execution_active = false
+    JTC--&gt;&gt;SV: zero JointJog on /servo_node/delta_joint_cmds
+    </pre><figcaption>
+<p><span class="caption-text">Planned versus streamed motion</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The latch is one-directional: a servo motion already in flight is <strong>not</strong>
+preempted when a planned goal starts. Pause MoveIt Servo, or accept that the
+first goal wins the race, if both can be commanded at once.</p>
 </section>
 <section id="example-usage">
 <h3>Example Usage<a class="headerlink" href="#example-usage" title="Link to this heading">#</a></h3>
 <p><strong>Send a simple two-point trajectory via the command line:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>action<span class="w"> </span>send_goal<span class="w"> </span><span class="se">\</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>action<span class="w"> </span>send_goal<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>/movensys_manipulator_arm_controller/follow_joint_trajectory<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>control_msgs/action/FollowJointTrajectory<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span><span class="s2">"{trajectory: {</span>
@@ -579,7 +996,7 @@ reports <code class="docutils literal notranslate"><span class="pre">error_code<
 </pre></div>
 </div>
 <p><strong>Check that the action server is available:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>action<span class="w"> </span>list
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>action<span class="w"> </span>list
 </pre></div>
 </div>
 <p>Expected:</p>
@@ -587,17 +1004,17 @@ reports <code class="docutils literal notranslate"><span class="pre">error_code<
 </pre></div>
 </div>
 <p><strong>Inspect the action interface:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>action<span class="w"> </span>info<span class="w"> </span>/movensys_manipulator_arm_controller/follow_joint_trajectory
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>action<span class="w"> </span>info<span class="w"> </span>/movensys_manipulator_arm_controller/follow_joint_trajectory
 </pre></div>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This action moves real motors. Before sending trajectory goals, confirm
 that the robot parameters have been verified
-(<a class="reference internal" href="../commissioning/robot_parameters.html"><span class="doc">Robot Parameter Configuration and Validation</span></a>), that the robot has passed the
-first-motion procedure (<a class="reference internal" href="../commissioning/first_motion.html"><span class="doc">Commissioning and First Motion</span></a>), that the
+(<a class="reference internal" href="../try_your_robot/robot_parameters.html"><span class="doc">Robot Parameter Configuration and Validation</span></a>), that the robot has passed the
+first-motion procedure (<a class="reference internal" href="../try_your_robot/first_motion.html"><span class="doc">First Motion on Hardware</span></a>), that the
 workspace is clear, and that the separate safety measures in
-<a class="reference internal" href="../commissioning/safety.html"><span class="doc">Safety Functions and Responsibility</span></a> are in place. Cancelling a goal is a
+<a class="reference internal" href="../try_your_robot/safety.html"><span class="doc">Safety Functions and Responsibility</span></a> are in place. Cancelling a goal is a
 controlled stop, not an emergency stop.</p>
 </div>
 </section>
@@ -664,33 +1081,6 @@ is set via the <code class="docutils literal notranslate"><span class="pre">join
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-<div
-    id="pst-page-navigation-heading-2"
-    class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> On this page
-  </div>
-  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
-    <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#followjointtrajectory">FollowJointTrajectory</a><ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#goal">Goal</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#result">Result</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#feedback">Feedback</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#execution-details">Execution Details</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-usage">Example Usage</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#moveit2-integration">MoveIt2 Integration</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#see-also">See Also</a></li>
-</ul>
-</li>
-</ul>
-  </nav></div>
-
-</div></div>
-              
             
           </div>
           <footer class="bd-footer-content">
@@ -715,7 +1105,7 @@ is set via the <code class="docutils literal notranslate"><span class="pre">join
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Sep 08, 2026</p>
+      <p>Last updated: Oct 29, 2026</p>
     
   </div>
   <div class="movensys-footer__links">

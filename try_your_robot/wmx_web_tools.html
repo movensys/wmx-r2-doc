@@ -1,0 +1,925 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>WMX Web Tools (WOS, NetConfigurator, MotionScope) &#8212; WMX R2 Documentation 1.0.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=bcda8ffe" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
+
+    <script src="../_static/documentation_options.js?v=8d563738"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'try_your_robot/wmx_web_tools';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/toc-sidebar.js?v=ae5e43d1"></script>
+    <link rel="icon" href="../_static/movensys_logo.png"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Robot Parameter Configuration and Validation" href="robot_parameters.html" />
+    <link rel="prev" title="Try Your Robot" href="index.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="Oct 29, 2026"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+<script>
+  try {
+    if (localStorage.getItem("toc-hidden") === "1") {
+      document.documentElement.classList.add("toc-hidden");
+    }
+    var tocWidth = localStorage.getItem("toc-width");
+    if (tocWidth) {
+      document.documentElement.style.setProperty("--toc-width", tocWidth);
+    }
+  } catch (e) {}
+</script>
+  </head>
+  <body data-default-mode="light">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../_static/movensys_logo.png" class="logo__image only-light" alt=""/>
+    <img src="../_static/movensys_logo.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">WMX R2 Documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/movensys/wmx-r2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/movensys/wmx-r2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item"><div class="sidebar-toc-header">
+  <p class="sidebar-toc-title">Table of Contents</p>
+  <p class="sidebar-toc-subtitle">Contents</p>
+</div></div>
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links" aria-label="Section Navigation">
+  <div class="bd-toc-item navbar-nav">
+    <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/computer_setup.html">Computer Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx_runtime.html">Install WMX Runtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx3.html">Install WMX R2 Package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/examples.html">Example Applications</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/testing_wmx_r2.html">Testing WMX R2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/isaacsim_setup.html">NVIDIA Isaac Setup (Optional)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator.html">movensys-manipulator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/trajectory_planning.html">Trajectory Planning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/apriltag_pick_and_place.html">AprilTag Pick-and-Place</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/obstacle_avoidance.html">Nvblox Obstacle Avoidance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/yolo_pick_and_place.html">YOLO Pick-and-Place</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/apriltag_obstacle_avoidance.html">AprilTag + Obstacle Avoidance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/robopoly_game.html">Robopoly Game (VLM / LLM)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/movensys_navigation.html">movensys-navigation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples/movensys_navigation_setup.html">movensys-navigation Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/manual_driving.html">Manual Driving</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/slam_mapping.html">SLAM Mapping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/autonomous_navigation.html">Autonomous Navigation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Try Your Robot</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">WMX Web Tools (WOS, NetConfigurator, MotionScope)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="robot_parameters.html">Robot Parameter Configuration and Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="first_motion.html">First Motion on Hardware</a></li>
+<li class="toctree-l2"><a class="reference internal" href="safety.html">Safety Functions and Responsibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="validated_hardware.html">Hardware Compatibility and Validation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../integration/integration.html">Integration Scenarios</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../integration/moveit2_integration.html">MoveIt2 Motion Planning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/cumotion_integration.html">Isaac cuMotion Accelerated Planning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/nav2_integration.html">Nav2 Navigation (Mobile Base)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/custom_planner.html">Custom Planner Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/custom_application.html">Building Custom Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/intelligence_integration.html">Natural-Language and Vision Control (VLM / LLM)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/api_reference.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/communication.html">Communication Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_services.html">ROS2 Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_topics.html">ROS2 Topics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_actions.html">ROS2 Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_message.html">wmx_r2_message</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_package.html">wmx_r2_package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_control.html">wmx_r2_control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx3_api.html">The WMX3 API Underneath WMX R2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support.html">Support</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../licensing.html">Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About Us</a></li>
+</ul>
+
+  </div>
+</nav>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var navItems = document.querySelectorAll(".bd-docs-nav li");
+  navItems.forEach(function(li) {
+    var subList = li.querySelector(":scope > ul");
+    if (subList) {
+      var toggle = document.createElement("span");
+      toggle.className = "toc-toggle";
+      var isCurrent = li.classList.contains("current");
+      toggle.textContent = isCurrent ? "−" : "+";
+      if (!isCurrent) {
+        subList.classList.add("toc-collapsed");
+      }
+      toggle.addEventListener("click", function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        subList.classList.toggle("toc-collapsed");
+        toggle.textContent = subList.classList.contains("toc-collapsed") ? "+" : "−";
+      });
+      li.style.position = "relative";
+      var link = li.querySelector(":scope > a");
+      if (link) {
+        link.after(toggle);
+      }
+    }
+  });
+});
+</script></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Try Your Robot</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">WMX Web Tools (WOS, NetConfigurator, MotionScope)</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="wmx-web-tools-wos-netconfigurator-motionscope">
+<h1>WMX Web Tools (WOS, NetConfigurator, MotionScope)<a class="headerlink" href="#wmx-web-tools-wos-netconfigurator-motionscope" title="Link to this heading">#</a></h1>
+<p>Start here. Before a robot is worth bringing up in ROS 2, its EtherCAT
+network has to be described, its axis parameters have to be set, and each
+axis has to be proven to move the way you think it does — and the WMX Runtime
+ships a browser UI that does all three, talking to the WMX engine directly.</p>
+<p>That makes it the tool for the two pages that follow. It is where you
+<strong>generate the ENI file</strong> and <strong>set and export the axis parameters</strong> that
+<a class="reference internal" href="robot_parameters.html"><span class="doc">Robot Parameter Configuration and Validation</span></a> describes, and where you can <strong>jog an axis</strong> for the
+checks in <a class="reference internal" href="first_motion.html"><span class="doc">First Motion on Hardware</span></a> with no ROS 2 node in the path. Later, when
+something misbehaves, it is also the fastest way to answer “is this a WMX R2
+problem or an engine problem?”</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>These tools are part of the <strong>WMX Runtime</strong>, not of WMX R2. They are
+installed under <code class="docutils literal notranslate"><span class="pre">/opt/wmx3/</span></code> and are documented by MOVENSYS in the
+manuals described in <a class="reference internal" href="#wmx-web-manuals"><span class="std std-ref">Offline manuals</span></a>. This page covers what they
+are, how to start them, and how they line up with the ROS 2 interface.</p>
+</div>
+<section id="starting-the-gateway">
+<h2>Starting the gateway<a class="headerlink" href="#starting-the-gateway" title="Link to this heading">#</a></h2>
+<p>One binary, <code class="docutils literal notranslate"><span class="pre">wmx-gateway</span></code>, serves all four apps. It needs root because it
+opens the WMX device:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>/opt/wmx3/web/gateway/wmx-gateway
+</pre></div>
+</div>
+<p>Then open the hub in a browser:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>https://0.0.0.0:5050/
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>It is HTTPS, with a self-signed certificate.</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">http://</span></code> on port 5050 does not answer — the gateway serves TLS from
+<code class="docutils literal notranslate"><span class="pre">/opt/wmx3/web/gateway/certs/</span></code>. The browser will warn about the
+certificate on first visit; accept it to continue. <code class="docutils literal notranslate"><span class="pre">0.0.0.0</span></code> works as
+the host in the URL because that is the bind address the certificate is
+issued for.</p>
+</div>
+<p>The ports come from <code class="docutils literal notranslate"><span class="pre">/opt/wmx3/web/gateway/config/gateway.toml</span></code> and can be
+changed there:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 14.0%" />
+<col style="width: 24.0%" />
+<col style="width: 62.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Port</p></th>
+<th class="head"><p>App</p></th>
+<th class="head"><p>Purpose</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">5050</span></code></p></td>
+<td><p><strong>WMX Home</strong></p></td>
+<td><p>Dashboard and launcher for the other three. Engine state, engine
+statistics, loaded modules, NIC and platform, license, backup
+(parameter export and import), and diagnostics.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">5051</span></code></p></td>
+<td><p><strong>WOS</strong></p></td>
+<td><p>Motor and I/O control: parameters, single- and multi-axis motion,
+homing, digital and analog I/O, user memory.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">5052</span></code></p></td>
+<td><p><strong>NetConfigurator</strong></p></td>
+<td><p>EtherCAT slave configuration, device info and access, and <strong>ESI / ENI
+file management</strong>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">5053</span></code></p></td>
+<td><p><strong>MotionScope</strong></p></td>
+<td><p>Motion visualization — trace and plot axis signals over time.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">8180</span></code> / <code class="docutils literal notranslate"><span class="pre">8181</span></code></p></td>
+<td><p>gRPC back end</p></td>
+<td><p>How the browser apps reach the engine. Not used directly.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="../_images/wmx_home_dashboard.jpg"><img alt="The WMX Home dashboard" src="../_images/wmx_home_dashboard.jpg" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-text">WMX Home on port 5050. The engine state and statistics are on the left, the
+four apps and the two manuals in the centre, and the host’s NIC, license,
+and RT status on the right.</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The top status bar of every app reports the engine it is attached to:
+<code class="docutils literal notranslate"><span class="pre">WMX</span> <span class="pre">3.7.0.0</span></code>, <code class="docutils literal notranslate"><span class="pre">PLATFORM</span> <span class="pre">Simu</span></code> or <code class="docutils literal notranslate"><span class="pre">EtherCAT</span></code>, <code class="docutils literal notranslate"><span class="pre">ENGINE</span> <span class="pre">Engine</span> <span class="pre">running</span></code>,
+and the loaded ESI notices. That line is the quickest confirmation that the
+<code class="docutils literal notranslate"><span class="pre">Module.ini</span></code> platform switch in <a class="reference internal" href="../examples/testing_wmx_r2.html"><span class="doc">Testing WMX R2</span></a> took
+effect.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>WOS commands real motion, and it is a second client on the</strong>
+<strong>same engine.</strong></p>
+<p>The WMX engine serves both WOS and the WMX R2 nodes. A jog started in WOS
+and a trajectory executed from ROS 2 are two clients commanding the same
+physical axis, and nothing arbitrates between them. Run one at a time.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">wmx_engine_node</span></code> reports a device lock error at startup
+(<code class="docutils literal notranslate"><span class="pre">CreateDeviceLockError</span></code>, retried five times), check what else has the
+engine open — a gateway left running is a common cause.</p>
+</div>
+</section>
+<section id="wos">
+<h2>WOS<a class="headerlink" href="#wos" title="Link to this heading">#</a></h2>
+<p>WOS (WMX Operating Studio) is the one you will use most, because it covers
+the same ground as the general nodes in
+<a class="reference internal" href="../examples/testing_wmx_r2.html"><span class="doc">Testing WMX R2</span></a>.</p>
+<p>Its layout is a top command area, a left menu, a central work area, and
+right-edge tabs for Axis Status, I/O Status, and User Memory. The top command
+buttons are grouped <strong>Motor</strong> (Servo On, Servo Off, Alarm Reset, Stop All),
+<strong>Device</strong> (Scan, Start comm., Stop comm., Hot Connect), <strong>AL Status</strong> (Up,
+Down for slave state steps), and a red <strong>E-Stop</strong> with its <strong>Release</strong>.</p>
+<figure class="align-center" id="id2">
+<a class="reference internal image-reference" href="../_images/wos_slave_connect_simulation.jpg"><img alt="The WOS Slave Connect screen in simulation mode" src="../_images/wos_slave_connect_simulation.jpg" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-text">WOS, showing the command groups across the top and the left menu. On the
+simulation platform, Slave Connect reports that there is no real fieldbus.</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The basic workflow is Scan → Start Communication → confirm <code class="docutils literal notranslate"><span class="pre">Communicating</span></code>
+→ Servo On → control. Until communication is connected, the motion controls
+are disabled; hovering a disabled button shows what it is waiting for.</p>
+<section id="setup-parameters">
+<h3>Setup → Parameters<a class="headerlink" href="#setup-parameters" title="Link to this heading">#</a></h3>
+<p>This screen <em>is</em> the WMX parameter file, as a grid. Axes are columns
+(<code class="docutils literal notranslate"><span class="pre">Axis</span> <span class="pre">00</span></code>, <code class="docutils literal notranslate"><span class="pre">Axis</span> <span class="pre">01</span></code>, …), parameters are rows, and 128 axes are paged ten
+at a time. The <strong>MAIN</strong> tab shows the core items — Axis Command Mode, Gear
+Ratio Numerator and Denominator, Single Turn Encoder Count, Absolute Encoder
+Mode, Absolute Home Offset, Home Type, Home Direction, homing velocities. The
+<strong>DETAIL</strong> tab groups everything by category — Servo, Feedback, Home, Limit,
+Motion, Alarm, Sync, Closed Loop, E-Stop, System — with a search box, a
+per-axis selector, a compare toggle, and a description pane for the selected
+parameter.</p>
+<figure class="align-center" id="id3">
+<a class="reference internal image-reference" href="../_images/wos_parameters_main.jpg"><img alt="The WOS Parameters screen, MAIN tab" src="../_images/wos_parameters_main.jpg" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Setup → Parameters, <strong>MAIN</strong> tab: the WMX parameter file as a grid, with
+one column per axis and the page selector at the top right.</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id4">
+<a class="reference internal image-reference" href="../_images/wos_parameters_detail.jpg"><img alt="The WOS Parameters screen, DETAIL tab" src="../_images/wos_parameters_detail.jpg" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-text">The <strong>DETAIL</strong> tab takes one axis at a time and groups every parameter by
+category, with a search box and a description pane.</span><a class="headerlink" href="#id4" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Three buttons at the bottom matter for WMX R2:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 24.0%" />
+<col style="width: 76.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Button</p></th>
+<th class="head"><p>Does</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Export</strong></p></td>
+<td><p>Writes the engine’s current parameter values to a file, on the server
+or downloaded to your PC. This is how you produce a
+<code class="docutils literal notranslate"><span class="pre">&lt;robot&gt;_wmx_parameters.xml</span></code> for a new machine after tuning it by
+hand.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Load</strong> / Import</p></td>
+<td><p>Loads a saved parameter file into the engine — the GUI equivalent of
+<code class="docutils literal notranslate"><span class="pre">/wmx/engine/import_and_set_all</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Copy Parameters</strong></p></td>
+<td><p>Copies one axis’s values to other axes. Useful when a robot’s joints
+share a drive specification.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Changes are staged until you press <strong>Apply</strong>, and edits survive page changes
+so a multi-page edit applies at once.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Changing the gear ratio changes the meaning of every distance and velocity
+value afterwards — in WOS <em>and</em> in every ROS 2 call, because they are the
+same engine-side user units. Re-check travel distance, velocity, and
+homing settings after any change. See
+<a class="reference internal" href="robot_parameters.html"><span class="doc">Robot Parameter Configuration and Validation</span></a>.</p>
+</div>
+</section>
+<section id="axis-control-single-axis-control">
+<h3>Axis Control → Single-Axis Control<a class="headerlink" href="#axis-control-single-axis-control" title="Link to this heading">#</a></h3>
+<p>Pick an axis from the list, then use the <strong>Homing</strong>, <strong>Jog</strong>, <strong>Abs</strong>, and
+<strong>Rel</strong> tabs. The panel shows Servo On, Home, and Alarm Reset buttons;
+commanded and feedback position; the NOT, ORG, and POT signals; and the OP
+state. Jog takes a velocity, acceleration/deceleration, jerk ratio, and
+timeout — the same four values as the <code class="docutils literal notranslate"><span class="pre">jog_*</span></code> parameters of
+<code class="docutils literal notranslate"><span class="pre">wmx_core_motion_node</span></code>.</p>
+<figure class="align-center" id="id5">
+<a class="reference internal image-reference" href="../_images/wos_single_axis_control.jpg"><img alt="The WOS Single-Axis Control screen" src="../_images/wos_single_axis_control.jpg" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Axis Control → Single-Axis Control, with the Homing, Jog, Abs, and Rel
+tabs. The controls are disabled here because communication is not started —
+the panel states the engine and communication state rather than failing
+silently.</span><a class="headerlink" href="#id5" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>This is the recommended way to do the low-speed single-axis checks in
+<a class="reference internal" href="first_motion.html"><span class="doc">First Motion on Hardware</span></a> <strong>before</strong> any ROS 2 node is involved: it
+removes the entire ROS 2 layer from the question of whether an axis moves the
+right way.</p>
+</section>
+<section id="what-each-wos-screen-corresponds-to-in-ros-2">
+<h3>What each WOS screen corresponds to in ROS 2<a class="headerlink" href="#what-each-wos-screen-corresponds-to-in-ros-2" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 34.0%" />
+<col style="width: 66.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>WOS</p></th>
+<th class="head"><p>WMX R2 equivalent</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Top bar → Servo On / Servo Off</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/wmx/axes/set_servo_on</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Top bar → Alarm Reset</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/wmx/axes/clear_amp_alarm</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Top bar → Stop All</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/wmx/axes/stop</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Top bar → Scan / Start comm. / Stop comm.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/wmx/ecat/scan_network</span></code>, <code class="docutils literal notranslate"><span class="pre">/wmx/engine/set_communication</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Top bar → Hot Connect</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/wmx/ecat/start_hotconnect</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Setup → Parameters (Load / Export)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/wmx/engine/import_and_set_all</span></code>, <code class="docutils literal notranslate"><span class="pre">/wmx/engine/get_axis_param</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Setup → Parameters (Gear Ratio)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/wmx/axes/set_gear_ratio</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Setup → Parameters (Axis Command Mode)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/wmx/axes/set_axis_command_mode</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Single-Axis Control → Homing</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/wmx/axes/start_home</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Single-Axis Control → Jog</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/wmx/axes/start_jog</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Single-Axis Control → Abs / Rel</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/wmx/axes/start_pos</span></code> / <code class="docutils literal notranslate"><span class="pre">/wmx/axes/start_mov</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Multi-Axis Control</p></td>
+<td><p>The same services with multi-element <code class="docutils literal notranslate"><span class="pre">axis</span></code> arrays</p></td>
+</tr>
+<tr class="row-even"><td><p>I/O Control → Digital I/O</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/wmx/io/get_in_bit</span></code>, <code class="docutils literal notranslate"><span class="pre">/wmx/io/set_out_bit</span></code>, and the byte variants</p></td>
+</tr>
+<tr class="row-odd"><td><p>Right rail → Axis Status</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/wmx/axes/status</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Slave Connect</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/wmx/ecat/get_master_info</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>In Simulation mode WOS shows an empty bus.</strong></p>
+<p>With the simulation platform enabled in <code class="docutils literal notranslate"><span class="pre">Module.ini</span></code>, WOS reports
+<em>“Simulation Mode — there is no real fieldbus (EtherCAT / CCLink / M4), so
+slave connection and scanning do not work”</em> and Slave Connect stays empty.
+Parameters are still editable, because they live in the engine rather than
+on the bus. Switch to the EtherCAT platform to use the device functions.</p>
+</div>
+</section>
+</section>
+<section id="netconfigurator-the-eni-file">
+<h2>NetConfigurator — the ENI file<a class="headerlink" href="#netconfigurator-the-eni-file" title="Link to this heading">#</a></h2>
+<p>Of the EtherCAT description files, <strong>the ENI is the only one you create</strong>. ESI
+files come from the device manufacturer; you register them and NetConfigurator
+uses them as the input that the ENI is built from.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 10.0%" />
+<col style="width: 26.0%" />
+<col style="width: 34.0%" />
+<col style="width: 30.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>File</p></th>
+<th class="head"><p>Comes from</p></th>
+<th class="head"><p>Role</p></th>
+<th class="head"><p>You do</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>ESI</strong></p></td>
+<td><p>The device manufacturer, one <code class="docutils literal notranslate"><span class="pre">.xml</span></code> per device type</p></td>
+<td><p>Describes a device’s specification and object dictionary.</p></td>
+<td><p>Register it once. Nothing to author.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>ENI</strong></p></td>
+<td><p>Generated by NetConfigurator</p></td>
+<td><p>Describes the network configuration the master communicates with.</p></td>
+<td><p><strong>Create it</strong> for your machine, and re-create it whenever the network
+changes.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<figure class="align-center" id="id6">
+<a class="reference internal image-reference" href="../_images/netconfigurator_esi_eni.jpg"><img alt="NetConfigurator, showing the ESI File and ENI File ribbon groups" src="../_images/netconfigurator_esi_eni.jpg" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-text">NetConfigurator. The ribbon’s two right-hand groups are <strong>ESI File</strong>
+(Add, Reload) and <strong>ENI File</strong> (Quick Create). The left menu holds Device
+Info, Device Settings, and Equipment Settings.</span><a class="headerlink" href="#id6" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="step-1-register-the-manufacturer-s-esi-files">
+<h3>Step 1 — register the manufacturer’s ESI files<a class="headerlink" href="#step-1-register-the-manufacturer-s-esi-files" title="Link to this heading">#</a></h3>
+<p><strong>ESI File → Add</strong> opens a dialog with two tabs: <strong>Select Server File</strong>, which
+lists what is already in the server’s ESI path (<code class="docutils literal notranslate"><span class="pre">/opt/wmx3/ESI</span></code>), and
+<strong>Upload Local File</strong>, for an <code class="docutils literal notranslate"><span class="pre">.xml</span></code> your drive vendor supplied that is not
+there yet. Each file shows a status of <em>Not loaded</em>, <em>Failed</em>, or <em>Loaded</em>.
+<strong>Reload</strong> re-reads the folder and lists anything that failed.</p>
+<figure class="align-center" id="id7">
+<a class="reference internal image-reference" href="../_images/netconfigurator_add_esi.jpg"><img alt="The Add ESI File dialog" src="../_images/netconfigurator_add_esi.jpg" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Add ESI File. The runtime ships with 30 device descriptions already loaded
+— MOVENSYS, MELSERVO, FASTECH and others — so for a drive from a supported
+vendor there is usually nothing to add.</span><a class="headerlink" href="#id7" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If a security policy blocks uploading from your PC, put the file in
+<code class="docutils literal notranslate"><span class="pre">/opt/wmx3/ESI</span></code> on the server and register it with <strong>Select Server File</strong>
+instead.</p>
+</div>
+</section>
+<section id="step-2-create-the-eni">
+<h3>Step 2 — create the ENI<a class="headerlink" href="#step-2-create-the-eni" title="Link to this heading">#</a></h3>
+<p>With the devices recognisable, generate the ENI from the network that is
+actually cabled up:</p>
+<ol class="arabic simple">
+<li><p><strong>Scan</strong> — discovers the slaves and puts them in the device tree.</p></li>
+<li><p><strong>ENI File → Quick Create</strong> — builds the ENI from that scan.</p></li>
+<li><p><strong>Start Communication</strong> — verify. Every slave should reach <code class="docutils literal notranslate"><span class="pre">Op</span></code>.</p></li>
+</ol>
+<p>Re-create the ENI after any change to the network configuration. There are
+three routes to the same generation step: the ribbon’s Quick Create, the
+right-click menu on a device in the tree, and the <strong>ENI File Create</strong> screen
+under Device Settings, which is the one to use when you want to inspect what
+goes in rather than accept the defaults.</p>
+<figure class="align-center" id="id8">
+<a class="reference internal image-reference" href="../_images/netconfigurator_eni_file_editor.jpg"><img alt="The ENI File Editor screen" src="../_images/netconfigurator_eni_file_editor.jpg" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Device Settings → ENI File Create. The editor works per slave —
+<code class="docutils literal notranslate"><span class="pre">Master</span> <span class="pre">0</span> <span class="pre">›</span> <span class="pre">Slave</span> <span class="pre">0</span></code> — and shows which ESI and which ENI revision that
+slave currently resolves to. <strong>SYNC ESI</strong> is the step that pulls the
+manufacturer’s ESI content into the ENI entry for that slave.</span><a class="headerlink" href="#id8" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="where-the-eni-is-written">
+<h3>Where the ENI is written<a class="headerlink" href="#where-the-eni-is-written" title="Link to this heading">#</a></h3>
+<p>The output folder is not fixed: it is the <strong>Eni Folder</strong> field in
+Device Settings → <strong>Network Def Editor</strong>, whose <em>Others</em> column also carries
+<code class="docutils literal notranslate"><span class="pre">Use</span> <span class="pre">LRW</span></code>, <code class="docutils literal notranslate"><span class="pre">PP</span> <span class="pre">Mode</span></code>, the slave-init thread count, and the reset-input and
+reset-output flags. The editor’s title bar names the file it is editing —
+<code class="docutils literal notranslate"><span class="pre">EcNetwork.def</span></code> — and its footer gives the path on disk,
+<code class="docutils literal notranslate"><span class="pre">/opt/wmx3/platform/ethercat/ec_network.def</span></code>.</p>
+<figure class="align-center" id="id9">
+<a class="reference internal image-reference" href="../_images/netconfigurator_network_def_editor.jpg"><img alt="The Network Def Editor screen" src="../_images/netconfigurator_network_def_editor.jpg" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Device Settings → Network Def Editor, editing
+<code class="docutils literal notranslate"><span class="pre">/opt/wmx3/platform/ethercat/ec_network.def</span></code>. <strong>Comm Cycle</strong>,
+<strong>Transmit Timeout</strong>, and the DC parameters live here, and <strong>Eni Folder</strong>
+on the right decides where generated ENI files are written.</span><a class="headerlink" href="#id9" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>On a stock install the <code class="docutils literal notranslate"><span class="pre">ec_network.def</span></code> file has no <code class="docutils literal notranslate"><span class="pre">EniFolder</span></code> key and
+the field shows the built-in default. Check it before your first
+Quick Create, so you know where to look for the result — and so the WMX
+Runtime and the ENI stay together if you move either one.</p>
+</div>
+<p>The other Device Settings screens support the same file: <strong>Network Def
+Manager</strong> backs up, restores, compares, and applies definition files,
+<strong>Network Def Diff Viewer</strong> compares two of them, and <strong>User Define Settings</strong>
+edits user-defined slave entries as a table.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Creating and deleting ENI files, and editing the network definition, affect
+the real communication configuration, so they require the <strong>Admin</strong> level
+and <strong>Control</strong> permission. Registering and reloading ESI only changes what
+the UI can display. A greyed-out Quick Create is a permission, not a fault.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>The device tree separates Online from Offline.</strong></p>
+<p>Slaves under <strong>Online</strong> are what the scan actually found, and only those
+accept commands. <strong>Offline</strong> entries are built from ESI files and
+<strong>UserDefine</strong> entries come from the network definition file; both are
+view-only. A device you can see in the tree is not necessarily a device
+that is plugged in.</p>
+</div>
+</section>
+</section>
+<section id="motionscope">
+<h2>MotionScope<a class="headerlink" href="#motionscope" title="Link to this heading">#</a></h2>
+<p>Motion visualization: trace axis signals over time, review recorded history,
+and configure the chart. Use it when a move completes but does not look right
+— tracking error, blending between waypoints, or acceleration that does not
+match what the trajectory asked for. It sees the engine’s own signals, so it
+is measuring what the drives were actually commanded, not what ROS 2 believed
+it published.</p>
+</section>
+<section id="offline-manuals">
+<span id="wmx-web-manuals"></span><h2>Offline manuals<a class="headerlink" href="#offline-manuals" title="Link to this heading">#</a></h2>
+<p>The WMX Home dashboard links two manuals, both shipped with the runtime under
+<code class="docutils literal notranslate"><span class="pre">/opt/wmx3/Doc/Web/</span></code>:</p>
+<ul class="simple">
+<li><p><strong>WMX App Manual</strong> (<code class="docutils literal notranslate"><span class="pre">Application/App_UserManual.zip</span></code>) — the user guide for
+the four apps on this page, one page per screen, in English, Japanese, and
+Korean. It is the authoritative reference for anything described here.</p></li>
+<li><p><strong>WMX API Manual</strong> (<code class="docutils literal notranslate"><span class="pre">API/API_UserManual.zip</span></code>) — the reference for the
+WMX3 C++ SDK that WMX R2 is built on. See
+<a class="reference internal" href="../api_reference/wmx3_api.html"><span class="doc">The WMX3 API Underneath WMX R2</span></a>.</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Try Your Robot</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="robot_parameters.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Robot Parameter Configuration and Validation</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5"></script>
+
+<footer class="bd-footer">
+<div class="movensys-footer">
+  <div class="movensys-footer__logo">
+    <a href="https://www.movensys.com" target="_blank" rel="noopener">
+      <img src="../_static/movensys_wordmark.png" alt="Movensys" />
+    </a>
+  </div>
+  <div class="movensys-footer__info">
+    <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
+    
+      <p>Last updated: Oct 29, 2026</p>
+    
+  </div>
+  <div class="movensys-footer__links">
+    <a href="https://www.movensys.com" target="_blank" rel="noopener">MOVENSYS.com</a>
+    <a href="https://www.movensys.com/privacy" target="_blank" rel="noopener">Privacy Policy</a>
+  </div>
+</div>
+</footer>
+  </body>
+</html>

@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=cd36b759" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=bcda8ffe" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
@@ -46,22 +46,35 @@
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'integration/custom_application';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/toc-sidebar.js?v=ae5e43d1"></script>
     <link rel="icon" href="../_static/movensys_logo.png"/>
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Natural-Language and Vision Control (VLM / LLM)" href="intelligence_integration.html" />
     <link rel="prev" title="Custom Planner Integration" href="custom_planner.html" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Sep 08, 2026"/>
+    <meta name="docbuild:last-update" content="Oct 29, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
     <script src="../_static/language_data.js"></script>
     <script src="../searchindex.js"></script>
   
+<script>
+  try {
+    if (localStorage.getItem("toc-hidden") === "1") {
+      document.documentElement.classList.add("toc-hidden");
+    }
+    var tocWidth = localStorage.getItem("toc-width");
+    if (tocWidth) {
+      document.documentElement.style.setProperty("--toc-width", tocWidth);
+    }
+  } catch (e) {}
+</script>
   </head>
   <body data-default-mode="light">
   
@@ -188,10 +201,6 @@
   
 
   
-    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
-      <span class="fa-solid fa-outdent"></span>
-    </button>
-  
 </div>
 
     </header>
@@ -254,8 +263,8 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/examples.html">Example Applications</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../examples/Testing%20WMX%20R2.html">Testing WMX R2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../examples/isaacsim_setup.html">NVIDIA Isaac ROS Setup (Optional)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/testing_wmx_r2.html">Testing WMX R2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/isaacsim_setup.html">NVIDIA Isaac Setup (Optional)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator.html">movensys-manipulator</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/trajectory_planning.html">Trajectory Planning</a></li>
@@ -275,6 +284,14 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../try_your_robot/index.html">Try Your Robot</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/wmx_web_tools.html">WMX Web Tools (WOS, NetConfigurator, MotionScope)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/robot_parameters.html">Robot Parameter Configuration and Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/first_motion.html">First Motion on Hardware</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/safety.html">Safety Functions and Responsibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/validated_hardware.html">Hardware Compatibility and Validation</a></li>
+</ul>
+</li>
 <li class="toctree-l1 current"><a class="reference internal" href="integration.html">Integration Scenarios</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="moveit2_integration.html">MoveIt2 Motion Planning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cumotion_integration.html">Isaac cuMotion Accelerated Planning</a></li>
@@ -284,13 +301,6 @@
 <li class="toctree-l2"><a class="reference internal" href="intelligence_integration.html">Natural-Language and Vision Control (VLM / LLM)</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../commissioning/index.html">Commissioning</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../commissioning/robot_parameters.html">Robot Parameter Configuration and Validation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../commissioning/first_motion.html">Commissioning and First Motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../commissioning/safety.html">Safety Functions and Responsibility</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../commissioning/validated_hardware.html">Hardware Compatibility and Validation</a></li>
-</ul>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="../api_reference/api_reference.html">API Reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/communication.html">Communication Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_services.html">ROS2 Services</a></li>
@@ -298,6 +308,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_actions.html">ROS2 Actions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_message.html">wmx_r2_message</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_package.html">wmx_r2_package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_control.html">wmx_r2_control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx3_api.html">The WMX3 API Underneath WMX R2</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../support.html">Support</a><ul>
@@ -403,7 +415,7 @@ only the configuration files and WMX parameter files are robot-specific.</p>
 <p>There are three approaches to controlling the robot:</p>
 <ol class="arabic simple">
 <li><p><strong>High-level pose/joint services</strong> – Call the <code class="docutils literal notranslate"><span class="pre">/wmx/moveit2/*</span></code> services
-provided by the <code class="docutils literal notranslate"><span class="pre">trajectory_api</span></code> node in
+provided by the <code class="docutils literal notranslate"><span class="pre">moveit2_api</span></code> node in
 <a class="reference external" href="https://github.com/movensys/movensys-manipulator">movensys-manipulator</a>
 for MoveIt2-planned Cartesian and joint moves (see
 <a class="reference internal" href="moveit2_integration.html"><span class="doc">MoveIt2 Motion Planning</span></a>). This is the simplest option when MoveIt2 is
@@ -425,7 +437,8 @@ interfaces directly.</p>
 (see <a class="reference internal" href="../getting_started/index.html"><span class="doc">Getting Started</span></a>)</p></li>
 <li><p>The WMX R2 nodes are running (either the manipulator launch or
 the general launch)</p></li>
-<li><p>Your workspace is sourced: <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">~/workspaces/movensys_ws/install/setup.bash</span></code></p></li>
+<li><p>You run ROS 2 commands through <code class="docutils literal notranslate"><span class="pre">wros</span></code>, which sources the workspace inside
+the container for you</p></li>
 <li><p>You have a basic understanding of ROS2 actions, services, and topics</p></li>
 </ul>
 </section>
@@ -466,20 +479,45 @@ the general launch)</p></li>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/engine/get_status</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/engine/get_engine_status</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">std_srvs/srv/Trigger</span></code></p></td>
 <td><p>Query engine state</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/set_gripper</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/lifecycle/get_node_states</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/GetNodeStates</span></code></p></td>
+<td><p>Check which nodes are <code class="docutils literal notranslate"><span class="pre">active</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/set_gripper</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">std_srvs/srv/SetBool</span></code></p></td>
 <td><p>Open/close gripper</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/axis/set_on</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/SetAxis</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/axes/set_servo_on</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/SetAxes</span></code></p></td>
 <td><p>Enable/disable servos</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/axes/start_pos</span></code> / <code class="docutils literal notranslate"><span class="pre">start_mov</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/StartAxesPose</span></code></p></td>
+<td><p>Absolute / relative single-axis move</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/axes/start_vel</span></code> / <code class="docutils literal notranslate"><span class="pre">start_jog</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/StartAxesVelocity</span></code></p></td>
+<td><p>Constant velocity / dead-man jog</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/axes/stop</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/SetAxes</span></code></p></td>
+<td><p>Decelerate to a stop; never blocked</p></td>
 </tr>
 </tbody>
 </table>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><strong>Single-axis motion is a service call, not a topic publish.</strong> There is no
+motion topic. And while a controller listed in <code class="docutils literal notranslate"><span class="pre">motion_controllers</span></code> is
+<code class="docutils literal notranslate"><span class="pre">active</span></code>, <code class="docutils literal notranslate"><span class="pre">start_pos</span></code>, <code class="docutils literal notranslate"><span class="pre">start_mov</span></code>, <code class="docutils literal notranslate"><span class="pre">start_vel</span></code>, <code class="docutils literal notranslate"><span class="pre">start_jog</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">start_home</span></code> all answer <code class="docutils literal notranslate"><span class="pre">success:</span> <span class="pre">false</span></code> — the controller owns the
+axes. An application that plans should go through the
+<code class="docutils literal notranslate"><span class="pre">FollowJointTrajectory</span></code> action, not through these.</p>
 </div>
 <div class="pst-scrollable-table-container"><table class="table" id="id3">
 <caption><span class="caption-text">Key Topics</span><a class="headerlink" href="#id3" title="Link to this table">#</a></caption>
@@ -502,25 +540,15 @@ the general launch)</p></li>
 <td><p>100 Hz</p></td>
 <td><p>Current joint positions and velocities</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/axis/state</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/msg/AxisState</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/axes/status</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/msg/AxesStatus</span></code></p></td>
 <td><p>100 Hz</p></td>
 <td><p>Detailed axis status (alarms, limits, torques)</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/axis/velocity</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/msg/AxisVelocity</span></code></p></td>
-<td><p>On demand</p></td>
-<td><p>Velocity commands</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/axis/position</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/msg/AxisPose</span></code></p></td>
-<td><p>On demand</p></td>
-<td><p>Absolute position commands</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/axis/position/relative</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/msg/AxisPose</span></code></p></td>
-<td><p>On demand</p></td>
-<td><p>Relative position commands</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/moveit2_trajectory/execution_active</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">std_msgs/msg/Bool</span></code></p></td>
+<td><p>On change</p></td>
+<td><p>Latched: true while a planned goal is running</p></td>
 </tr>
 </tbody>
 </table>
@@ -805,7 +833,7 @@ diagnostics, and control the gripper – combining services and topics.</p>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">'robot_controller'</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_status_client</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_client</span><span class="p">(</span>
-            <span class="n">Trigger</span><span class="p">,</span> <span class="s1">'/wmx/engine/get_status'</span>
+            <span class="n">Trigger</span><span class="p">,</span> <span class="s1">'/wmx/engine/get_engine_status'</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_gripper_client</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_client</span><span class="p">(</span>
             <span class="n">SetBool</span><span class="p">,</span> <span class="s1">'/wmx/set_gripper'</span>
@@ -924,85 +952,92 @@ result to the <code class="docutils literal notranslate"><span class="pre">joint
 </section>
 <section id="direct-axis-control">
 <h2>Direct Axis Control<a class="headerlink" href="#direct-axis-control" title="Link to this heading">#</a></h2>
-<p>For applications that need real-time velocity or position control without
-trajectory planning, publish directly to the motion topics. This requires
-the <code class="docutils literal notranslate"><span class="pre">wmx_core_motion_node</span></code> to be running.</p>
+<p>For applications that need single-axis motion without trajectory planning,
+call the <code class="docutils literal notranslate"><span class="pre">/wmx/axes/*</span></code> services on <code class="docutils literal notranslate"><span class="pre">wmx_core_motion_node</span></code>.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><strong>These are services, not topics.</strong> Every one of them returns
+<code class="docutils literal notranslate"><span class="pre">success</span></code> and a per-axis <code class="docutils literal notranslate"><span class="pre">message</span></code>, and every one of them is refused
+while a controller listed in <code class="docutils literal notranslate"><span class="pre">motion_controllers</span></code> is <code class="docutils literal notranslate"><span class="pre">active</span></code>. Read
+the response — a silent publish that does nothing is not a failure mode
+here, but a <code class="docutils literal notranslate"><span class="pre">success:</span> <span class="pre">false</span></code> you ignored is.</p>
+</div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
-<span class="sd">"""Direct axis velocity control via topic publishing."""</span>
+<span class="sd">"""Direct axis control through the /wmx/axes/* services."""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">rclpy</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">rclpy.node</span><span class="w"> </span><span class="kn">import</span> <span class="n">Node</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">wmx_r2_message.msg</span><span class="w"> </span><span class="kn">import</span> <span class="n">AxisVelocity</span><span class="p">,</span> <span class="n">AxisPose</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">wmx_r2_message.srv</span><span class="w"> </span><span class="kn">import</span> <span class="n">SetAxes</span><span class="p">,</span> <span class="n">StartAxesPose</span><span class="p">,</span> <span class="n">StartAxesVelocity</span>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">DirectAxisControl</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">'direct_axis_control'</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_vel_pub</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_publisher</span><span class="p">(</span>
-            <span class="n">AxisVelocity</span><span class="p">,</span> <span class="s1">'/wmx/axis/velocity'</span><span class="p">,</span> <span class="mi">1</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_pos_pub</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_publisher</span><span class="p">(</span>
-            <span class="n">AxisPose</span><span class="p">,</span> <span class="s1">'/wmx/axis/position'</span><span class="p">,</span> <span class="mi">1</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_rel_pub</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_publisher</span><span class="p">(</span>
-            <span class="n">AxisPose</span><span class="p">,</span> <span class="s1">'/wmx/axis/position/relative'</span><span class="p">,</span> <span class="mi">1</span>
-        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_client</span><span class="p">(</span><span class="n">StartAxesPose</span><span class="p">,</span> <span class="s1">'/wmx/axes/start_pos'</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mov</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_client</span><span class="p">(</span><span class="n">StartAxesPose</span><span class="p">,</span> <span class="s1">'/wmx/axes/start_mov'</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_vel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_client</span><span class="p">(</span><span class="n">StartAxesVelocity</span><span class="p">,</span> <span class="s1">'/wmx/axes/start_vel'</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stop</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_client</span><span class="p">(</span><span class="n">SetAxes</span><span class="p">,</span> <span class="s1">'/wmx/axes/stop'</span><span class="p">)</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">send_velocity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis_indices</span><span class="p">,</span> <span class="n">velocities</span><span class="p">,</span> <span class="n">acc</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">dec</span><span class="o">=</span><span class="mf">10.0</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">"""Command velocity motion on specified axes.</span>
+        <span class="k">for</span> <span class="n">client</span> <span class="ow">in</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_pos</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mov</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vel</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stop</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">client</span><span class="o">.</span><span class="n">wait_for_service</span><span class="p">(</span><span class="n">timeout_sec</span><span class="o">=</span><span class="mf">10.0</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">client</span><span class="o">.</span><span class="n">srv_name</span><span class="si">}</span><span class="s1"> not available. '</span>
+                    <span class="s1">'Is wmx_core_motion_node active?'</span>
+                <span class="p">)</span>
 
-<span class="sd">        The axes must be in velocity mode (set via /wmx/axis/set_mode</span>
-<span class="sd">        with data=[1]).</span>
-<span class="sd">        """</span>
-        <span class="n">msg</span> <span class="o">=</span> <span class="n">AxisVelocity</span><span class="p">()</span>
-        <span class="n">msg</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">axis_indices</span>
-        <span class="n">msg</span><span class="o">.</span><span class="n">velocity</span> <span class="o">=</span> <span class="n">velocities</span>
-        <span class="n">msg</span><span class="o">.</span><span class="n">acc</span> <span class="o">=</span> <span class="p">[</span><span class="n">acc</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">axis_indices</span><span class="p">)</span>
-        <span class="n">msg</span><span class="o">.</span><span class="n">dec</span> <span class="o">=</span> <span class="p">[</span><span class="n">dec</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">axis_indices</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_vel_pub</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s1">'Velocity command: axes=</span><span class="si">{</span><span class="n">axis_indices</span><span class="si">}</span><span class="s1">, vel=</span><span class="si">{</span><span class="n">velocities</span><span class="si">}</span><span class="s1">'</span>
-        <span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="n">future</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">call_async</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="n">rclpy</span><span class="o">.</span><span class="n">spin_until_future_complete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">response</span><span class="o">.</span><span class="n">success</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">client</span><span class="o">.</span><span class="n">srv_name</span><span class="si">}</span><span class="s1"> refused: </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">message</span><span class="si">}</span><span class="s1">'</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">success</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">send_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis_indices</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="n">vel</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">acc</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">dec</span><span class="o">=</span><span class="mf">10.0</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">"""Command absolute position motion on specified axes."""</span>
-        <span class="n">msg</span> <span class="o">=</span> <span class="n">AxisPose</span><span class="p">()</span>
-        <span class="n">msg</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">axis_indices</span>
-        <span class="n">msg</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="n">targets</span>
-        <span class="n">msg</span><span class="o">.</span><span class="n">velocity</span> <span class="o">=</span> <span class="p">[</span><span class="n">vel</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">axis_indices</span><span class="p">)</span>
-        <span class="n">msg</span><span class="o">.</span><span class="n">acc</span> <span class="o">=</span> <span class="p">[</span><span class="n">acc</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">axis_indices</span><span class="p">)</span>
-        <span class="n">msg</span><span class="o">.</span><span class="n">dec</span> <span class="o">=</span> <span class="p">[</span><span class="n">dec</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">axis_indices</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_pos_pub</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s1">'Position command: axes=</span><span class="si">{</span><span class="n">axis_indices</span><span class="si">}</span><span class="s1">, targets=</span><span class="si">{</span><span class="n">targets</span><span class="si">}</span><span class="s1">'</span>
-        <span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">move_absolute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="n">vel</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">acc</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">dec</span><span class="o">=</span><span class="mf">10.0</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Move to an absolute target, in axis user units."""</span>
+        <span class="n">req</span> <span class="o">=</span> <span class="n">StartAxesPose</span><span class="o">.</span><span class="n">Request</span><span class="p">()</span>
+        <span class="n">req</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="n">axes</span>
+        <span class="n">req</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="n">targets</span>
+        <span class="n">req</span><span class="o">.</span><span class="n">velocity</span> <span class="o">=</span> <span class="p">[</span><span class="n">vel</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span>
+        <span class="n">req</span><span class="o">.</span><span class="n">acc</span> <span class="o">=</span> <span class="p">[</span><span class="n">acc</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span>
+        <span class="n">req</span><span class="o">.</span><span class="n">dec</span> <span class="o">=</span> <span class="p">[</span><span class="n">dec</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_pos</span><span class="p">,</span> <span class="n">req</span><span class="p">)</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">send_relative_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis_indices</span><span class="p">,</span> <span class="n">displacements</span><span class="p">,</span>
-                                <span class="n">vel</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">acc</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">dec</span><span class="o">=</span><span class="mf">10.0</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">"""Command relative position motion on specified axes."""</span>
-        <span class="n">msg</span> <span class="o">=</span> <span class="n">AxisPose</span><span class="p">()</span>
-        <span class="n">msg</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">axis_indices</span>
-        <span class="n">msg</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="n">displacements</span>
-        <span class="n">msg</span><span class="o">.</span><span class="n">velocity</span> <span class="o">=</span> <span class="p">[</span><span class="n">vel</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">axis_indices</span><span class="p">)</span>
-        <span class="n">msg</span><span class="o">.</span><span class="n">acc</span> <span class="o">=</span> <span class="p">[</span><span class="n">acc</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">axis_indices</span><span class="p">)</span>
-        <span class="n">msg</span><span class="o">.</span><span class="n">dec</span> <span class="o">=</span> <span class="p">[</span><span class="n">dec</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">axis_indices</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_rel_pub</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s1">'Relative move: axes=</span><span class="si">{</span><span class="n">axis_indices</span><span class="si">}</span><span class="s1">, disp=</span><span class="si">{</span><span class="n">displacements</span><span class="si">}</span><span class="s1">'</span>
-        <span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">move_relative</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">,</span> <span class="n">displacements</span><span class="p">,</span> <span class="n">vel</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">acc</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">dec</span><span class="o">=</span><span class="mf">10.0</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Move by a displacement from wherever the axes are now."""</span>
+        <span class="n">req</span> <span class="o">=</span> <span class="n">StartAxesPose</span><span class="o">.</span><span class="n">Request</span><span class="p">()</span>
+        <span class="n">req</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="n">axes</span>
+        <span class="n">req</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="n">displacements</span>
+        <span class="n">req</span><span class="o">.</span><span class="n">velocity</span> <span class="o">=</span> <span class="p">[</span><span class="n">vel</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span>
+        <span class="n">req</span><span class="o">.</span><span class="n">acc</span> <span class="o">=</span> <span class="p">[</span><span class="n">acc</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span>
+        <span class="n">req</span><span class="o">.</span><span class="n">dec</span> <span class="o">=</span> <span class="p">[</span><span class="n">dec</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_mov</span><span class="p">,</span> <span class="n">req</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">move_velocity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">,</span> <span class="n">velocities</span><span class="p">,</span> <span class="n">acc</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">dec</span><span class="o">=</span><span class="mf">10.0</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Run at constant velocity until stopped. Sign selects direction."""</span>
+        <span class="n">req</span> <span class="o">=</span> <span class="n">StartAxesVelocity</span><span class="o">.</span><span class="n">Request</span><span class="p">()</span>
+        <span class="n">req</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="n">axes</span>
+        <span class="n">req</span><span class="o">.</span><span class="n">velocity</span> <span class="o">=</span> <span class="n">velocities</span>
+        <span class="n">req</span><span class="o">.</span><span class="n">acc</span> <span class="o">=</span> <span class="p">[</span><span class="n">acc</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span>
+        <span class="n">req</span><span class="o">.</span><span class="n">dec</span> <span class="o">=</span> <span class="p">[</span><span class="n">dec</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_vel</span><span class="p">,</span> <span class="n">req</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Decelerate to a stop. Never blocked by a controller."""</span>
+        <span class="n">req</span> <span class="o">=</span> <span class="n">SetAxes</span><span class="o">.</span><span class="n">Request</span><span class="p">()</span>
+        <span class="n">req</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="n">axes</span>
+        <span class="n">req</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stop</span><span class="p">,</span> <span class="n">req</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
     <span class="n">rclpy</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
     <span class="n">ctrl</span> <span class="o">=</span> <span class="n">DirectAxisControl</span><span class="p">()</span>
 
-    <span class="c1"># Move axis 0 to 1.0 radian absolute</span>
-    <span class="n">ctrl</span><span class="o">.</span><span class="n">send_position</span><span class="p">([</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">])</span>
-
-    <span class="kn">import</span><span class="w"> </span><span class="nn">time</span><span class="p">;</span> <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">5.0</span><span class="p">)</span>
-
-    <span class="c1"># Move axis 0 by +0.5 radian relative</span>
-    <span class="n">ctrl</span><span class="o">.</span><span class="n">send_relative_position</span><span class="p">([</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">])</span>
+    <span class="n">ctrl</span><span class="o">.</span><span class="n">move_relative</span><span class="p">([</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mf">10.0</span><span class="p">])</span>    <span class="c1"># +10 user units on axis 0</span>
+    <span class="n">ctrl</span><span class="o">.</span><span class="n">stop</span><span class="p">([</span><span class="mi">0</span><span class="p">])</span>
 
     <span class="n">ctrl</span><span class="o">.</span><span class="n">destroy_node</span><span class="p">()</span>
     <span class="n">rclpy</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
@@ -1012,25 +1047,46 @@ the <code class="docutils literal notranslate"><span class="pre">wmx_core_motion
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>Direct axis commands require the axes to be properly initialized first
-(servo enabled, mode set, homed). When using the manipulator launch file,
-this is handled automatically by <code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code>. When using the
-general launch, call the setup services first as described in the
-<a class="reference internal" href="../api_reference/ros2_services.html"><span class="doc">ROS2 Services</span></a> workflow section.</p>
+<section id="taking-the-axes-from-a-controller">
+<h3>Taking the axes from a controller<a class="headerlink" href="#taking-the-axes-from-a-controller" title="Link to this heading">#</a></h3>
+<p>If these calls return <code class="docutils literal notranslate"><span class="pre">success:</span> <span class="pre">false</span></code> with a message about a controller,
+a motion controller is active and owns the axes. Deactivate it first:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">wmx_r2_message.srv</span><span class="w"> </span><span class="kn">import</span> <span class="n">SetNodeState</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">create_client</span><span class="p">(</span><span class="n">SetNodeState</span><span class="p">,</span> <span class="s1">'/wmx/lifecycle/set_node_state'</span><span class="p">)</span>
+<span class="n">req</span> <span class="o">=</span> <span class="n">SetNodeState</span><span class="o">.</span><span class="n">Request</span><span class="p">()</span>
+<span class="n">req</span><span class="o">.</span><span class="n">node_name</span> <span class="o">=</span> <span class="s1">'joint_trajectory_controller'</span>
+<span class="n">req</span><span class="o">.</span><span class="n">transition</span> <span class="o">=</span> <span class="s1">'deactivate'</span>
+</pre></div>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Publishing to motion topics causes <strong>immediate physical motion</strong>. These
-commands bypass MoveIt2 collision checking.</p>
+<p>Do <strong>not</strong> deactivate <code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code> to free the axes. It
+switches the servos <strong>off</strong> when it deactivates, which drops an arm’s
+holding torque. Deactivate the motion controller instead.</p>
 </div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Direct axis commands require the axes to be initialized first: servo
+enabled, command mode set, and homed. The manipulator launch does this
+through <code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code>; from the general nodes alone, run the
+startup sequence in <a class="reference internal" href="../api_reference/ros2_services.html"><span class="doc">ROS2 Services</span></a> first.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>These service calls cause <strong>immediate physical motion</strong> and bypass MoveIt2
+collision checking.</p>
+</div>
+</section>
 </section>
 <section id="adapting-for-different-robots">
 <h2>Adapting for Different Robots<a class="headerlink" href="#adapting-for-different-robots" title="Link to this heading">#</a></h2>
-<p>The WMX R2 system is designed to be robot-agnostic. Supporting a new
-manipulator with EtherCAT servo drives requires changes to configuration files
-only – no source code modifications are needed.</p>
+<p>WMX R2 is robot-agnostic by construction: no robot is baked into any launch
+file. Supporting a new EtherCAT manipulator is a change to the four kinds of
+configuration file listed in <a class="reference internal" href="../try_your_robot/robot_parameters.html"><span class="doc">Robot Parameter Configuration and Validation</span></a> — the
+ENI, the WMX parameter XML, the URDF/xacro, and the ROS 2 parameter YAML —
+passed to the existing launch files as arguments. No source changes, and no
+new launch file.</p>
 <section id="configuration-files-to-create-or-modify">
 <h3>Configuration files to create or modify<a class="headerlink" href="#configuration-files-to-create-or-modify" title="Link to this heading">#</a></h3>
 <div class="pst-scrollable-table-container"><table class="table">
@@ -1044,20 +1100,22 @@ only – no source code modifications are needed.</p>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><strong>YAML config</strong> (e.g., <code class="docutils literal notranslate"><span class="pre">new_robot_config.yaml</span></code>)</p></td>
-<td><p>Set <code class="docutils literal notranslate"><span class="pre">joint_axes</span></code>, <code class="docutils literal notranslate"><span class="pre">joint_name</span></code> list, <code class="docutils literal notranslate"><span class="pre">joint_feedback_rate</span></code>,
-gripper values, topic names, and <code class="docutils literal notranslate"><span class="pre">wmx_param_file_path</span></code></p></td>
+<tr class="row-even"><td><p><strong>ENI file</strong></p></td>
+<td><p>Generate it from a scan of your bus with NetConfigurator, so the master
+knows which slaves are on the network. See
+<a class="reference internal" href="../try_your_robot/wmx_web_tools.html"><span class="doc">WMX Web Tools (WOS, NetConfigurator, MotionScope)</span></a>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>WMX XML parameters</strong> (e.g., <code class="docutils literal notranslate"><span class="pre">new_robot_wmx_parameters.xml</span></code>)</p></td>
 <td><p>Define gear ratios, axis polarities, encoder modes, homing parameters,
 and limit switch settings for each servo axis</p></td>
 </tr>
-<tr class="row-even"><td><p><strong>Launch file</strong> (e.g., <code class="docutils literal notranslate"><span class="pre">wmx_r2_new_robot.launch.py</span></code>)</p></td>
-<td><p>Point to the new YAML config and launch the 3 standard nodes</p></td>
+<tr class="row-even"><td><p><strong>URDF / xacro</strong> (and the SRDF, if using MoveIt 2)</p></td>
+<td><p>Link geometry, joint axes and origins, and the planning limits. The
+joint names here must match the <code class="docutils literal notranslate"><span class="pre">joint_name</span></code> list in the YAML.</p></td>
 </tr>
-<tr class="row-odd"><td><p><strong>ENI files</strong> (in <code class="docutils literal notranslate"><span class="pre">eni/</span></code> directory)</p></td>
-<td><p>Add EtherCAT Network Information files for any new servo drive models
-not already supported</p></td>
+<tr class="row-odd"><td><p><strong>ROS2 YAML config</strong> (e.g., <code class="docutils literal notranslate"><span class="pre">new_robot_config.yaml</span></code>)</p></td>
+<td><p>Set <code class="docutils literal notranslate"><span class="pre">joint_axes</span></code>, <code class="docutils literal notranslate"><span class="pre">joint_name</span></code> list, <code class="docutils literal notranslate"><span class="pre">joint_feedback_rate</span></code>,
+gripper values, and topic names</p></td>
 </tr>
 </tbody>
 </table>
@@ -1066,42 +1124,84 @@ not already supported</p></td>
 <section id="steps-to-adapt">
 <h3>Steps to adapt<a class="headerlink" href="#steps-to-adapt" title="Link to this heading">#</a></h3>
 <ol class="arabic">
-<li><p><strong>Identify your servo drives</strong> – Determine the vendor and product IDs of
-each EtherCAT servo drive in your robot. Check if matching ENI files exist
-in the <code class="docutils literal notranslate"><span class="pre">eni/</span></code> directory.</p></li>
+<li><p><strong>Describe the network</strong> – Check that a matching ESI file is present in
+<code class="docutils literal notranslate"><span class="pre">/opt/wmx3/ESI/</span></code> for each servo drive; the drive manufacturer supplies it
+and NetConfigurator registers it. Then scan the bus and generate the ENI
+file. See <a class="reference internal" href="../try_your_robot/wmx_web_tools.html"><span class="doc">WMX Web Tools (WOS, NetConfigurator, MotionScope)</span></a>.</p></li>
 <li><p><strong>Create the WMX parameter file</strong> – Copy <code class="docutils literal notranslate"><span class="pre">cr3a_wmx_parameters.xml</span></code> and
 modify gear ratios, polarities, and encoder settings for your servo drives.
-The gear ratio maps encoder counts to radians:
-<code class="docutils literal notranslate"><span class="pre">numerator</span> <span class="pre">=</span> <span class="pre">encoder_counts_per_revolution</span></code>,
-<code class="docutils literal notranslate"><span class="pre">denominator</span> <span class="pre">=</span> <span class="pre">2</span> <span class="pre">*</span> <span class="pre">pi</span> <span class="pre">(6.28319)</span></code>.</p></li>
-<li><p><strong>Create the YAML config</strong> – Copy <code class="docutils literal notranslate"><span class="pre">cr3a_manipulator_config.yaml</span></code>
-and update:</p>
+The gear ratio maps encoder counts to radians:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>numerator   = encoder counts per motor revolution x gear ratio
+denominator = 2 * pi (6.28319)
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The numerator counts one revolution of the <strong>joint output</strong>, not of the
+motor, so the reducer ratio belongs in it. Omitting a 101:1 reducer
+makes every commanded distance wrong by that factor. See
+<a class="reference internal" href="../try_your_robot/robot_parameters.html"><span class="doc">Robot Parameter Configuration and Validation</span></a> for the derivation and the
+shipped values.</p>
+</div>
+</li>
+<li><p><strong>Create the YAML config</strong> – Copy <code class="docutils literal notranslate"><span class="pre">example/cr3a_manipulator_config.yaml</span></code>
+and update. <code class="docutils literal notranslate"><span class="pre">joint_axes</span></code> and <code class="docutils literal notranslate"><span class="pre">joint_name</span></code> must be the <strong>same lists, in
+the same order</strong>, in all three motion nodes:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">joint_state_broadcaster</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">joint_axes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">2</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">3</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">4</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">5</span><span class="p p-Indicator">]</span><span class="w">   </span><span class="c1"># WMX axis indices</span>
 <span class="w">    </span><span class="nt">joint_feedback_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span><span class="w">         </span><span class="c1"># Hz</span>
 <span class="w">    </span><span class="nt">joint_name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"joint1"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"joint2"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"joint3"</span><span class="p p-Indicator">,</span>
-<span class="w">                  </span><span class="s">"joint4"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"joint5"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"joint6"</span><span class="p p-Indicator">]</span>
+<span class="w">                 </span><span class="s">"joint4"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"joint5"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"joint6"</span><span class="p p-Indicator">]</span>
 <span class="w">    </span><span class="nt">gripper_joint_name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"picker_1_joint"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"picker_2_joint"</span><span class="p p-Indicator">]</span>
-<span class="w">    </span><span class="nt">wmx_param_file_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/path/to/new_robot_wmx_parameters.xml</span>
+<span class="w">    </span><span class="nt">encoder_joint_topic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/joint_states</span>
+
+<span class="nt">joint_trajectory_controller</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">joint_axes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">2</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">3</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">4</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">5</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">joint_name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"joint1"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"joint2"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"joint3"</span><span class="p p-Indicator">,</span>
+<span class="w">                 </span><span class="s">"joint4"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"joint5"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"joint6"</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">joint_trajectory_action</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/my_robot_arm_controller/follow_joint_trajectory</span>
+
+<span class="nt">wmx_lifecycle_manager_node</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">managed_nodes</span><span class="p">:</span><span class="w">                   </span><span class="c1"># device-level nodes first</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wmx_core_motion_node</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wmx_io_node</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wmx_ethercat_node</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">joint_state_broadcaster</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">joint_trajectory_controller</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">joint_position_controller</span>
+</pre></div>
+</div>
+<p>The XML path is <strong>not</strong> set in this YAML — it is passed to the launch file
+as <code class="docutils literal notranslate"><span class="pre">wmx_param_file</span></code>, which injects it into the engine node as
+<code class="docutils literal notranslate"><span class="pre">wmx_param_file_path</span></code>.</p>
+</li>
+<li><p><strong>Launch it</strong> – No new launch file. Pass your files as arguments:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>wmx_r2_package<span class="w"> </span>wmx_r2_manipulator.launch.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>use_sim_time:<span class="o">=</span><span class="nb">false</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>config_file:<span class="o">=</span>/abs/path/to/new_robot_config.yaml<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>wmx_param_file:<span class="o">=</span>/abs/path/to/new_robot_wmx_parameters.xml
 </pre></div>
 </div>
 </li>
-<li><p><strong>Create a launch file</strong> – Copy an existing launch file and reference your
-new YAML config.</p></li>
 <li><p><strong>Update URDF/SRDF</strong> (if using MoveIt2) – Create a MoveIt2 configuration
 package for your robot with the correct kinematics, joint limits, and
-collision geometry.</p></li>
+collision geometry. <code class="docutils literal notranslate"><span class="pre">joint_trajectory_action</span></code> must match the controller
+name in the MoveIt2 controllers YAML.</p></li>
+<li><p><strong>Commission it</strong> – Verify the parameters, then run the low-speed
+single-axis procedure before any coordinated motion. See
+<a class="reference internal" href="../try_your_robot/index.html"><span class="doc">Try Your Robot</span></a>.</p></li>
 </ol>
 </section>
 <section id="what-stays-the-same">
 <h3>What stays the same<a class="headerlink" href="#what-stays-the-same" title="Link to this heading">#</a></h3>
 <ul class="simple">
-<li><p>All ROS2 node executables (<code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code>,
-<code class="docutils literal notranslate"><span class="pre">joint_trajectory_controller</span></code>, <code class="docutils literal notranslate"><span class="pre">wmx_core_motion_node</span></code>)</p></li>
+<li><p>Every node executable and every launch file — the robot is data, not code</p></li>
 <li><p>All service and topic names</p></li>
 <li><p>The <code class="docutils literal notranslate"><span class="pre">FollowJointTrajectory</span></code> action interface</p></li>
-<li><p>The <code class="docutils literal notranslate"><span class="pre">wmx_r2_message</span></code> custom message types</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">wmx_r2_message</span></code> custom interface types</p></li>
 <li><p>The build process</p></li>
 </ul>
 <p>See <a class="reference internal" href="../api_reference/wmx_r2_package.html"><span class="doc">wmx_r2_package</span></a> for node and parameter details
@@ -1145,38 +1245,6 @@ and <a class="reference internal" href="../api_reference/wmx_r2_message.html"><s
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-<div
-    id="pst-page-navigation-heading-2"
-    class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> On this page
-  </div>
-  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
-    <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#available-interfaces">Available Interfaces</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-example-send-a-trajectory">Python Example: Send a Trajectory</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c-example-send-a-trajectory">C++ Example: Send a Trajectory</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-example-read-robot-state">Python Example: Read Robot State</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-example-monitor-axis-state-and-control-gripper">Python Example: Monitor Axis State and Control Gripper</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-with-moveit2-python-api">Using with MoveIt2 Python API</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#direct-axis-control">Direct Axis Control</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adapting-for-different-robots">Adapting for Different Robots</a><ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configuration-files-to-create-or-modify">Configuration files to create or modify</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#steps-to-adapt">Steps to adapt</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-stays-the-same">What stays the same</a></li>
-</ul>
-</li>
-</ul>
-  </nav></div>
-
-</div></div>
-              
             
           </div>
           <footer class="bd-footer-content">
@@ -1201,7 +1269,7 @@ and <a class="reference internal" href="../api_reference/wmx_r2_message.html"><s
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Sep 08, 2026</p>
+      <p>Last updated: Oct 29, 2026</p>
     
   </div>
   <div class="movensys-footer__links">

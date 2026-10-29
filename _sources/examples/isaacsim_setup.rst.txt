@@ -1,7 +1,8 @@
-NVIDIA Isaac ROS Setup (Optional)
-=================================
+NVIDIA Isaac Setup (Optional)
+=============================
 
-This setup is optional. It is needed for two NVIDIA components used by the examples:
+This setup is optional. It covers the two NVIDIA components used by the
+examples:
 
 - **Isaac Sim** — the desktop simulator that renders the robot for the
   Simulation and HIL modes. Set up :ref:`isaac-sim-desktop` if you run any
@@ -21,9 +22,9 @@ Isaac Sim Desktop Setup
 1. Download
 ~~~~~~~~~~~
 
-Download `Isaac Sim 5.0.0
-<https://docs.isaacsim.omniverse.nvidia.com/5.0.0/installation/index.html>`_
-(the ``isaac-sim-standalone-5.0.0-linux-x86_64.zip`` package).
+Download `Isaac Sim 5.1.0
+<https://docs.isaacsim.omniverse.nvidia.com/5.1.0/installation/download.html>`_
+(the ``isaac-sim-standalone-5.1.0-linux-x86_64.zip`` package).
 
 2. Install
 ~~~~~~~~~~
@@ -32,7 +33,7 @@ Download `Isaac Sim 5.0.0
 
    mkdir ~/isaacsim
    cd ~/Downloads
-   unzip "isaac-sim-standalone-5.0.0-linux-x86_64.zip" -d ~/isaacsim
+   unzip "isaac-sim-standalone-5.1.0-linux-x86_64.zip" -d ~/isaacsim
    cd ~/isaacsim
    ./post_install.sh
 

@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=cd36b759" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=bcda8ffe" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
@@ -208,7 +208,7 @@ const runMermaid = async (rerun) => {
                                     // Apply zoom to the now-rendered diagram, matching
                                     // the decoration visible diagrams receive.
                                     if (true) {
-                                        addZoomToSvgs(d3.selectAll(".mermaid[data-zoom-id=id-404f29ac-d987-4b11-b0a0-6b6f322bab94]").select(function() {
+                                        addZoomToSvgs(d3.selectAll(".mermaid[data-zoom-id=id-c75e84ff-0892-4d10-81b0-9c8400f256a1]").select(function() {
                                             return this.querySelector("svg");
                                         }));
                                     }
@@ -234,7 +234,7 @@ const runMermaid = async (rerun) => {
     if (true) {
         const mermaids_to_add_zoom = 1 === -1 ? mermaids_active.length : 1;
         if(mermaids_to_add_zoom > 0) {
-            var svgs = d3.selectAll(".mermaid[data-zoom-id=id-404f29ac-d987-4b11-b0a0-6b6f322bab94]").select(function() {
+            var svgs = d3.selectAll(".mermaid[data-zoom-id=id-c75e84ff-0892-4d10-81b0-9c8400f256a1]").select(function() {
                 return this.querySelector("svg");
             });
             // Wait until every active (visible) diagram has rendered. Deferred
@@ -405,22 +405,35 @@ window.addEventListener("load", load);
 window.runMermaid = runMermaid;</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api_reference/communication';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/toc-sidebar.js?v=ae5e43d1"></script>
     <link rel="icon" href="../_static/movensys_logo.png"/>
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="ROS2 Services" href="ros2_services.html" />
     <link rel="prev" title="API Reference" href="api_reference.html" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Sep 08, 2026"/>
+    <meta name="docbuild:last-update" content="Oct 29, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
     <script src="../_static/language_data.js"></script>
     <script src="../searchindex.js"></script>
   
+<script>
+  try {
+    if (localStorage.getItem("toc-hidden") === "1") {
+      document.documentElement.classList.add("toc-hidden");
+    }
+    var tocWidth = localStorage.getItem("toc-width");
+    if (tocWidth) {
+      document.documentElement.style.setProperty("--toc-width", tocWidth);
+    }
+  } catch (e) {}
+</script>
   </head>
   <body data-default-mode="light">
   
@@ -609,8 +622,8 @@ window.runMermaid = runMermaid;</script>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/examples.html">Example Applications</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../examples/Testing%20WMX%20R2.html">Testing WMX R2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../examples/isaacsim_setup.html">NVIDIA Isaac ROS Setup (Optional)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/testing_wmx_r2.html">Testing WMX R2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/isaacsim_setup.html">NVIDIA Isaac Setup (Optional)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator.html">movensys-manipulator</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/trajectory_planning.html">Trajectory Planning</a></li>
@@ -630,6 +643,14 @@ window.runMermaid = runMermaid;</script>
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../try_your_robot/index.html">Try Your Robot</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/wmx_web_tools.html">WMX Web Tools (WOS, NetConfigurator, MotionScope)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/robot_parameters.html">Robot Parameter Configuration and Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/first_motion.html">First Motion on Hardware</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/safety.html">Safety Functions and Responsibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/validated_hardware.html">Hardware Compatibility and Validation</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../integration/integration.html">Integration Scenarios</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../integration/moveit2_integration.html">MoveIt2 Motion Planning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../integration/cumotion_integration.html">Isaac cuMotion Accelerated Planning</a></li>
@@ -639,13 +660,6 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l2"><a class="reference internal" href="../integration/intelligence_integration.html">Natural-Language and Vision Control (VLM / LLM)</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../commissioning/index.html">Commissioning</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../commissioning/robot_parameters.html">Robot Parameter Configuration and Validation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../commissioning/first_motion.html">Commissioning and First Motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../commissioning/safety.html">Safety Functions and Responsibility</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../commissioning/validated_hardware.html">Hardware Compatibility and Validation</a></li>
-</ul>
-</li>
 <li class="toctree-l1 current"><a class="reference internal" href="api_reference.html">API Reference</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Communication Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ros2_services.html">ROS2 Services</a></li>
@@ -653,6 +667,8 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l2"><a class="reference internal" href="ros2_actions.html">ROS2 Actions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wmx_r2_message.html">wmx_r2_message</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wmx_r2_package.html">wmx_r2_package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wmx_r2_control.html">wmx_r2_control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wmx3_api.html">The WMX3 API Underneath WMX R2</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../support.html">Support</a><ul>
@@ -764,34 +780,34 @@ communicates with servo drives over EtherCAT.</p>
 </div>
 <p>The diagram below shows how the three layers stack and which libraries and buses connect them:</p>
 <figure class="align-default" id="id1">
-<pre data-zoom-id="id-404f29ac-d987-4b11-b0a0-6b6f322bab94" class="mermaid">
+<pre data-zoom-id="id-c75e84ff-0892-4d10-81b0-9c8400f256a1" class="mermaid">
         %%{init: {&quot;theme&quot;: &quot;base&quot;, &quot;themeVariables&quot;: {&quot;primaryColor&quot;: &quot;#1a73e8&quot;, &quot;primaryTextColor&quot;: &quot;#fff&quot;, &quot;primaryBorderColor&quot;: &quot;#1558b0&quot;, &quot;lineColor&quot;: &quot;#555&quot;}}}%%
 flowchart TB
     subgraph L1[&quot;Layer 1: ROS2 DDS&quot;]
         direction LR
-        N1[&quot;manipulator_state&quot;]
-        N2[&quot;follow_joint_trajectory_server&quot;]
-        N3[&quot;wmx_engine_node&quot;]
-        N4[&quot;wmx_core_motion_node&quot;]
-        N5[&quot;wmx_io_node&quot;]
-        N6[&quot;wmx_ethercat_node&quot;]
+        N1[&quot;wmx_engine_node&quot;]
+        N2[&quot;wmx_lifecycle_manager_node&quot;]
+        N3[&quot;wmx_core_motion_node&quot;]
+        N4[&quot;wmx_io_node&quot;]
+        N5[&quot;wmx_ethercat_node&quot;]
+        N6[&quot;joint_state_broadcaster&lt;br/&gt;joint_trajectory_controller&lt;br/&gt;joint_position_controller&lt;br/&gt;gripper_controller&lt;br/&gt;differential_drive_controller&quot;]
     end
 
     subgraph L2[&quot;Layer 2: WMX API&quot;]
         direction LR
-        A1[&quot;libcoremotionapi&lt;br/&gt;Axis position &amp; velocity&quot;]
-        A2[&quot;libadvancedmotionapi&lt;br/&gt;Cubic spline execution&quot;]
-        A3[&quot;libioapi&lt;br/&gt;Digital I/O&quot;]
+        A1[&quot;libcoremotionapi&lt;br/&gt;axis status, servo, position &amp;amp; velocity&quot;]
+        A2[&quot;libadvancedmotionapi&lt;br/&gt;C-spline execution&quot;]
+        A3[&quot;libioapi&lt;br/&gt;digital I/O&quot;]
         A4[&quot;libecapi&lt;br/&gt;EtherCAT diagnostics&quot;]
-        A5[&quot;libwmx3api&lt;br/&gt;Device lifecycle&quot;]
+        A5[&quot;libwmx3api&lt;br/&gt;device lifecycle&quot;]
     end
 
     subgraph L3[&quot;Layer 3: EtherCAT&quot;]
         direction LR
-        E1[&quot;WMX3 Motion Engine&quot;]
-        E2[&quot;EtherCAT Master&quot;]
-        E3[&quot;Servo Drives  J1 → J2 → ... → J6  (daisy-chained)&quot;]
-        E4[&quot;I/O Module  (gripper digital output)&quot;]
+        E1[&quot;WMX3 motion engine&quot;]
+        E2[&quot;EtherCAT master&quot;]
+        E3[&quot;Servo drives, daisy-chained&quot;]
+        E4[&quot;I/O module&lt;br/&gt;(gripper output bit)&quot;]
     end
 
     L1 --&gt;|&quot;C++ library calls  (same machine, shared memory)&quot;| L2
@@ -803,9 +819,10 @@ flowchart TB
 </figure>
 <p>For the full list of ROS2 interfaces, see:</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="ros2_topics.html"><span class="doc">ROS2 Topics</span></a> – Published and subscribed topics</p></li>
-<li><p><a class="reference internal" href="ros2_services.html"><span class="doc">ROS2 Services</span></a> – Engine, axis, I/O, and EtherCAT services</p></li>
-<li><p><a class="reference internal" href="ros2_actions.html"><span class="doc">ROS2 Actions</span></a> – FollowJointTrajectory action</p></li>
+<li><p><a class="reference internal" href="ros2_services.html"><span class="doc">ROS2 Services</span></a> – engine, lifecycle, axis, I/O, and EtherCAT services</p></li>
+<li><p><a class="reference internal" href="ros2_topics.html"><span class="doc">ROS2 Topics</span></a> – published and subscribed topics</p></li>
+<li><p><a class="reference internal" href="ros2_actions.html"><span class="doc">ROS2 Actions</span></a> – the <code class="docutils literal notranslate"><span class="pre">FollowJointTrajectory</span></code> action</p></li>
+<li><p><a class="reference internal" href="wmx_r2_control.html"><span class="doc">wmx_r2_control</span></a> – the <code class="docutils literal notranslate"><span class="pre">ros2_control</span></code> route to the same engine</p></li>
 </ul>
 </section>
 
@@ -868,7 +885,7 @@ flowchart TB
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Sep 08, 2026</p>
+      <p>Last updated: Oct 29, 2026</p>
     
   </div>
   <div class="movensys-footer__links">

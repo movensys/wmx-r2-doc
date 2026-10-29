@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=cd36b759" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=bcda8ffe" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
@@ -46,22 +46,35 @@
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'getting_started/install_wmx3';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/toc-sidebar.js?v=ae5e43d1"></script>
     <link rel="icon" href="../_static/movensys_logo.png"/>
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Example Applications" href="../examples/examples.html" />
     <link rel="prev" title="Install WMX Runtime" href="install_wmx_runtime.html" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Sep 08, 2026"/>
+    <meta name="docbuild:last-update" content="Oct 29, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
     <script src="../_static/language_data.js"></script>
     <script src="../searchindex.js"></script>
   
+<script>
+  try {
+    if (localStorage.getItem("toc-hidden") === "1") {
+      document.documentElement.classList.add("toc-hidden");
+    }
+    var tocWidth = localStorage.getItem("toc-width");
+    if (tocWidth) {
+      document.documentElement.style.setProperty("--toc-width", tocWidth);
+    }
+  } catch (e) {}
+</script>
   </head>
   <body data-default-mode="light">
   
@@ -188,10 +201,6 @@
   
 
   
-    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
-      <span class="fa-solid fa-outdent"></span>
-    </button>
-  
 </div>
 
     </header>
@@ -254,8 +263,8 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/examples.html">Example Applications</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../examples/Testing%20WMX%20R2.html">Testing WMX R2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../examples/isaacsim_setup.html">NVIDIA Isaac ROS Setup (Optional)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/testing_wmx_r2.html">Testing WMX R2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/isaacsim_setup.html">NVIDIA Isaac Setup (Optional)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator.html">movensys-manipulator</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/trajectory_planning.html">Trajectory Planning</a></li>
@@ -275,6 +284,14 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../try_your_robot/index.html">Try Your Robot</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/wmx_web_tools.html">WMX Web Tools (WOS, NetConfigurator, MotionScope)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/robot_parameters.html">Robot Parameter Configuration and Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/first_motion.html">First Motion on Hardware</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/safety.html">Safety Functions and Responsibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/validated_hardware.html">Hardware Compatibility and Validation</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../integration/integration.html">Integration Scenarios</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../integration/moveit2_integration.html">MoveIt2 Motion Planning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../integration/cumotion_integration.html">Isaac cuMotion Accelerated Planning</a></li>
@@ -284,13 +301,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../integration/intelligence_integration.html">Natural-Language and Vision Control (VLM / LLM)</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../commissioning/index.html">Commissioning</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../commissioning/robot_parameters.html">Robot Parameter Configuration and Validation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../commissioning/first_motion.html">Commissioning and First Motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../commissioning/safety.html">Safety Functions and Responsibility</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../commissioning/validated_hardware.html">Hardware Compatibility and Validation</a></li>
-</ul>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="../api_reference/api_reference.html">API Reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/communication.html">Communication Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_services.html">ROS2 Services</a></li>
@@ -298,6 +308,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_actions.html">ROS2 Actions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_message.html">wmx_r2_message</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_package.html">wmx_r2_package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_control.html">wmx_r2_control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx3_api.html">The WMX3 API Underneath WMX R2</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../support.html">Support</a><ul>
@@ -391,94 +403,75 @@ document.addEventListener("DOMContentLoaded", function() {
                   
   <section id="install-wmx-r2-package">
 <h1>Install WMX R2 Package<a class="headerlink" href="#install-wmx-r2-package" title="Link to this heading">#</a></h1>
-<p>With the <a class="reference internal" href="computer_setup.html"><span class="doc">Computer Setup</span></a> complete (real-time kernel, ROS 2, and the WMX
-runtime in place), build the WMX R2 packages.</p>
-<section id="configure-the-environment">
-<h2>Configure the environment<a class="headerlink" href="#configure-the-environment" title="Link to this heading">#</a></h2>
-<p>Add the following to your <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">ROS_DOMAIN_ID</span><span class="o">=</span><span class="m">70</span><span class="w">                         </span><span class="c1">#use any number</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">ROS_DISTRO</span><span class="o">=</span>jazzy<span class="w">                         </span><span class="c1">#support {jazzy, humble}</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">RMW_IMPLEMENTATION</span><span class="o">=</span>rmw_cyclonedds_cpp
-
-<span class="nb">source</span><span class="w"> </span>/opt/ros/<span class="nv">$ROS_DISTRO</span>/setup.bash
-<span class="nb">source</span><span class="w"> </span>~/workspaces/movensys_ws/install/setup.bash
-</pre></div>
+<p>WMX R2 runs in the <code class="docutils literal notranslate"><span class="pre">wmx_r2_container</span></code> Docker container. The steps below set
+the container up from the host; once it is running, every ROS 2 command — on
+this page and throughout this documentation — goes through <code class="docutils literal notranslate"><span class="pre">wros</span></code>, which
+runs a command inside the container as <strong>root</strong>, with ROS 2 and the workspace
+already sourced.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The WMX Runtime must be installed <strong>on the host</strong> (<code class="docutils literal notranslate"><span class="pre">/opt/wmx3/</span></code>). The
+container mounts it; it does not provide it. See <a class="reference internal" href="install_wmx_runtime.html"><span class="doc">Install WMX Runtime</span></a>.</p>
 </div>
-<p>Apply the changes:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>~/.bashrc
-</pre></div>
-</div>
-</section>
-<section id="install-required-ros2-dependencies">
-<h2>Install Required ROS2 Dependencies<a class="headerlink" href="#install-required-ros2-dependencies" title="Link to this heading">#</a></h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>update
-<span class="c1"># Install colcon and rosdep</span>
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>python3-colcon-common-extensions<span class="w"> </span>python3-rosdep
-<span class="c1"># Install ROS2 dependencies for WMX R2 packages</span>
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ros-<span class="si">${</span><span class="nv">ROS_DISTRO</span><span class="si">}</span>-graph-msgs<span class="w"> </span><span class="se">\</span>
-<span class="w">                    </span>ros-<span class="si">${</span><span class="nv">ROS_DISTRO</span><span class="si">}</span>-moveit-ros<span class="w"> </span><span class="se">\</span>
-<span class="w">                    </span>ros-<span class="si">${</span><span class="nv">ROS_DISTRO</span><span class="si">}</span>-moveit-planners<span class="w"> </span><span class="se">\</span>
-<span class="w">                    </span>ros-<span class="si">${</span><span class="nv">ROS_DISTRO</span><span class="si">}</span>-moveit-plugins<span class="w"> </span><span class="se">\</span>
-<span class="w">                    </span>ros-<span class="si">${</span><span class="nv">ROS_DISTRO</span><span class="si">}</span>-moveit-setup-assistant<span class="w"> </span><span class="se">\</span>
-<span class="w">                    </span>ros-<span class="si">${</span><span class="nv">ROS_DISTRO</span><span class="si">}</span>-moveit-configs-utils<span class="w"> </span><span class="se">\</span>
-<span class="w">                    </span>ros-<span class="si">${</span><span class="nv">ROS_DISTRO</span><span class="si">}</span>-moveit-task-constructor-core<span class="w"> </span><span class="se">\</span>
-<span class="w">                    </span>ros-<span class="si">${</span><span class="nv">ROS_DISTRO</span><span class="si">}</span>-ros2-control<span class="w"> </span><span class="se">\</span>
-<span class="w">                    </span>ros-<span class="si">${</span><span class="nv">ROS_DISTRO</span><span class="si">}</span>-ros2-controllers<span class="w"> </span><span class="se">\</span>
-<span class="w">                    </span>ros-<span class="si">${</span><span class="nv">ROS_DISTRO</span><span class="si">}</span>-controller-manager<span class="w"> </span><span class="se">\</span>
-<span class="w">                    </span>ros-<span class="si">${</span><span class="nv">ROS_DISTRO</span><span class="si">}</span>-diff-drive-controller<span class="w"> </span><span class="se">\</span>
-<span class="w">                    </span>ros-<span class="si">${</span><span class="nv">ROS_DISTRO</span><span class="si">}</span>-joint-trajectory-controller<span class="w"> </span><span class="se">\</span>
-<span class="w">                    </span>ros-<span class="si">${</span><span class="nv">ROS_DISTRO</span><span class="si">}</span>-joint-state-broadcaster<span class="w"> </span><span class="se">\</span>
-<span class="w">                    </span>ros-<span class="si">${</span><span class="nv">ROS_DISTRO</span><span class="si">}</span>-xacro<span class="w"> </span><span class="se">\</span>
-<span class="w">                    </span>ros-<span class="si">${</span><span class="nv">ROS_DISTRO</span><span class="si">}</span>-topic-tools<span class="w"> </span><span class="se">\</span>
-<span class="w">                    </span>ros-<span class="si">${</span><span class="nv">ROS_DISTRO</span><span class="si">}</span>-rmw-cyclonedds-cpp
-</pre></div>
-</div>
-</section>
-<section id="create-workspace-and-build">
-<h2>Create Workspace and Build<a class="headerlink" href="#create-workspace-and-build" title="Link to this heading">#</a></h2>
-<p><strong>Create workspace</strong></p>
+<section id="clone-the-repository">
+<h2>Clone the repository<a class="headerlink" href="#clone-the-repository" title="Link to this heading">#</a></h2>
+<p>Clone first: the environment step below sources a file from inside the
+repository.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/workspaces/movensys_ws/src
 <span class="nb">cd</span><span class="w"> </span>~/workspaces/movensys_ws/src
 git<span class="w"> </span>clone<span class="w"> </span>https://github.com/movensys/wmx-r2.git
 </pre></div>
 </div>
+</section>
+<section id="configure-the-environment">
+<h2>Configure the environment<a class="headerlink" href="#configure-the-environment" title="Link to this heading">#</a></h2>
+<p>Add the following to your <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">ROS_DOMAIN_ID</span><span class="o">=</span><span class="m">73</span><span class="w">                         </span><span class="c1"># any number; the same one everywhere</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">ROS_DISTRO</span><span class="o">=</span>jazzy<span class="w">                         </span><span class="c1"># {jazzy, humble}</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">CPU_ARCH</span><span class="o">=</span>amd64<span class="w">                           </span><span class="c1"># {amd64, arm64}</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">RMW_IMPLEMENTATION</span><span class="o">=</span>rmw_cyclonedds_cpp
+
+<span class="nb">source</span><span class="w"> </span>~/workspaces/movensys_ws/src/wmx-r2/docker/wros.bash
+</pre></div>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The manipulator and navigation descriptions are optional. If you only need
-motor control in a ROS 2 environment, you can safely ignore the missing
-<code class="docutils literal notranslate"><span class="pre">movensys_manipulator_description</span></code> and <code class="docutils literal notranslate"><span class="pre">movensys_navigation_description</span></code>
-dependency errors.</p>
-<p>To resolve them, clone both repositories into your workspace:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/workspaces/movensys_ws/src
-git<span class="w"> </span>clone<span class="w"> </span>https://github.com/movensys/movensys-manipulator.git
-git<span class="w"> </span>clone<span class="w"> </span>https://github.com/movensys/movensys-navigation.git
+<p><code class="docutils literal notranslate"><span class="pre">ROS_DOMAIN_ID</span></code> must be the <strong>same value</strong> in every container that has to
+talk to WMX R2 — the manipulator and navigation setup pages set it too. A
+mismatch is silent: the nodes start, and no <code class="docutils literal notranslate"><span class="pre">/wmx/*</span></code> topic is ever seen.</p>
+</div>
+<p>Apply the changes:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>xhost<span class="w"> </span>+local:docker
+<span class="nb">source</span><span class="w"> </span>~/.bashrc
 </pre></div>
 </div>
-</div>
-<p><strong>Rosdep update</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>rosdep<span class="w"> </span>init<span class="w">   </span><span class="c1"># only needed once per system</span>
-rosdep<span class="w"> </span>update
-<span class="nb">cd</span><span class="w"> </span>~/workspaces/movensys_ws
-rosdep<span class="w"> </span>install<span class="w"> </span>--from-paths<span class="w"> </span>src<span class="w"> </span>--ignore-src<span class="w"> </span>-y
+</section>
+<section id="build-and-start-the-container">
+<h2>Build and start the container<a class="headerlink" href="#build-and-start-the-container" title="Link to this heading">#</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/workspaces/movensys_ws/src/wmx-r2/docker
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>general.yaml<span class="w"> </span>-f<span class="w"> </span>wmx_r2.<span class="si">${</span><span class="nv">CPU_ARCH</span><span class="si">}</span>.yaml<span class="w"> </span>down
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>general.yaml<span class="w"> </span>-f<span class="w"> </span>wmx_r2.<span class="si">${</span><span class="nv">CPU_ARCH</span><span class="si">}</span>.yaml<span class="w"> </span>build
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>general.yaml<span class="w"> </span>-f<span class="w"> </span>wmx_r2.<span class="si">${</span><span class="nv">CPU_ARCH</span><span class="si">}</span>.yaml<span class="w"> </span>up<span class="w"> </span>-d
 </pre></div>
 </div>
-<p><strong>Build</strong> (<code class="docutils literal notranslate"><span class="pre">wmx_r2_package</span></code> depends on <code class="docutils literal notranslate"><span class="pre">wmx_r2_message</span></code>, so build the
-message package first):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/workspaces/movensys_ws
-
-<span class="c1"># Stage 1: build the message package first</span>
-colcon<span class="w"> </span>build<span class="w"> </span>--packages-select<span class="w"> </span>wmx_r2_message
-<span class="nb">source</span><span class="w"> </span>install/setup.bash
-
-<span class="c1"># Stage 2: build all remaining packages</span>
-colcon<span class="w"> </span>build
-<span class="nb">source</span><span class="w"> </span>install/setup.bash
+<p>Follow the startup logs, then open a shell:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>logs<span class="w"> </span>wmx_r2_container<span class="w"> </span>-f
 </pre></div>
+</div>
+<p>Called with no arguments, <code class="docutils literal notranslate"><span class="pre">wros</span></code> opens an interactive shell inside the
+container.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The container and image names and the host paths — <code class="docutils literal notranslate"><span class="pre">WMX_R2_PACKAGES</span></code>,
+<code class="docutils literal notranslate"><span class="pre">WMX3_SDK_PATH</span></code> — come from <code class="docutils literal notranslate"><span class="pre">docker/.env</span></code>, relative to the <code class="docutils literal notranslate"><span class="pre">docker/</span></code>
+directory. Edit that file if your layout differs from the default
+<code class="docutils literal notranslate"><span class="pre">~/workspaces</span></code> one.</p>
 </div>
 </section>
 <section id="verify-installation">
 <h2>Verify Installation<a class="headerlink" href="#verify-installation" title="Link to this heading">#</a></h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>pkg<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>wmx<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>ros2<span class="w"> </span>pkg<span class="w"> </span>executables<span class="w"> </span>wmx_r2_package
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>pkg<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>wmx
+wros<span class="w"> </span>ros2<span class="w"> </span>pkg<span class="w"> </span>executables<span class="w"> </span>wmx_r2_package
 </pre></div>
 </div>
 <p>Expected:</p>
@@ -487,13 +480,14 @@ wmx_r2_message
 wmx_r2_package
 wmx_r2_package differential_drive_controller
 wmx_r2_package gripper_controller
-wmx_r2_package jog_keyboard_node
+wmx_r2_package joint_position_controller
 wmx_r2_package joint_state_broadcaster
 wmx_r2_package joint_trajectory_controller
 wmx_r2_package wmx_core_motion_node
 wmx_r2_package wmx_engine_node
 wmx_r2_package wmx_ethercat_node
 wmx_r2_package wmx_io_node
+wmx_r2_package wmx_lifecycle_manager_node
 </pre></div>
 </div>
 </section>
@@ -534,27 +528,6 @@ wmx_r2_package wmx_io_node
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-<div
-    id="pst-page-navigation-heading-2"
-    class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> On this page
-  </div>
-  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
-    <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configure-the-environment">Configure the environment</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-required-ros2-dependencies">Install Required ROS2 Dependencies</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-workspace-and-build">Create Workspace and Build</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#verify-installation">Verify Installation</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
-              
             
           </div>
           <footer class="bd-footer-content">
@@ -579,7 +552,7 @@ wmx_r2_package wmx_io_node
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Sep 08, 2026</p>
+      <p>Last updated: Oct 29, 2026</p>
     
   </div>
   <div class="movensys-footer__links">

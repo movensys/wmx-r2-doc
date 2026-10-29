@@ -1,0 +1,771 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>wmx_r2_control &#8212; WMX R2 Documentation 1.0.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=bcda8ffe" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
+
+    <script src="../_static/documentation_options.js?v=8d563738"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api_reference/wmx_r2_control';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/toc-sidebar.js?v=ae5e43d1"></script>
+    <link rel="icon" href="../_static/movensys_logo.png"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="The WMX3 API Underneath WMX R2" href="wmx3_api.html" />
+    <link rel="prev" title="wmx_r2_package" href="wmx_r2_package.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="Oct 29, 2026"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+<script>
+  try {
+    if (localStorage.getItem("toc-hidden") === "1") {
+      document.documentElement.classList.add("toc-hidden");
+    }
+    var tocWidth = localStorage.getItem("toc-width");
+    if (tocWidth) {
+      document.documentElement.style.setProperty("--toc-width", tocWidth);
+    }
+  } catch (e) {}
+</script>
+  </head>
+  <body data-default-mode="light">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../_static/movensys_logo.png" class="logo__image only-light" alt=""/>
+    <img src="../_static/movensys_logo.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">WMX R2 Documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/movensys/wmx-r2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/movensys/wmx-r2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item"><div class="sidebar-toc-header">
+  <p class="sidebar-toc-title">Table of Contents</p>
+  <p class="sidebar-toc-subtitle">Contents</p>
+</div></div>
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links" aria-label="Section Navigation">
+  <div class="bd-toc-item navbar-nav">
+    <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/computer_setup.html">Computer Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx_runtime.html">Install WMX Runtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx3.html">Install WMX R2 Package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/examples.html">Example Applications</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/testing_wmx_r2.html">Testing WMX R2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/isaacsim_setup.html">NVIDIA Isaac Setup (Optional)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator.html">movensys-manipulator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/trajectory_planning.html">Trajectory Planning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/apriltag_pick_and_place.html">AprilTag Pick-and-Place</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/obstacle_avoidance.html">Nvblox Obstacle Avoidance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/yolo_pick_and_place.html">YOLO Pick-and-Place</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/apriltag_obstacle_avoidance.html">AprilTag + Obstacle Avoidance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/robopoly_game.html">Robopoly Game (VLM / LLM)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/movensys_navigation.html">movensys-navigation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples/movensys_navigation_setup.html">movensys-navigation Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/manual_driving.html">Manual Driving</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/slam_mapping.html">SLAM Mapping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/autonomous_navigation.html">Autonomous Navigation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../try_your_robot/index.html">Try Your Robot</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/wmx_web_tools.html">WMX Web Tools (WOS, NetConfigurator, MotionScope)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/robot_parameters.html">Robot Parameter Configuration and Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/first_motion.html">First Motion on Hardware</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/safety.html">Safety Functions and Responsibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/validated_hardware.html">Hardware Compatibility and Validation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../integration/integration.html">Integration Scenarios</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../integration/moveit2_integration.html">MoveIt2 Motion Planning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/cumotion_integration.html">Isaac cuMotion Accelerated Planning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/nav2_integration.html">Nav2 Navigation (Mobile Base)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/custom_planner.html">Custom Planner Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/custom_application.html">Building Custom Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/intelligence_integration.html">Natural-Language and Vision Control (VLM / LLM)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="api_reference.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="communication.html">Communication Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ros2_services.html">ROS2 Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ros2_topics.html">ROS2 Topics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ros2_actions.html">ROS2 Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wmx_r2_message.html">wmx_r2_message</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wmx_r2_package.html">wmx_r2_package</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">wmx_r2_control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wmx3_api.html">The WMX3 API Underneath WMX R2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support.html">Support</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../licensing.html">Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About Us</a></li>
+</ul>
+
+  </div>
+</nav>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var navItems = document.querySelectorAll(".bd-docs-nav li");
+  navItems.forEach(function(li) {
+    var subList = li.querySelector(":scope > ul");
+    if (subList) {
+      var toggle = document.createElement("span");
+      toggle.className = "toc-toggle";
+      var isCurrent = li.classList.contains("current");
+      toggle.textContent = isCurrent ? "−" : "+";
+      if (!isCurrent) {
+        subList.classList.add("toc-collapsed");
+      }
+      toggle.addEventListener("click", function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        subList.classList.toggle("toc-collapsed");
+        toggle.textContent = subList.classList.contains("toc-collapsed") ? "+" : "−";
+      });
+      li.style.position = "relative";
+      var link = li.querySelector(":scope > a");
+      if (link) {
+        link.after(toggle);
+      }
+    }
+  });
+});
+</script></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="api_reference.html" class="nav-link">API Reference</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">wmx_r2_control</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="wmx-r2-control">
+<h1>wmx_r2_control<a class="headerlink" href="#wmx-r2-control" title="Link to this heading">#</a></h1>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">wmx_r2_control</span></code> is the <code class="docutils literal notranslate"><span class="pre">ros2_control</span></code> route into WMX R2. It provides a
+<code class="docutils literal notranslate"><span class="pre">SystemInterface</span></code> plugin — <code class="docutils literal notranslate"><span class="pre">wmx_r2_control/WmxSystemHardware</span></code> — that
+exposes WMX3 axes to the standard <code class="docutils literal notranslate"><span class="pre">controller_manager</span></code>, plus the URDF
+xacros, controller YAMLs, and launch files that use it.</p>
+<p>It is an <strong>alternative</strong> to the direct route, not a replacement. Use it when
+you want stock <code class="docutils literal notranslate"><span class="pre">ros2_controllers</span></code> (<code class="docutils literal notranslate"><span class="pre">diff_drive_controller</span></code>,
+<code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code>) rather than the WMX-specific controllers in
+<code class="docutils literal notranslate"><span class="pre">wmx_r2_package</span></code>.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 40.0%" />
+<col style="width: 40.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p>Direct (<code class="docutils literal notranslate"><span class="pre">wmx_r2_package</span></code>)</p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">ros2_control</span></code> (<code class="docutils literal notranslate"><span class="pre">wmx_r2_control</span></code>)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Feedback</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code> node reads WMX3 directly</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">WmxSystemHardware</span></code> <code class="docutils literal notranslate"><span class="pre">read()</span></code> into standard
+<code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster/JointStateBroadcaster</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Arm motion</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">joint_trajectory_controller</span></code> → WMX3 C-spline</p></td>
+<td><p><strong>the same node</strong> — <code class="docutils literal notranslate"><span class="pre">ros2_control</span></code> handles feedback only</p></td>
+</tr>
+<tr class="row-even"><td><p>Wheel motion</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">differential_drive_controller</span></code> → <code class="docutils literal notranslate"><span class="pre">StartVel</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">diff_drive_controller/DiffDriveController</span></code> →
+<code class="docutils literal notranslate"><span class="pre">WmxSystemHardware</span></code> <code class="docutils literal notranslate"><span class="pre">write()</span></code> → <code class="docutils literal notranslate"><span class="pre">StartVel</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Extra processes</p></td>
+<td><p>none</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ros2_control_node</span></code>, <code class="docutils literal notranslate"><span class="pre">robot_state_publisher</span></code>, spawners</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="package-structure">
+<h2>Package structure<a class="headerlink" href="#package-structure" title="Link to this heading">#</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>wmx_r2_control/
+├── src/wmx_system_hardware.cpp        # the SystemInterface plugin
+├── include/wmx_r2_control/wmx_system_hardware.hpp
+├── wmx_r2_control_plugin.xml          # pluginlib export
+├── launch/
+│   ├── wmx_r2_control_manipulator.launch.py
+│   └── wmx_r2_control_differential.launch.py
+├── urdf/
+│   ├── cr3a.wmx.urdf.xacro       cr3a.wmx.ros2_control.xacro
+│   ├── cr5a.wmx.urdf.xacro       cr5a.wmx.ros2_control.xacro
+│   └── diffbot.wmx.urdf.xacro    diffbot.wmx.ros2_control.xacro
+├── config/
+│   ├── cr3a_controllers.yaml
+│   ├── cr5a_controllers.yaml
+│   └── diffbot_controllers.yaml
+├── CMakeLists.txt
+└── package.xml
+</pre></div>
+</div>
+</section>
+<section id="wmxsystemhardware">
+<h2>WmxSystemHardware<a class="headerlink" href="#wmxsystemhardware" title="Link to this heading">#</a></h2>
+<p>The plugin attaches to the engine that <code class="docutils literal notranslate"><span class="pre">wmx_engine_node</span></code> owns. <strong>It does
+not start or stop the engine</strong> — the general nodes still do that, which is
+why both <code class="docutils literal notranslate"><span class="pre">ros2_control</span></code> launch files include
+<code class="docutils literal notranslate"><span class="pre">wmx_r2_general_nodes.launch.py</span></code>.</p>
+<section id="hardware-parameters">
+<h3>Hardware parameters<a class="headerlink" href="#hardware-parameters" title="Link to this heading">#</a></h3>
+<p>Set in the <code class="docutils literal notranslate"><span class="pre">&lt;hardware&gt;</span></code> block of the <code class="docutils literal notranslate"><span class="pre">ros2_control</span></code> xacro:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 24.0%" />
+<col style="width: 76.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">device_name</span></code></p></td>
+<td><p>WMX device name for this hardware instance, e.g. <code class="docutils literal notranslate"><span class="pre">wmx_cr3a_control</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">wmx_param_file</span></code></p></td>
+<td><p>WMX3 parameter XML; passed in from the launch argument of the same
+name</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="per-joint-parameters">
+<h3>Per-joint parameters<a class="headerlink" href="#per-joint-parameters" title="Link to this heading">#</a></h3>
+<p>Each <code class="docutils literal notranslate"><span class="pre">&lt;joint&gt;</span></code> needs one <code class="docutils literal notranslate"><span class="pre">&lt;param</span> <span class="pre">name=&quot;axis&quot;&gt;</span></code> giving its WMX3 axis
+index. An axis outside <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">maxAxes)</span></code> fails initialization.</p>
+</section>
+<section id="interfaces">
+<h3>Interfaces<a class="headerlink" href="#interfaces" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 26.0%" />
+<col style="width: 20.0%" />
+<col style="width: 54.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Interface</p></th>
+<th class="head"><p>Direction</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">position</span></code></p></td>
+<td><p>state</p></td>
+<td><p>WMX <code class="docutils literal notranslate"><span class="pre">actualPos</span></code>, unconverted</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">velocity</span></code></p></td>
+<td><p>state</p></td>
+<td><p>WMX <code class="docutils literal notranslate"><span class="pre">actualVelocity</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">velocity</span></code></p></td>
+<td><p>command</p></td>
+<td><p>Written with CoreMotion <code class="docutils literal notranslate"><span class="pre">StartVel</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>A joint declares <strong>either</strong> a single <code class="docutils literal notranslate"><span class="pre">velocity</span></code> command interface <strong>or</strong>
+no command interface at all, which makes it state-only. Anything else fails
+initialization.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There is no <code class="docutils literal notranslate"><span class="pre">position</span></code> command interface. The arm’s planned motion goes
+through <code class="docutils literal notranslate"><span class="pre">wmx_r2_package</span></code>’s <code class="docutils literal notranslate"><span class="pre">joint_trajectory_controller</span></code>, which talks
+to the WMX C-spline directly — <code class="docutils literal notranslate"><span class="pre">ros2_control</span></code> is not in that path.
+<code class="docutils literal notranslate"><span class="pre">cr3a.wmx.ros2_control.xacro</span></code> and <code class="docutils literal notranslate"><span class="pre">cr5a.wmx.ros2_control.xacro</span></code>
+therefore declare state interfaces only.</p>
+</div>
+</section>
+</section>
+<section id="launch-files">
+<h2>Launch files<a class="headerlink" href="#launch-files" title="Link to this heading">#</a></h2>
+<section id="wmx-r2-control-manipulator-launch-py">
+<h3>wmx_r2_control_manipulator.launch.py<a class="headerlink" href="#wmx-r2-control-manipulator-launch-py" title="Link to this heading">#</a></h3>
+<p>Starts, in order:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_general_nodes.launch.py</span></code> — engine, lifecycle manager, axes,
+I/O, EtherCAT</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">robot_state_publisher</span></code> from <code class="docutils literal notranslate"><span class="pre">urdf_file</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ros2_control_node</span></code> with <code class="docutils literal notranslate"><span class="pre">controllers_file</span></code></p></li>
+<li><p>the <code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code> spawner (standard <code class="docutils literal notranslate"><span class="pre">ros2_controllers</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">joint_trajectory_controller</span></code>, <code class="docutils literal notranslate"><span class="pre">joint_position_controller</span></code>, and —
+with <code class="docutils literal notranslate"><span class="pre">use_gripper:=true</span></code> — <code class="docutils literal notranslate"><span class="pre">gripper_controller</span></code>, all from
+<code class="docutils literal notranslate"><span class="pre">wmx_r2_package</span></code></p></li>
+<li><p>a <code class="docutils literal notranslate"><span class="pre">topic_tools</span></code> relay for the Isaac Sim joint command mirror</p></li>
+</ol>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 24.0%" />
+<col style="width: 16.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">use_sim_time</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+<td><p>Use the simulation clock</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">config_file</span></code></p></td>
+<td><p><strong>required</strong></p></td>
+<td><p>Manipulator node parameters, e.g.
+<code class="docutils literal notranslate"><span class="pre">wmx_r2_package/example/cr3a_manipulator_config.yaml</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">wmx_param_file</span></code></p></td>
+<td><p><strong>required</strong></p></td>
+<td><p>WMX3 parameter XML. Required here, not optional: it is also fed to the
+xacro, so an empty value would blank the description’s own default.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">urdf_file</span></code></p></td>
+<td><p><strong>required</strong></p></td>
+<td><p>Robot description xacro, e.g. <code class="docutils literal notranslate"><span class="pre">urdf/cr3a.wmx.urdf.xacro</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">controllers_file</span></code></p></td>
+<td><p><strong>required</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">controller_manager</span></code> YAML, e.g. <code class="docutils literal notranslate"><span class="pre">config/cr3a_controllers.yaml</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">use_gripper</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+<td><p>Start <code class="docutils literal notranslate"><span class="pre">gripper_controller</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>wmx_r2_control<span class="w"> </span>wmx_r2_control_manipulator.launch.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>use_sim_time:<span class="o">=</span><span class="nb">false</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s1">'config_file:=$(ros2 pkg prefix --share wmx_r2_package)/example/cr3a_manipulator_config.yaml'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s1">'wmx_param_file:=$(ros2 pkg prefix --share wmx_r2_package)/example/cr3a_wmx_parameters.xml'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s1">'urdf_file:=$(ros2 pkg prefix --share wmx_r2_control)/urdf/cr3a.wmx.urdf.xacro'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s1">'controllers_file:=$(ros2 pkg prefix --share wmx_r2_control)/config/cr3a_controllers.yaml'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>use_gripper:<span class="o">=</span><span class="nb">true</span>
+</pre></div>
+</div>
+</section>
+<section id="wmx-r2-control-differential-launch-py">
+<h3>wmx_r2_control_differential.launch.py<a class="headerlink" href="#wmx-r2-control-differential-launch-py" title="Link to this heading">#</a></h3>
+<p>Same shape, minus <code class="docutils literal notranslate"><span class="pre">use_gripper</span></code>. Here <code class="docutils literal notranslate"><span class="pre">ros2_control</span></code> <strong>does</strong> own the
+motion: the spawned <code class="docutils literal notranslate"><span class="pre">diff_drive_controller/DiffDriveController</span></code> writes
+wheel velocities into <code class="docutils literal notranslate"><span class="pre">WmxSystemHardware</span></code>, which calls <code class="docutils literal notranslate"><span class="pre">StartVel</span></code>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>wmx_r2_control<span class="w"> </span>wmx_r2_control_differential.launch.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>use_sim_time:<span class="o">=</span><span class="nb">false</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s1">'config_file:=$(ros2 pkg prefix --share wmx_r2_package)/example/diffbot_differential_config.yaml'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s1">'wmx_param_file:=$(ros2 pkg prefix --share wmx_r2_package)/example/diffbot_wmx_parameters.xml'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s1">'urdf_file:=$(ros2 pkg prefix --share wmx_r2_control)/urdf/diffbot.wmx.urdf.xacro'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s1">'controllers_file:=$(ros2 pkg prefix --share wmx_r2_control)/config/diffbot_controllers.yaml'</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="controller-configuration">
+<h2>Controller configuration<a class="headerlink" href="#controller-configuration" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">cr3a_controllers.yaml</span></code> loads only the state broadcaster, because the arm’s
+motion controllers are not <code class="docutils literal notranslate"><span class="pre">ros2_control</span></code> controllers:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">controller_manager</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">update_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class="w">    </span><span class="nt">joint_state_broadcaster</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">joint_state_broadcaster/JointStateBroadcaster</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">diffbot_controllers.yaml</span></code> adds the diff-drive controller:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">controller_manager</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">update_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class="w">    </span><span class="nt">joint_state_broadcaster</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">joint_state_broadcaster/JointStateBroadcaster</span>
+<span class="w">    </span><span class="nt">differential_drive_controller</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">diff_drive_controller/DiffDriveController</span>
+
+<span class="nt">differential_drive_controller</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">left_wheel_names</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"drivewheel_left_joint"</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">right_wheel_names</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"drivewheel_right_joint"</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">wheel_separation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.55</span>
+<span class="w">    </span><span class="nt">wheel_radius</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.095</span>
+<span class="w">    </span><span class="nt">publish_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100.0</span>
+<span class="w">    </span><span class="nt">odom_frame_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">odom</span>
+<span class="w">    </span><span class="nt">base_frame_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">base_link</span>
+<span class="w">    </span><span class="nt">enable_odom_tf</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">use_stamped_vel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">cmd_vel_timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.25</span>
+<span class="w">    </span><span class="c1"># all limiters off - see the note below</span>
+<span class="w">    </span><span class="nt">linear.x.has_velocity_limits</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">linear.x.has_acceleration_limits</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">linear.x.has_jerk_limits</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">angular.z.has_velocity_limits</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">angular.z.has_acceleration_limits</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">angular.z.has_jerk_limits</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The limiters are <strong>deliberately disabled</strong>. <code class="docutils literal notranslate"><span class="pre">diff_drive_controller</span></code>
+enables velocity, acceleration, and jerk limiting by default, and with
+<code class="docutils literal notranslate"><span class="pre">max_deceleration</span></code> and <code class="docutils literal notranslate"><span class="pre">max_jerk</span></code> unset the braking ramp is poor. With
+the limiters off, the controller is a pure passthrough and the
+<code class="docutils literal notranslate"><span class="pre">StartVel</span></code> profile plus the WMX-side axis limits do the shaping — which
+matches how <code class="docutils literal notranslate"><span class="pre">wmx_r2_package</span></code>’s own differential controller behaves.</p>
+<p><code class="docutils literal notranslate"><span class="pre">enable_odom_tf</span></code> is <code class="docutils literal notranslate"><span class="pre">false</span></code> for the same reason <code class="docutils literal notranslate"><span class="pre">publish_tf</span></code> is
+false on the direct controller: the localization EKF owns the
+<code class="docutils literal notranslate"><span class="pre">odom</span> <span class="pre">→</span> <span class="pre">base_link</span></code> transform.</p>
+<p><code class="docutils literal notranslate"><span class="pre">use_sim_time</span></code> is set by the launch file and auto-propagated to every
+loaded controller. Do not hard-code it in the YAML.</p>
+</div>
+</section>
+<section id="see-also">
+<h2>See also<a class="headerlink" href="#see-also" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="wmx_r2_package.html"><span class="doc">wmx_r2_package</span></a> – the nodes the direct route uses</p></li>
+<li><p><a class="reference internal" href="ros2_topics.html"><span class="doc">ROS2 Topics</span></a> – what each route publishes</p></li>
+<li><p><a class="reference internal" href="../integration/nav2_integration.html"><span class="doc">Nav2 Navigation (Mobile Base)</span></a> – the differential stack end to end</p></li>
+<li><p><a class="reference internal" href="../integration/moveit2_integration.html"><span class="doc">MoveIt2 Motion Planning</span></a> – the manipulator stack end to end</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="wmx_r2_package.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">wmx_r2_package</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="wmx3_api.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">The WMX3 API Underneath WMX R2</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5"></script>
+
+<footer class="bd-footer">
+<div class="movensys-footer">
+  <div class="movensys-footer__logo">
+    <a href="https://www.movensys.com" target="_blank" rel="noopener">
+      <img src="../_static/movensys_wordmark.png" alt="Movensys" />
+    </a>
+  </div>
+  <div class="movensys-footer__info">
+    <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
+    
+      <p>Last updated: Oct 29, 2026</p>
+    
+  </div>
+  <div class="movensys-footer__links">
+    <a href="https://www.movensys.com" target="_blank" rel="noopener">MOVENSYS.com</a>
+    <a href="https://www.movensys.com/privacy" target="_blank" rel="noopener">Privacy Policy</a>
+  </div>
+</div>
+</footer>
+  </body>
+</html>

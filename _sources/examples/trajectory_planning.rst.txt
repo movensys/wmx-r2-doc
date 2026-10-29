@@ -108,7 +108,7 @@ run through ``mros``. For the programmatic ``/wmx/moveit2/*`` service API, see
 
       2. Start WMX R2 for the manipulator (real WMX runtime) with
          ``use_sim_time:=true`` (see
-         ``~/workspaces/movensys_ws/src/wmx-r2/doc/launch_<MANIPULATOR_MODEL>_manipulator.md``).
+         ``~/workspaces/movensys_ws/src/wmx-r2/doc/launch_manipulator.md``).
 
       3. Launch the planner and service API with ``use_sim_time:=true``:
 
@@ -174,7 +174,7 @@ run through ``mros``. For the programmatic ``/wmx/moveit2/*`` service API, see
                   mros ros2 launch movensys_manipulator_description gazebo_trajectory_real.launch.py
 
       2. Start WMX R2 for the manipulator on the robot (see
-         ``~/workspaces/movensys_ws/src/wmx-r2/doc/launch_<MANIPULATOR_MODEL>_manipulator.md``).
+         ``~/workspaces/movensys_ws/src/wmx-r2/doc/launch_manipulator.md``).
 
       3. Launch the planner and service API:
 
@@ -233,7 +233,7 @@ so it works in any of the three modes once the planner is up. Pick a mode first
    per-keypress step size, the command timeout, and the exact stopping
    behavior of each mode, see
    :ref:`keyboard-jogging-behavior`. On a physical robot, do not use keyboard
-   jogging as the first motion. Follow :doc:`../commissioning/first_motion`
+   jogging as the first motion. Follow :doc:`../try_your_robot/first_motion`
    first.
 
 .. list-table::
