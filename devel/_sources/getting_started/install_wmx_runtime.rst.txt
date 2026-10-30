@@ -18,7 +18,8 @@ handles both cyclic process data (PDO) and configuration data (SDO) on the bus.
 
 Running the motion on a single PC removes the separate controller box and the
 cabling that connects it. This shrinks the overall footprint and lowers the
-parts count and cost. The motion runs in software on a real-time kernel instead of on fixed controller
+parts count and cost. It is also what makes One-Chip Physical AI possible: the
+motion runs on the same chip as the AI that decides it. The motion runs in software on a real-time kernel instead of on fixed controller
 hardware. WMX software motion drives up to 128 axes on a 31.25 µs to 1 ms cycle and keeps
 deterministic real-time performance.
 

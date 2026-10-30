@@ -56,7 +56,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Oct 28, 2026"/>
+    <meta name="docbuild:last-update" content="Oct 30, 2026"/>
   
     
     <script src="_static/searchtools.js"></script>
@@ -390,9 +390,17 @@ I/O, the motion engine and the EtherCAT network, which is what industrial
 commissioning and diagnostics need. In the <em>See–Think–Act</em> loop of Physical AI,
 WMX R2 is the <em>Act</em> layer. It executes what the AI decides, on real industrial
 hardware, in deterministic real time.</p>
-<figure class="align-center">
-<a class="reference internal image-reference" href="_images/wmx-r2_pai.png"><img alt="WMX R2 for physical AI" src="_images/wmx-r2_pai.png" style="width: 100%;" />
+<p>The chips are here and the AI models are here. What is missing is real-time
+execution. WMX R2 completes <strong>One-Chip Physical AI</strong>: perception, reasoning,
+planning, kinematics and motion control all running on a single chip.</p>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="_images/WMX_R2_One_Chip.png"><img alt="WMX R2: One-Chip Physical AI" src="_images/WMX_R2_One_Chip.png" style="width: 100%;" />
 </a>
+<figcaption>
+<p><span class="caption-text">WMX R2 completes One-Chip Physical AI. ROS 2 perception, reasoning and
+planning, and WMX R2 real-time execution share one SoC (CPU, GPU and NPU)
+and drive robot arms, servos and I/O directly over EtherCAT.</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+</figcaption>
 </figure>
 </section>
 <section id="bring-modern-robotics-capability-to-industrial-grade-motion">
@@ -402,11 +410,11 @@ modern robotics software, and ROS 2 has that software but cannot guarantee
 cycle-accurate execution on real hardware. WMX R2 closes the gap. ROS 2 nodes
 reason, plan and control, and the WMX motion engine turns their output into
 precisely timed servo commands on a fixed cycle over EtherCAT.</p>
-<figure class="align-center" id="id1">
+<figure class="align-center" id="id2">
 <a class="reference internal image-reference" href="_images/the_gap.png"><img alt="WMX R2 closing the gap between ROS 2 and industrial motion control" src="_images/the_gap.png" style="width: 100%;" />
 </a>
 <figcaption>
-<p><span class="caption-text">WMX R2 closing the gap between ROS 2 and industrial motion control.</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+<p><span class="caption-text">WMX R2 closing the gap between ROS 2 and industrial motion control.</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -472,11 +480,11 @@ the manipulator stack</p></td>
 DDS, so the planning stack and the real-time stack stay separate processes on
 the same machine.</p>
 <p>See <a class="reference internal" href="examples/examples.html"><span class="doc">Example Applications</span></a> to run these scenarios from start to finish.</p>
-<figure class="align-center" id="id2">
+<figure class="align-center" id="id3">
 <a class="reference internal image-reference" href="_images/wmx-r2_overview.drawio.png"><img alt="WMX R2 architecture overview" src="_images/wmx-r2_overview.drawio.png" style="width: 100%;" />
 </a>
 <figcaption>
-<p><span class="caption-text">WMX R2 architecture overview.</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
+<p><span class="caption-text">WMX R2 architecture overview.</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -537,21 +545,23 @@ industrial machine can reuse what the robotics community already builds:</p>
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowfullscreen></iframe>
 </div></section>
-<section id="run-the-entire-stack-on-a-single-edge-device">
-<h2>Run the entire stack on a single edge device<a class="headerlink" href="#run-the-entire-stack-on-a-single-edge-device" title="Link to this heading">#</a></h2>
-<p>With WMX R2, perception, planning and deterministic motion all run as software
-on one machine. WMX R2 is also hardware agnostic. The motion engine is software
-and the EtherCAT master runs on a standard network port, so no external motion
-controller and no dedicated motion-control hardware are needed. The same stack
-runs on x86-64 and arm64 alike, from an industrial PC or an Intel Core based
-desktop or laptop to an NVIDIA Jetson Thor.</p>
-<figure class="align-center" id="id3">
+<section id="one-chip-physical-ai-run-the-entire-stack-on-a-single-chip">
+<h2>One-Chip Physical AI: run the entire stack on a single chip<a class="headerlink" href="#one-chip-physical-ai-run-the-entire-stack-on-a-single-chip" title="Link to this heading">#</a></h2>
+<p>With WMX R2, perception, reasoning, planning, kinematics and deterministic
+motion control all run as software on a single chip. The AI workloads use the
+GPU and NPU of the SoC, and the WMX motion engine runs on its CPU cores in
+deterministic real time. WMX R2 is also hardware agnostic. The motion engine is
+software and the EtherCAT master runs on a standard network port, so no
+external motion controller and no dedicated motion-control hardware are needed.
+The same stack runs on x86-64 and arm64 alike, from an industrial PC or an
+Intel Core based desktop or laptop to an NVIDIA Jetson Thor.</p>
+<figure class="align-center" id="id4">
 <a class="reference internal image-reference" href="_images/one_ipc.png"><img alt="Conventional motion control versus WMX software motion on a single PC" src="_images/one_ipc.png" style="width: 100%;" />
 </a>
 <figcaption>
 <p><span class="caption-text">Conventional motion control routes the PC through a separate dedicated
 motion controller; WMX software motion drives the servo drives directly
-from a single edge device over the field network.</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
+from the same chip that runs the AI, over the field network.</span><a class="headerlink" href="#id4" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -569,21 +579,21 @@ drives.</p>
 <div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
 <div class="sd-row sd-row-cols-1 sd-row-cols-xs-1 sd-row-cols-sm-1 sd-row-cols-md-2 sd-row-cols-lg-2 sd-g-3 sd-g-xs-3 sd-g-sm-3 sd-g-md-3 sd-g-lg-3 docutils">
 <div class="sd-col sd-d-flex-column docutils">
-<figure class="align-default" id="id4">
+<figure class="align-default" id="id5">
 <a class="reference internal image-reference" href="_images/graph_1.png"><img alt="Representative single run, joint-angle tracking" src="_images/graph_1.png" style="width: 100%;" />
 </a>
 <figcaption>
 <p><span class="caption-text">Representative run: joint-angle tracking for the commanded reference,
-a traditional external motion controller, and WMX R2.</span><a class="headerlink" href="#id4" title="Link to this image">#</a></p>
+a traditional external motion controller, and WMX R2.</span><a class="headerlink" href="#id5" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
 <div class="sd-col sd-d-flex-column docutils">
-<figure class="align-default" id="id5">
+<figure class="align-default" id="id6">
 <a class="reference internal image-reference" href="_images/graph_2.png"><img alt="Mean absolute tracking error across ten runs" src="_images/graph_2.png" style="width: 100%;" />
 </a>
 <figcaption>
-<p><span class="caption-text">Per-sample mean absolute error across ten runs.</span><a class="headerlink" href="#id5" title="Link to this image">#</a></p>
+<p><span class="caption-text">Per-sample mean absolute error across ten runs.</span><a class="headerlink" href="#id6" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -799,7 +809,7 @@ interface and the proprietary WMX motion engine.</p></li>
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Oct 28, 2026</p>
+      <p>Last updated: Oct 30, 2026</p>
     
   </div>
   <div class="movensys-footer__links">
