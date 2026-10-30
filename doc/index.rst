@@ -18,10 +18,18 @@ commissioning and diagnostics need. In the *See–Think–Act* loop of Physical 
 WMX R2 is the *Act* layer. It executes what the AI decides, on real industrial
 hardware, in deterministic real time.
 
-.. figure:: /_static/images/wmx-r2_pai.png
-   :alt: WMX R2 for physical AI
+The chips are here and the AI models are here. What is missing is real-time
+execution. WMX R2 completes **One-Chip Physical AI**: perception, reasoning,
+planning, kinematics and motion control all running on a single chip.
+
+.. figure:: /_static/images/WMX_R2_One_Chip.png
+   :alt: WMX R2: One-Chip Physical AI
    :align: center
    :width: 100%
+
+   WMX R2 completes One-Chip Physical AI. ROS 2 perception, reasoning and
+   planning, and WMX R2 real-time execution share one SoC (CPU, GPU and NPU)
+   and drive robot arms, servos and I/O directly over EtherCAT.
 
 
 Bring modern robotics capability to industrial-grade motion
@@ -163,15 +171,17 @@ See WMX R2 in action:
    </div>
 
 
-Run the entire stack on a single edge device
+One-Chip Physical AI: run the entire stack on a single chip
 --------------------------------------------------------------------
 
-With WMX R2, perception, planning and deterministic motion all run as software
-on one machine. WMX R2 is also hardware agnostic. The motion engine is software
-and the EtherCAT master runs on a standard network port, so no external motion
-controller and no dedicated motion-control hardware are needed. The same stack
-runs on x86-64 and arm64 alike, from an industrial PC or an Intel Core based
-desktop or laptop to an NVIDIA Jetson Thor.
+With WMX R2, perception, reasoning, planning, kinematics and deterministic
+motion control all run as software on a single chip. The AI workloads use the
+GPU and NPU of the SoC, and the WMX motion engine runs on its CPU cores in
+deterministic real time. WMX R2 is also hardware agnostic. The motion engine is
+software and the EtherCAT master runs on a standard network port, so no
+external motion controller and no dedicated motion-control hardware are needed.
+The same stack runs on x86-64 and arm64 alike, from an industrial PC or an
+Intel Core based desktop or laptop to an NVIDIA Jetson Thor.
 
 .. figure:: /_static/images/one_ipc.png
    :alt: Conventional motion control versus WMX software motion on a single PC
@@ -180,7 +190,7 @@ desktop or laptop to an NVIDIA Jetson Thor.
 
    Conventional motion control routes the PC through a separate dedicated
    motion controller; WMX software motion drives the servo drives directly
-   from a single edge device over the field network.
+   from the same chip that runs the AI, over the field network.
 
 
 Take robotics from the laboratory to the production floor
