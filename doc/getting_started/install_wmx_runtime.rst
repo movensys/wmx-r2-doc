@@ -379,9 +379,9 @@ enable the servo:
 
    cd /opt/wmx3/bin/
    sudo ./wmx3-start-engine     # start the WMX3 engine
-   sudo ./wmx3-start-comm       # start cyclic EtherCAT communication
    sudo ./wmx3-ec-scan          # scan the bus for slaves
    sudo ./wmx3-ec-state         # show the EtherCAT master/slave state
+   sudo ./wmx3-start-comm       # start cyclic EtherCAT communication
    sudo ./wmx3-clear-alarm      # clear any drive alarms
    sudo ./wmx3-servo-on         # enable the servos
 
