@@ -157,7 +157,7 @@ tracked below.
        - Add robotic_isaac_sim
        - Add Apriltag example
 
-     - - Support arm64/amd64
+     - - Support arm64/x86-64
        - Support ROS2 humble/jazzy
        - Support dobot cr3a/cr5a
        - Add Joint Trajectory Controller node

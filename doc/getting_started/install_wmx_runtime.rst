@@ -50,7 +50,7 @@ at the EtherCAT NIC.
 
 .. tab-set::
 
-   .. tab-item:: x86/amd64-based PC
+   .. tab-item:: x86-64-based PC
       :sync: x86
 
       .. button-link:: https://softservogroup.sharepoint.com/:u:/s/Storage/IQDy5FzTpMdZRbs52-K1JE7QAdB_nPu0NeG03dkZpDxBYgQ?e=u9hmQB
@@ -58,7 +58,7 @@ at the EtherCAT NIC.
          :shadow:
          :class: wmx-download-btn
 
-         Download WMX3 for x86/amd64
+         Download WMX3 for x86-64
 
       **Install WMX3** — extract the archive and run the installer:
 
@@ -108,7 +108,7 @@ are isolated on every platform.
 
 .. tab-set::
 
-   .. tab-item:: General x86/amd64
+   .. tab-item:: General x86-64
 
       Edit ``/etc/default/grub`` and set ``GRUB_CMDLINE_LINUX``:
 

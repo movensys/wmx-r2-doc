@@ -17,7 +17,7 @@ Hardware Requirements
      - Minimum
      - Recommended
    * - CPU
-     - x86_64/amd64 or arm64
+     - x86-64 or arm64
      - Intel Core i7 or NVIDIA Jetson Orin/Thor
    * - RAM
      - 4 GB
@@ -85,7 +85,7 @@ threads and tuning latency) is covered in :doc:`install_wmx_runtime`.
 
 .. tab-set::
 
-   .. tab-item:: General x86/amd64
+   .. tab-item:: General x86-64
 
       Install Ubuntu 22.04 or 24.04 the usual way with the standard Ubuntu
       installer, then update fully.
@@ -142,7 +142,7 @@ CPU cores for the WMX real-time threads and tuning latency) is covered in
 
 .. tab-set::
 
-   .. tab-item:: General x86/amd64
+   .. tab-item:: General x86-64
 
       Build a PREEMPT_RT kernel from the kernel.org vanilla source plus the
       official RT patch, then install the resulting ``.deb`` packages. 
