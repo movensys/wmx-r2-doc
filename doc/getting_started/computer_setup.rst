@@ -18,7 +18,7 @@ Hardware Requirements
      - Recommended
    * - CPU
      - x86-64 or arm64
-     - Intel Core i7 or NVIDIA Jetson Orin/Thor
+     - Intel Core Ultra Series 3 or NVIDIA Jetson Orin/Thor
    * - RAM
      - 4 GB
      - 8 GB or more
@@ -102,7 +102,7 @@ threads and tuning latency) is covered in :doc:`install_wmx_runtime`.
       In firmware/BIOS, disable **Secure Boot** for now. Signing a custom
       kernel is extra work you can add later.
 
-   .. tab-item:: Intel XPU (Core Ultra Series 3)
+   .. tab-item:: Intel XPU x86-64
 
       Install Ubuntu 24.04 the usual way with the standard Ubuntu installer,
       then update fully.
@@ -120,7 +120,7 @@ threads and tuning latency) is covered in :doc:`install_wmx_runtime`.
       options; you will likely pin these down later for latency (see
       :ref:`core isolation <computer-setup-isolate>`).
 
-   .. tab-item:: Jetson Developer Kit
+   .. tab-item:: NVIDIA Jetson arm64
 
       The Jetson developer kit's built-in eMMC storage is small.
       To add this storage capacity, install an NVMe SSD card in the Jetson
@@ -262,7 +262,7 @@ CPU cores for the WMX real-time threads and tuning latency) is covered in
             modules load unsigned. If you later re-enable Secure Boot, enroll a
             MOK and sign the NVIDIA modules, or they will be refused at load.
 
-   .. tab-item:: Intel XPU (Core Ultra Series 3)
+   .. tab-item:: Intel XPU x86-64
 
       Build the RT kernel from Intel's
       `mainline-tracking <https://github.com/intel/mainline-tracking>`_ tree,
@@ -340,7 +340,7 @@ CPU cores for the WMX real-time threads and tuning latency) is covered in
          DKMS driver builds should work against your installed headers, but be
          ready to install the GPU/NPU drivers manually if the script balks.
 
-   .. tab-item:: Jetson Developer Kit
+   .. tab-item:: NVIDIA Jetson arm64
 
       First record the L4T release you flashed — you need it to match the
       correct real-time kernel:

@@ -123,7 +123,7 @@ are isolated on every platform.
          sudo update-grub
          sudo reboot
 
-   .. tab-item:: Intel XPU (Core Ultra Series 3)
+   .. tab-item:: Intel XPU x86-64
 
       Edit ``/etc/default/grub`` and set ``GRUB_CMDLINE_LINUX_DEFAULT``:
 
@@ -146,7 +146,7 @@ are isolated on every platform.
          sudo update-grub
          sudo reboot
 
-   .. tab-item:: arm64 (Jetson)
+   .. tab-item:: NVIDIA Jetson arm64
 
       The Jetson boards boot via U-Boot/extlinux, not GRUB. **Append** the same
       isolation parameters to the ``APPEND`` line in
