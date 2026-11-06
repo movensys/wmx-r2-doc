@@ -369,6 +369,41 @@ reset-output flags. The editor's title bar names the file it is editing —
    Quick Create, so you know where to look for the result — and so the WMX
    Runtime and the ENI stay together if you move either one.
 
+Put the ENI files in ``/etc/eni``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The WMX installer creates ``/etc/eni`` for you and fills it with ENI files for
+the devices it already supports. You do not need to make this folder yourself.
+
+The WMX engine looks for ENI files in this folder. Keep every ENI file for your
+machine here. If a file is somewhere else, the engine does not see it and the
+slave does not reach ``Op``.
+
+The ENI files are ``.txt`` files. NetConfigurator generates them for you when
+you run **Quick Create** (see Step 2 above). You do not write them by hand.
+
+Each file covers one device type. NetConfigurator names it after the vendor ID
+and the product code of the device, both as 8-digit hexadecimal numbers:
+
+.. code-block:: text
+
+   /etc/eni/<VendorID>_<ProductCode>.txt
+
+   # example
+   /etc/eni/0000066f_515050a1.txt
+
+If NetConfigurator wrote a file somewhere else, copy it into ``/etc/eni``. The
+folder belongs to ``root``, so use ``sudo``:
+
+.. code-block:: bash
+
+   sudo cp <VendorID>_<ProductCode>.txt /etc/eni/
+   ls /etc/eni
+
+If you got an ENI file from another machine or from MOVENSYS, copy it here
+too. Then run **Scan** and **Start Communication** again to check that every
+slave reaches ``Op``.
+
 The other Device Settings screens support the same file: **Network Def
 Manager** backs up, restores, compares, and applies definition files,
 **Network Def Diff Viewer** compares two of them, and **User Define Settings**
