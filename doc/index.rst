@@ -1,22 +1,71 @@
 WMX R2 Documentation
 =======================
 
-WMX R2 brings the ROS 2 ecosystem into deterministic real-time industrial
-motion control. It connects a ROS 2 interface to the WMX motion engine and
-drives industrial servos over EtherCAT. EtherCAT is one of the most widely used
-real-time industrial Ethernet networks, and it links the controller to the servo
-drives and I/O over a single cable.
+**From AI decision to precision motion. All on one chip.**
+
+WMX R2 gives Physical AI robots the real-time motion control they need. The AI
+decides what the robot should do. WMX R2 makes the robot do it with precise
+and repeatable motion. Both run on the same chip, and WMX R2 talks to the
+servo drives over EtherCAT, the industrial network that most servo drives
+already support.
 
 
-Turn Physical AI decisions into precise industrial motion
+One-Chip Physical AI
 --------------------------------------------------------------------
 
-WMX R2 turns planner output, such as MoveIt2 and Nav2 trajectories, into
-precisely timed servo commands. It also gives direct control of the axes, the
-I/O, the motion engine and the EtherCAT network, which is what industrial
-commissioning and diagnostics need. In the *See–Think–Act* loop of Physical AI,
-WMX R2 is the *Act* layer. It executes what the AI decides, on real industrial
-hardware, in deterministic real time.
+Every Physical AI robot works in a loop of three steps. It **sees** the world
+through cameras and sensors. It **thinks** about what to do with AI models.
+Then it **acts** by moving its joints or wheels.
+
+Modern chips are now powerful enough to run the seeing and thinking parts. AI
+models are ready too. The missing piece has been the acting part. Robot motion
+must happen on a strict schedule, often every millisecond, and the AI computer
+could not guarantee that. So most robots still need a separate motion
+controller box.
+
+WMX R2 fills that gap. It runs real-time motion control as software on the same
+chip as the AI. Seeing, thinking and acting all happen on one chip. We call this
+**One-Chip Physical AI**.
+
+.. figure:: /_static/images/WMX_R2_One_Chip.png
+   :alt: WMX R2: One-Chip Physical AI
+   :align: center
+   :width: 100%
+
+   One-Chip Physical AI. The AI and WMX R2 share one chip (CPU, GPU and NPU)
+   and control robots, servos and I/O over EtherCAT.
+
+
+See WMX R2 in action:
+
+.. raw:: html
+
+   <div style="position: relative; width: 100%; max-width: 800px; margin: 1em auto; aspect-ratio: 16 / 9;">
+     <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
+             src="https://www.youtube-nocookie.com/embed/2JlqxwyMN_E"
+             title="WMX R2 demo video for Intel Edge Day"
+             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+             allowfullscreen></iframe>
+   </div>
+
+
+.. raw:: html
+
+   <div style="position: relative; width: 100%; max-width: 800px; margin: 1em auto; aspect-ratio: 16 / 9;">
+     <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
+             src="https://www.youtube-nocookie.com/embed/h-G9vtAGAIU"
+             title="WMX R2 demo video for GTC conference"
+             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+             allowfullscreen></iframe>
+   </div>
+
+
+From AI decision to servo
+--------------------------------------------------------------------
+
+WMX R2 is the *act* step of the loop. The AI decides where the robot should go.
+WMX R2 works out how each joint must move to get there. Then it sends a new
+command to every servo on every cycle, right on time.
 
 .. figure:: /_static/images/AI_Decision_Servo_WMX-R2_Workflow.png
    :alt: From AI decision to servo through WMX R2
@@ -26,48 +75,80 @@ hardware, in deterministic real time.
    From AI decision to servo. WMX R2 computes the robot kinematics and path
    inside the real-time loop, every cycle.
 
-The chips are here and the AI models are here. What is missing is real-time
-execution. WMX R2 completes **One-Chip Physical AI**: perception, reasoning,
-planning, kinematics and motion control all running on a single chip.
+Inside one chip, the work is shared. The GPU and NPU are built for AI, so they
+take care of seeing, thinking and planning. WMX R2 runs on a few CPU cores that
+are kept just for motion. Nothing else runs there, so the servos get their
+commands on time even when the AI is busy. You can also keep the AI tools you
+already like. Use the robotics software that comes with your chip or build with
+open-source ROS 2 packages. Either way, WMX R2 takes the plan from the AI and
+turns it into motion.
 
-.. figure:: /_static/images/WMX_R2_One_Chip.png
-   :alt: WMX R2: One-Chip Physical AI
+
+One architecture for any device
+--------------------------------------------------------------------
+
+WMX R2 uses the same software for every machine. A robot arm, a mobile robot or
+a set of servos and I/O all run on the same stack. What changes from one machine
+to the next is only its configuration. You describe your machine in four files
+and WMX R2 does the rest. There is no code to write.
+
+.. figure:: /_static/images/wmx-r2_overview_one-chip.drawio.png
+   :alt: WMX R2 One-Chip Physical AI architecture overview
    :align: center
    :width: 100%
 
-   WMX R2 completes One-Chip Physical AI. ROS 2 perception, reasoning and
-   planning, and WMX R2 real-time execution share one SoC (CPU, GPU and NPU)
-   and drive robot arms, servos and I/O directly over EtherCAT.
+   The WMX R2 architecture on one chip. Robotics AI packages, WMX R2 and the
+   WMX3 motion engine run side by side. Four configuration files adapt it to
+   your machine.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 30 70
+
+   * - Configuration file
+     - What you describe in it
+   * - WMX-R2 config
+     - How the robot appears in ROS 2: its joints, controllers, topics and
+       services.
+   * - WMX3 Params
+     - How each axis behaves: gear ratio, encoder resolution, direction,
+       limits and home position.
+   * - WMX3 Robot Option Params
+     - What kind of robot it is, such as a 6-axis arm or a SCARA, and its
+       dimensions.
+   * - ENI files
+     - Which drives and I/O modules are on the EtherCAT network, and in what
+       order.
+
+This saves a lot of engineering time. You do not build a new controller for
+each machine. You fill in the files and start testing. See
+:doc:`try_your_robot/index` to set them up for your robot.
 
 
-Bring modern robotics capability to industrial-grade motion
+Why one chip
 --------------------------------------------------------------------
 
-Industrial motion controllers execute deterministically but have no path to
-modern robotics software, and ROS 2 has that software but cannot guarantee
-cycle-accurate execution on real hardware. WMX R2 closes the gap. ROS 2 nodes
-reason, plan and control, and the WMX motion engine turns their output into
-precisely timed servo commands on a fixed cycle over EtherCAT.
+Putting everything on one chip makes a robot simpler to build and to own.
 
-.. figure:: /_static/images/the_gap.png
-   :alt: WMX R2 closing the gap between ROS 2 and industrial motion control
+* **Fewer boxes.** One computer does the job of an AI PC and a motion
+  controller.
+* **Less wiring.** A single EtherCAT cable runs from the computer to the servo
+  drives.
+* **Faster response.** The AI decision goes straight to the servos. It does not
+  pass through another controller first.
+* **Easier upkeep.** There is one system to install, update and maintain.
+
+.. figure:: /_static/images/one_ipc.png
+   :alt: Conventional motion control versus WMX software motion on a single PC
    :align: center
    :width: 100%
 
-   WMX R2 closing the gap between ROS 2 and industrial motion control.
+   Left: a conventional setup needs a separate motion controller. Right: WMX
+   drives the servos directly from the same chip that runs the AI.
 
-
-Drive any EtherCAT robot or machine, regardless of the brand
---------------------------------------------------------------------
-
-WMX R2 commands the servo drives directly over EtherCAT using CoE (CANopen over
-EtherCAT), the standard protocol industrial servo drives already implement. It
-does not go through the robot manufacturer's controller. It controls axes rather
-than a specific robot model, so neither the brand of the robot nor the brand of
-the drives matters. A six-axis arm on an assembly line, a mobile base moving
-material through a plant and a custom multi-axis machine are all driven the same
-way.
-
+WMX R2 is pure software. It runs on both x86-64 and arm64 chips with real-time
+Linux. You can use an industrial PC, a developer kit or even a laptop. The same
+software and the same setup work on all of them.
 
 Free to start with
 --------------------------------------------------------------------
@@ -85,6 +166,24 @@ which keeps motion on a deterministic cycle and exposes more than 200 APIs for
 trajectory conversion, EtherCAT, I/O and engine control. The WMX engine, its SDK and
 its binaries are proprietary of `Movensys <https://movensys.com/>`_. :doc:`licensing` sets out the boundary.
 
+Bring modern robotics capability to industrial-grade motion
+--------------------------------------------------------------------
+
+Industrial motion controllers execute deterministically but have no path to
+modern robotics software, and ROS 2 has that software but cannot guarantee
+cycle-accurate execution on real hardware. WMX R2 closes the gap. ROS 2 nodes
+reason, plan and control, and the WMX motion engine turns their output into
+precisely timed servo commands on a fixed cycle over EtherCAT.
+
+Drive any EtherCAT robot or machine, regardless of the brand
+--------------------------------------------------------------------
+
+WMX R2 commands the servo drives directly over EtherCAT, the standard protocol industrial servo drives already implement. It
+does not go through the robot manufacturer's controller. It controls axes rather
+than a specific robot model, so neither the brand of the robot nor the brand of
+the drives matters. A six-axis arm on an assembly line, a mobile base moving
+material through a plant and a custom multi-axis machine are all driven the same
+way.
 
 Start from ready-made examples instead of from scratch
 ------------------------------------------------------------------
@@ -155,160 +254,6 @@ industrial machine can reuse what the robotics community already builds:
    * - `Gemma <https://ai.google.dev/gemma>`_ and other multimodal LLMs and VLMs
      - Natural language task specification and high-level reasoning
 
-See WMX R2 in action:
-
-.. raw:: html
-
-   <div style="position: relative; width: 100%; max-width: 800px; margin: 1em auto; aspect-ratio: 16 / 9;">
-     <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-             src="https://www.youtube-nocookie.com/embed/2JlqxwyMN_E"
-             title="WMX R2 demo video for Intel Edge Day"
-             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-             allowfullscreen></iframe>
-   </div>
-
-
-.. raw:: html
-
-   <div style="position: relative; width: 100%; max-width: 800px; margin: 1em auto; aspect-ratio: 16 / 9;">
-     <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-             src="https://www.youtube-nocookie.com/embed/h-G9vtAGAIU"
-             title="WMX R2 demo video for GTC conference"
-             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-             allowfullscreen></iframe>
-   </div>
-
-
-One-Chip Physical AI: from AI decision to precision motion
---------------------------------------------------------------------
-
-WMX R2 runs real-time robot motion on the same chip that runs the AI.
-Perception, reasoning, planning and motion control share one SoC. No second
-computer and no motion controller box are needed. The servo drives, sensors and
-cables stay outside the chip.
-
-.. figure:: /_static/images/wmx-r2_overview_one-chip.drawio.png
-   :alt: WMX R2 One-Chip Physical AI architecture overview
-   :align: center
-   :width: 100%
-
-   WMX R2 on one chip. Robotics AI packages and the WMX R2 nodes share the
-   SoC with the WMX motion engine in the real-time domain. The engine drives
-   robot arms, servos, I/O and AMRs over EtherCAT.
-
-Why one chip
-~~~~~~~~~~~~
-
-* **Fewer boxes.** One computer replaces an AI PC plus a motion controller.
-* **Less wiring.** The chip drives the servos directly over one EtherCAT cable.
-* **A shorter path.** The AI decision reaches the servos without a hop to
-  another controller.
-* **One software stack.** One system to install, update and maintain.
-
-.. figure:: /_static/images/one_ipc.png
-   :alt: Conventional motion control versus WMX software motion on a single PC
-   :align: center
-   :width: 100%
-
-   Conventional motion control goes through a separate motion controller. WMX
-   software motion drives the servos directly from the chip that runs the AI.
-
-Who does what on the chip
-~~~~~~~~~~~~~~~~~~~~~~~~~
-
-The AI stack thinks. WMX R2 moves.
-
-.. list-table::
-   :header-rows: 1
-   :widths: 22 38 40
-
-   * - Layer
-     - What it does
-     - What runs it
-   * - Perception
-     - Sees objects, poses and obstacles
-     - AI models on the GPU or NPU
-   * - Reasoning
-     - Understands the task, often from voice or text
-     - LLMs and VLMs on the GPU or NPU
-   * - Planning
-     - Finds a safe path for the robot
-     - MoveIt2, Nav2 or a GPU planner
-   * - Motion control
-     - Turns the path into servo commands on a fixed cycle
-     - WMX R2 on isolated CPU cores
-   * - Field network
-     - Sends commands to the drives and reads feedback
-     - WMX R2 EtherCAT master on a standard Ethernet port
-
-You can use the AI stack of the chip vendor or open-source ROS 2 packages.
-WMX R2 works with both.
-
-Why the motion layer matters
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-An EtherCAT master only moves data between the computer and the drives. A
-robot needs more:
-
-* trajectory generation and smoothing
-* coordinated motion across many axes
-* interpolation of lines, arcs and splines
-* a new command for every servo on every cycle
-* error handling at the servo level
-
-The WMX motion engine provides all of this. WMX R2 brings it to ROS 2 and to
-the Physical AI chip.
-
-Chip platforms
-~~~~~~~~~~~~~~
-
-WMX R2 is software. It runs on x86-64 and arm64 with a real-time Linux kernel.
-The same stack runs on both, from an industrial PC to a developer kit or a
-laptop.
-
-.. list-table::
-   :header-rows: 1
-   :widths: 22 18 60
-
-   * - Chip
-     - Architecture
-     - How the work splits
-   * - NVIDIA Jetson Thor and Jetson Orin
-     - arm64
-     - Isaac ROS, cuMotion and Nvblox run on the GPU. WMX R2 runs the motion
-       on isolated CPU cores.
-   * - Intel Core Ultra Series 3
-     - x86-64
-     - Open-source ROS 2 packages with OpenVINO run on the NPU and GPU. WMX R2
-       runs the motion on isolated CPU cores.
-
-These combinations have been run with WMX R2:
-
-.. list-table::
-   :header-rows: 1
-   :widths: 34 34 32
-
-   * - Computer
-     - Chip
-     - OS
-   * - Advantech MIC-743
-     - NVIDIA Jetson Thor
-     - Ubuntu 24.04
-   * - Advantech MIC-733-AO
-     - NVIDIA Jetson Orin AGX
-     - Ubuntu 22.04
-   * - NVIDIA Jetson AGX Orin Developer Kit
-     - NVIDIA Jetson Orin AGX
-     - Ubuntu 24.04
-   * - Advantech UNO-258
-     - Intel Core Ultra Series 3
-     - Ubuntu 24.04
-   * - Intel Robotics Kit
-     - Intel Core Ultra Series 3
-     - Ubuntu 24.04
-
-The :doc:`examples/robopoly_game` example runs the full loop on one chip:
-voice, VLM, YOLO, MoveIt2 and WMX R2 driving the arm over EtherCAT.
 
 
 Take robotics from the laboratory to the production floor
