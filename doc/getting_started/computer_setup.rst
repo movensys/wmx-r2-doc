@@ -390,7 +390,7 @@ targets where it is not present, install it with:
    #   stress-ng --cpu $(nproc) --io 4 --vm 2 --vm-bytes 1G --timeout 5m
    sudo cyclictest -m -S -p 90 -i 200 -d 0 -D 5m
 
-Watch the **Max** latency. On a tuned PREEMPT_RT x86 box you typically want the
+Watch the **Max** latency. On a tuned PREEMPT_RT x86-64 machine you typically want the
 worst case in the low tens of microseconds; high spikes point to firmware/SMI
 or power-management issues to chase (BIOS C-states, SpeedStep, Turbo).
 

@@ -51,6 +51,17 @@ Apply the changes:
    xhost +local:docker
    source ~/.bashrc
 
+.. note::
+
+   On x86-64, the container reads the X11 login cookie from
+   ``/tmp/.docker.xauth`` so GUI tools can open on your desktop. Create that
+   file once after each login:
+
+   .. code-block:: bash
+
+      touch /tmp/.docker.xauth
+      xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f /tmp/.docker.xauth nmerge -
+
 Build and start the container
 -----------------------------
 
