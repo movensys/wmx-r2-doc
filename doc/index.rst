@@ -67,10 +67,15 @@ WMX R2 is the *act* step of the loop. The AI decides where the robot should go.
 WMX R2 works out how each joint must move to get there. Then it sends a new
 command to every servo on every cycle, right on time.
 
+.. figure:: /_static/images/WMX_R2_Physical_AI_Pipeline.png
+   :alt: WMX R2: One-Chip Physical AI
+   :align: center
+   :width: 100%
+
 .. figure:: /_static/images/AI_Decision_Servo_WMX-R2_Workflow.png
    :alt: From AI decision to servo through WMX R2
    :align: center
-   :width: 100%
+   :width: 70%
 
    From AI decision to servo. WMX R2 computes the robot kinematics and path
    inside the real-time loop, every cycle.
