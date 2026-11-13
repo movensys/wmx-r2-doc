@@ -32,8 +32,8 @@ Add the following to your ``~/.bashrc``:
 .. code-block:: bash
 
    export ROS_DOMAIN_ID=73                         # any number; the same one everywhere
-   export ROS_DISTRO=jazzy                         # {jazzy, humble}
-   export CPU_ARCH=amd64                           # {amd64, arm64}
+   export ROS_DISTRO=jazzy                         # tested {jazzy, humble}
+   export CPU_ARCH=x86-64                          # tested {x86-64, arm64}
    export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 
    source ~/workspaces/movensys_ws/src/wmx-r2/docker/wros.bash
@@ -50,6 +50,17 @@ Apply the changes:
 
    xhost +local:docker
    source ~/.bashrc
+
+.. note::
+
+   On x86-64, the container reads the X11 login cookie from
+   ``/tmp/.docker.xauth`` so GUI tools can open on your desktop. Create that
+   file once after each login:
+
+   .. code-block:: bash
+
+      touch /tmp/.docker.xauth
+      xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f /tmp/.docker.xauth nmerge -
 
 Build and start the container
 -----------------------------

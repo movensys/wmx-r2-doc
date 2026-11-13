@@ -41,7 +41,7 @@ Licensing boundary
      - Not open source. Distributed as binaries by MOVENSYS.
    * - **WMX3 SDK**
 
-       ``WMX3Api.h``, ``libwmx3api.so``, ``libimdll.so``, ``coremotionapi``,
+       ``WMX3Api.h``, ``libwmx3api.a``, ``libimdll.so``, ``coremotionapi``,
        ``ioapi``
      - Proprietary: evaluation or commercial
      - Required to **build** the ROS 2 interface. The MIT-licensed source
@@ -52,9 +52,8 @@ Licensing boundary
      - Proprietary: evaluation or commercial
      - Part of the WMX runtime installation.
    * - **This documentation**
-     - MIT
-     - Source in the ``wmx-r2-doc`` repository. Free to use, modify, and
-       redistribute under the MIT terms.
+     - © 2026 MOVENSYS, all rights reserved
+     - Source in the ``wmx-r2-doc`` repository. Not open source.
 
 .. note::
 
