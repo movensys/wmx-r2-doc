@@ -66,7 +66,8 @@ WMX runtime licensing terms
 ----------------------------
 
 The WMX runtime is free to evaluate in renewable 6-hour sessions; restarting
-the engine starts a new session. A commercial license removes the time limit
+the engine starts a new session. The WMX3 Robot Option, the kinematics layer
+behind ``wmx_robot_option_node``, runs under the same terms. A commercial license removes the time limit
 for production use. Contact your MOVENSYS representative for commercial
 licensing.
 
@@ -77,7 +78,8 @@ licensing.
    * - Mode
      - Terms
    * - Evaluation
-     - Renewable 6-hour engine sessions, extended by restarting the engine.
+     - Renewable 6-hour sessions for the engine and the Robot Option,
+       extended by restarting the engine.
        Intended for evaluation and development.
    * - Commercial
      - No session time limit. Required for production use.

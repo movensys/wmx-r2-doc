@@ -30,8 +30,8 @@ industrial servos over EtherCAT. ("R2" stands for *Real-time Robotics*.)
 - **Is built for production, not the bench.** Deterministic cycle timing,
   servo-level error handling and direct drive access, with 85% lower mean
   absolute tracking error than a conventional external controller.
-- **Is free to start with.** The WMX engine runs in free 6-hour sessions, and
-  the ROS 2 interface is MIT-licensed.
+- **Is free to start with.** The WMX engine and the WMX3 Robot Option run in
+  free 6-hour sessions, and the ROS 2 interface is MIT-licensed.
 
 ## Documentation Contents
 
@@ -41,7 +41,7 @@ industrial servos over EtherCAT. ("R2" stands for *Real-time Robotics*.)
 | **Example Applications** | Testing WMX R2 on the general nodes, Isaac Sim setup, and the manipulator, navigation, and Robopoly walkthroughs in Simulation / HIL / Real modes |
 | **Integration** | MoveIt2, NVIDIA Isaac cuMotion, Nav2, custom planner, custom application, and the VLM/LLM layer |
 | **Try Your Robot** | The WMX web tools (WOS, NetConfigurator, MotionScope), robot parameter configuration and validation, first-motion procedure, safety responsibilities, validated-hardware matrix |
-| **API Reference** | ROS2 services, topics, and actions, plus `wmx_r2_message`, `wmx_r2_package`, `wmx_r2_control`, and the WMX3 API underneath them |
+| **API Reference** | ROS2 services, topics, and actions, plus `wmx_r2_message`, `wmx_r2_package`, the WMX3 Robot Option node, `wmx_r2_control`, and the WMX3 API underneath them |
 | **Support** | Troubleshooting by symptom |
 | **Licensing** | Boundary between the MIT-licensed source and documentation and the proprietary WMX engine |
 

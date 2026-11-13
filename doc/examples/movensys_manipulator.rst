@@ -17,6 +17,7 @@ repository, built on top of this manipulator stack.
 
    movensys_manipulator_setup
    trajectory_planning
+   robot_option_motion
    apriltag_pick_and_place
    obstacle_avoidance
    yolo_pick_and_place
