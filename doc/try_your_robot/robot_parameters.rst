@@ -27,7 +27,7 @@ launch files take each file as an argument rather than hard-coding it.
      - Defines
    * - **1. ENI file**
 
-       The EtherCAT network description
+       ``/etc/eni/<VendorID>_<ProductCode>.txt``
      - Which slaves are on the bus and how the master communicates with them.
    * - **2. WMX parameter file**
 
@@ -48,13 +48,13 @@ launch files take each file as an argument rather than hard-coding it.
 
 The ENI is generated from a scan of the real network by the NetConfigurator
 app in the WMX web gateway; see :doc:`wmx_web_tools` for the
-Scan → Quick Create → Start Communication procedure and for where the
-generated ENI is written.
+Scan → Quick Create → Start Communication procedure. The engine reads ENI
+files only from ``/etc/eni``.
 
 .. note::
 
    **ESI** files are not on this list. They are the device descriptions the
-   drive manufacturer supplies, and they are input to ENI generation rather
+   drive manufacturer supplies, kept in ``/opt/wmx3/ESI``, and they are input to ENI generation rather
    than something you author or edit.
 
 They must agree with each other; nothing in the stack checks that they do.
@@ -172,15 +172,16 @@ the axis gear ratio:
    ─────────────────────── =  ────────────────────────────────────────────────
    AxisGearRatioDenominator                 user units per revolution
 
-Every shipped parameter file sets:
+The default parameter files — ``cr3a_wmx_parameters.xml``,
+``cr5a_wmx_parameters.xml`` and ``diffbot_wmx_parameters.xml`` — set:
 
 .. code-block:: xml
 
    <AxisGearRatioDenominator>6.283185307179586</AxisGearRatioDenominator>
 
 That denominator is 2π, which makes **one WMX user unit equal to one radian**.
-This is the only reason the ROS 2 interface can pass positions straight
-through: ``joint_state_broadcaster`` publishes ``actualPos`` into
+This is why the ROS 2 interface can pass positions straight through by
+default: ``joint_state_broadcaster`` publishes ``actualPos`` into
 ``/joint_states`` with no scaling, ``/wmx/axes/start_pos`` targets are
 consumed as radians, and ``joint_trajectory_controller`` writes goal positions
 straight into the WMX C-spline.
@@ -192,7 +193,47 @@ straight into the WMX C-spline.
    the software. If you author a parameter file with a different denominator,
    every position, velocity, and acceleration on every WMX topic and service
    silently changes units, and the joint states published to MoveIt or Nav2
-   become wrong by that factor.
+   become wrong by that factor — unless you declare the new unit to the ROS
+   nodes, as described next.
+
+.. _other-axis-units:
+
+Degree and rpm axes
+^^^^^^^^^^^^^^^^^^^
+
+Some stacks need axes scaled in something other than radians. The package
+ships two such variants, and the ROS nodes convert back to radians at the WMX
+boundary so every ROS topic stays in rad and rad/s:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 30 14 56
+
+   * - Parameter file
+     - Denominator
+     - Declared to the ROS nodes with
+   * - ``cr3a_wmx_parameters_deg.xml``
+     - ``360``
+     - ``degree_to_radian_axes: [0, 1, 2, 3, 4, 5]`` on
+       ``joint_state_broadcaster``. Required by the WMX3 Robot Option, which
+       only runs on degree/mm axes — see
+       :doc:`../api_reference/wmx_robot_option`.
+   * - ``diffbot_wmx_parameters_rpm.xml``
+     - ``60``
+     - ``wheel_velocity_unit: "rpm"`` on ``differential_drive_controller``
+       and ``rpm_to_radian_axes: [0, 1]`` on ``joint_state_broadcaster``.
+       An axis velocity of ``1.0`` is 1 rpm; ``60.0`` user units are one
+       revolution.
+
+Each XML has a matching YAML that sets those parameters:
+``cr3a_robot_option_config.yaml`` and ``diffbot_differential_config_rpm.yaml``.
+Pair them; mixing a ``_deg`` or ``_rpm`` XML with a radian YAML is exactly the
+silent unit error described above.
+
+The conversion covers ``joint_state_broadcaster`` output and
+``differential_drive_controller``. ``joint_trajectory_controller`` and
+``joint_position_controller`` have no unit parameter, so the MoveIt2 stack must
+keep running on the 2π files.
 
 The numerator is the number of encoder counts in one full revolution of the
 **joint output**, which is the motor encoder resolution multiplied by the gear
@@ -264,8 +305,11 @@ Joint direction and sign conventions
 -------------------------------------
 
 ``AxisPolarity`` inverts the direction of both the command and the feedback
-for one axis. It takes ``+1`` or ``-1``. The shipped values differ per robot
-because the motors are mounted in different orientations:
+for one axis. It takes ``+1`` or ``-1``. The two arms share one pattern,
+with axis 2 the only non-inverted joint; the base differs because its motors
+are mounted in a different orientation. The ``_deg`` and ``_rpm`` variants
+described in :ref:`other-axis-units` carry the same polarity as the file they
+derive from:
 
 .. list-table:: ``AxisPolarity`` by axis
    :header-rows: 1
@@ -286,12 +330,12 @@ because the motors are mounted in different orientations:
      - −1
      - −1
    * - ``cr5a_wmx_parameters.xml``
+     - −1
+     - −1
      - +1
-     - +1
-     - +1
-     - +1
-     - +1
-     - +1
+     - −1
+     - −1
+     - −1
    * - ``diffbot_wmx_parameters.xml``
      - −1
      - −1
@@ -429,8 +473,7 @@ The scan matches each discovered slave against the EtherCAT Slave
 Information (ESI) files installed with the WMX Runtime at ``/opt/wmx3/ESI/``,
 and the network as a whole is described by the EtherCAT Network Information
 (ENI) file, generated from a scan by **NetConfigurator → ENI File →
-Quick Create** and written to the folder named by that app's **Eni Folder**
-setting (see :doc:`wmx_web_tools`). A
+Quick Create** and kept in ``/etc/eni`` (see :doc:`wmx_web_tools`). A
 drive with no matching ESI file will fail the scan, and a chain that is
 re-cabled in a different order shifts every axis index after the change —
 silently, from ROS 2's point of view.

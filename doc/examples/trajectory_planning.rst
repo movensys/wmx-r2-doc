@@ -6,6 +6,9 @@ cuMotion. See :doc:`examples` for the shared manipulator setup. All commands
 run through ``mros``. For the programmatic ``/wmx/moveit2/*`` service API, see
 :doc:`../integration/moveit2_integration`.
 
+To move the arm with the WMX3 Robot Option, which uses the engine's own
+kinematics instead of a planner, see :doc:`robot_option_motion`.
+
 .. tab-set::
 
    .. tab-item:: Simulation
@@ -68,7 +71,7 @@ run through ``mros``. For the programmatic ``/wmx/moveit2/*`` service API, see
 
          .. code-block:: bash
 
-            mros ros2 run movensys_manipulator_moveit_config keyboard_teleop
+            mros ros2 run movensys_manipulator_moveit_config keyboard_teleop --ros-args -p use_sim_time:=true
 
       5. (optional) Execute the trajectory or coverage test:
 
@@ -135,7 +138,7 @@ run through ``mros``. For the programmatic ``/wmx/moveit2/*`` service API, see
 
          .. code-block:: bash
 
-            mros ros2 run movensys_manipulator_moveit_config keyboard_teleop
+            mros ros2 run movensys_manipulator_moveit_config keyboard_teleop --ros-args -p use_sim_time:=true
 
       5. (optional) Execute the trajectory or coverage test:
 
@@ -216,7 +219,10 @@ Keyboard Jogging
 ----------------
 
 ``keyboard_teleop`` drives the ``servo_node`` started by ``moveit.launch.py``,
-so it works in any of the three modes once the planner is up. Pick a mode first
+so it works in any of the three modes once the planner is up. It follows the
+standard ``use_sim_time`` parameter: pass ``--ros-args -p use_sim_time:=true``
+in Simulation and HIL, where Isaac Sim or Gazebo publishes ``/clock``, and leave
+it at the default ``false`` on a real robot. Pick a mode first
 (``j`` / ``t`` / ``p``), then jog.
 
 .. danger::

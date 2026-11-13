@@ -20,17 +20,18 @@ industrial servos over EtherCAT. ("R2" stands for *Real-time Robotics*.)
   directly with CoE and controls axes rather than a specific robot model, so a
   six-axis arm, a mobile base and a custom multi-axis machine are all driven the
   same way.
-- **Runs the entire stack on a single edge device.** Motion is software, so no
-  external motion controller and no motion-control card are needed. x86-64 and
-  arm64 alike, from an industrial PC to an NVIDIA Jetson Thor.
+- **Completes One-Chip Physical AI.** Perception, reasoning, planning,
+  kinematics and real-time motion control all run on a single chip. Motion is
+  software, so no external motion controller and no motion-control card are
+  needed. x86-64 and arm64 alike, from an industrial PC to an NVIDIA Jetson Thor.
 - **Keeps the ROS 2 ecosystem you already use.** MoveIt2, Nav2, ros2_control,
   Intel OpenVINO, NVIDIA Isaac Sim and Isaac ROS, Gazebo, YOLO, and multimodal
   LLMs and VLMs.
 - **Is built for production, not the bench.** Deterministic cycle timing,
   servo-level error handling and direct drive access, with 85% lower mean
   absolute tracking error than a conventional external controller.
-- **Is free to start with.** The WMX engine runs in free 6-hour sessions, and
-  the ROS 2 interface is MIT-licensed.
+- **Is free to start with.** The WMX engine and the WMX3 Robot Option run in
+  free 6-hour sessions, and the ROS 2 interface is MIT-licensed.
 
 ## Documentation Contents
 
@@ -40,7 +41,7 @@ industrial servos over EtherCAT. ("R2" stands for *Real-time Robotics*.)
 | **Example Applications** | Testing WMX R2 on the general nodes, Isaac Sim setup, and the manipulator, navigation, and Robopoly walkthroughs in Simulation / HIL / Real modes |
 | **Integration** | MoveIt2, NVIDIA Isaac cuMotion, Nav2, custom planner, custom application, and the VLM/LLM layer |
 | **Try Your Robot** | The WMX web tools (WOS, NetConfigurator, MotionScope), robot parameter configuration and validation, first-motion procedure, safety responsibilities, validated-hardware matrix |
-| **API Reference** | ROS2 services, topics, and actions, plus `wmx_r2_message`, `wmx_r2_package`, `wmx_r2_control`, and the WMX3 API underneath them |
+| **API Reference** | ROS2 services, topics, and actions, plus `wmx_r2_message`, `wmx_r2_package`, the WMX3 Robot Option node, `wmx_r2_control`, and the WMX3 API underneath them |
 | **Support** | Troubleshooting by symptom |
 | **Licensing** | Boundary between the MIT-licensed source and documentation and the proprietary WMX engine |
 

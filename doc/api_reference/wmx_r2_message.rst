@@ -5,7 +5,7 @@ Overview
 --------
 
 ``wmx_r2_message`` holds every custom interface definition used by WMX R2.
-It contains **one message** and **22 services**, and no actions — trajectory
+It contains **three messages** and **28 services**, and no actions — trajectory
 execution uses the standard ``control_msgs/action/FollowJointTrajectory``.
 
 The package builds interfaces only. It has no nodes, no libraries, and no
@@ -17,7 +17,9 @@ machine talk to a WMX R2 robot without installing the engine.
 
    wmx_r2_message/
    ├── msg/
-   │   └── AxesStatus.msg
+   │   ├── AxesStatus.msg
+   │   ├── RobotCartesianPose.msg      # robot option
+   │   └── RobotStatus.msg
    ├── srv/
    │   ├── SetEngine.srv               # engine
    │   ├── ImportAndSetAll.srv
@@ -40,7 +42,13 @@ machine talk to a WMX R2 robot without installing the engine.
    │   ├── EcatRegisterRead.srv
    │   ├── EcatResetStatistics.srv
    │   ├── EcatScanNetwork.srv
-   │   └── EcatStartHotconnect.srv
+   │   ├── EcatStartHotconnect.srv
+   │   ├── RobotSetRobotParam.srv      # robot option
+   │   ├── RobotId.srv
+   │   ├── RobotStartMotion.srv
+   │   ├── RobotOverrideVelocityByRatio.srv
+   │   ├── RobotSetCoordinate.srv
+   │   └── RobotGetCoordinate.srv
    ├── test/
    ├── CMakeLists.txt
    └── package.xml
@@ -69,7 +77,8 @@ Dependencies
    <exec_depend>rosidl_default_runtime</exec_depend>
    <member_of_group>rosidl_interface_packages</member_of_group>
 
-``std_msgs`` is needed only for the ``Header`` in ``AxesStatus``.
+``std_msgs`` is needed only for the ``Header`` in ``AxesStatus`` and
+``RobotStatus``.
 
 Message definitions
 -------------------
@@ -77,7 +86,7 @@ Message definitions
 AxesStatus
 ^^^^^^^^^^
 
-The only custom message. Published on ``/wmx/axes/status`` by
+Published on ``/wmx/axes/status`` by
 ``wmx_core_motion_node`` at ``axes_status_rate`` (default 100 Hz).
 
 .. code-block:: text
@@ -99,7 +108,48 @@ The only custom message. Published on ``/wmx/axes/status`` by
    float64[] actual_torque   # torque feedback
 
 All arrays are parallel and indexed by axis. ``pos_cmd`` minus
-``actual_pos`` is the following error.
+``actual_pos`` is the following error. Positions and velocities are in axis
+user units; ``actual_torque`` is a percentage of rated torque.
+
+RobotCartesianPose
+^^^^^^^^^^^^^^^^^^
+
+A tool pose in the WMX3 convention — millimetres and Z-Y-X Euler angles in
+degrees, not a ``geometry_msgs/Pose``. Used inside ``RobotStatus`` and the
+robot option services.
+
+.. code-block:: text
+
+   float64 x   # mm
+   float64 y   # mm
+   float64 z   # mm
+   float64 u   # roll, deg
+   float64 v   # pitch, deg
+   float64 w   # yaw, deg
+
+RobotStatus
+^^^^^^^^^^^
+
+Published on ``/wmx/robot/status`` by ``wmx_robot_option_node`` at
+``robot_status_rate``. The ``motion_state`` and ``motion_error_code`` values
+are tabulated in :doc:`wmx_robot_option`.
+
+.. code-block:: text
+
+   std_msgs/Header header
+   int32 robot_id
+   int32 motion_state         # kinematics MotionState
+   int32 motion_error_code    # kinematics MotionErrorCode
+   int32 motion_error_joint   # joint that raised the error, -1 if not applicable
+
+   RobotCartesianPose tool_pose_cmd
+   RobotCartesianPose tool_pose_fb
+
+   float64[] joint_pos_cmd      # deg for revolute joints, mm for prismatic
+   float64[] joint_pos_fb
+   float64[] joint_velocity_cmd
+   float64[] joint_velocity_fb
+   float64[] joint_torque_fb    # Nm, Articulate6Axis only
 
 Service definitions
 -------------------
@@ -370,6 +420,84 @@ A slave stuck below ``Op`` with a non-zero ``slave_al_status_codes`` entry
 is the usual EtherCAT failure. See
 :doc:`../troubleshooting/troubleshooting`.
 
+Robot option
+^^^^^^^^^^^^
+
+Served by ``wmx_robot_option_node``; see :doc:`wmx_robot_option`.
+
+**RobotId** — shared by ``release_robot``, ``stop_motion``,
+``clear_motion_error``, ``e_stop`` and ``release_e_stop``.
+
+.. code-block:: text
+
+   int32 robot_id
+   ---
+   bool success
+   string message
+
+**RobotSetRobotParam** — imports a robot parameter XML or URDF and registers
+it with the kinematics engine.
+
+.. code-block:: text
+
+   string param_file   # absolute path to the robot parameter XML or URDF
+   int32 robot_id      # robot id assigned to a URDF import, ignored for XML
+   ---
+   bool success
+   string message
+   int32 robot_id      # id the kinematics engine registered
+   int32 num_joints
+
+**RobotStartMotion** — the single motion entry point. Returns as soon as
+the engine accepts the move; poll ``motion_state`` on
+``/wmx/robot/status`` for completion.
+
+.. code-block:: text
+
+   int32 robot_id
+   int32 mode          # 0 pos (absolute), 1 mov (relative)
+   int32 frame         # 0 base/work, 1 tool. Read only by relative pose targets
+   int32 target_type   # 0 joint values, 1 tool pose
+   int32 path          # 0 ptp (joint interpolated), 1 line (straight tool path)
+   float64[] target_joint          # target_type 0: per joint, deg or mm
+   RobotCartesianPose target_pose  # target_type 1
+   int8 s              # shoulder: 1 left, -1 right, 0 auto
+   int8 e              # elbow: 1 above, -1 below, 0 auto
+   int8 r              # wrist: 1 flip, -1 no flip, 0 auto
+   ---
+   bool success
+   string message
+
+**RobotOverrideVelocityByRatio** — scales the running motion.
+
+.. code-block:: text
+
+   int32 robot_id
+   float64 vel_ratio   # 0.0 - 1.0
+   float64 acc_ratio   # 0.0 - 1.0
+   float64 dec_ratio   # 0.0 - 1.0
+   ---
+   bool success
+   string message
+
+**RobotSetCoordinate** / **RobotGetCoordinate** — the tool coordinate.
+
+.. code-block:: text
+
+   # RobotSetCoordinate
+   int32 robot_id
+   RobotCartesianPose pose
+   ---
+   bool success
+   string message
+
+   # RobotGetCoordinate
+   int32 robot_id
+   ---
+   bool success
+   RobotCartesianPose pose
+   string message
+
 Building the package
 --------------------
 
@@ -394,3 +522,4 @@ See also
 - :doc:`ros2_services` -- what each service does, with call examples
 - :doc:`ros2_topics` -- ``AxesStatus`` in context
 - :doc:`wmx_r2_package` -- the nodes that serve these interfaces
+- :doc:`wmx_robot_option` -- the node that serves the robot interfaces
