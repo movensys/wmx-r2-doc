@@ -50,7 +50,7 @@ at the EtherCAT NIC.
 
 .. tab-set::
 
-   .. tab-item:: x86/amd64-based PC
+   .. tab-item:: x86-64
       :sync: x86
 
       .. button-link:: https://softservogroup.sharepoint.com/:u:/s/Storage/IQDy5FzTpMdZRbs52-K1JE7QAdB_nPu0NeG03dkZpDxBYgQ?e=u9hmQB
@@ -58,7 +58,7 @@ at the EtherCAT NIC.
          :shadow:
          :class: wmx-download-btn
 
-         Download WMX3 for x86/amd64
+         Download WMX3 for x86-64
 
       **Install WMX3** — extract the archive and run the installer:
 
@@ -67,15 +67,15 @@ at the EtherCAT NIC.
          unzip 20260729_WMX3_v3.7_Linux_x86.zip
          sudo dpkg -i *wmx3-installer.deb
 
-   .. tab-item:: arm64 (Jetson)
-      :sync: jetson
+   .. tab-item:: arm64
+      :sync: arm64
 
       .. button-link:: https://softservogroup.sharepoint.com/:u:/s/Storage/IQCoAJZFNxnkQqnT-9YB6QffAXztaavZH7li6n_nWI6YnwY?e=DA5UKp
          :color: primary
          :shadow:
          :class: wmx-download-btn
 
-         Download WMX3 for jetson/arm64
+         Download WMX3 for arm64
 
       **Install WMX3** — extract the archive and run the installer:
 
@@ -108,7 +108,8 @@ are isolated on every platform.
 
 .. tab-set::
 
-   .. tab-item:: General x86/amd64
+   .. tab-item:: x86-64
+      :sync: x86
 
       Edit ``/etc/default/grub`` and set ``GRUB_CMDLINE_LINUX``:
 
@@ -123,32 +124,24 @@ are isolated on every platform.
          sudo update-grub
          sudo reboot
 
-   .. tab-item:: Intel XPU (Core Ultra Series 3)
+      .. tip:: **Tighter timing on Intel Core Ultra.**
 
-      Edit ``/etc/default/grub`` and set ``GRUB_CMDLINE_LINUX_DEFAULT``:
+         For the most consistent latency, use this line in
+         ``GRUB_CMDLINE_LINUX_DEFAULT`` instead:
 
-      .. code-block:: text
+         .. code-block:: text
 
-         GRUB_CMDLINE_LINUX_DEFAULT="isolcpus=managed_irq,domain,2,3 nohz_full=2,3 rcu_nocbs=2,3 irqaffinity=0,1 intel_pstate=disable processor.max_cstate=1 idle=poll"
+            GRUB_CMDLINE_LINUX_DEFAULT="isolcpus=managed_irq,domain,2,3 nohz_full=2,3 rcu_nocbs=2,3 irqaffinity=0,1 intel_pstate=disable processor.max_cstate=1 idle=poll"
 
-      - Cores ``2,3`` are reserved for WMX — the control loop plus the universal
-        NIC kernel driver — and cores ``0,1`` handle housekeeping.
-      - ``idle=poll`` trades power for latency; measure with ``cyclictest`` to
-        confirm it helps on your hardware.
-      - On hybrid Intel silicon (Core Ultra Series 3 mixes P-cores, E-cores,
-        and LP-E-cores), pin the control loop to isolated **P-cores** for the
-        most consistent latency.
+         - ``idle=poll`` uses more power to get lower latency. Measure with
+           ``cyclictest`` to confirm it helps on your hardware.
+         - Core Ultra chips mix P-cores, E-cores and LP-E-cores. Pin the control
+           loop to isolated **P-cores**.
 
-      Apply the change and reboot:
+   .. tab-item:: arm64
+      :sync: arm64
 
-      .. code-block:: bash
-
-         sudo update-grub
-         sudo reboot
-
-   .. tab-item:: arm64 (Jetson)
-
-      The Jetson boards boot via U-Boot/extlinux, not GRUB. **Append** the same
+      Most arm64 boards boot with U-Boot/extlinux, not GRUB. **Append** the
       isolation parameters to the ``APPEND`` line in
       ``/boot/extlinux/extlinux.conf``:
 
@@ -161,6 +154,8 @@ are isolated on every platform.
       .. code-block:: bash
 
          sudo reboot
+
+      If your arm64 board boots with GRUB, follow the x86-64 steps instead.
 
 **Pin the WMX engine to the isolated core.** Isolating the core keeps other work
 off it; you still have to tell the WMX engine to run there. Edit
@@ -229,16 +224,17 @@ Modify ``/opt/wmx3/platform/ethercat/ec_network.def``:
 .. code-block:: ini
 
    [Master 0]
-   CommCycle=1000 #milliseconds
+   CommCycle=1000   ; microseconds (1000 µs = 1 ms)
 
 .. note::
 
-   **Jetson developer kit (arm64).**
+   **Jetson arm64 developer kits.**
 
-   1. Reduce the cycle time to ``CommCycle=2000``. Several Jetson developer kit
-      NICs cannot sustain the shortest cycles.
-   2. Increase the transmission timeout to ``TransmitTimeout=1500``. Several
-      Jetson developer kit boards are slower to transmit EtherCAT packets.
+   1. Lengthen the cycle to ``CommCycle=2000`` (2 ms). The NICs on some
+      developer kits cannot sustain a 1 ms cycle.
+   2. Raise the transmission timeout from the default ``TransmitTimeout=500``
+      to ``TransmitTimeout=1500``. Some developer kit boards are slower to
+      transmit EtherCAT packets.
 
 5. Configure the EtherCAT NIC
 ---------------------------------

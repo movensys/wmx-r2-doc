@@ -57,7 +57,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Oct 30, 2026"/>
+    <meta name="docbuild:last-update" content="Nov 13, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -423,8 +423,8 @@ through preparing the computer step by step.</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>CPU</p></td>
-<td><p>x86_64/amd64 or arm64</p></td>
-<td><p>Intel Core i7 or NVIDIA Jetson Orin/Thor</p></td>
+<td><p>x86-64 or arm64</p></td>
+<td><p>Intel Core Ultra Series 3 or NVIDIA Jetson Orin/Thor</p></td>
 </tr>
 <tr class="row-odd"><td><p>RAM</p></td>
 <td><p>4 GB</p></td>
@@ -496,7 +496,7 @@ threads and tuning latency) is covered in <a class="reference internal" href="in
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-0">
-General x86/amd64</label><div class="sd-tab-content docutils">
+General x86-64</label><div class="sd-tab-content docutils">
 <p>Install Ubuntu 22.04 or 24.04 the usual way with the standard Ubuntu
 installer, then update fully.</p>
 <ul class="simple">
@@ -512,7 +512,7 @@ kernel is extra work you can add later.</p>
 </div>
 <input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-1">
-Intel XPU (Core Ultra Series 3)</label><div class="sd-tab-content docutils">
+Intel XPU x86-64</label><div class="sd-tab-content docutils">
 <p>Install Ubuntu 24.04 the usual way with the standard Ubuntu installer,
 then update fully.</p>
 <ul class="simple">
@@ -529,7 +529,7 @@ options; you will likely pin these down later for latency (see
 </div>
 <input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-2">
-Jetson Developer Kit</label><div class="sd-tab-content docutils">
+NVIDIA Jetson arm64</label><div class="sd-tab-content docutils">
 <p>The Jetson developer kit’s built-in eMMC storage is small.
 To add this storage capacity, install an NVMe SSD card in the Jetson
 developer kit’s carrier board (in the M.2 Key M slot) before flashing,
@@ -550,7 +550,7 @@ CPU cores for the WMX real-time threads and tuning latency) is covered in
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-3">
-General x86/amd64</label><div class="sd-tab-content docutils">
+General x86-64</label><div class="sd-tab-content docutils">
 <p>Build a PREEMPT_RT kernel from the kernel.org vanilla source plus the
 official RT patch, then install the resulting <code class="docutils literal notranslate"><span class="pre">.deb</span></code> packages.</p>
 <p><strong>Install build dependencies:</strong></p>
@@ -651,7 +651,7 @@ MOK and sign the NVIDIA modules, or they will be refused at load.</p>
 </details></div>
 <input id="sd-tab-item-4" name="sd-tab-set-1" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-4">
-Intel XPU (Core Ultra Series 3)</label><div class="sd-tab-content docutils">
+Intel XPU x86-64</label><div class="sd-tab-content docutils">
 <p>Build the RT kernel from Intel’s
 <a class="reference external" href="https://github.com/intel/mainline-tracking">mainline-tracking</a> tree,
 which carries the platform enablement for current Intel silicon.</p>
@@ -716,7 +716,7 @@ ready to install the GPU/NPU drivers manually if the script balks.</p>
 </div>
 <input id="sd-tab-item-5" name="sd-tab-set-1" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-5">
-Jetson Developer Kit</label><div class="sd-tab-content docutils">
+NVIDIA Jetson arm64</label><div class="sd-tab-content docutils">
 <p>First record the L4T release you flashed — you need it to match the
 correct real-time kernel:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>/etc/nv_tegra_release<span class="w">   </span><span class="c1"># e.g. R38 (release), REVISION: 4.x  -&gt;  L4T r38.4</span>
@@ -756,7 +756,7 @@ lsb_release<span class="w"> </span>-a<span class="w">            </span><span cl
 sudo<span class="w"> </span>cyclictest<span class="w"> </span>-m<span class="w"> </span>-S<span class="w"> </span>-p<span class="w"> </span><span class="m">90</span><span class="w"> </span>-i<span class="w"> </span><span class="m">200</span><span class="w"> </span>-d<span class="w"> </span><span class="m">0</span><span class="w"> </span>-D<span class="w"> </span>5m
 </pre></div>
 </div>
-<p>Watch the <strong>Max</strong> latency. On a tuned PREEMPT_RT x86 box you typically want the
+<p>Watch the <strong>Max</strong> latency. On a tuned PREEMPT_RT x86-64 machine you typically want the
 worst case in the low tens of microseconds; high spikes point to firmware/SMI
 or power-management issues to chase (BIOS C-states, SpeedStep, Turbo).</p>
 <div class="admonition tip">
@@ -845,7 +845,7 @@ newgrp<span class="w"> </span>docker
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Oct 30, 2026</p>
+      <p>Last updated: Nov 13, 2026</p>
     
   </div>
   <div class="movensys-footer__links">

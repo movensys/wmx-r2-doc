@@ -57,7 +57,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Oct 30, 2026"/>
+    <meta name="docbuild:last-update" content="Nov 13, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -449,8 +449,8 @@ at the EtherCAT NIC.</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" data-sync-group="tab" data-sync-id="x86" for="sd-tab-item-0">
-x86/amd64-based PC</label><div class="sd-tab-content docutils">
-<p><a class="sd-sphinx-override sd-btn sd-text-wrap sd-btn-primary sd-shadow-sm wmx-download-btn reference external" href="https://softservogroup.sharepoint.com/:u:/s/Storage/IQDy5FzTpMdZRbs52-K1JE7QAdB_nPu0NeG03dkZpDxBYgQ?e=u9hmQB"><span>Download WMX3 for x86/amd64</span></a></p>
+x86-64</label><div class="sd-tab-content docutils">
+<p><a class="sd-sphinx-override sd-btn sd-text-wrap sd-btn-primary sd-shadow-sm wmx-download-btn reference external" href="https://softservogroup.sharepoint.com/:u:/s/Storage/IQDy5FzTpMdZRbs52-K1JE7QAdB_nPu0NeG03dkZpDxBYgQ?e=u9hmQB"><span>Download WMX3 for x86-64</span></a></p>
 <p><strong>Install WMX3</strong> — extract the archive and run the installer:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>unzip<span class="w"> </span>20260729_WMX3_v3.7_Linux_x86.zip
 sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>*wmx3-installer.deb
@@ -458,9 +458,9 @@ sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </spa
 </div>
 </div>
 <input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
-<label class="sd-tab-label" data-sync-group="tab" data-sync-id="jetson" for="sd-tab-item-1">
-arm64 (Jetson)</label><div class="sd-tab-content docutils">
-<p><a class="sd-sphinx-override sd-btn sd-text-wrap sd-btn-primary sd-shadow-sm wmx-download-btn reference external" href="https://softservogroup.sharepoint.com/:u:/s/Storage/IQCoAJZFNxnkQqnT-9YB6QffAXztaavZH7li6n_nWI6YnwY?e=DA5UKp"><span>Download WMX3 for jetson/arm64</span></a></p>
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="arm64" for="sd-tab-item-1">
+arm64</label><div class="sd-tab-content docutils">
+<p><a class="sd-sphinx-override sd-btn sd-text-wrap sd-btn-primary sd-shadow-sm wmx-download-btn reference external" href="https://softservogroup.sharepoint.com/:u:/s/Storage/IQCoAJZFNxnkQqnT-9YB6QffAXztaavZH7li6n_nWI6YnwY?e=DA5UKp"><span>Download WMX3 for arm64</span></a></p>
 <p><strong>Install WMX3</strong> — extract the archive and run the installer:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>unzip<span class="w"> </span>20260729_WMX3_v3.7_Linux_ARM64.zip
 sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>*wmx3-installer.deb
@@ -486,8 +486,8 @@ control loop and core <code class="docutils literal notranslate"><span class="pr
 are isolated on every platform.</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-2" name="sd-tab-set-1" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-2">
-General x86/amd64</label><div class="sd-tab-content docutils">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="x86" for="sd-tab-item-2">
+x86-64</label><div class="sd-tab-content docutils">
 <p>Edit <code class="docutils literal notranslate"><span class="pre">/etc/default/grub</span></code> and set <code class="docutils literal notranslate"><span class="pre">GRUB_CMDLINE_LINUX</span></code>:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>GRUB_CMDLINE_LINUX="quiet splash isolcpus=2,3 nohz_full=2,3 rcu_nocbs=2,3 irqaffinity=0,1 acpi_irq_nobalance noirqbalance"
 </pre></div>
@@ -497,33 +497,26 @@ General x86/amd64</label><div class="sd-tab-content docutils">
 sudo<span class="w"> </span>reboot
 </pre></div>
 </div>
-</div>
-<input id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-3">
-Intel XPU (Core Ultra Series 3)</label><div class="sd-tab-content docutils">
-<p>Edit <code class="docutils literal notranslate"><span class="pre">/etc/default/grub</span></code> and set <code class="docutils literal notranslate"><span class="pre">GRUB_CMDLINE_LINUX_DEFAULT</span></code>:</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p><strong>Tighter timing on Intel Core Ultra.</strong></p>
+<p>For the most consistent latency, use this line in
+<code class="docutils literal notranslate"><span class="pre">GRUB_CMDLINE_LINUX_DEFAULT</span></code> instead:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>GRUB_CMDLINE_LINUX_DEFAULT="isolcpus=managed_irq,domain,2,3 nohz_full=2,3 rcu_nocbs=2,3 irqaffinity=0,1 intel_pstate=disable processor.max_cstate=1 idle=poll"
 </pre></div>
 </div>
 <ul class="simple">
-<li><p>Cores <code class="docutils literal notranslate"><span class="pre">2,3</span></code> are reserved for WMX — the control loop plus the universal
-NIC kernel driver — and cores <code class="docutils literal notranslate"><span class="pre">0,1</span></code> handle housekeeping.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">idle=poll</span></code> trades power for latency; measure with <code class="docutils literal notranslate"><span class="pre">cyclictest</span></code> to
-confirm it helps on your hardware.</p></li>
-<li><p>On hybrid Intel silicon (Core Ultra Series 3 mixes P-cores, E-cores,
-and LP-E-cores), pin the control loop to isolated <strong>P-cores</strong> for the
-most consistent latency.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">idle=poll</span></code> uses more power to get lower latency. Measure with
+<code class="docutils literal notranslate"><span class="pre">cyclictest</span></code> to confirm it helps on your hardware.</p></li>
+<li><p>Core Ultra chips mix P-cores, E-cores and LP-E-cores. Pin the control
+loop to isolated <strong>P-cores</strong>.</p></li>
 </ul>
-<p>Apply the change and reboot:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>update-grub
-sudo<span class="w"> </span>reboot
-</pre></div>
 </div>
 </div>
-<input id="sd-tab-item-4" name="sd-tab-set-1" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-4">
-arm64 (Jetson)</label><div class="sd-tab-content docutils">
-<p>The Jetson boards boot via U-Boot/extlinux, not GRUB. <strong>Append</strong> the same
+<input id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="arm64" for="sd-tab-item-3">
+arm64</label><div class="sd-tab-content docutils">
+<p>Most arm64 boards boot with U-Boot/extlinux, not GRUB. <strong>Append</strong> the
 isolation parameters to the <code class="docutils literal notranslate"><span class="pre">APPEND</span></code> line in
 <code class="docutils literal notranslate"><span class="pre">/boot/extlinux/extlinux.conf</span></code>:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>isolcpus=2,3 nohz_full=2,3 rcu_nocbs=2,3 irqaffinity=0,1 acpi_irq_nobalance noirqbalance
@@ -533,6 +526,7 @@ isolation parameters to the <code class="docutils literal notranslate"><span cla
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>reboot
 </pre></div>
 </div>
+<p>If your arm64 board boots with GRUB, follow the x86-64 steps instead.</p>
 </div>
 </div>
 <p><strong>Pin the WMX engine to the isolated core.</strong> Isolating the core keeps other work
@@ -552,8 +546,8 @@ over EtherCAT or runs against a simulated bus. The platforms are declared in
 the other off with <code class="docutils literal notranslate"><span class="pre">disable</span> <span class="pre">=</span> <span class="pre">1</span></code>. Select the tab that matches how you want to
 run the engine.</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="sd-tab-item-5" name="sd-tab-set-2" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-5">
+<input checked="checked" id="sd-tab-item-4" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-4">
 EtherCAT</label><div class="sd-tab-content docutils">
 <p>Drive real servo drives over EtherCAT. Enable the EtherCAT platform and
 disable the simulation platform:</p>
@@ -571,8 +565,8 @@ disable the simulation platform:</p>
 </pre></div>
 </div>
 </div>
-<input id="sd-tab-item-6" name="sd-tab-set-2" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-6">
+<input id="sd-tab-item-5" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-5">
 Simulation</label><div class="sd-tab-content docutils">
 <p>Run the engine against a simulated bus with no hardware attached. Enable
 the simulation platform and disable the EtherCAT platform:</p>
@@ -596,17 +590,18 @@ the simulation platform and disable the EtherCAT platform:</p>
 <h2>4. Change the cyclic period<a class="headerlink" href="#change-the-cyclic-period" title="Link to this heading">#</a></h2>
 <p>Modify <code class="docutils literal notranslate"><span class="pre">/opt/wmx3/platform/ethercat/ec_network.def</span></code>:</p>
 <div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[Master 0]</span>
-<span class="na">CommCycle</span><span class="o">=</span><span class="s">1000</span><span class="w"> </span><span class="c1">#milliseconds</span>
+<span class="na">CommCycle</span><span class="o">=</span><span class="s">1000</span><span class="w">   </span><span class="c1">; microseconds (1000 µs = 1 ms)</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><strong>Jetson developer kit (arm64).</strong></p>
+<p><strong>Jetson arm64 developer kits.</strong></p>
 <ol class="arabic simple">
-<li><p>Reduce the cycle time to <code class="docutils literal notranslate"><span class="pre">CommCycle=2000</span></code>. Several Jetson developer kit
-NICs cannot sustain the shortest cycles.</p></li>
-<li><p>Increase the transmission timeout to <code class="docutils literal notranslate"><span class="pre">TransmitTimeout=1500</span></code>. Several
-Jetson developer kit boards are slower to transmit EtherCAT packets.</p></li>
+<li><p>Lengthen the cycle to <code class="docutils literal notranslate"><span class="pre">CommCycle=2000</span></code> (2 ms). The NICs on some
+developer kits cannot sustain a 1 ms cycle.</p></li>
+<li><p>Raise the transmission timeout from the default <code class="docutils literal notranslate"><span class="pre">TransmitTimeout=500</span></code>
+to <code class="docutils literal notranslate"><span class="pre">TransmitTimeout=1500</span></code>. Some developer kit boards are slower to
+transmit EtherCAT packets.</p></li>
 </ol>
 </div>
 </section>
@@ -650,8 +645,8 @@ a NIC-driver DLL. Pick the driver that matches your transport:</p>
 <code class="docutils literal notranslate"><span class="pre">/opt/wmx3/platform/ethercat/PrtTcpip.ini</span></code>. The <code class="docutils literal notranslate"><span class="pre">UseNicDrvDll</span></code> key selects
 the driver; each driver reads its own keys from the same section.</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="sd-tab-item-7" name="sd-tab-set-3" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-7">
+<input checked="checked" id="sd-tab-item-6" name="sd-tab-set-3" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-6">
 sock_raw</label><div class="sd-tab-content docutils">
 <p><code class="docutils literal notranslate"><span class="pre">ndd_sock_raw.so</span></code> sends and receives EtherCAT frames through a standard
 Linux <code class="docutils literal notranslate"><span class="pre">AF_PACKET</span></code> / <code class="docutils literal notranslate"><span class="pre">SOCK_RAW</span></code> socket, so the NIC keeps its normal
@@ -665,8 +660,8 @@ kernel driver and needs no extra setup.</p>
 </pre></div>
 </div>
 </div>
-<input id="sd-tab-item-8" name="sd-tab-set-3" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-8">
+<input id="sd-tab-item-7" name="sd-tab-set-3" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-7">
 af_xdp</label><div class="sd-tab-content docutils">
 <p><code class="docutils literal notranslate"><span class="pre">ndd_af_xdp.so</span></code> sends and receives EtherCAT frames through an AF_XDP
 socket (XSK), a kernel fast path: the NIC keeps its normal kernel driver,
@@ -689,8 +684,8 @@ to a single queue first:</p>
 </pre></div>
 </div>
 </div>
-<input id="sd-tab-item-9" name="sd-tab-set-3" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-9">
+<input id="sd-tab-item-8" name="sd-tab-set-3" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-8">
 dpdk</label><div class="sd-tab-content docutils">
 <p>DPDK bypasses the kernel network stack, so reserve hugepages and bind the
 NIC to a userspace driver <strong>before</strong> starting the WMX3 engine.</p>
@@ -719,8 +714,8 @@ chosen by id, pinned deterministically with an EAL allowlist:</p>
 <p>Binding does not survive a reboot, so re-run <code class="docutils literal notranslate"><span class="pre">modprobe</span></code> and the bind
 after each boot or automate them.</p>
 </div>
-<input id="sd-tab-item-10" name="sd-tab-set-3" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-10">
+<input id="sd-tab-item-9" name="sd-tab-set-3" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-9">
 vnw</label><div class="sd-tab-content docutils">
 <p>The virtual-network driver needs no hardware and takes no transport keys.
 The engine reads its virtual slave list from the same section:</p>
@@ -827,7 +822,7 @@ up.</p>
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Oct 30, 2026</p>
+      <p>Last updated: Nov 13, 2026</p>
     
   </div>
   <div class="movensys-footer__links">

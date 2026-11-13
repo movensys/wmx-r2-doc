@@ -181,7 +181,7 @@ Device Creation Failures
 
 **Solutions:**
 
-- Verify the WMX Runtime is installed: ``ls /opt/wmx3/lib/libwmx3api.so``
+- Verify the WMX Runtime is installed: ``ls /opt/wmx3/lib/libwmx3api.a``
 - Ensure you are running with ``sudo``
 - Check that no other WMX application is running (lock contention causes
   error code 297)

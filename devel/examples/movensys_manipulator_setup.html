@@ -57,7 +57,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Oct 30, 2026"/>
+    <meta name="docbuild:last-update" content="Nov 13, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -417,12 +417,12 @@ the ROS distro, the build flavor, the CPU architecture, and the robot model.
 The last line sources <code class="docutils literal notranslate"><span class="pre">docker/mros.bash</span></code>, which defines the <code class="docutils literal notranslate"><span class="pre">mros</span></code> helper
 used to run commands inside the container.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">ROS_DOMAIN_ID</span><span class="o">=</span><span class="m">73</span><span class="w">                         </span><span class="c1"># must match the WMX R2 container</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">ROS_DISTRO</span><span class="o">=</span>jazzy<span class="w">                         </span><span class="c1"># {jazzy, humble}</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">CPU_ARCH</span><span class="o">=</span>amd64<span class="w">                           </span><span class="c1"># {amd64, arm64}</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">ROS_DISTRO</span><span class="o">=</span>jazzy<span class="w">                         </span><span class="c1"># tested {jazzy, humble}</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">CPU_ARCH</span><span class="o">=</span>x86-64<span class="w">                          </span><span class="c1"># tested {x86-64, arm64}</span>
 <span class="nb">export</span><span class="w"> </span><span class="nv">RMW_IMPLEMENTATION</span><span class="o">=</span>rmw_cyclonedds_cpp
 
-<span class="nb">export</span><span class="w"> </span><span class="nv">MOVENSYS_ROS_VERSION</span><span class="o">=</span>isaac-ros_4.1<span class="w">       </span><span class="c1"># {general, intel-xpu, isaac-ros_4.1, isaac-ros_3.2}</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">MANIPULATOR_MODEL</span><span class="o">=</span>dobot_cr3a<span class="w">             </span><span class="c1"># {dobot_cr3a, dobot_cr5a}</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">MOVENSYS_ROS_VERSION</span><span class="o">=</span>isaac-ros_4.1<span class="w">       </span><span class="c1"># tested {general, intel-xpu, isaac-ros_4.1, isaac-ros_3.2}</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">MANIPULATOR_MODEL</span><span class="o">=</span>dobot_cr3a<span class="w">             </span><span class="c1"># tested {dobot_cr3a, dobot_cr5a}</span>
 
 <span class="nb">source</span><span class="w"> </span>~/workspaces/movensys_ws/src/movensys-manipulator/docker/mros.bash
 </pre></div>
@@ -585,7 +585,7 @@ manipulator; the robot is selected by the <code class="docutils literal notransl
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Oct 30, 2026</p>
+      <p>Last updated: Nov 13, 2026</p>
     
   </div>
   <div class="movensys-footer__links">

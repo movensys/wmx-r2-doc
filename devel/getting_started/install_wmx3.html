@@ -57,7 +57,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Oct 30, 2026"/>
+    <meta name="docbuild:last-update" content="Nov 13, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -427,8 +427,8 @@ git<span class="w"> </span>clone<span class="w"> </span>https://github.com/moven
 <h2>Configure the environment<a class="headerlink" href="#configure-the-environment" title="Link to this heading">#</a></h2>
 <p>Add the following to your <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">ROS_DOMAIN_ID</span><span class="o">=</span><span class="m">73</span><span class="w">                         </span><span class="c1"># any number; the same one everywhere</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">ROS_DISTRO</span><span class="o">=</span>jazzy<span class="w">                         </span><span class="c1"># {jazzy, humble}</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">CPU_ARCH</span><span class="o">=</span>amd64<span class="w">                           </span><span class="c1"># {amd64, arm64}</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">ROS_DISTRO</span><span class="o">=</span>jazzy<span class="w">                         </span><span class="c1"># tested {jazzy, humble}</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">CPU_ARCH</span><span class="o">=</span>x86-64<span class="w">                          </span><span class="c1"># tested {x86-64, arm64}</span>
 <span class="nb">export</span><span class="w"> </span><span class="nv">RMW_IMPLEMENTATION</span><span class="o">=</span>rmw_cyclonedds_cpp
 
 <span class="nb">source</span><span class="w"> </span>~/workspaces/movensys_ws/src/wmx-r2/docker/wros.bash
@@ -444,6 +444,16 @@ mismatch is silent: the nodes start, and no <code class="docutils literal notran
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>xhost<span class="w"> </span>+local:docker
 <span class="nb">source</span><span class="w"> </span>~/.bashrc
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>On x86-64, the container reads the X11 login cookie from
+<code class="docutils literal notranslate"><span class="pre">/tmp/.docker.xauth</span></code> so GUI tools can open on your desktop. Create that
+file once after each login:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>touch<span class="w"> </span>/tmp/.docker.xauth
+xauth<span class="w"> </span>nlist<span class="w"> </span><span class="nv">$DISPLAY</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span>-e<span class="w"> </span><span class="s1">'s/^..../ffff/'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xauth<span class="w"> </span>-f<span class="w"> </span>/tmp/.docker.xauth<span class="w"> </span>nmerge<span class="w"> </span>-
+</pre></div>
+</div>
 </div>
 </section>
 <section id="build-and-start-the-container">
@@ -552,7 +562,7 @@ wmx_r2_package wmx_lifecycle_manager_node
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Oct 30, 2026</p>
+      <p>Last updated: Nov 13, 2026</p>
     
   </div>
   <div class="movensys-footer__links">
