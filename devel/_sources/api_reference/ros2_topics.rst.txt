@@ -60,6 +60,10 @@ Topic summary
      - pub
      - ``sensor_msgs/msg/JointState``
      - ``differential_drive_controller``
+   * - ``/wmx/robot/status``
+     - pub
+     - ``wmx_r2_message/msg/RobotStatus``
+     - ``wmx_robot_option_node``
 
 .. important::
 
@@ -122,17 +126,20 @@ Published by ``joint_state_broadcaster``. This is the topic MoveIt2,
 Content:
 
 - ``name`` — ``joint_name`` followed by ``gripper_joint_name``
-- ``position`` — the WMX ``actualPos`` of each axis, **unconverted**
+- ``position`` — the WMX ``actualPos`` of each axis, unconverted unless the
+  axis is listed in ``degree_to_radian_axes`` or ``rpm_to_radian_axes``
 - ``velocity`` — the servo's ``actualVelocity``, not a derivative of position
 - ``effort`` — not filled in
 - ``header.stamp`` — the node clock
 
 .. note::
 
-   Joint values pass through with no scaling. One axis user unit must equal
-   one radian at the joint, and that is set on the WMX side in the axis
-   parameter XML. There is no gear-ratio or offset parameter in any of these
-   nodes. See :doc:`../try_your_robot/robot_parameters`.
+   By default joint values pass through with no scaling: one axis user unit
+   must equal one radian at the joint, set on the WMX side in the axis
+   parameter XML. Degree-scaled (denominator 360) and rpm-scaled
+   (denominator 60) axes are converted back to rad and rad/s when listed in
+   ``degree_to_radian_axes`` or ``rpm_to_radian_axes``. There is no
+   gear-ratio or offset parameter. See :ref:`other-axis-units`.
 
 The timer period is ``1000 / joint_feedback_rate`` truncated to whole
 milliseconds, so prefer rates that divide 1000 — 100, 125, 200, 250, 500. A
@@ -293,7 +300,9 @@ Differential drive topics
 -------------------------
 
 ``differential_drive_controller`` drives two EtherCAT wheel axes with
-CoreMotion ``StartVel`` and exposes the Nav2 contract.
+CoreMotion ``StartVel`` and exposes the Nav2 contract. Every topic below is
+in m/s and rad/s whatever the axis scaling; with
+``wheel_velocity_unit: "rpm"`` the node converts at the WMX boundary.
 
 .. mermaid::
    :caption: Differential-drive data flow
@@ -358,7 +367,7 @@ are left empty on both ``JointState`` topics.
    ``cmd_vel_timeout`` (default 0.25 s) forces the wheel target to zero if
    no command arrives in that window. Freshness is measured against
    **arrival** time on this node's clock. The stop decelerates over
-   ``dec_time``, so it is not an emergency stop.
+   ``dec_time`` (seconds), so it is not an emergency stop.
 
    Both loop timers are wall timers, but the odometry ``dt`` comes from the
    ROS clock. A paused ``/clock`` under ``use_sim_time`` freezes the pose and
@@ -387,4 +396,5 @@ See also
 - :doc:`ros2_services` -- engine, lifecycle, axis, I/O, and EtherCAT services
 - :doc:`ros2_actions` -- the ``FollowJointTrajectory`` action
 - :doc:`wmx_r2_message` -- ``AxesStatus`` and the service definitions
+- :doc:`wmx_robot_option` -- ``/wmx/robot/status`` and the motion state codes
 - :doc:`../integration/nav2_integration` -- how the differential topics wire into Nav2

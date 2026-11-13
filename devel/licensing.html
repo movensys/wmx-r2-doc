@@ -268,6 +268,7 @@
 <li class="toctree-l2"><a class="reference internal" href="examples/movensys_manipulator.html">movensys-manipulator</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
 <li class="toctree-l3"><a class="reference internal" href="examples/trajectory_planning.html">Trajectory Planning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/robot_option_motion.html">Robot Option Motion</a></li>
 <li class="toctree-l3"><a class="reference internal" href="examples/apriltag_pick_and_place.html">AprilTag Pick-and-Place</a></li>
 <li class="toctree-l3"><a class="reference internal" href="examples/obstacle_avoidance.html">Nvblox Obstacle Avoidance</a></li>
 <li class="toctree-l3"><a class="reference internal" href="examples/yolo_pick_and_place.html">YOLO Pick-and-Place</a></li>
@@ -308,6 +309,7 @@
 <li class="toctree-l2"><a class="reference internal" href="api_reference/ros2_actions.html">ROS2 Actions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api_reference/wmx_r2_message.html">wmx_r2_message</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api_reference/wmx_r2_package.html">wmx_r2_package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference/wmx_robot_option.html">wmx_robot_option_node</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api_reference/wmx_r2_control.html">wmx_r2_control</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api_reference/wmx3_api.html">The WMX3 API Underneath WMX R2</a></li>
 </ul>
@@ -478,7 +480,8 @@ system — a WMX runtime and SDK are required as well.</p>
 <section id="wmx-runtime-licensing-terms">
 <h2>WMX runtime licensing terms<a class="headerlink" href="#wmx-runtime-licensing-terms" title="Link to this heading">#</a></h2>
 <p>The WMX runtime is free to evaluate in renewable 6-hour sessions; restarting
-the engine starts a new session. A commercial license removes the time limit
+the engine starts a new session. The WMX3 Robot Option, the kinematics layer
+behind <code class="docutils literal notranslate"><span class="pre">wmx_robot_option_node</span></code>, runs under the same terms. A commercial license removes the time limit
 for production use. Contact your MOVENSYS representative for commercial
 licensing.</p>
 <div class="pst-scrollable-table-container"><table class="table">
@@ -493,7 +496,8 @@ licensing.</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>Evaluation</p></td>
-<td><p>Renewable 6-hour engine sessions, extended by restarting the engine.
+<td><p>Renewable 6-hour sessions for the engine and the Robot Option,
+extended by restarting the engine.
 Intended for evaluation and development.</p></td>
 </tr>
 <tr class="row-odd"><td><p>Commercial</p></td>

@@ -200,6 +200,9 @@ EtherCAT Scan Failures
 - Ensure all servo drives are powered on
 - Check that ``/opt/wmx3/ESI/`` holds a matching EtherCAT Slave Information
   (ESI) file for each servo drive on the chain
+- Check that ``/etc/eni/`` holds the EtherCAT Network Information (ENI) file
+  for each device type on the chain; the engine reads ENI files from no other
+  folder
 - Verify the EtherCAT Ethernet port does **not** have an IP address assigned
 
 Communication Start Failures

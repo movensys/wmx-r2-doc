@@ -51,7 +51,7 @@
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="AprilTag Pick-and-Place" href="apriltag_pick_and_place.html" />
+    <link rel="next" title="Robot Option Motion" href="robot_option_motion.html" />
     <link rel="prev" title="movensys-manipulator Setup" href="movensys_manipulator_setup.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -268,6 +268,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="movensys_manipulator.html">movensys-manipulator</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Trajectory Planning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="robot_option_motion.html">Robot Option Motion</a></li>
 <li class="toctree-l3"><a class="reference internal" href="apriltag_pick_and_place.html">AprilTag Pick-and-Place</a></li>
 <li class="toctree-l3"><a class="reference internal" href="obstacle_avoidance.html">Nvblox Obstacle Avoidance</a></li>
 <li class="toctree-l3"><a class="reference internal" href="yolo_pick_and_place.html">YOLO Pick-and-Place</a></li>
@@ -308,6 +309,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_actions.html">ROS2 Actions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_message.html">wmx_r2_message</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_package.html">wmx_r2_package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_robot_option.html">wmx_robot_option_node</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_control.html">wmx_r2_control</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx3_api.html">The WMX3 API Underneath WMX R2</a></li>
 </ul>
@@ -410,6 +412,8 @@ document.addEventListener("DOMContentLoaded", function() {
 cuMotion. See <a class="reference internal" href="examples.html"><span class="doc">Example Applications</span></a> for the shared manipulator setup. All commands
 run through <code class="docutils literal notranslate"><span class="pre">mros</span></code>. For the programmatic <code class="docutils literal notranslate"><span class="pre">/wmx/moveit2/*</span></code> service API, see
 <a class="reference internal" href="../integration/moveit2_integration.html"><span class="doc">MoveIt2 Motion Planning</span></a>.</p>
+<p>To move the arm with the WMX3 Robot Option, which uses the engine’s own
+kinematics instead of a planner, see <a class="reference internal" href="robot_option_motion.html"><span class="doc">Robot Option Motion</span></a>.</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-0">
@@ -464,7 +468,7 @@ Isaac cuMotion</label><div class="sd-tab-content docutils">
 publish <code class="docutils literal notranslate"><span class="pre">/robot_description</span></code>.</p>
 </li>
 <li><p>(optional) Jog the arm from the keyboard (see <a class="reference internal" href="#keyboard-jogging"><span class="std std-ref">Keyboard Jogging</span></a>):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mros<span class="w"> </span>ros2<span class="w"> </span>run<span class="w"> </span>movensys_manipulator_moveit_config<span class="w"> </span>keyboard_teleop
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mros<span class="w"> </span>ros2<span class="w"> </span>run<span class="w"> </span>movensys_manipulator_moveit_config<span class="w"> </span>keyboard_teleop<span class="w"> </span>--ros-args<span class="w"> </span>-p<span class="w"> </span>use_sim_time:<span class="o">=</span><span class="nb">true</span>
 </pre></div>
 </div>
 </li>
@@ -527,7 +531,7 @@ Isaac cuMotion</label><div class="sd-tab-content docutils">
 publish <code class="docutils literal notranslate"><span class="pre">/robot_description</span></code>.</p>
 </li>
 <li><p>(optional) Jog the arm from the keyboard (see <a class="reference internal" href="#keyboard-jogging"><span class="std std-ref">Keyboard Jogging</span></a>):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mros<span class="w"> </span>ros2<span class="w"> </span>run<span class="w"> </span>movensys_manipulator_moveit_config<span class="w"> </span>keyboard_teleop
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mros<span class="w"> </span>ros2<span class="w"> </span>run<span class="w"> </span>movensys_manipulator_moveit_config<span class="w"> </span>keyboard_teleop<span class="w"> </span>--ros-args<span class="w"> </span>-p<span class="w"> </span>use_sim_time:<span class="o">=</span><span class="nb">true</span>
 </pre></div>
 </div>
 </li>
@@ -605,7 +609,10 @@ mros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> <
 <section id="keyboard-jogging">
 <span id="id1"></span><h2>Keyboard Jogging<a class="headerlink" href="#keyboard-jogging" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">keyboard_teleop</span></code> drives the <code class="docutils literal notranslate"><span class="pre">servo_node</span></code> started by <code class="docutils literal notranslate"><span class="pre">moveit.launch.py</span></code>,
-so it works in any of the three modes once the planner is up. Pick a mode first
+so it works in any of the three modes once the planner is up. It follows the
+standard <code class="docutils literal notranslate"><span class="pre">use_sim_time</span></code> parameter: pass <code class="docutils literal notranslate"><span class="pre">--ros-args</span> <span class="pre">-p</span> <span class="pre">use_sim_time:=true</span></code>
+in Simulation and HIL, where Isaac Sim or Gazebo publishes <code class="docutils literal notranslate"><span class="pre">/clock</span></code>, and leave
+it at the default <code class="docutils literal notranslate"><span class="pre">false</span></code> on a real robot. Pick a mode first
 (<code class="docutils literal notranslate"><span class="pre">j</span></code> / <code class="docutils literal notranslate"><span class="pre">t</span></code> / <code class="docutils literal notranslate"><span class="pre">p</span></code>), then jog.</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
@@ -692,11 +699,11 @@ eef (<code class="docutils literal notranslate"><span class="pre">Link6</span></
       </div>
     </a>
     <a class="right-next"
-       href="apriltag_pick_and_place.html"
+       href="robot_option_motion.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">AprilTag Pick-and-Place</p>
+        <p class="prev-next-title">Robot Option Motion</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

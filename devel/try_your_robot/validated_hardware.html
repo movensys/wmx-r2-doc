@@ -268,6 +268,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator.html">movensys-manipulator</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/trajectory_planning.html">Trajectory Planning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/robot_option_motion.html">Robot Option Motion</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/apriltag_pick_and_place.html">AprilTag Pick-and-Place</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/obstacle_avoidance.html">Nvblox Obstacle Avoidance</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/yolo_pick_and_place.html">YOLO Pick-and-Place</a></li>
@@ -308,6 +309,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_actions.html">ROS2 Actions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_message.html">wmx_r2_message</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_package.html">wmx_r2_package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_robot_option.html">wmx_robot_option_node</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_control.html">wmx_r2_control</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx3_api.html">The WMX3 API Underneath WMX R2</a></li>
 </ul>
@@ -413,8 +415,8 @@ and moving it to a new machine changes only configuration files — see
 thing as the machine being ready to run.</p>
 <p>Whether WMX R2 can drive <em>your</em> robot today depends on whether the drives
 speak EtherCAT CoE in a supported mode, whether a matching ESI file is
-installed for them and an EtherCAT Network Information (ENI) file exists
-for the network, and whether someone has produced and verified a correct
+installed for them in <code class="docutils literal notranslate"><span class="pre">/opt/wmx3/ESI</span></code> and an EtherCAT Network
+Information (ENI) file for the network is in <code class="docutils literal notranslate"><span class="pre">/etc/eni</span></code>, and whether someone has produced and verified a correct
 parameter set, URDF, and planning configuration for that specific machine.</p>
 <p>The robots below are the ones for which this project ships and has verified
 that configuration. For anything else the files exist but their contents do
@@ -707,7 +709,8 @@ robot, including a second unit of an already-validated model.</p>
 minimum you need:</p>
 <ol class="arabic simple">
 <li><p><strong>EtherCAT compatibility.</strong> Drives reachable by the WMX EtherCAT master,
-with a matching ESI file in <code class="docutils literal notranslate"><span class="pre">/opt/wmx3/ESI/</span></code> for each slave, in a
+with a matching ESI file in <code class="docutils literal notranslate"><span class="pre">/opt/wmx3/ESI/</span></code> and an ENI file in
+<code class="docutils literal notranslate"><span class="pre">/etc/eni/</span></code> for each slave, in a
 supported CoE mode (position mode for the manipulators, velocity mode for
 the differential-drive base).</p></li>
 <li><p><strong>A parameter file.</strong> Gear ratio numerator and denominator, polarity,

@@ -208,7 +208,7 @@ const runMermaid = async (rerun) => {
                                     // Apply zoom to the now-rendered diagram, matching
                                     // the decoration visible diagrams receive.
                                     if (true) {
-                                        addZoomToSvgs(d3.selectAll(".mermaid[data-zoom-id=id-c6258d09-48f0-44d9-9ae3-e20fbc823610]").select(function() {
+                                        addZoomToSvgs(d3.selectAll(".mermaid[data-zoom-id=id-6a22f8c5-ddd1-4a01-b595-eff6083a7ba3]").select(function() {
                                             return this.querySelector("svg");
                                         }));
                                     }
@@ -234,7 +234,7 @@ const runMermaid = async (rerun) => {
     if (true) {
         const mermaids_to_add_zoom = 1 === -1 ? mermaids_active.length : 1;
         if(mermaids_to_add_zoom > 0) {
-            var svgs = d3.selectAll(".mermaid[data-zoom-id=id-c6258d09-48f0-44d9-9ae3-e20fbc823610]").select(function() {
+            var svgs = d3.selectAll(".mermaid[data-zoom-id=id-6a22f8c5-ddd1-4a01-b595-eff6083a7ba3]").select(function() {
                 return this.querySelector("svg");
             });
             // Wait until every active (visible) diagram has rendered. Deferred
@@ -627,6 +627,7 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator.html">movensys-manipulator</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/trajectory_planning.html">Trajectory Planning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/robot_option_motion.html">Robot Option Motion</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/apriltag_pick_and_place.html">AprilTag Pick-and-Place</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/obstacle_avoidance.html">Nvblox Obstacle Avoidance</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/yolo_pick_and_place.html">YOLO Pick-and-Place</a></li>
@@ -667,6 +668,7 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l2"><a class="reference internal" href="ros2_actions.html">ROS2 Actions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wmx_r2_message.html">wmx_r2_message</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wmx_r2_package.html">wmx_r2_package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wmx_robot_option.html">wmx_robot_option_node</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wmx_r2_control.html">wmx_r2_control</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wmx3_api.html">The WMX3 API Underneath WMX R2</a></li>
 </ul>
@@ -780,7 +782,7 @@ communicates with servo drives over EtherCAT.</p>
 </div>
 <p>The diagram below shows how the three layers stack and which libraries and buses connect them:</p>
 <figure class="align-default" id="id1">
-<pre data-zoom-id="id-c6258d09-48f0-44d9-9ae3-e20fbc823610" class="mermaid">
+<pre data-zoom-id="id-6a22f8c5-ddd1-4a01-b595-eff6083a7ba3" class="mermaid">
         %%{init: {&quot;theme&quot;: &quot;base&quot;, &quot;themeVariables&quot;: {&quot;primaryColor&quot;: &quot;#1a73e8&quot;, &quot;primaryTextColor&quot;: &quot;#fff&quot;, &quot;primaryBorderColor&quot;: &quot;#1558b0&quot;, &quot;lineColor&quot;: &quot;#555&quot;}}}%%
 flowchart TB
     subgraph L1[&quot;Layer 1: ROS2 DDS&quot;]

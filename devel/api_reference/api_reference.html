@@ -268,6 +268,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator.html">movensys-manipulator</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/trajectory_planning.html">Trajectory Planning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/robot_option_motion.html">Robot Option Motion</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/apriltag_pick_and_place.html">AprilTag Pick-and-Place</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/obstacle_avoidance.html">Nvblox Obstacle Avoidance</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/yolo_pick_and_place.html">YOLO Pick-and-Place</a></li>
@@ -308,6 +309,7 @@
 <li class="toctree-l2"><a class="reference internal" href="ros2_actions.html">ROS2 Actions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wmx_r2_message.html">wmx_r2_message</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wmx_r2_package.html">wmx_r2_package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wmx_robot_option.html">wmx_robot_option_node</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wmx_r2_control.html">wmx_r2_control</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wmx3_api.html">The WMX3 API Underneath WMX R2</a></li>
 </ul>
@@ -414,12 +416,13 @@ document.addEventListener("DOMContentLoaded", function() {
 </thead>
 <tbody>
 <tr class="row-even"><td><p><a class="reference internal" href="wmx_r2_message.html"><span class="doc">wmx_r2_message</span></a></p></td>
-<td><p>One message (<code class="docutils literal notranslate"><span class="pre">AxesStatus</span></code>) and 22 services. Interfaces only — no
+<td><p>Three messages and 28 services. Interfaces only — no
 nodes, and no dependency on the WMX3 SDK.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="wmx_r2_package.html"><span class="doc">wmx_r2_package</span></a></p></td>
-<td><p>The ten nodes that talk to the WMX3 SDK, three launch files, and the
-per-robot example configurations.</p></td>
+<td><p>The eleven nodes that talk to the WMX3 SDK, four launch files, and
+the per-robot example configurations. <a class="reference internal" href="wmx_robot_option.html"><span class="doc">wmx_robot_option_node</span></a> covers
+the Robot Option node on its own page.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="wmx_r2_control.html"><span class="doc">wmx_r2_control</span></a></p></td>
 <td><p>The <code class="docutils literal notranslate"><span class="pre">ros2_control</span></code> hardware interface
@@ -513,6 +516,10 @@ reference ships with the runtime at <code class="docutils literal notranslate"><
 <td><p>yes</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">/cmd_vel_safe</span></code> in; <code class="docutils literal notranslate"><span class="pre">/odom_enc</span></code>, <code class="docutils literal notranslate"><span class="pre">/omega_enc</span></code>, <code class="docutils literal notranslate"><span class="pre">/omega_cmd</span></code> out</p></td>
 </tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">wmx_robot_option_node</span></code></p></td>
+<td><p>yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/wmx/robot/*</span></code> services; publishes <code class="docutils literal notranslate"><span class="pre">/wmx/robot/status</span></code></p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -524,6 +531,7 @@ reference ships with the runtime at <code class="docutils literal notranslate"><
 <li class="toctree-l2"><a class="reference internal" href="ros2_services.html#engine-services">Engine services</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ros2_services.html#lifecycle-services">Lifecycle services</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ros2_services.html#axis-services">Axis services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ros2_services.html#robot-option-services">Robot option services</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ros2_services.html#i-o-services">I/O services</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ros2_services.html#ethercat-services">EtherCAT services</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ros2_services.html#gripper-service">Gripper service</a></li>
@@ -565,10 +573,25 @@ reference ships with the runtime at <code class="docutils literal notranslate"><
 <li class="toctree-l2"><a class="reference internal" href="wmx_r2_package.html#general-nodes">General nodes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wmx_r2_package.html#manipulator-controllers">Manipulator controllers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wmx_r2_package.html#differential-drive-controller">Differential drive controller</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wmx_r2_package.html#robot-option">Robot option</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wmx_r2_package.html#launch-files">Launch files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wmx_r2_package.html#configuration-files">Configuration files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wmx_r2_package.html#building-the-package">Building the package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wmx_r2_package.html#see-also">See also</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="wmx_robot_option.html">wmx_robot_option_node</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="wmx_robot_option.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wmx_robot_option.html#launch">Launch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wmx_robot_option.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wmx_robot_option.html#services">Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wmx_robot_option.html#status-topic">Status topic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wmx_robot_option.html#units-and-conventions">Units and conventions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wmx_robot_option.html#robot-parameter-file">Robot parameter file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wmx_robot_option.html#lifecycle-and-arbitration">Lifecycle and arbitration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wmx_robot_option.html#known-limitations">Known limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wmx_robot_option.html#interface-types">Interface types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wmx_robot_option.html#see-also">See also</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="wmx_r2_control.html">wmx_r2_control</a><ul>

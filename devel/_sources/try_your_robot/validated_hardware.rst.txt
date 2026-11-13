@@ -11,8 +11,8 @@ Hardware Compatibility and Validation
 
    Whether WMX R2 can drive *your* robot today depends on whether the drives
    speak EtherCAT CoE in a supported mode, whether a matching ESI file is
-   installed for them and an EtherCAT Network Information (ENI) file exists
-   for the network, and whether someone has produced and verified a correct
+   installed for them in ``/opt/wmx3/ESI`` and an EtherCAT Network
+   Information (ENI) file for the network is in ``/etc/eni``, and whether someone has produced and verified a correct
    parameter set, URDF, and planning configuration for that specific machine.
 
    The robots below are the ones for which this project ships and has verified
@@ -238,7 +238,8 @@ There is no supported path that consists only of editing configuration. At
 minimum you need:
 
 1. **EtherCAT compatibility.** Drives reachable by the WMX EtherCAT master,
-   with a matching ESI file in ``/opt/wmx3/ESI/`` for each slave, in a
+   with a matching ESI file in ``/opt/wmx3/ESI/`` and an ENI file in
+   ``/etc/eni/`` for each slave, in a
    supported CoE mode (position mode for the manipulators, velocity mode for
    the differential-drive base).
 2. **A parameter file.** Gear ratio numerator and denominator, polarity,

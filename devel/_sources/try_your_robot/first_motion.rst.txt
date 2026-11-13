@@ -337,15 +337,15 @@ controlled stop, still not an emergency stop:
    wros ros2 service call /wmx/axes/set_servo_on wmx_r2_message/srv/SetAxes \
         "{axis: [0,1,2,3,4,5], data: [0,0,0,0,0,0]}"
 
-.. warning:: **Known limitation — ``keyboard_teleop`` forces simulated time.**
+.. note:: **``keyboard_teleop`` and the clock.**
 
-   ``keyboard_teleop`` sets ``use_sim_time`` to ``true`` unconditionally in
-   its node options; there is no launch argument to turn it off. On a physical
-   robot run without a ``/clock`` publisher, the node's clock does not advance,
-   so the timestamps on its jog messages are not real time. Confirm the arm
-   responds as expected in HIL before relying on keyboard jogging on hardware,
-   and prefer the ``/wmx/axes/start_mov`` procedure above for
-   commissioning.
+   ``keyboard_teleop`` reads the standard ``use_sim_time`` parameter, which
+   defaults to ``false``. On a physical robot, run it as is so its jog messages
+   carry wall-clock stamps. Only in Simulation and HIL, where a simulator
+   publishes ``/clock``, pass ``--ros-args -p use_sim_time:=true``. Older
+   ``movensys-manipulator`` builds forced simulated time unconditionally; if the
+   arm ignores keyboard jogs on hardware, update that repository. Either way,
+   prefer the ``/wmx/axes/start_mov`` procedure above for commissioning.
 
 Record what you verified
 --------------------------

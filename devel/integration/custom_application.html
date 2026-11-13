@@ -268,6 +268,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator.html">movensys-manipulator</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/trajectory_planning.html">Trajectory Planning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/robot_option_motion.html">Robot Option Motion</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/apriltag_pick_and_place.html">AprilTag Pick-and-Place</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/obstacle_avoidance.html">Nvblox Obstacle Avoidance</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/yolo_pick_and_place.html">YOLO Pick-and-Place</a></li>
@@ -308,6 +309,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_actions.html">ROS2 Actions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_message.html">wmx_r2_message</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_package.html">wmx_r2_package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_robot_option.html">wmx_robot_option_node</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_control.html">wmx_r2_control</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx3_api.html">The WMX3 API Underneath WMX R2</a></li>
 </ul>
@@ -1102,7 +1104,7 @@ new launch file.</p>
 <tbody>
 <tr class="row-even"><td><p><strong>ENI file</strong></p></td>
 <td><p>Generate it from a scan of your bus with NetConfigurator, so the master
-knows which slaves are on the network. See
+knows which slaves are on the network, and keep it in <code class="docutils literal notranslate"><span class="pre">/etc/eni</span></code>. See
 <a class="reference internal" href="../try_your_robot/wmx_web_tools.html"><span class="doc">WMX Web Tools (WOS, NetConfigurator, MotionScope)</span></a>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>WMX XML parameters</strong> (e.g., <code class="docutils literal notranslate"><span class="pre">new_robot_wmx_parameters.xml</span></code>)</p></td>
@@ -1126,8 +1128,8 @@ gripper values, and topic names</p></td>
 <ol class="arabic">
 <li><p><strong>Describe the network</strong> – Check that a matching ESI file is present in
 <code class="docutils literal notranslate"><span class="pre">/opt/wmx3/ESI/</span></code> for each servo drive; the drive manufacturer supplies it
-and NetConfigurator registers it. Then scan the bus and generate the ENI
-file. See <a class="reference internal" href="../try_your_robot/wmx_web_tools.html"><span class="doc">WMX Web Tools (WOS, NetConfigurator, MotionScope)</span></a>.</p></li>
+and NetConfigurator registers it. Then scan the bus, generate the ENI
+file, and make sure it is in <code class="docutils literal notranslate"><span class="pre">/etc/eni</span></code>. See <a class="reference internal" href="../try_your_robot/wmx_web_tools.html"><span class="doc">WMX Web Tools (WOS, NetConfigurator, MotionScope)</span></a>.</p></li>
 <li><p><strong>Create the WMX parameter file</strong> – Copy <code class="docutils literal notranslate"><span class="pre">cr3a_wmx_parameters.xml</span></code> and
 modify gear ratios, polarities, and encoder settings for your servo drives.
 The gear ratio maps encoder counts to radians:</p>

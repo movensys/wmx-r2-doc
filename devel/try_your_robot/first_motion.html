@@ -268,6 +268,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator.html">movensys-manipulator</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/trajectory_planning.html">Trajectory Planning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/robot_option_motion.html">Robot Option Motion</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/apriltag_pick_and_place.html">AprilTag Pick-and-Place</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/obstacle_avoidance.html">Nvblox Obstacle Avoidance</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/yolo_pick_and_place.html">YOLO Pick-and-Place</a></li>
@@ -308,6 +309,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_actions.html">ROS2 Actions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_message.html">wmx_r2_message</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_package.html">wmx_r2_package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_robot_option.html">wmx_robot_option_node</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_control.html">wmx_r2_control</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx3_api.html">The WMX3 API Underneath WMX R2</a></li>
 </ul>
@@ -786,16 +788,16 @@ controlled stop, still not an emergency stop:</p>
 <span class="w">     </span><span class="s2">"{axis: [0,1,2,3,4,5], data: [0,0,0,0,0,0]}"</span>
 </pre></div>
 </div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p><strong>Known limitation — ``keyboard_teleop`` forces simulated time.</strong></p>
-<p><code class="docutils literal notranslate"><span class="pre">keyboard_teleop</span></code> sets <code class="docutils literal notranslate"><span class="pre">use_sim_time</span></code> to <code class="docutils literal notranslate"><span class="pre">true</span></code> unconditionally in
-its node options; there is no launch argument to turn it off. On a physical
-robot run without a <code class="docutils literal notranslate"><span class="pre">/clock</span></code> publisher, the node’s clock does not advance,
-so the timestamps on its jog messages are not real time. Confirm the arm
-responds as expected in HIL before relying on keyboard jogging on hardware,
-and prefer the <code class="docutils literal notranslate"><span class="pre">/wmx/axes/start_mov</span></code> procedure above for
-commissioning.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>``keyboard_teleop`` and the clock.</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">keyboard_teleop</span></code> reads the standard <code class="docutils literal notranslate"><span class="pre">use_sim_time</span></code> parameter, which
+defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>. On a physical robot, run it as is so its jog messages
+carry wall-clock stamps. Only in Simulation and HIL, where a simulator
+publishes <code class="docutils literal notranslate"><span class="pre">/clock</span></code>, pass <code class="docutils literal notranslate"><span class="pre">--ros-args</span> <span class="pre">-p</span> <span class="pre">use_sim_time:=true</span></code>. Older
+<code class="docutils literal notranslate"><span class="pre">movensys-manipulator</span></code> builds forced simulated time unconditionally; if the
+arm ignores keyboard jogs on hardware, update that repository. Either way,
+prefer the <code class="docutils literal notranslate"><span class="pre">/wmx/axes/start_mov</span></code> procedure above for commissioning.</p>
 </div>
 </section>
 <section id="record-what-you-verified">

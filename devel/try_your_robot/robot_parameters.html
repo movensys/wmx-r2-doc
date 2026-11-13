@@ -268,6 +268,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator.html">movensys-manipulator</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/trajectory_planning.html">Trajectory Planning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/robot_option_motion.html">Robot Option Motion</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/apriltag_pick_and_place.html">AprilTag Pick-and-Place</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/obstacle_avoidance.html">Nvblox Obstacle Avoidance</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/yolo_pick_and_place.html">YOLO Pick-and-Place</a></li>
@@ -308,6 +309,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_actions.html">ROS2 Actions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_message.html">wmx_r2_message</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_package.html">wmx_r2_package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_robot_option.html">wmx_robot_option_node</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_control.html">wmx_r2_control</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx3_api.html">The WMX3 API Underneath WMX R2</a></li>
 </ul>
@@ -431,7 +433,7 @@ launch files take each file as an argument rather than hard-coding it.</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p><strong>1. ENI file</strong></p>
-<p>The EtherCAT network description</p>
+<p><code class="docutils literal notranslate"><span class="pre">/etc/eni/&lt;VendorID&gt;_&lt;ProductCode&gt;.txt</span></code></p>
 </td>
 <td><p>Which slaves are on the bus and how the master communicates with them.</p></td>
 </tr>
@@ -459,12 +461,12 @@ gripper I/O addresses, and the planner and controller settings.</p></td>
 </div>
 <p>The ENI is generated from a scan of the real network by the NetConfigurator
 app in the WMX web gateway; see <a class="reference internal" href="wmx_web_tools.html"><span class="doc">WMX Web Tools (WOS, NetConfigurator, MotionScope)</span></a> for the
-Scan → Quick Create → Start Communication procedure and for where the
-generated ENI is written.</p>
+Scan → Quick Create → Start Communication procedure. The engine reads ENI
+files only from <code class="docutils literal notranslate"><span class="pre">/etc/eni</span></code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><strong>ESI</strong> files are not on this list. They are the device descriptions the
-drive manufacturer supplies, and they are input to ENI generation rather
+drive manufacturer supplies, kept in <code class="docutils literal notranslate"><span class="pre">/opt/wmx3/ESI</span></code>, and they are input to ENI generation rather
 than something you author or edit.</p>
 </div>
 <p>They must agree with each other; nothing in the stack checks that they do.
@@ -589,13 +591,14 @@ the axis gear ratio:</p>
 AxisGearRatioDenominator                 user units per revolution
 </pre></div>
 </div>
-<p>Every shipped parameter file sets:</p>
+<p>The default parameter files — <code class="docutils literal notranslate"><span class="pre">cr3a_wmx_parameters.xml</span></code>,
+<code class="docutils literal notranslate"><span class="pre">cr5a_wmx_parameters.xml</span></code> and <code class="docutils literal notranslate"><span class="pre">diffbot_wmx_parameters.xml</span></code> — set:</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;AxisGearRatioDenominator&gt;</span>6.283185307179586<span class="nt">&lt;/AxisGearRatioDenominator&gt;</span>
 </pre></div>
 </div>
 <p>That denominator is 2π, which makes <strong>one WMX user unit equal to one radian</strong>.
-This is the only reason the ROS 2 interface can pass positions straight
-through: <code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code> publishes <code class="docutils literal notranslate"><span class="pre">actualPos</span></code> into
+This is why the ROS 2 interface can pass positions straight through by
+default: <code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code> publishes <code class="docutils literal notranslate"><span class="pre">actualPos</span></code> into
 <code class="docutils literal notranslate"><span class="pre">/joint_states</span></code> with no scaling, <code class="docutils literal notranslate"><span class="pre">/wmx/axes/start_pos</span></code> targets are
 consumed as radians, and <code class="docutils literal notranslate"><span class="pre">joint_trajectory_controller</span></code> writes goal positions
 straight into the WMX C-spline.</p>
@@ -606,14 +609,59 @@ are a <em>consequence</em> of <code class="docutils literal notranslate"><span c
 the software. If you author a parameter file with a different denominator,
 every position, velocity, and acceleration on every WMX topic and service
 silently changes units, and the joint states published to MoveIt or Nav2
-become wrong by that factor.</p>
+become wrong by that factor — unless you declare the new unit to the ROS
+nodes, as described next.</p>
 </div>
+<section id="degree-and-rpm-axes">
+<span id="other-axis-units"></span><h3>Degree and rpm axes<a class="headerlink" href="#degree-and-rpm-axes" title="Link to this heading">#</a></h3>
+<p>Some stacks need axes scaled in something other than radians. The package
+ships two such variants, and the ROS nodes convert back to radians at the WMX
+boundary so every ROS topic stays in rad and rad/s:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 14.0%" />
+<col style="width: 56.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter file</p></th>
+<th class="head"><p>Denominator</p></th>
+<th class="head"><p>Declared to the ROS nodes with</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cr3a_wmx_parameters_deg.xml</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">360</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">degree_to_radian_axes:</span> <span class="pre">[0,</span> <span class="pre">1,</span> <span class="pre">2,</span> <span class="pre">3,</span> <span class="pre">4,</span> <span class="pre">5]</span></code> on
+<code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code>. Required by the WMX3 Robot Option, which
+only runs on degree/mm axes — see
+<a class="reference internal" href="../api_reference/wmx_robot_option.html"><span class="doc">wmx_robot_option_node</span></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">diffbot_wmx_parameters_rpm.xml</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">60</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wheel_velocity_unit:</span> <span class="pre">&quot;rpm&quot;</span></code> on <code class="docutils literal notranslate"><span class="pre">differential_drive_controller</span></code>
+and <code class="docutils literal notranslate"><span class="pre">rpm_to_radian_axes:</span> <span class="pre">[0,</span> <span class="pre">1]</span></code> on <code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code>.
+An axis velocity of <code class="docutils literal notranslate"><span class="pre">1.0</span></code> is 1 rpm; <code class="docutils literal notranslate"><span class="pre">60.0</span></code> user units are one
+revolution.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Each XML has a matching YAML that sets those parameters:
+<code class="docutils literal notranslate"><span class="pre">cr3a_robot_option_config.yaml</span></code> and <code class="docutils literal notranslate"><span class="pre">diffbot_differential_config_rpm.yaml</span></code>.
+Pair them; mixing a <code class="docutils literal notranslate"><span class="pre">_deg</span></code> or <code class="docutils literal notranslate"><span class="pre">_rpm</span></code> XML with a radian YAML is exactly the
+silent unit error described above.</p>
+<p>The conversion covers <code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code> output and
+<code class="docutils literal notranslate"><span class="pre">differential_drive_controller</span></code>. <code class="docutils literal notranslate"><span class="pre">joint_trajectory_controller</span></code> and
+<code class="docutils literal notranslate"><span class="pre">joint_position_controller</span></code> have no unit parameter, so the MoveIt2 stack must
+keep running on the 2π files.</p>
 <p>The numerator is the number of encoder counts in one full revolution of the
 <strong>joint output</strong>, which is the motor encoder resolution multiplied by the gear
 ratio:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>AxisGearRatioNumerator = encoder counts per motor revolution × gear ratio
 </pre></div>
 </div>
+</section>
 </section>
 <section id="gear-ratios-and-encoder-resolution-shipped-values">
 <h2>Gear ratios and encoder resolution — shipped values<a class="headerlink" href="#gear-ratios-and-encoder-resolution-shipped-values" title="Link to this heading">#</a></h2>
@@ -691,8 +739,11 @@ motion that is wrong by roughly two orders of magnitude.</p>
 <section id="joint-direction-and-sign-conventions">
 <h2>Joint direction and sign conventions<a class="headerlink" href="#joint-direction-and-sign-conventions" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">AxisPolarity</span></code> inverts the direction of both the command and the feedback
-for one axis. It takes <code class="docutils literal notranslate"><span class="pre">+1</span></code> or <code class="docutils literal notranslate"><span class="pre">-1</span></code>. The shipped values differ per robot
-because the motors are mounted in different orientations:</p>
+for one axis. It takes <code class="docutils literal notranslate"><span class="pre">+1</span></code> or <code class="docutils literal notranslate"><span class="pre">-1</span></code>. The two arms share one pattern,
+with axis 2 the only non-inverted joint; the base differs because its motors
+are mounted in a different orientation. The <code class="docutils literal notranslate"><span class="pre">_deg</span></code> and <code class="docutils literal notranslate"><span class="pre">_rpm</span></code> variants
+described in <a class="reference internal" href="#other-axis-units"><span class="std std-ref">Degree and rpm axes</span></a> carry the same polarity as the file they
+derive from:</p>
 <div class="pst-scrollable-table-container"><table class="table" id="id3">
 <caption><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">AxisPolarity</span></code> by axis</span><a class="headerlink" href="#id3" title="Link to this table">#</a></caption>
 <colgroup>
@@ -724,12 +775,12 @@ because the motors are mounted in different orientations:</p>
 <td><p>−1</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">cr5a_wmx_parameters.xml</span></code></p></td>
+<td><p>−1</p></td>
+<td><p>−1</p></td>
 <td><p>+1</p></td>
-<td><p>+1</p></td>
-<td><p>+1</p></td>
-<td><p>+1</p></td>
-<td><p>+1</p></td>
-<td><p>+1</p></td>
+<td><p>−1</p></td>
+<td><p>−1</p></td>
+<td><p>−1</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">diffbot_wmx_parameters.xml</span></code></p></td>
 <td><p>−1</p></td>
@@ -894,8 +945,7 @@ trusting any axis index:</p>
 Information (ESI) files installed with the WMX Runtime at <code class="docutils literal notranslate"><span class="pre">/opt/wmx3/ESI/</span></code>,
 and the network as a whole is described by the EtherCAT Network Information
 (ENI) file, generated from a scan by <strong>NetConfigurator → ENI File →
-Quick Create</strong> and written to the folder named by that app’s <strong>Eni Folder</strong>
-setting (see <a class="reference internal" href="wmx_web_tools.html"><span class="doc">WMX Web Tools (WOS, NetConfigurator, MotionScope)</span></a>). A
+Quick Create</strong> and kept in <code class="docutils literal notranslate"><span class="pre">/etc/eni</span></code> (see <a class="reference internal" href="wmx_web_tools.html"><span class="doc">WMX Web Tools (WOS, NetConfigurator, MotionScope)</span></a>). A
 drive with no matching ESI file will fail the scan, and a chain that is
 re-cabled in a different order shifts every axis index after the change —
 silently, from ROS 2’s point of view.</p>

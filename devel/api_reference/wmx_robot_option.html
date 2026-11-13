@@ -1,0 +1,1612 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>wmx_robot_option_node &#8212; WMX R2 Documentation 1.0.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=bcda8ffe" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
+
+    <script src="../_static/documentation_options.js?v=8d563738"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs";
+
+
+
+
+
+const initStyles = () => {
+    const defaultStyle = document.createElement('style');
+    defaultStyle.textContent = "pre.mermaid {\n    /* Same as .mermaid-container > pre */\n    display: block;\n    width: 100%;\n}\n\npre.mermaid > svg {\n    /* Same as .mermaid-container > pre > svg */\n    height: 500px;\n    width: 100%;\n    max-width: 100% !important;\n}";
+    document.head.appendChild(defaultStyle);
+
+    const fullscreenStyle = document.createElement('style');
+    fullscreenStyle.textContent = ".mermaid-container {\n    position: relative;\n    display: flex;\n    flex-direction: row;\n    width: 100%;\n}\n\n.mermaid-container > pre {\n    display: block;\n    width: 100%;\n}\n\n.mermaid-container > pre > svg {\n    height: 500px;\n    width: 100%;\n    max-width: 100% !important;\n}\n\n.mermaid-fullscreen-btn {\n    position: absolute;\n    width: 28px;\n    height: 28px;\n    background: rgba(255, 255, 255, 0.95);\n    border: 1px solid rgba(0, 0, 0, 0.3);\n    border-radius: 4px;\n    cursor: pointer;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    transition: all 0.2s;\n    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);\n    font-size: 14px;\n    line-height: 1;\n    padding: 0;\n    color: #333;\n}\n\n.mermaid-fullscreen-btn:hover {\n    opacity: 100% !important;\n    background: rgba(255, 255, 255, 1);\n    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);\n    transform: scale(1.1);\n}\n\n.mermaid-fullscreen-btn.dark-theme {\n    background: rgba(50, 50, 50, 0.95);\n    border: 1px solid rgba(255, 255, 255, 0.3);\n    color: #e0e0e0;\n}\n\n.mermaid-fullscreen-btn.dark-theme:hover {\n    background: rgba(60, 60, 60, 1);\n    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.2);\n}\n\n.mermaid-fullscreen-modal {\n    display: none;\n    position: fixed !important;\n    top: 0 !important;\n    left: 0 !important;\n    width: 95vw;\n    height: 100vh;\n    background: rgba(255, 255, 255, 0.98);\n    z-index: 9999;\n    padding: 20px;\n    overflow: auto;\n}\n\n.mermaid-fullscreen-modal.dark-theme {\n    background: rgba(0, 0, 0, 0.98);\n}\n\n.mermaid-fullscreen-modal.active {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.mermaid-container-fullscreen {\n    position: relative;\n    width: 95vw;\n    height: 90vh;\n    max-width: 95vw;\n    max-height: 90vh;\n    background: white;\n    border-radius: 8px;\n    padding: 20px;\n    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);\n    overflow: auto;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.mermaid-container-fullscreen.dark-theme {\n    background: #1a1a1a;\n    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);\n}\n\n.mermaid-container-fullscreen pre.mermaid {\n    width: 100%;\n    height: 100%;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.mermaid-container-fullscreen .mermaid svg {\n    height: 100% !important;\n    width: 100% !important;\n    cursor: grab;\n}\n\n.mermaid-fullscreen-close {\n    position: fixed !important;\n    top: 20px !important;\n    right: 20px !important;\n    width: 40px;\n    height: 40px;\n    background: rgba(255, 255, 255, 0.95);\n    border: 1px solid rgba(0, 0, 0, 0.2);\n    border-radius: 50%;\n    cursor: pointer;\n    z-index: 10000;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);\n    transition: all 0.2s;\n    font-size: 24px;\n    line-height: 1;\n    color: #333;\n}\n\n.mermaid-fullscreen-close:hover {\n    background: white;\n    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);\n    transform: scale(1.1);\n}\n\n.mermaid-fullscreen-close.dark-theme {\n    background: rgba(50, 50, 50, 0.95);\n    border: 1px solid rgba(255, 255, 255, 0.2);\n    color: #e0e0e0;\n}\n\n.mermaid-fullscreen-close.dark-theme:hover {\n    background: rgba(60, 60, 60, 1);\n    box-shadow: 0 6px 16px rgba(255, 255, 255, 0.2);\n}\n\n.mermaid-fullscreen-modal .mermaid-fullscreen-btn {\n    display: none !important;\n}";
+    document.head.appendChild(fullscreenStyle);
+}
+
+// Detect if page has dark background
+const isDarkTheme = () => {
+    // We use a set of heuristics:
+    // 1. Check for common dark mode classes or attributes
+    // 2. Check computed background color brightness
+    if (document.documentElement.classList.contains('dark') ||
+        document.documentElement.getAttribute('data-theme') === 'dark' ||
+        document.body.classList.contains('dark') ||
+        document.body.getAttribute('data-theme') === 'dark') {
+        // console.log("Dark theme detected via class/attribute");
+        return true;
+    }
+    if (document.documentElement.classList.contains('light') ||
+        document.documentElement.getAttribute('data-theme') === 'light' ||
+        document.body.classList.contains('light') ||
+        document.body.getAttribute('data-theme') === 'light') {
+        // console.log("Light theme detected via class/attribute");
+        return false;
+    }
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        // console.log("Dark theme detected via prefers-color-scheme");
+        return true;
+    }
+    const bgColor = window.getComputedStyle(document.body).backgroundColor;
+    const match = bgColor.match(/rgb\((\d+),\s*(\d+),\s*(\d+)/);
+    if (match) {
+        const r = parseInt(match[1]);
+        const g = parseInt(match[2]);
+        const b = parseInt(match[3]);
+        const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+        // console.log("Background color brightness:", brightness);
+        return brightness < 128;
+    }
+    // console.log("No dark or light theme detected, defaulting to light theme");
+    return false;
+};
+
+let darkTheme = isDarkTheme();
+let modal = null;
+let modalContent = null;
+let previousScrollOffset = [window.scrollX, window.scrollY];
+let _lazyObserver = null;
+let _renderQueue = Promise.resolve();
+let closeModal = () => {};
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal?.classList.contains('active')) {
+        closeModal();
+    }
+});
+
+// Apply d3 zoom to each SVG. Idempotent: an SVG already wrapped is skipped,
+// so this is safe to call both for the initial batch and for diagrams that
+// render lazily once they become visible.
+const addZoomToSvgs = (svgs) => {
+    svgs.each(function() {
+        if (this.getAttribute('data-zoom-applied') === 'true') return;
+        var svg = d3.select(this);
+        svg.html("<g class='wrapper'>" + svg.html() + "</g>");
+        var inner = svg.select("g");
+        var zoom = d3.zoom().on("zoom", function(event) {
+            inner.attr("transform", event.transform);
+        });
+        svg.call(zoom);
+        this.setAttribute('data-zoom-applied', 'true');
+    });
+};
+
+const runMermaid = async (rerun) => {
+    console.log("Running mermaid diagrams, rerun =", rerun);
+    // clear all existing mermaid charts
+    let all_mermaids = document.querySelectorAll(".mermaid");
+
+    if (rerun) {
+        // Disconnect any previous lazy rendering observer
+        if (_lazyObserver) {
+            _lazyObserver.disconnect();
+            _lazyObserver = null;
+        }
+
+        all_mermaids.forEach((el) => {
+            el.removeAttribute('data-mermaid-deferred');
+            el.removeAttribute('data-mermaid-render-failed');
+            if(!el.hasAttribute("data-original-code")) {
+                // store original code
+                // console.log(`Storing original code for first run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+            if(el.getAttribute("data-processed") === "true") {
+                // remove and restore original
+                el.removeAttribute("data-processed");
+                // console.log(`Restoring original code for re-run: `, el.getAttribute('data-original-code'));
+                el.innerHTML = el.getAttribute('data-original-code');
+            } else {
+                // store original code
+                // console.log(`Storing original code for re-run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+        });
+
+        // Separate visible and hidden elements. Mermaid's layout engine measures
+        // text dimensions via the DOM, which fails for elements hidden by a parent
+        // (e.g., Reveal.js non-active slides, sphinx-design unopened tabs),
+        // producing broken SVGs. Render visible elements now, defer hidden ones.
+        const visible = [];
+        const hidden = [];
+        all_mermaids.forEach((el) => {
+            // offsetParent is null for display:none ancestors.
+            // getClientRects().length > 0 catches position:fixed elements
+            // (which also have null offsetParent but are still visible).
+            if (el.offsetParent !== null || el.getClientRects().length > 0) {
+                visible.push(el);
+            } else {
+                hidden.push(el);
+                el.setAttribute('data-mermaid-deferred', 'true');
+            }
+        });
+
+        if (visible.length > 0) {
+            try {
+                await mermaid.run({ nodes: visible });
+            } catch (e) {
+                console.error("Mermaid rendering failed:", e);
+            }
+        }
+
+        // Lazily render hidden elements when they become visible.
+        // Uses a promise chain (_renderQueue) to serialize rendering,
+        // since IntersectionObserver may report multiple entries at once
+        // and mermaid.run() is not safe to call concurrently.
+        if (hidden.length > 0) {
+            if (typeof IntersectionObserver === 'undefined') {
+                console.warn("IntersectionObserver not available; hidden mermaid diagrams will not render.");
+            } else {
+                _renderQueue = Promise.resolve();
+                _lazyObserver = new IntersectionObserver((entries) => {
+                    for (const entry of entries) {
+                        if (entry.isIntersecting && entry.target.getAttribute("data-processed") !== "true") {
+                            _lazyObserver.unobserve(entry.target);
+                            const el = entry.target;
+                            _renderQueue = _renderQueue.then(async () => {
+                                try {
+                                    await mermaid.run({ nodes: [el] });
+                                    el.removeAttribute('data-mermaid-deferred');
+                                    // Apply zoom to the now-rendered diagram, matching
+                                    // the decoration visible diagrams receive.
+                                    if (false) {
+                                        addZoomToSvgs(d3.selectAll("").select(function() {
+                                            return this.querySelector("svg");
+                                        }));
+                                    }
+                                } catch (e) {
+                                    console.error("Mermaid deferred rendering failed:", e);
+                                    el.removeAttribute('data-mermaid-deferred');
+                                    el.setAttribute('data-mermaid-render-failed', 'true');
+                                }
+                            });
+                        }
+                    }
+                });
+                hidden.forEach((el) => _lazyObserver.observe(el));
+            }
+        }
+    }
+
+    all_mermaids = document.querySelectorAll(".mermaid");
+    // Exclude deferred (hidden) and render-failed elements from completion checks
+    const mermaids_active = document.querySelectorAll(".mermaid:not([data-mermaid-deferred]):not([data-mermaid-render-failed])");
+    const mermaids_processed = document.querySelectorAll(".mermaid:not([data-mermaid-deferred]):not([data-mermaid-render-failed])[data-processed='true']");
+
+    if (false) {
+        const mermaids_to_add_zoom = 0 === -1 ? mermaids_active.length : 0;
+        if(mermaids_to_add_zoom > 0) {
+            var svgs = d3.selectAll("").select(function() {
+                return this.querySelector("svg");
+            });
+            // Wait until every active (visible) diagram has rendered. Deferred
+            // diagrams are excluded, so a fixed d3_node_count that counts a
+            // hidden diagram no longer loops forever waiting for its SVG.
+            if(mermaids_active.length !== mermaids_processed.length) {
+                setTimeout(() => runMermaid(false), 200);
+                return;
+            }
+            addZoomToSvgs(svgs);
+        }
+    } else if(mermaids_active.length !== mermaids_processed.length) {
+        // Wait for mermaid to process all diagrams
+        setTimeout(() => runMermaid(false), 200);
+        return;
+    }
+
+    // Stop here if not adding fullscreen capability
+    if (!true) return;
+
+    if (modal !== null ) {
+        // Destroy existing modal
+        modal.remove();
+        modal = null;
+        modalContent = null;
+    }
+
+    modal = document.createElement('div');
+    modal.className = 'mermaid-fullscreen-modal' + (darkTheme ? ' dark-theme' : '');
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-label', 'Fullscreen diagram viewer');
+    modal.innerHTML = `
+        <button class="mermaid-fullscreen-close${darkTheme ? ' dark-theme' : ''}" aria-label="Close fullscreen">✕</button>
+        <div class="mermaid-container-fullscreen${darkTheme ? ' dark-theme' : ''}"></div>
+    `;
+    document.body.appendChild(modal);
+
+    modalContent = modal.querySelector('.mermaid-container-fullscreen');
+    const closeBtn = modal.querySelector('.mermaid-fullscreen-close');
+
+    closeModal = () => {
+        modal.classList.remove('active');
+        modalContent.innerHTML = '';
+        document.body.style.overflow = ''
+        window.scrollTo({left: previousScrollOffset[0], top: previousScrollOffset[1], behavior: 'instant'});
+    };
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    document.querySelectorAll('.mermaid').forEach((mermaidDiv) => {
+        if (mermaidDiv.parentNode.classList.contains('mermaid-container') ||
+            mermaidDiv.closest('.mermaid-fullscreen-modal')) {
+            // Already processed, adjust button class if needed
+            const existingBtn = mermaidDiv.parentNode.querySelector('.mermaid-fullscreen-btn');
+            if (existingBtn) {
+                existingBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+            }
+            return;
+        }
+
+        const container = document.createElement('div');
+        container.className = 'mermaid-container';
+        mermaidDiv.parentNode.insertBefore(container, mermaidDiv);
+        container.appendChild(mermaidDiv);
+
+        const fullscreenBtn = document.createElement('button');
+        fullscreenBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+        fullscreenBtn.setAttribute('aria-label', 'View diagram in fullscreen');
+        fullscreenBtn.textContent = "\u26f6";
+        fullscreenBtn.style.opacity = "50%";
+
+        // Calculate dynamic position based on diagram's margin and padding
+        const diagramStyle = window.getComputedStyle(mermaidDiv);
+        const marginTop = parseFloat(diagramStyle.marginTop) || 0;
+        const marginRight = parseFloat(diagramStyle.marginRight) || 0;
+        const paddingTop = parseFloat(diagramStyle.paddingTop) || 0;
+        const paddingRight = parseFloat(diagramStyle.paddingRight) || 0;
+        fullscreenBtn.style.top = `${marginTop + paddingTop + 4}px`;
+        fullscreenBtn.style.right = `${marginRight + paddingRight + 4}px`;
+
+        fullscreenBtn.addEventListener('click', () => {
+            previousScrollOffset = [window.scrollX, window.scrollY];
+            const clone = mermaidDiv.cloneNode(true);
+            modalContent.innerHTML = '';
+            modalContent.appendChild(clone);
+
+            const svg = clone.querySelector('svg');
+            if (svg) {
+                svg.removeAttribute('width');
+                svg.removeAttribute('height');
+                svg.style.width = '100%';
+                svg.style.height = 'auto';
+                svg.style.maxWidth = '100%';
+                svg.style.display = 'block';
+
+                if (false) {
+                    setTimeout(() => {
+                        const g = svg.querySelector('g');
+                        if (g) {
+                            var svgD3 = d3.select(svg);
+                            svgD3.html("<g class='wrapper'>" + svgD3.html() + "</g>");
+                            var inner = svgD3.select("g");
+                            var zoom = d3.zoom().on("zoom", function(event) {
+                                inner.attr("transform", event.transform);
+                            });
+                            svgD3.call(zoom);
+                        }
+                    }, 100);
+                }
+            }
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        container.appendChild(fullscreenBtn);
+    });
+};
+
+
+
+const load = async () => {
+    initStyles();
+
+
+    await runMermaid(true);
+
+    const reRunIfThemeChanges = async () => {
+        const newDarkTheme = isDarkTheme();
+        if (newDarkTheme !== darkTheme) {
+            darkTheme = newDarkTheme;
+            console.log("Theme change detected, re-running mermaid with", darkTheme ? "dark" : "default", "theme");
+            await mermaid.initialize(
+                {...{"startOnLoad": false, "flowchart": {"useMaxWidth": false}, "sequence": {"useMaxWidth": false}},
+                ...{ darkMode: darkTheme, theme: darkTheme ? "dark" : "default" },
+                }
+            );
+            await runMermaid(true);
+        }
+    };
+
+    // Update theme classes when theme changes
+    const themeObserver = new MutationObserver(reRunIfThemeChanges);
+    themeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+    themeObserver.observe(document.body, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+};
+
+
+
+
+
+console.log("Initializing mermaid with", darkTheme ? "dark" : "default", "theme");
+mermaid.initialize(
+    {...{"startOnLoad": false, "flowchart": {"useMaxWidth": false}, "sequence": {"useMaxWidth": false}},
+    ...{ darkMode: darkTheme, theme: darkTheme ? "dark" : "default" },
+    }
+);
+
+window.addEventListener("load", load);
+window.runMermaid = runMermaid;</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api_reference/wmx_robot_option';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/toc-sidebar.js?v=ae5e43d1"></script>
+    <link rel="icon" href="../_static/movensys_logo.png"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="wmx_r2_control" href="wmx_r2_control.html" />
+    <link rel="prev" title="wmx_r2_package" href="wmx_r2_package.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="Nov 13, 2026"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+<script>
+  try {
+    if (localStorage.getItem("toc-hidden") === "1") {
+      document.documentElement.classList.add("toc-hidden");
+    }
+    var tocWidth = localStorage.getItem("toc-width");
+    if (tocWidth) {
+      document.documentElement.style.setProperty("--toc-width", tocWidth);
+    }
+  } catch (e) {}
+</script>
+  </head>
+  <body data-default-mode="light">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../_static/movensys_logo.png" class="logo__image only-light" alt=""/>
+    <img src="../_static/movensys_logo.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">WMX R2 Documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/movensys/wmx-r2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/movensys/wmx-r2-doc" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item"><div class="sidebar-toc-header">
+  <p class="sidebar-toc-title">Table of Contents</p>
+  <p class="sidebar-toc-subtitle">Contents</p>
+</div></div>
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links" aria-label="Section Navigation">
+  <div class="bd-toc-item navbar-nav">
+    <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/computer_setup.html">Computer Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx_runtime.html">Install WMX Runtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/install_wmx3.html">Install WMX R2 Package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/examples.html">Example Applications</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/testing_wmx_r2.html">Testing WMX R2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/isaacsim_setup.html">NVIDIA Isaac Setup (Optional)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator.html">movensys-manipulator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/trajectory_planning.html">Trajectory Planning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/robot_option_motion.html">Robot Option Motion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/apriltag_pick_and_place.html">AprilTag Pick-and-Place</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/obstacle_avoidance.html">Nvblox Obstacle Avoidance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/yolo_pick_and_place.html">YOLO Pick-and-Place</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/apriltag_obstacle_avoidance.html">AprilTag + Obstacle Avoidance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/robopoly_game.html">Robopoly Game (VLM / LLM)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/movensys_navigation.html">movensys-navigation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples/movensys_navigation_setup.html">movensys-navigation Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/manual_driving.html">Manual Driving</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/slam_mapping.html">SLAM Mapping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/autonomous_navigation.html">Autonomous Navigation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../try_your_robot/index.html">Try Your Robot</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/wmx_web_tools.html">WMX Web Tools (WOS, NetConfigurator, MotionScope)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/robot_parameters.html">Robot Parameter Configuration and Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/first_motion.html">First Motion on Hardware</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/safety.html">Safety Functions and Responsibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../try_your_robot/validated_hardware.html">Hardware Compatibility and Validation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../integration/integration.html">Integration Scenarios</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../integration/moveit2_integration.html">MoveIt2 Motion Planning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/cumotion_integration.html">Isaac cuMotion Accelerated Planning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/nav2_integration.html">Nav2 Navigation (Mobile Base)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/custom_planner.html">Custom Planner Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/custom_application.html">Building Custom Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration/intelligence_integration.html">Natural-Language and Vision Control (VLM / LLM)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="api_reference.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="communication.html">Communication Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ros2_services.html">ROS2 Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ros2_topics.html">ROS2 Topics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ros2_actions.html">ROS2 Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wmx_r2_message.html">wmx_r2_message</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wmx_r2_package.html">wmx_r2_package</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">wmx_robot_option_node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wmx_r2_control.html">wmx_r2_control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wmx3_api.html">The WMX3 API Underneath WMX R2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../support.html">Support</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../licensing.html">Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About Us</a></li>
+</ul>
+
+  </div>
+</nav>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var navItems = document.querySelectorAll(".bd-docs-nav li");
+  navItems.forEach(function(li) {
+    var subList = li.querySelector(":scope > ul");
+    if (subList) {
+      var toggle = document.createElement("span");
+      toggle.className = "toc-toggle";
+      var isCurrent = li.classList.contains("current");
+      toggle.textContent = isCurrent ? "−" : "+";
+      if (!isCurrent) {
+        subList.classList.add("toc-collapsed");
+      }
+      toggle.addEventListener("click", function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        subList.classList.toggle("toc-collapsed");
+        toggle.textContent = subList.classList.contains("toc-collapsed") ? "+" : "−";
+      });
+      li.style.position = "relative";
+      var link = li.querySelector(":scope > a");
+      if (link) {
+        link.after(toggle);
+      }
+    }
+  });
+});
+</script></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="api_reference.html" class="nav-link">API Reference</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">wmx_robot_option_node</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="wmx-robot-option-node">
+<h1>wmx_robot_option_node<a class="headerlink" href="#wmx-robot-option-node" title="Link to this heading">#</a></h1>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">wmx_robot_option_node</span></code> (<code class="docutils literal notranslate"><span class="pre">wmx_r2_package/src/wmx_robot_option_node.cpp</span></code>)
+is a lifecycle node that exposes the <strong>WMX3 Robot Option</strong>: the
+kinematics and robot-motion layer (<code class="docutils literal notranslate"><span class="pre">KinematicsApi</span></code>, <code class="docutils literal notranslate"><span class="pre">RobotMotionApi</span></code>,
+<code class="docutils literal notranslate"><span class="pre">CoordinateApi</span></code>) that sits above CoreMotion.</p>
+<p>Where <code class="docutils literal notranslate"><span class="pre">wmx_core_motion_node</span></code> commands axes one by one, this node commands
+the robot as a whole. The WMX3 kinematics engine turns a joint target or a
+tool pose into coordinated axis motion, as a point-to-point (PTP) move or a
+straight-line tool path. Both nodes drive the same axes, so only one of them
+may drive at a time; see <a class="reference internal" href="#arbitration">Arbitration</a>.</p>
+<figure class="align-default" id="id1">
+<pre  class="mermaid">
+        flowchart LR
+    SRP[&quot;set_robot_param&lt;br/&gt;&lt;i&gt;XML / URDF&lt;/i&gt;&quot;] --&gt; RON
+    SM[&quot;start_motion&lt;br/&gt;&lt;i&gt;ptp / line&lt;/i&gt;&quot;] --&gt; RON
+    STOP[&quot;stop_motion&lt;br/&gt;e_stop / release_e_stop&quot;] --&gt; RON
+    TC[&quot;set / get_tool_coordinate&quot;] --&gt; RON
+    RON[&quot;wmx_robot_option_node&lt;br/&gt;&lt;i&gt;lifecycle, one robot, tool 0&lt;/i&gt;&quot;]
+    RON --&gt;|SetRobotParam| KIN[&quot;WMX3 Kinematics&quot;]
+    RON --&gt;|StartPTPPos / StartMotion| KIN
+    RON --&gt;|UpdateRobotStatus &#64; rate| ST[&quot;/wmx/robot/status&quot;]
+    </pre><figcaption>
+<p><span class="caption-text">wmx_robot_option_node</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The Robot Option runs <strong>free in renewable 6-hour sessions</strong>, the same as
+the WMX engine: restarting the engine starts a new session, and a
+commercial license removes the time limit. See <a class="reference internal" href="../licensing.html"><span class="doc">Licensing</span></a>.</p>
+<p>This node speaks WMX3 poses over services. It does <strong>not</strong> serve
+<code class="docutils literal notranslate"><span class="pre">FollowJointTrajectory</span></code> and is not a MoveIt2 backend; for MoveIt2 use
+<code class="docutils literal notranslate"><span class="pre">wmx_r2_manipulator.launch.py</span></code>. See <a class="reference internal" href="wmx_r2_package.html"><span class="doc">wmx_r2_package</span></a>.</p>
+</div>
+</section>
+<section id="launch">
+<h2>Launch<a class="headerlink" href="#launch" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">wmx_r2_robot_option.launch.py</span></code> starts the general nodes plus
+<code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code> and <code class="docutils literal notranslate"><span class="pre">wmx_robot_option_node</span></code>. The broadcaster
+is required: it clears the amp alarms and switches the servos on at
+activation, and it publishes <code class="docutils literal notranslate"><span class="pre">/joint_states</span></code>. The robot option node does
+neither.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>wmx_r2_package<span class="w"> </span>wmx_r2_robot_option.launch.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>use_sim_time:<span class="o">=</span><span class="nb">false</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s1">'config_file:=$(ros2 pkg prefix --share wmx_r2_package)/example/cr3a_robot_option_config.yaml'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s1">'wmx_param_file:=$(ros2 pkg prefix --share wmx_r2_package)/example/cr3a_wmx_parameters_deg.xml'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s1">'robot_param_file:=$(ros2 pkg prefix --share wmx_r2_package)/example/cr3a_robot_option_parameters.xml'</span>
+</pre></div>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 22.0%" />
+<col style="width: 22.0%" />
+<col style="width: 56.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">use_sim_time</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+<td><p>Use the simulation clock</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">config_file</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">config/wmx_r2_robot_option_config.yaml</span></code></p></td>
+<td><p>YAML with the general-node, broadcaster and robot option parameters.
+That default file is not shipped, so always pass one — for example
+<code class="docutils literal notranslate"><span class="pre">example/cr3a_robot_option_config.yaml</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">wmx_param_file</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code></p></td>
+<td><p>WMX3 <strong>axis</strong> parameter XML imported at engine start</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">robot_param_file</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code></p></td>
+<td><p><strong>Robot</strong> parameter XML or URDF registered at <code class="docutils literal notranslate"><span class="pre">configure</span></code>. Overrides
+the YAML value; empty leaves the node waiting for
+<code class="docutils literal notranslate"><span class="pre">/wmx/robot/set_robot_param</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>The axes must be scaled in degree/mm.</strong></p>
+<p>The WMX3 SDK states it in <code class="docutils literal notranslate"><span class="pre">RobotMotionParam</span></code>: <em>“WMX User unit must be
+degree / mm unit.”</em> The robot module does no unit conversion; the joint
+values it computes go to the axes as user units. On a radian-scaled axis
+every move is 57.3 times too large, and the joint limits, being degree
+figures, never catch it.</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">cr3a_wmx_parameters_deg.xml</span></code> (<code class="docutils literal notranslate"><span class="pre">AxisGearRatioDenominator</span></code> 360),
+<strong>not</strong> <code class="docutils literal notranslate"><span class="pre">cr3a_wmx_parameters.xml</span></code> (2π), which is for the MoveIt2 stack.
+<code class="docutils literal notranslate"><span class="pre">cr3a_robot_option_config.yaml</span></code> then sets
+<code class="docutils literal notranslate"><span class="pre">degree_to_radian_axes:</span> <span class="pre">[0,</span> <span class="pre">1,</span> <span class="pre">2,</span> <span class="pre">3,</span> <span class="pre">4,</span> <span class="pre">5]</span></code> on
+<code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code> so <code class="docutils literal notranslate"><span class="pre">/joint_states</span></code>, Isaac Sim and Gazebo
+still receive radians. See <a class="reference internal" href="../try_your_robot/robot_parameters.html#other-axis-units"><span class="std std-ref">Degree and rpm axes</span></a>.</p>
+</div>
+</section>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 24.0%" />
+<col style="width: 12.0%" />
+<col style="width: 64.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">robot_param_file</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code></p></td>
+<td><p>Absolute path to the robot parameter file, read once at
+<code class="docutils literal notranslate"><span class="pre">on_configure</span></code>. A <code class="docutils literal notranslate"><span class="pre">.urdf</span></code> suffix (any case) selects
+<code class="docutils literal notranslate"><span class="pre">ImportParamURDF</span></code>, anything else <code class="docutils literal notranslate"><span class="pre">ImportParamXML</span></code>. Empty logs a
+warning and configures anyway.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">robot_status_rate</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">10</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/wmx/robot/status</span></code> rate in Hz. Values <code class="docutils literal notranslate"><span class="pre">&lt;=</span> <span class="pre">0</span></code> fall back to 10.
+The CR3A example sets <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>An XML file takes its robot id from its own <code class="docutils literal notranslate"><span class="pre">&lt;Robot</span> <span class="pre">ID=&quot;...&quot;&gt;</span></code>. A URDF has
+no id, so one registered at configure gets id <code class="docutils literal notranslate"><span class="pre">0</span></code>; register a URDF under
+another id at runtime through the <code class="docutils literal notranslate"><span class="pre">robot_id</span></code> field of
+<code class="docutils literal notranslate"><span class="pre">set_robot_param</span></code>. Parameters are read once in the constructor; set them in
+the YAML.</p>
+</section>
+<section id="services">
+<h2>Services<a class="headerlink" href="#services" title="Link to this heading">#</a></h2>
+<p>Every service answers <code class="docutils literal notranslate"><span class="pre">success</span></code> plus a <code class="docutils literal notranslate"><span class="pre">message</span></code> carrying the WMX3 call
+name, error number and error text. Every one takes <code class="docutils literal notranslate"><span class="pre">robot_id</span></code>, and every
+one except <code class="docutils literal notranslate"><span class="pre">set_robot_param</span></code> rejects an id that is not the registered one.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The payloads below are written <code class="docutils literal notranslate"><span class="pre">'&quot;{...}&quot;'</span></code> because <code class="docutils literal notranslate"><span class="pre">wros</span></code> hands the
+whole command to the container’s shell as one string. From a shell
+already inside the container, plain <code class="docutils literal notranslate"><span class="pre">&quot;{...}&quot;</span></code> is correct.</p>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 38.0%" />
+<col style="width: 30.0%" />
+<col style="width: 32.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Service</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>WMX3 call</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/robot/set_robot_param</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">RobotSetRobotParam</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ImportParamXML</span></code> / <code class="docutils literal notranslate"><span class="pre">ImportParamURDF</span></code>, then <code class="docutils literal notranslate"><span class="pre">SetRobotParam</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/robot/release_robot</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">RobotId</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ReleaseRobot</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/robot/start_motion</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">RobotStartMotion</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">StartPTPPos</span></code>, <code class="docutils literal notranslate"><span class="pre">StartToolPTPMov</span></code>, or <code class="docutils literal notranslate"><span class="pre">SetMotion</span></code> +
+<code class="docutils literal notranslate"><span class="pre">StartMotion</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/robot/stop_motion</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">RobotId</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">StopMotion</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/robot/clear_motion_error</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">RobotId</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ClearMotionError</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/robot/e_stop</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">RobotId</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">EStop</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/robot/release_e_stop</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">RobotId</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ReleaseEStop</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/robot/override_velocity_by_ratio</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">RobotOverrideVelocityByRatio</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OverrideVelocityByRatio</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/robot/set_tool_coordinate</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">RobotSetCoordinate</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SetToolCoordinate</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/robot/get_tool_coordinate</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">RobotGetCoordinate</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">GetToolCoordinate</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>There is no servo service here. Servo state belongs to
+<code class="docutils literal notranslate"><span class="pre">wmx_core_motion_node</span></code>, and <code class="docutils literal notranslate"><span class="pre">/wmx/axes/set_servo_on</span></code> stays reachable
+while the robot option holds the axes. The axis list is the <code class="docutils literal notranslate"><span class="pre">&lt;Axis&gt;</span></code>
+values of the robot parameter file — <code class="docutils literal notranslate"><span class="pre">0</span></code> to <code class="docutils literal notranslate"><span class="pre">5</span></code> for the CR3A example.</p>
+<section id="registration">
+<h3>Registration<a class="headerlink" href="#registration" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/robot/set_robot_param<span class="w"> </span>wmx_r2_message/srv/RobotSetRobotParam<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s1">'"{param_file: /opt/wmx3/robot_sample/common/robotParamXML_MZ07L.xml, robot_id: 0}"'</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/robot/release_robot<span class="w"> </span>wmx_r2_message/srv/RobotId<span class="w"> </span><span class="s1">'"{robot_id: 0}"'</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">set_robot_param</span></code> replaces whatever was registered before, so it also
+re-registers after <code class="docutils literal notranslate"><span class="pre">release_robot</span></code> and re-reads a file edited at runtime.
+The response returns the <code class="docutils literal notranslate"><span class="pre">robot_id</span></code> and <code class="docutils literal notranslate"><span class="pre">num_joints</span></code> the engine
+accepted; every later call must match them. After <code class="docutils literal notranslate"><span class="pre">release_robot</span></code> the
+status topic goes quiet until a robot is registered again.</p>
+</section>
+<section id="start-motion">
+<h3>start_motion<a class="headerlink" href="#start-motion" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">start_motion</span></code> is the one motion entry point. <code class="docutils literal notranslate"><span class="pre">mode</span></code> selects absolute
+(<code class="docutils literal notranslate"><span class="pre">0</span></code> pos) or relative (<code class="docutils literal notranslate"><span class="pre">1</span></code> mov), <code class="docutils literal notranslate"><span class="pre">frame</span></code> what a relative pose is
+measured against (<code class="docutils literal notranslate"><span class="pre">0</span></code> base/work, <code class="docutils literal notranslate"><span class="pre">1</span></code> tool), <code class="docutils literal notranslate"><span class="pre">target_type</span></code> the target
+(<code class="docutils literal notranslate"><span class="pre">0</span></code> joint values, <code class="docutils literal notranslate"><span class="pre">1</span></code> tool pose), and <code class="docutils literal notranslate"><span class="pre">path</span></code> the interpolation
+(<code class="docutils literal notranslate"><span class="pre">0</span></code> PTP, <code class="docutils literal notranslate"><span class="pre">1</span></code> straight line). Eight combinations are valid:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 6.0%" />
+<col style="width: 12.0%" />
+<col style="width: 14.0%" />
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 48.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>#</p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">path</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">target_type</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">mode</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">frame</span></code></p></th>
+<th class="head"><p>What runs</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>ptp</p></td>
+<td><p>joint</p></td>
+<td><p>pos</p></td>
+<td><p>—</p></td>
+<td><p>Absolute joint values, joint interpolated</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>ptp</p></td>
+<td><p>joint</p></td>
+<td><p>mov</p></td>
+<td><p>—</p></td>
+<td><p>Per-joint distance, joint interpolated</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>ptp</p></td>
+<td><p>pose</p></td>
+<td><p>pos</p></td>
+<td><p>—</p></td>
+<td><p>Absolute tool pose, joint interpolated</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>ptp</p></td>
+<td><p>pose</p></td>
+<td><p>mov</p></td>
+<td><p>base</p></td>
+<td><p>Work-frame displacement, joint interpolated</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>ptp</p></td>
+<td><p>pose</p></td>
+<td><p>mov</p></td>
+<td><p>tool</p></td>
+<td><p>Tool-frame displacement, joint interpolated</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>line</p></td>
+<td><p>pose</p></td>
+<td><p>pos</p></td>
+<td><p>—</p></td>
+<td><p>Absolute tool pose, straight tool path</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p>line</p></td>
+<td><p>pose</p></td>
+<td><p>mov</p></td>
+<td><p>base</p></td>
+<td><p>Work-frame displacement, straight tool path</p></td>
+</tr>
+<tr class="row-odd"><td><p>8</p></td>
+<td><p>line</p></td>
+<td><p>pose</p></td>
+<td><p>mov</p></td>
+<td><p>tool</p></td>
+<td><p>Tool-frame displacement, straight tool path</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">path:</span> <span class="pre">1</span></code> with <code class="docutils literal notranslate"><span class="pre">target_type:</span> <span class="pre">0</span></code> is rejected: a joint target has no
+straight line to follow. <code class="docutils literal notranslate"><span class="pre">frame</span></code> is read only by rows 4, 5, 7 and 8. A PTP
+move synchronizes the joints only at the endpoints, so the tool traces a
+curve; only <code class="docutils literal notranslate"><span class="pre">path:</span> <span class="pre">1</span></code> controls the shape of the tool path.</p>
+<p>Row 7 is computed by the node, not by a single SDK call: it adds the
+displacement to the currently <strong>commanded</strong> tool pose (<code class="docutils literal notranslate"><span class="pre">tool_pose_cmd</span></code>)
+and sends the result as an absolute line. Measuring from the command rather
+than the feedback keeps chained relative moves from drifting by the
+following error. Rotations compose rather than add (<code class="docutils literal notranslate"><span class="pre">u</span></code>, <code class="docutils literal notranslate"><span class="pre">v</span></code>, <code class="docutils literal notranslate"><span class="pre">w</span></code> are
+Z-Y-X Euler angles); with all three zero the orientation is kept.</p>
+<p>The joint values below are for the CR3A and sit inside the limits of
+<code class="docutils literal notranslate"><span class="pre">cr3a_robot_option_parameters.xml</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1  ptp / joint / pos — absolute joint target (deg)</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/robot/start_motion<span class="w"> </span>wmx_r2_message/srv/RobotStartMotion<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s1">'"{robot_id: 0, mode: 0, target_type: 0, path: 0,</span>
+<span class="s1">    target_joint: [0.0, 0.0, -90.0, 0.0, 90.0, 0.0]}"'</span>
+
+<span class="c1"># 2  ptp / joint / mov — relative joint target</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/robot/start_motion<span class="w"> </span>wmx_r2_message/srv/RobotStartMotion<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s1">'"{robot_id: 0, mode: 1, target_type: 0, path: 0,</span>
+<span class="s1">    target_joint: [0.0, 0.0, 15.0, 0.0, 0.0, 0.0]}"'</span>
+
+<span class="c1"># 3  ptp / pose / pos — absolute tool pose (mm, deg)</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/robot/start_motion<span class="w"> </span>wmx_r2_message/srv/RobotStartMotion<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s1">'"{robot_id: 0, mode: 0, target_type: 1, path: 0,</span>
+<span class="s1">    target_pose: {x: 345.0, y: -70, z: 163.0, u: 180.0, v: 0.0, w: -90.0},</span>
+<span class="s1">    s: 0, e: 0, r: 0}"'</span>
+
+<span class="c1"># 5  ptp / pose / mov / tool — retract 50 mm along the tool z axis</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/robot/start_motion<span class="w"> </span>wmx_r2_message/srv/RobotStartMotion<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s1">'"{robot_id: 0, mode: 1, frame: 1, target_type: 1, path: 0,</span>
+<span class="s1">    target_pose: {x: 0.0, y: 0.0, z: -50.0, u: 0.0, v: 0.0, w: 0.0},</span>
+<span class="s1">    s: 0, e: 0, r: 0}"'</span>
+
+<span class="c1"># 6  line / pose / pos — straight line to an absolute tool pose</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/robot/start_motion<span class="w"> </span>wmx_r2_message/srv/RobotStartMotion<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s1">'"{robot_id: 0, mode: 0, target_type: 1, path: 1,</span>
+<span class="s1">    target_pose: {x: 345.0, y: -128, z: 163.0, u: 180.0, v: 0.0, w: -90.0}}"'</span>
+
+<span class="c1"># 7  line / pose / mov / base — shift 50 mm along work-frame y</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/robot/start_motion<span class="w"> </span>wmx_r2_message/srv/RobotStartMotion<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s1">'"{robot_id: 0, mode: 1, frame: 0, target_type: 1, path: 1,</span>
+<span class="s1">    target_pose: {x: 0.0, y: 50.0, z: 0.0, u: 0.0, v: 0.0, w: 0.0}}"'</span>
+
+<span class="c1"># stop the running move</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/robot/stop_motion<span class="w"> </span>wmx_r2_message/srv/RobotId<span class="w"> </span><span class="s1">'"{robot_id: 0}"'</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">s</span></code>, <code class="docutils literal notranslate"><span class="pre">e</span></code> and <code class="docutils literal notranslate"><span class="pre">r</span></code> are the inverse-kinematics configuration flags —
+shoulder (<code class="docutils literal notranslate"><span class="pre">1</span></code> left, <code class="docutils literal notranslate"><span class="pre">-1</span></code> right), elbow (<code class="docutils literal notranslate"><span class="pre">1</span></code> above, <code class="docutils literal notranslate"><span class="pre">-1</span></code> below) and
+wrist (<code class="docutils literal notranslate"><span class="pre">1</span></code> flip, <code class="docutils literal notranslate"><span class="pre">-1</span></code> no flip), <code class="docutils literal notranslate"><span class="pre">0</span></code> for automatic. Only the PTP pose
+rows 3, 4 and 5 read them; line moves keep the configuration that holds the
+tool on the line, and joint targets already fix it.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p><strong>When inverse kinematics fails.</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">Error=163857</span> <span class="pre">(Inverse</span> <span class="pre">kinematic</span> <span class="pre">computation</span> <span class="pre">iteration</span> <span class="pre">exceeded</span> <span class="pre">the</span>
+<span class="pre">limit)</span></code> means the solver did not converge, which is not the same as the
+point being out of reach. The solver seeds from the <strong>current</strong> joint
+position, so first park the arm with a joint target (rows 1 or 2, no IK
+involved) — <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">0,</span> <span class="pre">-90,</span> <span class="pre">0,</span> <span class="pre">90,</span> <span class="pre">0]</span></code> is a good seed on the CR3A — then
+re-issue the pose.</p>
+<p>On the CR3A cell, working poses on the table sit near <code class="docutils literal notranslate"><span class="pre">w:</span> <span class="pre">-90</span></code> because
+the arm is mounted yawed -90° relative to the table. J2 is capped at
+63°, so raising <code class="docutils literal notranslate"><span class="pre">z</span></code> with a small <code class="docutils literal notranslate"><span class="pre">x</span></code> leaves the workspace first: at
+<code class="docutils literal notranslate"><span class="pre">u:</span> <span class="pre">180,</span> <span class="pre">v:</span> <span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">(400,</span> <span class="pre">0,</span> <span class="pre">300)</span></code> is reachable and <code class="docutils literal notranslate"><span class="pre">(200,</span> <span class="pre">0,</span> <span class="pre">400)</span></code>
+is not. Move outward as you go up.</p>
+</div>
+</section>
+<section id="stopping-and-speed">
+<h3>Stopping and speed<a class="headerlink" href="#stopping-and-speed" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Service</p></th>
+<th class="head"><p>Effect</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">stop_motion</span></code></p></td>
+<td><p>Decelerates to a controlled halt short of the target. There is no
+pause or resume; re-issue the move with <code class="docutils literal notranslate"><span class="pre">start_motion</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">e_stop</span></code></p></td>
+<td><p>Level 1 emergency stop in the kinematics engine: motion ends
+immediately, <code class="docutils literal notranslate"><span class="pre">motion_state</span></code> becomes EStop active and
+<code class="docutils literal notranslate"><span class="pre">motion_error_code</span></code> user EStop. Only <code class="docutils literal notranslate"><span class="pre">release_e_stop</span></code> recovers.
+This is a software stop, not a safety function — see
+<a class="reference internal" href="../try_your_robot/safety.html"><span class="doc">Safety Functions and Responsibility</span></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">clear_motion_error</span></code></p></td>
+<td><p>Clears other motion errors. Does <strong>not</strong> recover a user EStop.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">override_velocity_by_ratio</span></code></p></td>
+<td><p>Scales the <strong>current</strong> motion’s velocity, acceleration and
+deceleration. <code class="docutils literal notranslate"><span class="pre">1.0</span></code> is 100 %; values above <code class="docutils literal notranslate"><span class="pre">1.0</span></code> exceed the
+profile in the robot parameter file.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/robot/override_velocity_by_ratio<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>wmx_r2_message/srv/RobotOverrideVelocityByRatio<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s1">'"{robot_id: 0, vel_ratio: 0.5, acc_ratio: 1.0, dec_ratio: 1.0}"'</span>
+</pre></div>
+</div>
+<p>There is no per-call velocity. The profile comes from the robot parameter
+file — tool linear velocity and acceleration, per-joint velocity and
+acceleration, the override gains, and the profile type. Change speed by
+editing the file and re-registering, or at runtime with
+<code class="docutils literal notranslate"><span class="pre">override_velocity_by_ratio</span></code>.</p>
+</section>
+<section id="tool-coordinate">
+<h3>Tool coordinate<a class="headerlink" href="#tool-coordinate" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 100 mm tool offset along the flange z axis</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/robot/set_tool_coordinate<span class="w"> </span>wmx_r2_message/srv/RobotSetCoordinate<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s1">'"{robot_id: 0, pose: {x: 0.0, y: 0.0, z: 100.0}}"'</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/robot/get_tool_coordinate<span class="w"> </span>wmx_r2_message/srv/RobotGetCoordinate<span class="w"> </span><span class="s1">'"{robot_id: 0}"'</span>
+</pre></div>
+</div>
+<p>The work frame is set only by <code class="docutils literal notranslate"><span class="pre">&lt;WorkCoordinate&gt;</span></code> in the robot parameter
+file; no service changes it at runtime.</p>
+</section>
+</section>
+<section id="status-topic">
+<h2>Status topic<a class="headerlink" href="#status-topic" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 26.0%" />
+<col style="width: 22.0%" />
+<col style="width: 18.0%" />
+<col style="width: 34.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Topic</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>QoS</p></th>
+<th class="head"><p>Rate</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/robot/status</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">RobotStatus</span></code></p></td>
+<td><p>default, depth 1</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">robot_status_rate</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/wmx/robot/status
+</pre></div>
+</div>
+<p>Each tick carries <code class="docutils literal notranslate"><span class="pre">robot_id</span></code>, <code class="docutils literal notranslate"><span class="pre">motion_state</span></code>, <code class="docutils literal notranslate"><span class="pre">motion_error_code</span></code>,
+<code class="docutils literal notranslate"><span class="pre">motion_error_joint</span></code>, the commanded and feedback tool poses, and joint
+position, velocity and torque arrays sized to <code class="docutils literal notranslate"><span class="pre">num_joints</span></code>. Nothing is
+published while no robot is registered.</p>
+<p>Motion services <strong>do not block</strong>: they return as soon as the engine accepts
+the command. Read completion from <code class="docutils literal notranslate"><span class="pre">motion_state</span></code>, and raise
+<code class="docutils literal notranslate"><span class="pre">robot_status_rate</span></code> if the poll is too coarse.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id2">
+<caption><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">motion_state</span></code></span><a class="headerlink" href="#id2" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>0–4</p></th>
+<th class="head"><p>5–9</p></th>
+<th class="head"><p>10–14</p></th>
+<th class="head"><p>15–18</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">0</span></code> idle</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">5</span></code> setup</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">10</span></code> error</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">15</span></code> in resume</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">1</span></code> no new command</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">6</span></code> in CP motion</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">11</span></code> pausing CP</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">16</span></code> direct teaching</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">2</span></code> stopping CP</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">7</span></code> in PTP motion</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">12</span></code> pausing PTP</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">17</span></code> EStop stopping</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">3</span></code> stopping PTP</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">8</span></code> error stopping CP</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">13</span></code> paused CP</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">18</span></code> EStop active</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">4</span></code> EStop (deprecated)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">9</span></code> error stopping PTP</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">14</span></code> paused PTP</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table" id="id3">
+<caption><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">motion_error_code</span></code></span><a class="headerlink" href="#id3" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 33.0%" />
+<col style="width: 33.0%" />
+<col style="width: 34.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>0–5</p></th>
+<th class="head"><p>6–11</p></th>
+<th class="head"><p>12–16</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">0</span></code> none</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">6</span></code> axis vel limit</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">12</span></code> axis following error</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">1</span></code> system EStop</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">7</span></code> axis acc limit</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">13</span></code> axis offline</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">2</span></code> trajectory calc error</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">8</span></code> axis amp error</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">14</span></code> axis interrupt mismatch</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">3</span></code> inverse kinematics error</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">9</span></code> tool range error</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">15</span></code> collision EStop</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">4</span></code> inverse dynamics error</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">10</span></code> servo off</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">16</span></code> axis command mode mismatch</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">5</span></code> axis pos limit</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">11</span></code> user EStop</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="units-and-conventions">
+<h2>Units and conventions<a class="headerlink" href="#units-and-conventions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Poses are millimetres and degrees.</strong> <code class="docutils literal notranslate"><span class="pre">RobotCartesianPose</span></code> maps one to
+one onto the WMX3 <code class="docutils literal notranslate"><span class="pre">CartesianPose</span></code>: <code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">z</span></code> in mm and <code class="docutils literal notranslate"><span class="pre">u</span></code>,
+<code class="docutils literal notranslate"><span class="pre">v</span></code>, <code class="docutils literal notranslate"><span class="pre">w</span></code> as Z-Y-X Euler angles (roll, pitch, yaw) in degrees. This is
+the WMX3 convention, not the ROS one; nothing here is a
+<code class="docutils literal notranslate"><span class="pre">geometry_msgs/Pose</span></code>.</p></li>
+<li><p><strong>Joint values are axis user units</strong> — degrees for revolute joints, mm for
+prismatic ones.</p></li>
+<li><p><strong>Joint arrays must be exactly</strong> <code class="docutils literal notranslate"><span class="pre">num_joints</span></code> <strong>long</strong>; anything else is
+rejected before the SDK is called.</p></li>
+<li><p><strong>Poses are in the work frame</strong>, with the tool offset from
+<code class="docutils literal notranslate"><span class="pre">set_tool_coordinate</span></code> applied. <code class="docutils literal notranslate"><span class="pre">tool_pose_cmd</span></code> and <code class="docutils literal notranslate"><span class="pre">tool_pose_fb</span></code>
+use the same frames.</p></li>
+</ul>
+</section>
+<section id="robot-parameter-file">
+<h2>Robot parameter file<a class="headerlink" href="#robot-parameter-file" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">robot_param_file</span></code> is not the WMX axis parameter XML. The two describe
+different things and are read by different nodes:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 18.0%" />
+<col style="width: 41.0%" />
+<col style="width: 41.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">wmx_param_file</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">robot_param_file</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Describes</p></td>
+<td><p>Axes: gear ratio, units, polarity, encoder, limits</p></td>
+<td><p>Robot: model, joint geometry, limits, motion profile</p></td>
+</tr>
+<tr class="row-odd"><td><p>Read by</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_engine_node</span></code> at engine start</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_robot_option_node</span></code> at configure</p></td>
+</tr>
+<tr class="row-even"><td><p>Shipped</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">example/cr3a_wmx_parameters_deg.xml</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">example/cr3a_robot_option_parameters.xml</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>SDK samples</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/opt/wmx3/robot_sample/common/wmx_parameter_*.xml</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/opt/wmx3/robot_sample/common/robotParamXML_*.xml</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;Robot</span><span class="w"> </span><span class="na">ID=</span><span class="s">"0"</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;RobotName&gt;</span>CR3A<span class="nt">&lt;/RobotName&gt;</span>
+<span class="w">  </span><span class="nt">&lt;RobotType&gt;</span>0<span class="nt">&lt;/RobotType&gt;</span>
+<span class="w">  </span><span class="nt">&lt;Joint</span><span class="w"> </span><span class="na">ID=</span><span class="s">"0"</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;JointType&gt;</span>RotateZAxis<span class="nt">&lt;/JointType&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Axis&gt;</span>0<span class="nt">&lt;/Axis&gt;</span>
+<span class="w">    </span><span class="nt">&lt;JointOrigin</span><span class="w"> </span><span class="na">x=</span><span class="s">"0.0"</span><span class="w"> </span><span class="na">y=</span><span class="s">"0.0"</span><span class="w"> </span><span class="na">z=</span><span class="s">"128.3"</span><span class="w"> </span><span class="na">u=</span><span class="s">"0.0"</span><span class="w"> </span><span class="na">v=</span><span class="s">"0.0"</span><span class="w"> </span><span class="na">w=</span><span class="s">"0.0"</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;MaxAngle&gt;</span>3.0<span class="nt">&lt;/MaxAngle&gt;</span>
+<span class="w">    </span><span class="nt">&lt;MinAngle&gt;</span>-3.0<span class="nt">&lt;/MinAngle&gt;</span>
+<span class="w">    </span><span class="nt">&lt;VelocityLimit&gt;</span>3.0<span class="nt">&lt;/VelocityLimit&gt;</span>
+<span class="w">    </span><span class="nt">&lt;AccelerationLimit&gt;</span>12.0<span class="nt">&lt;/AccelerationLimit&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/Joint&gt;</span>
+<span class="w">  </span>...
+<span class="w">  </span><span class="nt">&lt;WorkCoordinate</span><span class="w"> </span><span class="na">x=</span><span class="s">"0.0"</span><span class="w"> </span><span class="na">y=</span><span class="s">"0.0"</span><span class="w"> </span><span class="na">z=</span><span class="s">"0.0"</span><span class="w"> </span><span class="na">u=</span><span class="s">"0.0"</span><span class="w"> </span><span class="na">v=</span><span class="s">"0.0"</span><span class="w"> </span><span class="na">w=</span><span class="s">"0.0"</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;ToolCoordinate</span><span class="w"> </span><span class="na">x=</span><span class="s">"0.0"</span><span class="w"> </span><span class="na">y=</span><span class="s">"0.0"</span><span class="w"> </span><span class="na">z=</span><span class="s">"134.0"</span><span class="w"> </span><span class="na">u=</span><span class="s">"0.0"</span><span class="w"> </span><span class="na">v=</span><span class="s">"0.0"</span><span class="w"> </span><span class="na">w=</span><span class="s">"0.0"</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;ToolVelocity&gt;</span>140.0<span class="nt">&lt;/ToolVelocity&gt;</span>
+<span class="w">  </span>...
+<span class="nt">&lt;/Robot&gt;</span>
+</pre></div>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Tag</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Robot</span> <span class="pre">ID</span></code></p></td>
+<td><p>The id every service must pass</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">RobotType</span></code></p></td>
+<td><p>Kinematic model: <code class="docutils literal notranslate"><span class="pre">0</span></code> articulated 6-axis (joint-origin form), <code class="docutils literal notranslate"><span class="pre">1</span></code>
+SCARA, <code class="docutils literal notranslate"><span class="pre">2</span></code> cartesian, <code class="docutils literal notranslate"><span class="pre">3</span></code> delta, <code class="docutils literal notranslate"><span class="pre">4</span></code> H-bot, <code class="docutils literal notranslate"><span class="pre">5</span></code> / <code class="docutils literal notranslate"><span class="pre">6</span></code>
+DH-based 6-axis, <code class="docutils literal notranslate"><span class="pre">7</span></code> / <code class="docutils literal notranslate"><span class="pre">8</span></code> dual-tool SCARA, <code class="docutils literal notranslate"><span class="pre">9</span></code> user defined</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Joint/Axis</span></code></p></td>
+<td><p><strong>WMX3 axis index</strong>, and the axis list for <code class="docutils literal notranslate"><span class="pre">set_servo_on</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Joint/JointOrigin</span></code></p></td>
+<td><p>Offset from the previous joint</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Joint/MaxAngle</span></code>, <code class="docutils literal notranslate"><span class="pre">MinAngle</span></code>, <code class="docutils literal notranslate"><span class="pre">VelocityLimit</span></code>,
+<code class="docutils literal notranslate"><span class="pre">AccelerationLimit</span></code></p></td>
+<td><p>Hard joint limits</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ToolCoordinate</span></code></p></td>
+<td><p>Default tool coordinate (the CR3A example: 134 mm along the flange
+z axis); <code class="docutils literal notranslate"><span class="pre">set_tool_coordinate</span></code> overrides it at runtime</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">WorkCoordinate</span></code></p></td>
+<td><p>The work frame — the only way to set it</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Tool*</span></code>, <code class="docutils literal notranslate"><span class="pre">Axis*</span></code>, <code class="docutils literal notranslate"><span class="pre">*Override</span></code>, <code class="docutils literal notranslate"><span class="pre">ProfileType</span></code></p></td>
+<td><p>The motion profile every move uses</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><strong>Angles are radians in the file and degrees in the API.</strong> <code class="docutils literal notranslate"><span class="pre">MaxAngle</span></code>
+<code class="docutils literal notranslate"><span class="pre">2.9670597</span></code> reads back as <code class="docutils literal notranslate"><span class="pre">170.0</span></code>. Joint values on <code class="docutils literal notranslate"><span class="pre">start_motion</span></code>
+and the status topic are degrees.</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">robot.xml</span></code> written for the previous WMX kinematics SDK looks similar
+but is a <strong>different schema</strong>. <code class="docutils literal notranslate"><span class="pre">ImportParamXML</span></code> returns success and
+silently produces an unusable robot — every joint with <code class="docutils literal notranslate"><span class="pre">axis</span> <span class="pre">=</span> <span class="pre">-1</span></code> and
+zero origins. <code class="docutils literal notranslate"><span class="pre">MotorID</span></code> became <code class="docutils literal notranslate"><span class="pre">Axis</span></code>, <code class="docutils literal notranslate"><span class="pre">VecFrom</span></code> became
+<code class="docutils literal notranslate"><span class="pre">JointOrigin</span></code>, and <code class="docutils literal notranslate"><span class="pre">RobotType</span></code> uses a different enum.</p>
+</div>
+<p>The CR3A example takes its joint origins and limits from the CR3A
+description in <code class="docutils literal notranslate"><span class="pre">movensys-manipulator</span></code>, <code class="docutils literal notranslate"><span class="pre">VelocityLimit</span></code> 3.0 rad/s from the
+same description, and <code class="docutils literal notranslate"><span class="pre">AccelerationLimit</span></code> 12 rad/s² as a derived figure
+(Dobot publishes none). The commanded profile is a bring-up derate:
+30 °/s and 60 °/s² per joint, 140 mm/s and 280 mm/s² at the tool, with 10 %
+velocity and acceleration overrides. The joint limits are tighter than the arm’s
+mechanical range (J3 −146° to 11.5°, J5 −5.7° to 171.9°), so the engine
+refuses some poses the arm could physically reach. Confirm both the
+acceleration figure and the limits against your cell before production use.</p>
+</section>
+<section id="lifecycle-and-arbitration">
+<h2>Lifecycle and arbitration<a class="headerlink" href="#lifecycle-and-arbitration" title="Link to this heading">#</a></h2>
+<p>The node is brought up by <code class="docutils literal notranslate"><span class="pre">wmx_lifecycle_manager_node</span></code> once the engine is
+communicating, like every other managed node.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 22.0%" />
+<col style="width: 78.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Transition</p></th>
+<th class="head"><p>Effect</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">configure</span></code></p></td>
+<td><p>Attaches to the WMX3 device as <code class="docutils literal notranslate"><span class="pre">wmx_robot_option_node</span></code>. If
+<code class="docutils literal notranslate"><span class="pre">robot_param_file</span></code> is set, imports it and calls <code class="docutils literal notranslate"><span class="pre">SetRobotParam</span></code>;
+a failure closes the device and fails the transition, so a bad path
+is caught at bring-up.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">activate</span></code></p></td>
+<td><p>Advertises the ten services, the status publisher and timer</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">deactivate</span></code></p></td>
+<td><p>Removes them; the device stays attached and the robot registered</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">cleanup</span></code></p></td>
+<td><p>Closes the device and unregisters the robot</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p id="arbitration"><strong>Arbitration.</strong> The robot option stack lists <code class="docutils literal notranslate"><span class="pre">wmx_robot_option_node</span></code> in
+the <code class="docutils literal notranslate"><span class="pre">motion_controllers</span></code> of <code class="docutils literal notranslate"><span class="pre">wmx_core_motion_node</span></code>. While it is
+<code class="docutils literal notranslate"><span class="pre">active</span></code>, <code class="docutils literal notranslate"><span class="pre">/wmx/axes/start_pos</span></code>, <code class="docutils literal notranslate"><span class="pre">start_mov</span></code>, <code class="docutils literal notranslate"><span class="pre">start_vel</span></code>,
+<code class="docutils literal notranslate"><span class="pre">start_jog</span></code> and <code class="docutils literal notranslate"><span class="pre">start_home</span></code> answer <code class="docutils literal notranslate"><span class="pre">success:</span> <span class="pre">false</span></code>.
+<code class="docutils literal notranslate"><span class="pre">/wmx/axes/stop</span></code>, the servo services and <code class="docutils literal notranslate"><span class="pre">clear_amp_alarm</span></code> stay open.
+Deactivating the node hands the axes back:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>lifecycle<span class="w"> </span><span class="nb">set</span><span class="w"> </span>/wmx_robot_option_node<span class="w"> </span>deactivate
+</pre></div>
+</div>
+<p>The guard is one-way: nothing blocks <code class="docutils literal notranslate"><span class="pre">/wmx/robot/start_motion</span></code> while a
+manipulator controller is active. Do not run the robot option and the
+MoveIt2 controllers against the same axes at the same time.</p>
+</section>
+<section id="known-limitations">
+<h2>Known limitations<a class="headerlink" href="#known-limitations" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>One robot per node.</strong> A second <code class="docutils literal notranslate"><span class="pre">robot_id</span></code> is rejected; run one node
+per robot.</p></li>
+<li><p><strong>Tool index 0 only.</strong> Dual-tool models are not reachable.</p></li>
+<li><p><strong>Up to six joints</strong>, the SDK’s <code class="docutils literal notranslate"><span class="pre">MAX_NUMBER_OF_JOINT</span></code>.</p></li>
+<li><p><strong>No blocking wait.</strong> Poll <code class="docutils literal notranslate"><span class="pre">motion_state</span></code> on the status topic.</p></li>
+<li><p><strong>The session time is not reported.</strong> The node does not expose how much
+of the 6-hour evaluation session is left. When a session ends, restart the
+engine.</p></li>
+<li><p><strong>Not exposed:</strong> input shaping, gravity compensation and direct teaching,
+collision detection, and streamed pose buffers.</p></li>
+</ul>
+</section>
+<section id="interface-types">
+<h2>Interface types<a class="headerlink" href="#interface-types" title="Link to this heading">#</a></h2>
+<p>All types live in <code class="docutils literal notranslate"><span class="pre">wmx_r2_message</span></code>; see <a class="reference internal" href="wmx_r2_message.html"><span class="doc">wmx_r2_message</span></a>. <code class="docutils literal notranslate"><span class="pre">RobotId</span></code>
+is shared by five services, so six service types cover ten services.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>list<span class="w"> </span>-t<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>/wmx/robot/
+wros<span class="w"> </span>ros2<span class="w"> </span>interface<span class="w"> </span>show<span class="w"> </span>wmx_r2_message/srv/RobotStartMotion
+wros<span class="w"> </span>ros2<span class="w"> </span>lifecycle<span class="w"> </span>get<span class="w"> </span>/wmx_robot_option_node
+</pre></div>
+</div>
+</section>
+<section id="see-also">
+<h2>See also<a class="headerlink" href="#see-also" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="../examples/robot_option_motion.html"><span class="doc">Robot Option Motion</span></a> – HIL and Real walkthrough</p></li>
+<li><p><a class="reference internal" href="wmx_r2_package.html"><span class="doc">wmx_r2_package</span></a> – launch files and example configurations</p></li>
+<li><p><a class="reference internal" href="wmx_r2_message.html"><span class="doc">wmx_r2_message</span></a> – <code class="docutils literal notranslate"><span class="pre">RobotStatus</span></code>, <code class="docutils literal notranslate"><span class="pre">RobotCartesianPose</span></code> and the
+robot services</p></li>
+<li><p><a class="reference internal" href="../try_your_robot/robot_parameters.html"><span class="doc">Robot Parameter Configuration and Validation</span></a> – axis units and the
+degree-scaled parameter file</p></li>
+<li><p><a class="reference internal" href="wmx3_api.html"><span class="doc">The WMX3 API Underneath WMX R2</span></a> – the WMX3 SDK reference, including the Robot Option</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="wmx_r2_package.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">wmx_r2_package</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="wmx_r2_control.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">wmx_r2_control</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5"></script>
+
+<footer class="bd-footer">
+<div class="movensys-footer">
+  <div class="movensys-footer__logo">
+    <a href="https://www.movensys.com" target="_blank" rel="noopener">
+      <img src="../_static/movensys_wordmark.png" alt="Movensys" />
+    </a>
+  </div>
+  <div class="movensys-footer__info">
+    <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
+    
+      <p>Last updated: Nov 13, 2026</p>
+    
+  </div>
+  <div class="movensys-footer__links">
+    <a href="https://www.movensys.com" target="_blank" rel="noopener">MOVENSYS.com</a>
+    <a href="https://www.movensys.com/privacy" target="_blank" rel="noopener">Privacy Policy</a>
+  </div>
+</div>
+</footer>
+  </body>
+</html>

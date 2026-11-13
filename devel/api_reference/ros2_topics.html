@@ -626,6 +626,7 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator.html">movensys-manipulator</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/trajectory_planning.html">Trajectory Planning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/robot_option_motion.html">Robot Option Motion</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/apriltag_pick_and_place.html">AprilTag Pick-and-Place</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/obstacle_avoidance.html">Nvblox Obstacle Avoidance</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/yolo_pick_and_place.html">YOLO Pick-and-Place</a></li>
@@ -666,6 +667,7 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l2"><a class="reference internal" href="ros2_actions.html">ROS2 Actions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wmx_r2_message.html">wmx_r2_message</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wmx_r2_package.html">wmx_r2_package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wmx_robot_option.html">wmx_robot_option_node</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wmx_r2_control.html">wmx_r2_control</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wmx3_api.html">The WMX3 API Underneath WMX R2</a></li>
 </ul>
@@ -836,6 +838,11 @@ trajectory or velocity streams coming in.</p>
 <td><p><code class="docutils literal notranslate"><span class="pre">sensor_msgs/msg/JointState</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">differential_drive_controller</span></code></p></td>
 </tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/robot/status</span></code></p></td>
+<td><p>pub</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/msg/RobotStatus</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_robot_option_node</span></code></p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -908,17 +915,20 @@ lifecycle node publishes and subscribes nothing.</p>
 <p>Content:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">name</span></code> — <code class="docutils literal notranslate"><span class="pre">joint_name</span></code> followed by <code class="docutils literal notranslate"><span class="pre">gripper_joint_name</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">position</span></code> — the WMX <code class="docutils literal notranslate"><span class="pre">actualPos</span></code> of each axis, <strong>unconverted</strong></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">position</span></code> — the WMX <code class="docutils literal notranslate"><span class="pre">actualPos</span></code> of each axis, unconverted unless the
+axis is listed in <code class="docutils literal notranslate"><span class="pre">degree_to_radian_axes</span></code> or <code class="docutils literal notranslate"><span class="pre">rpm_to_radian_axes</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">velocity</span></code> — the servo’s <code class="docutils literal notranslate"><span class="pre">actualVelocity</span></code>, not a derivative of position</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">effort</span></code> — not filled in</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">header.stamp</span></code> — the node clock</p></li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Joint values pass through with no scaling. One axis user unit must equal
-one radian at the joint, and that is set on the WMX side in the axis
-parameter XML. There is no gear-ratio or offset parameter in any of these
-nodes. See <a class="reference internal" href="../try_your_robot/robot_parameters.html"><span class="doc">Robot Parameter Configuration and Validation</span></a>.</p>
+<p>By default joint values pass through with no scaling: one axis user unit
+must equal one radian at the joint, set on the WMX side in the axis
+parameter XML. Degree-scaled (denominator 360) and rpm-scaled
+(denominator 60) axes are converted back to rad and rad/s when listed in
+<code class="docutils literal notranslate"><span class="pre">degree_to_radian_axes</span></code> or <code class="docutils literal notranslate"><span class="pre">rpm_to_radian_axes</span></code>. There is no
+gear-ratio or offset parameter. See <a class="reference internal" href="../try_your_robot/robot_parameters.html#other-axis-units"><span class="std std-ref">Degree and rpm axes</span></a>.</p>
 </div>
 <p>The timer period is <code class="docutils literal notranslate"><span class="pre">1000</span> <span class="pre">/</span> <span class="pre">joint_feedback_rate</span></code> truncated to whole
 milliseconds, so prefer rates that divide 1000 — 100, 125, 200, 250, 500. A
@@ -1099,7 +1109,9 @@ jitter from restarting an interpolation every cycle.</p>
 <section id="differential-drive-topics">
 <h2>Differential drive topics<a class="headerlink" href="#differential-drive-topics" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">differential_drive_controller</span></code> drives two EtherCAT wheel axes with
-CoreMotion <code class="docutils literal notranslate"><span class="pre">StartVel</span></code> and exposes the Nav2 contract.</p>
+CoreMotion <code class="docutils literal notranslate"><span class="pre">StartVel</span></code> and exposes the Nav2 contract. Every topic below is
+in m/s and rad/s whatever the axis scaling; with
+<code class="docutils literal notranslate"><span class="pre">wheel_velocity_unit:</span> <span class="pre">&quot;rpm&quot;</span></code> the node converts at the WMX boundary.</p>
 <figure class="align-default" id="id2">
 <pre  class="mermaid">
         flowchart LR
@@ -1178,7 +1190,7 @@ jumps.</p>
 <p><code class="docutils literal notranslate"><span class="pre">cmd_vel_timeout</span></code> (default 0.25 s) forces the wheel target to zero if
 no command arrives in that window. Freshness is measured against
 <strong>arrival</strong> time on this node’s clock. The stop decelerates over
-<code class="docutils literal notranslate"><span class="pre">dec_time</span></code>, so it is not an emergency stop.</p>
+<code class="docutils literal notranslate"><span class="pre">dec_time</span></code> (seconds), so it is not an emergency stop.</p>
 <p>Both loop timers are wall timers, but the odometry <code class="docutils literal notranslate"><span class="pre">dt</span></code> comes from the
 ROS clock. A paused <code class="docutils literal notranslate"><span class="pre">/clock</span></code> under <code class="docutils literal notranslate"><span class="pre">use_sim_time</span></code> freezes the pose and
 also disables the stale-command stop.</p>
@@ -1204,6 +1216,7 @@ else:</p>
 <li><p><a class="reference internal" href="ros2_services.html"><span class="doc">ROS2 Services</span></a> – engine, lifecycle, axis, I/O, and EtherCAT services</p></li>
 <li><p><a class="reference internal" href="ros2_actions.html"><span class="doc">ROS2 Actions</span></a> – the <code class="docutils literal notranslate"><span class="pre">FollowJointTrajectory</span></code> action</p></li>
 <li><p><a class="reference internal" href="wmx_r2_message.html"><span class="doc">wmx_r2_message</span></a> – <code class="docutils literal notranslate"><span class="pre">AxesStatus</span></code> and the service definitions</p></li>
+<li><p><a class="reference internal" href="wmx_robot_option.html"><span class="doc">wmx_robot_option_node</span></a> – <code class="docutils literal notranslate"><span class="pre">/wmx/robot/status</span></code> and the motion state codes</p></li>
 <li><p><a class="reference internal" href="../integration/nav2_integration.html"><span class="doc">Nav2 Navigation (Mobile Base)</span></a> – how the differential topics wire into Nav2</p></li>
 </ul>
 </section>

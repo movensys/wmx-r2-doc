@@ -37,7 +37,7 @@ kinds of file — and to no source code:
      - Carries
    * - **ENI file**
 
-       The EtherCAT network description
+       ``/etc/eni``
      - Which slaves are on the bus and how the master communicates with them.
        Generated from a scan of the real network by NetConfigurator; see
        :doc:`wmx_web_tools`.

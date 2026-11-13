@@ -6,7 +6,8 @@ servo power, I/O, EtherCAT diagnostics, engine control, and lifecycle
 control are all request/response.
 
 The services come from the five nodes started by
-``wmx_r2_general_nodes.launch.py`` plus the gripper controller:
+``wmx_r2_general_nodes.launch.py``, plus the gripper controller and, in the
+robot option stack, ``wmx_robot_option_node``:
 
 .. list-table::
    :header-rows: 1
@@ -33,6 +34,11 @@ The services come from the five nodes started by
    * - ``gripper_controller``
      - ``/wmx/set_gripper``
      - Gripper open/close over one WMX output bit
+   * - ``wmx_robot_option_node``
+     - ``/wmx/robot/*``
+     - WMX3 Robot Option: robot registration, PTP and linear moves to joint
+       or tool-pose targets, stop and EStop, tool coordinate. Started only by
+       ``wmx_r2_robot_option.launch.py``; see :doc:`wmx_robot_option`
 
 .. important::
 
@@ -151,6 +157,36 @@ Service summary
    * - ``/wmx/set_gripper``
      - ``std_srvs/srv/SetBool``
      - ``gripper_controller``
+   * - ``/wmx/robot/set_robot_param``
+     - ``wmx_r2_message/srv/RobotSetRobotParam``
+     - ``wmx_robot_option_node``
+   * - ``/wmx/robot/release_robot``
+     - ``wmx_r2_message/srv/RobotId``
+     - ``wmx_robot_option_node``
+   * - ``/wmx/robot/start_motion``
+     - ``wmx_r2_message/srv/RobotStartMotion``
+     - ``wmx_robot_option_node``
+   * - ``/wmx/robot/stop_motion``
+     - ``wmx_r2_message/srv/RobotId``
+     - ``wmx_robot_option_node``
+   * - ``/wmx/robot/clear_motion_error``
+     - ``wmx_r2_message/srv/RobotId``
+     - ``wmx_robot_option_node``
+   * - ``/wmx/robot/e_stop``
+     - ``wmx_r2_message/srv/RobotId``
+     - ``wmx_robot_option_node``
+   * - ``/wmx/robot/release_e_stop``
+     - ``wmx_r2_message/srv/RobotId``
+     - ``wmx_robot_option_node``
+   * - ``/wmx/robot/override_velocity_by_ratio``
+     - ``wmx_r2_message/srv/RobotOverrideVelocityByRatio``
+     - ``wmx_robot_option_node``
+   * - ``/wmx/robot/set_tool_coordinate``
+     - ``wmx_r2_message/srv/RobotSetCoordinate``
+     - ``wmx_robot_option_node``
+   * - ``/wmx/robot/get_tool_coordinate``
+     - ``wmx_r2_message/srv/RobotGetCoordinate``
+     - ``wmx_robot_option_node``
 
 Every response carries ``bool success`` and ``string message``. On the array
 services, ``success`` is true only if **every** entry succeeded, and
@@ -405,7 +441,10 @@ the direction.
      - ``joint_trajectory_controller``,
        ``differential_drive_controller``,
        ``joint_position_controller``
-     - While one is ``active`` it owns the axes; see below
+     - While one is ``active`` it owns the axes; see below. Any lifecycle
+       node name is accepted — the robot option stack lists
+       ``wmx_robot_option_node``. A listed name that never appears on the
+       graph is treated as active and blocks motion.
    * - ``controller_resync_period``
      - ``0.2``
      - Seconds between re-queries of each controller's state
@@ -430,6 +469,23 @@ own motion services and answers ``success: false``:
 
 The configuration services stay open because ``joint_state_broadcaster``
 itself calls ``set_servo_on`` when it activates.
+
+Robot option services
+---------------------
+
+``wmx_robot_option_node`` serves ten ``/wmx/robot/*`` services that command
+the robot as a whole through the WMX3 kinematics engine, with poses in mm
+and degrees. They need degree-scaled axes. Like the engine, the Robot Option runs free
+in renewable 6-hour sessions. The
+full reference, with every ``start_motion`` combination, is
+:doc:`wmx_robot_option`.
+
+.. code-block:: bash
+
+   # PTP move to an absolute joint target, in degrees
+   wros ros2 service call /wmx/robot/start_motion wmx_r2_message/srv/RobotStartMotion \
+     '"{robot_id: 0, mode: 0, target_type: 0, path: 0,
+       target_joint: [0.0, 0.0, -90.0, 0.0, 90.0, 0.0]}"'
 
 I/O services
 ------------
@@ -670,4 +726,5 @@ See also
 - :doc:`ros2_actions` -- the ``FollowJointTrajectory`` action
 - :doc:`wmx_r2_message` -- message and service definitions
 - :doc:`wmx_r2_package` -- nodes, launch files, and configuration
+- :doc:`wmx_robot_option` -- the ``/wmx/robot/*`` services in full
 - :doc:`../troubleshooting/troubleshooting` -- diagnosis by symptom

@@ -626,6 +626,7 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator.html">movensys-manipulator</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/trajectory_planning.html">Trajectory Planning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/robot_option_motion.html">Robot Option Motion</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/apriltag_pick_and_place.html">AprilTag Pick-and-Place</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/obstacle_avoidance.html">Nvblox Obstacle Avoidance</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/yolo_pick_and_place.html">YOLO Pick-and-Place</a></li>
@@ -666,6 +667,7 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l2"><a class="reference internal" href="ros2_actions.html">ROS2 Actions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wmx_r2_message.html">wmx_r2_message</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wmx_r2_package.html">wmx_r2_package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wmx_robot_option.html">wmx_robot_option_node</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wmx_r2_control.html">wmx_r2_control</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wmx3_api.html">The WMX3 API Underneath WMX R2</a></li>
 </ul>
@@ -765,7 +767,8 @@ document.addEventListener("DOMContentLoaded", function() {
 servo power, I/O, EtherCAT diagnostics, engine control, and lifecycle
 control are all request/response.</p>
 <p>The services come from the five nodes started by
-<code class="docutils literal notranslate"><span class="pre">wmx_r2_general_nodes.launch.py</span></code> plus the gripper controller:</p>
+<code class="docutils literal notranslate"><span class="pre">wmx_r2_general_nodes.launch.py</span></code>, plus the gripper controller and, in the
+robot option stack, <code class="docutils literal notranslate"><span class="pre">wmx_robot_option_node</span></code>:</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <colgroup>
 <col style="width: 25.0%" />
@@ -802,6 +805,12 @@ control are all request/response.</p>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">gripper_controller</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">/wmx/set_gripper</span></code></p></td>
 <td><p>Gripper open/close over one WMX output bit</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">wmx_robot_option_node</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/wmx/robot/*</span></code></p></td>
+<td><p>WMX3 Robot Option: robot registration, PTP and linear moves to joint
+or tool-pose targets, stop and EStop, tool coordinate. Started only by
+<code class="docutils literal notranslate"><span class="pre">wmx_r2_robot_option.launch.py</span></code>; see <a class="reference internal" href="wmx_robot_option.html"><span class="doc">wmx_robot_option_node</span></a></p></td>
 </tr>
 </tbody>
 </table>
@@ -958,6 +967,46 @@ and are always up.</p>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/set_gripper</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">std_srvs/srv/SetBool</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">gripper_controller</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/robot/set_robot_param</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/RobotSetRobotParam</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_robot_option_node</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/robot/release_robot</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/RobotId</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_robot_option_node</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/robot/start_motion</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/RobotStartMotion</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_robot_option_node</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/robot/stop_motion</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/RobotId</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_robot_option_node</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/robot/clear_motion_error</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/RobotId</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_robot_option_node</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/robot/e_stop</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/RobotId</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_robot_option_node</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/robot/release_e_stop</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/RobotId</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_robot_option_node</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/robot/override_velocity_by_ratio</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/RobotOverrideVelocityByRatio</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_robot_option_node</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/robot/set_tool_coordinate</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/RobotSetCoordinate</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_robot_option_node</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/wmx/robot/get_tool_coordinate</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message/srv/RobotGetCoordinate</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wmx_robot_option_node</span></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -1218,7 +1267,10 @@ the direction.</p>
 <td><p><code class="docutils literal notranslate"><span class="pre">joint_trajectory_controller</span></code>,
 <code class="docutils literal notranslate"><span class="pre">differential_drive_controller</span></code>,
 <code class="docutils literal notranslate"><span class="pre">joint_position_controller</span></code></p></td>
-<td><p>While one is <code class="docutils literal notranslate"><span class="pre">active</span></code> it owns the axes; see below</p></td>
+<td><p>While one is <code class="docutils literal notranslate"><span class="pre">active</span></code> it owns the axes; see below. Any lifecycle
+node name is accepted — the robot option stack lists
+<code class="docutils literal notranslate"><span class="pre">wmx_robot_option_node</span></code>. A listed name that never appears on the
+graph is treated as active and blocks motion.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">controller_resync_period</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">0.2</span></code></p></td>
@@ -1255,6 +1307,21 @@ own motion services and answers <code class="docutils literal notranslate"><span
 <p>The configuration services stay open because <code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code>
 itself calls <code class="docutils literal notranslate"><span class="pre">set_servo_on</span></code> when it activates.</p>
 </section>
+</section>
+<section id="robot-option-services">
+<h2>Robot option services<a class="headerlink" href="#robot-option-services" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">wmx_robot_option_node</span></code> serves ten <code class="docutils literal notranslate"><span class="pre">/wmx/robot/*</span></code> services that command
+the robot as a whole through the WMX3 kinematics engine, with poses in mm
+and degrees. They need degree-scaled axes. Like the engine, the Robot Option runs free
+in renewable 6-hour sessions. The
+full reference, with every <code class="docutils literal notranslate"><span class="pre">start_motion</span></code> combination, is
+<a class="reference internal" href="wmx_robot_option.html"><span class="doc">wmx_robot_option_node</span></a>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># PTP move to an absolute joint target, in degrees</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/robot/start_motion<span class="w"> </span>wmx_r2_message/srv/RobotStartMotion<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s1">'"{robot_id: 0, mode: 0, target_type: 0, path: 0,</span>
+<span class="s1">    target_joint: [0.0, 0.0, -90.0, 0.0, 90.0, 0.0]}"'</span>
+</pre></div>
+</div>
 </section>
 <section id="i-o-services">
 <h2>I/O services<a class="headerlink" href="#i-o-services" title="Link to this heading">#</a></h2>
@@ -1515,6 +1582,7 @@ by rclcpp but changes nothing — edit the config YAML and restart the node.</p>
 <li><p><a class="reference internal" href="ros2_actions.html"><span class="doc">ROS2 Actions</span></a> – the <code class="docutils literal notranslate"><span class="pre">FollowJointTrajectory</span></code> action</p></li>
 <li><p><a class="reference internal" href="wmx_r2_message.html"><span class="doc">wmx_r2_message</span></a> – message and service definitions</p></li>
 <li><p><a class="reference internal" href="wmx_r2_package.html"><span class="doc">wmx_r2_package</span></a> – nodes, launch files, and configuration</p></li>
+<li><p><a class="reference internal" href="wmx_robot_option.html"><span class="doc">wmx_robot_option_node</span></a> – the <code class="docutils literal notranslate"><span class="pre">/wmx/robot/*</span></code> services in full</p></li>
 <li><p><a class="reference internal" href="../troubleshooting/troubleshooting.html"><span class="doc">Troubleshooting</span></a> – diagnosis by symptom</p></li>
 </ul>
 </section>

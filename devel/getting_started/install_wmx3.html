@@ -268,6 +268,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator.html">movensys-manipulator</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/trajectory_planning.html">Trajectory Planning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/robot_option_motion.html">Robot Option Motion</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/apriltag_pick_and_place.html">AprilTag Pick-and-Place</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/obstacle_avoidance.html">Nvblox Obstacle Avoidance</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/yolo_pick_and_place.html">YOLO Pick-and-Place</a></li>
@@ -308,6 +309,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_actions.html">ROS2 Actions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_message.html">wmx_r2_message</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_package.html">wmx_r2_package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_robot_option.html">wmx_robot_option_node</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_control.html">wmx_r2_control</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx3_api.html">The WMX3 API Underneath WMX R2</a></li>
 </ul>
@@ -420,6 +422,24 @@ repository.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/workspaces/movensys_ws/src
 <span class="nb">cd</span><span class="w"> </span>~/workspaces/movensys_ws/src
 git<span class="w"> </span>clone<span class="w"> </span>https://github.com/movensys/wmx-r2.git
+</pre></div>
+</div>
+</section>
+<section id="raise-the-cyclonedds-network-buffers">
+<h2>Raise the CycloneDDS network buffers<a class="headerlink" href="#raise-the-cyclonedds-network-buffers" title="Link to this heading">#</a></h2>
+<p>CycloneDDS needs socket buffers well above the kernel’s default of about
+200 KB; with the default, large messages are dropped. Raise the limits once
+on the host. The setting persists across reboots, and the manipulator and
+navigation setup pages use the same file:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>tee<span class="w"> </span>/etc/sysctl.d/99-network-buffers.conf<span class="w"> </span><span class="s">&lt;&lt; 'EOF'</span>
+<span class="s">net.core.rmem_max=67108864</span>
+<span class="s">net.core.rmem_default=67108864</span>
+<span class="s">net.core.wmem_max=67108864</span>
+<span class="s">net.core.wmem_default=67108864</span>
+<span class="s">EOF</span>
+
+sudo<span class="w"> </span>sysctl<span class="w"> </span>-p<span class="w"> </span>/etc/sysctl.d/99-network-buffers.conf
+sysctl<span class="w"> </span>net.core.rmem_max<span class="w"> </span>net.core.rmem_default<span class="w"> </span>net.core.wmem_max<span class="w"> </span>net.core.wmem_default
 </pre></div>
 </div>
 </section>

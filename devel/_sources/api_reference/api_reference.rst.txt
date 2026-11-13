@@ -12,11 +12,12 @@ Three packages make up WMX R2:
    * - Package
      - Contents
    * - :doc:`wmx_r2_message`
-     - One message (``AxesStatus``) and 22 services. Interfaces only — no
+     - Three messages and 28 services. Interfaces only — no
        nodes, and no dependency on the WMX3 SDK.
    * - :doc:`wmx_r2_package`
-     - The ten nodes that talk to the WMX3 SDK, three launch files, and the
-       per-robot example configurations.
+     - The eleven nodes that talk to the WMX3 SDK, four launch files, and
+       the per-robot example configurations. :doc:`wmx_robot_option` covers
+       the Robot Option node on its own page.
    * - :doc:`wmx_r2_control`
      - The ``ros2_control`` hardware interface
        (``wmx_r2_control/WmxSystemHardware``), URDF xacros, controller
@@ -95,6 +96,9 @@ Interfaces by node
    * - ``differential_drive_controller``
      - yes
      - ``/cmd_vel_safe`` in; ``/odom_enc``, ``/omega_enc``, ``/omega_cmd`` out
+   * - ``wmx_robot_option_node``
+     - yes
+     - ``/wmx/robot/*`` services; publishes ``/wmx/robot/status``
 
 .. toctree::
    :maxdepth: 2
@@ -105,5 +109,6 @@ Interfaces by node
    ros2_actions
    wmx_r2_message
    wmx_r2_package
+   wmx_robot_option
    wmx_r2_control
    wmx3_api

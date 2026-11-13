@@ -268,6 +268,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator.html">movensys-manipulator</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/trajectory_planning.html">Trajectory Planning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/robot_option_motion.html">Robot Option Motion</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/apriltag_pick_and_place.html">AprilTag Pick-and-Place</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/obstacle_avoidance.html">Nvblox Obstacle Avoidance</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/yolo_pick_and_place.html">YOLO Pick-and-Place</a></li>
@@ -308,6 +309,7 @@
 <li class="toctree-l2"><a class="reference internal" href="ros2_actions.html">ROS2 Actions</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">wmx_r2_message</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wmx_r2_package.html">wmx_r2_package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wmx_robot_option.html">wmx_robot_option_node</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wmx_r2_control.html">wmx_r2_control</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wmx3_api.html">The WMX3 API Underneath WMX R2</a></li>
 </ul>
@@ -406,7 +408,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">wmx_r2_message</span></code> holds every custom interface definition used by WMX R2.
-It contains <strong>one message</strong> and <strong>22 services</strong>, and no actions — trajectory
+It contains <strong>three messages</strong> and <strong>28 services</strong>, and no actions — trajectory
 execution uses the standard <code class="docutils literal notranslate"><span class="pre">control_msgs/action/FollowJointTrajectory</span></code>.</p>
 <p>The package builds interfaces only. It has no nodes, no libraries, and no
 dependency on the WMX3 SDK, so it can be built and installed on a machine
@@ -414,7 +416,9 @@ that has no WMX runtime — which is what lets a planning or application
 machine talk to a WMX R2 robot without installing the engine.</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>wmx_r2_message/
 ├── msg/
-│   └── AxesStatus.msg
+│   ├── AxesStatus.msg
+│   ├── RobotCartesianPose.msg      # robot option
+│   └── RobotStatus.msg
 ├── srv/
 │   ├── SetEngine.srv               # engine
 │   ├── ImportAndSetAll.srv
@@ -437,7 +441,13 @@ machine talk to a WMX R2 robot without installing the engine.</p>
 │   ├── EcatRegisterRead.srv
 │   ├── EcatResetStatistics.srv
 │   ├── EcatScanNetwork.srv
-│   └── EcatStartHotconnect.srv
+│   ├── EcatStartHotconnect.srv
+│   ├── RobotSetRobotParam.srv      # robot option
+│   ├── RobotId.srv
+│   ├── RobotStartMotion.srv
+│   ├── RobotOverrideVelocityByRatio.srv
+│   ├── RobotSetCoordinate.srv
+│   └── RobotGetCoordinate.srv
 ├── test/
 ├── CMakeLists.txt
 └── package.xml
@@ -466,13 +476,14 @@ the same length.</p></li>
 <span class="nt">&lt;member_of_group&gt;</span>rosidl_interface_packages<span class="nt">&lt;/member_of_group&gt;</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">std_msgs</span></code> is needed only for the <code class="docutils literal notranslate"><span class="pre">Header</span></code> in <code class="docutils literal notranslate"><span class="pre">AxesStatus</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">std_msgs</span></code> is needed only for the <code class="docutils literal notranslate"><span class="pre">Header</span></code> in <code class="docutils literal notranslate"><span class="pre">AxesStatus</span></code> and
+<code class="docutils literal notranslate"><span class="pre">RobotStatus</span></code>.</p>
 </section>
 <section id="message-definitions">
 <h2>Message definitions<a class="headerlink" href="#message-definitions" title="Link to this heading">#</a></h2>
 <section id="axesstatus">
 <h3>AxesStatus<a class="headerlink" href="#axesstatus" title="Link to this heading">#</a></h3>
-<p>The only custom message. Published on <code class="docutils literal notranslate"><span class="pre">/wmx/axes/status</span></code> by
+<p>Published on <code class="docutils literal notranslate"><span class="pre">/wmx/axes/status</span></code> by
 <code class="docutils literal notranslate"><span class="pre">wmx_core_motion_node</span></code> at <code class="docutils literal notranslate"><span class="pre">axes_status_rate</span></code> (default 100 Hz).</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>std_msgs/Header header
 
@@ -492,7 +503,44 @@ float64[] actual_torque   # torque feedback
 </pre></div>
 </div>
 <p>All arrays are parallel and indexed by axis. <code class="docutils literal notranslate"><span class="pre">pos_cmd</span></code> minus
-<code class="docutils literal notranslate"><span class="pre">actual_pos</span></code> is the following error.</p>
+<code class="docutils literal notranslate"><span class="pre">actual_pos</span></code> is the following error. Positions and velocities are in axis
+user units; <code class="docutils literal notranslate"><span class="pre">actual_torque</span></code> is a percentage of rated torque.</p>
+</section>
+<section id="robotcartesianpose">
+<h3>RobotCartesianPose<a class="headerlink" href="#robotcartesianpose" title="Link to this heading">#</a></h3>
+<p>A tool pose in the WMX3 convention — millimetres and Z-Y-X Euler angles in
+degrees, not a <code class="docutils literal notranslate"><span class="pre">geometry_msgs/Pose</span></code>. Used inside <code class="docutils literal notranslate"><span class="pre">RobotStatus</span></code> and the
+robot option services.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>float64 x   # mm
+float64 y   # mm
+float64 z   # mm
+float64 u   # roll, deg
+float64 v   # pitch, deg
+float64 w   # yaw, deg
+</pre></div>
+</div>
+</section>
+<section id="robotstatus">
+<h3>RobotStatus<a class="headerlink" href="#robotstatus" title="Link to this heading">#</a></h3>
+<p>Published on <code class="docutils literal notranslate"><span class="pre">/wmx/robot/status</span></code> by <code class="docutils literal notranslate"><span class="pre">wmx_robot_option_node</span></code> at
+<code class="docutils literal notranslate"><span class="pre">robot_status_rate</span></code>. The <code class="docutils literal notranslate"><span class="pre">motion_state</span></code> and <code class="docutils literal notranslate"><span class="pre">motion_error_code</span></code> values
+are tabulated in <a class="reference internal" href="wmx_robot_option.html"><span class="doc">wmx_robot_option_node</span></a>.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>std_msgs/Header header
+int32 robot_id
+int32 motion_state         # kinematics MotionState
+int32 motion_error_code    # kinematics MotionErrorCode
+int32 motion_error_joint   # joint that raised the error, -1 if not applicable
+
+RobotCartesianPose tool_pose_cmd
+RobotCartesianPose tool_pose_fb
+
+float64[] joint_pos_cmd      # deg for revolute joints, mm for prismatic
+float64[] joint_pos_fb
+float64[] joint_velocity_cmd
+float64[] joint_velocity_fb
+float64[] joint_torque_fb    # Nm, Articulate6Axis only
+</pre></div>
+</div>
 </section>
 </section>
 <section id="service-definitions">
@@ -752,6 +800,73 @@ int32[]  slave_num_of_axes
 is the usual EtherCAT failure. See
 <a class="reference internal" href="../troubleshooting/troubleshooting.html"><span class="doc">Troubleshooting</span></a>.</p>
 </section>
+<section id="robot-option">
+<h3>Robot option<a class="headerlink" href="#robot-option" title="Link to this heading">#</a></h3>
+<p>Served by <code class="docutils literal notranslate"><span class="pre">wmx_robot_option_node</span></code>; see <a class="reference internal" href="wmx_robot_option.html"><span class="doc">wmx_robot_option_node</span></a>.</p>
+<p><strong>RobotId</strong> — shared by <code class="docutils literal notranslate"><span class="pre">release_robot</span></code>, <code class="docutils literal notranslate"><span class="pre">stop_motion</span></code>,
+<code class="docutils literal notranslate"><span class="pre">clear_motion_error</span></code>, <code class="docutils literal notranslate"><span class="pre">e_stop</span></code> and <code class="docutils literal notranslate"><span class="pre">release_e_stop</span></code>.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>int32 robot_id
+---
+bool success
+string message
+</pre></div>
+</div>
+<p><strong>RobotSetRobotParam</strong> — imports a robot parameter XML or URDF and registers
+it with the kinematics engine.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>string param_file   # absolute path to the robot parameter XML or URDF
+int32 robot_id      # robot id assigned to a URDF import, ignored for XML
+---
+bool success
+string message
+int32 robot_id      # id the kinematics engine registered
+int32 num_joints
+</pre></div>
+</div>
+<p><strong>RobotStartMotion</strong> — the single motion entry point. Returns as soon as
+the engine accepts the move; poll <code class="docutils literal notranslate"><span class="pre">motion_state</span></code> on
+<code class="docutils literal notranslate"><span class="pre">/wmx/robot/status</span></code> for completion.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>int32 robot_id
+int32 mode          # 0 pos (absolute), 1 mov (relative)
+int32 frame         # 0 base/work, 1 tool. Read only by relative pose targets
+int32 target_type   # 0 joint values, 1 tool pose
+int32 path          # 0 ptp (joint interpolated), 1 line (straight tool path)
+float64[] target_joint          # target_type 0: per joint, deg or mm
+RobotCartesianPose target_pose  # target_type 1
+int8 s              # shoulder: 1 left, -1 right, 0 auto
+int8 e              # elbow: 1 above, -1 below, 0 auto
+int8 r              # wrist: 1 flip, -1 no flip, 0 auto
+---
+bool success
+string message
+</pre></div>
+</div>
+<p><strong>RobotOverrideVelocityByRatio</strong> — scales the running motion.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>int32 robot_id
+float64 vel_ratio   # 0.0 - 1.0
+float64 acc_ratio   # 0.0 - 1.0
+float64 dec_ratio   # 0.0 - 1.0
+---
+bool success
+string message
+</pre></div>
+</div>
+<p><strong>RobotSetCoordinate</strong> / <strong>RobotGetCoordinate</strong> — the tool coordinate.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># RobotSetCoordinate
+int32 robot_id
+RobotCartesianPose pose
+---
+bool success
+string message
+
+# RobotGetCoordinate
+int32 robot_id
+---
+bool success
+RobotCartesianPose pose
+string message
+</pre></div>
+</div>
+</section>
 </section>
 <section id="building-the-package">
 <h2>Building the package<a class="headerlink" href="#building-the-package" title="Link to this heading">#</a></h2>
@@ -773,6 +888,7 @@ wros<span class="w"> </span>ros2<span class="w"> </span>interface<span class="w"
 <li><p><a class="reference internal" href="ros2_services.html"><span class="doc">ROS2 Services</span></a> – what each service does, with call examples</p></li>
 <li><p><a class="reference internal" href="ros2_topics.html"><span class="doc">ROS2 Topics</span></a> – <code class="docutils literal notranslate"><span class="pre">AxesStatus</span></code> in context</p></li>
 <li><p><a class="reference internal" href="wmx_r2_package.html"><span class="doc">wmx_r2_package</span></a> – the nodes that serve these interfaces</p></li>
+<li><p><a class="reference internal" href="wmx_robot_option.html"><span class="doc">wmx_robot_option_node</span></a> – the node that serves the robot interfaces</p></li>
 </ul>
 </section>
 </section>
