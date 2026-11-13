@@ -53,7 +53,7 @@ at the EtherCAT NIC.
    .. tab-item:: x86-64
       :sync: x86
 
-      .. button-link:: https://softservogroup.sharepoint.com/:u:/s/Storage/IQDy5FzTpMdZRbs52-K1JE7QAdB_nPu0NeG03dkZpDxBYgQ?e=u9hmQB
+      .. button-link:: http://download.movensys.com:8111/webdav/WMX3_Installer/Linux/20261113_WMX3_v3.7_Linux_x86.zip
          :color: primary
          :shadow:
          :class: wmx-download-btn
@@ -64,13 +64,15 @@ at the EtherCAT NIC.
 
       .. code-block:: bash
 
-         unzip 20260729_WMX3_v3.7_Linux_x86.zip
-         sudo dpkg -i *wmx3-installer.deb
+         unzip 20261113_WMX3_v3.7_Linux_x86.zip
+         sudo dpkg -i wmx3-installer_x86.deb
+         sudo dpkg -i wmx3-robot-installer_x86.deb
+
 
    .. tab-item:: arm64
       :sync: arm64
 
-      .. button-link:: https://softservogroup.sharepoint.com/:u:/s/Storage/IQCoAJZFNxnkQqnT-9YB6QffAXztaavZH7li6n_nWI6YnwY?e=DA5UKp
+      .. button-link:: http://download.movensys.com:8111/webdav/WMX3_Installer/Linux/20261113_WMX3_v3.7_Linux_ARM64.zip
          :color: primary
          :shadow:
          :class: wmx-download-btn
@@ -81,8 +83,9 @@ at the EtherCAT NIC.
 
       .. code-block:: bash
 
-         unzip 20260729_WMX3_v3.7_Linux_ARM64.zip
-         sudo dpkg -i *wmx3-installer.deb
+         unzip 20261113_WMX3_v3.7_Linux_ARM64.zip
+         sudo dpkg -i wmx3-installer_arm64.deb
+         sudo dpkg -i wmx3-robot-installer_arm64.deb 
 
 The installer places the WMX3 runtime at ``/opt/wmx3/``. Confirm the required
 headers and libraries are present:
