@@ -61,7 +61,7 @@ enter the container with the ``mros`` helper. Key environment variables:
    * - ``MOVENSYS_ROS_VERSION``
      - ``isaac-ros_4.1``, ``isaac-ros_3.2``, or ``general``
    * - ``CPU_ARCH``
-     - ``amd64`` or ``arm64``
+     - ``x86-64`` or ``arm64``
 
 See the `movensys-manipulator README
 <https://github.com/movensys/movensys-manipulator>`_ for the full host setup,

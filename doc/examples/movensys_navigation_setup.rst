@@ -18,12 +18,12 @@ used to run commands inside the container.
 .. code-block:: bash
 
    export ROS_DOMAIN_ID=73                         # must match the WMX R2 container
-   export ROS_DISTRO=jazzy                         # {jazzy, humble}
-   export CPU_ARCH=amd64                           # {amd64, arm64}
+   export ROS_DISTRO=jazzy                         # tested {jazzy, humble}
+   export CPU_ARCH=x86-64                          # tested {x86-64, arm64}
    export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 
-   export MOVENSYS_ROS_VERSION=isaac-ros_4.1       # {general, isaac-ros_4.1, isaac-ros_3.2}
-   export NAVIGATION_MODEL=diffbot                 # {diffbot}
+   export MOVENSYS_ROS_VERSION=isaac-ros_4.1       # tested {general, isaac-ros_4.1, isaac-ros_3.2}
+   export NAVIGATION_MODEL=diffbot                 # tested {diffbot}
 
    source ~/workspaces/movensys_ws/src/movensys-navigation/docker/nros.bash
 

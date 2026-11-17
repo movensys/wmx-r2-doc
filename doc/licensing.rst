@@ -41,7 +41,7 @@ Licensing boundary
      - Not open source. Distributed as binaries by MOVENSYS.
    * - **WMX3 SDK**
 
-       ``WMX3Api.h``, ``libwmx3api.so``, ``libimdll.so``, ``coremotionapi``,
+       ``WMX3Api.h``, ``libwmx3api.a``, ``libimdll.so``, ``coremotionapi``,
        ``ioapi``
      - Proprietary: evaluation or commercial
      - Required to **build** the ROS 2 interface. The MIT-licensed source
@@ -52,9 +52,8 @@ Licensing boundary
      - Proprietary: evaluation or commercial
      - Part of the WMX runtime installation.
    * - **This documentation**
-     - MIT
-     - Source in the ``wmx-r2-doc`` repository. Free to use, modify, and
-       redistribute under the MIT terms.
+     - © 2026 MOVENSYS, all rights reserved
+     - Source in the ``wmx-r2-doc`` repository. Not open source.
 
 .. note::
 
@@ -67,7 +66,8 @@ WMX runtime licensing terms
 ----------------------------
 
 The WMX runtime is free to evaluate in renewable 6-hour sessions; restarting
-the engine starts a new session. A commercial license removes the time limit
+the engine starts a new session. The WMX3 Robot Option, the kinematics layer
+behind ``wmx_robot_option_node``, runs under the same terms. A commercial license removes the time limit
 for production use. Contact your MOVENSYS representative for commercial
 licensing.
 
@@ -78,7 +78,8 @@ licensing.
    * - Mode
      - Terms
    * - Evaluation
-     - Renewable 6-hour engine sessions, extended by restarting the engine.
+     - Renewable 6-hour sessions for the engine and the Robot Option,
+       extended by restarting the engine.
        Intended for evaluation and development.
    * - Commercial
      - No session time limit. Required for production use.
