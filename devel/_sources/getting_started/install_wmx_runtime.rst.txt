@@ -53,7 +53,7 @@ at the EtherCAT NIC.
    .. tab-item:: x86-64
       :sync: x86
 
-      .. button-link:: http://download.movensys.com:8111/webdav/WMX3_Installer/Linux/20261113_WMX3_v3.7_Linux_x86.zip
+      .. button-link:: http://guest:guest@download.movensys.com:8111/webdav/WMX3_Installer/Linux/20261113_WMX3_v3.7_Linux_x86.zip
          :color: primary
          :shadow:
          :class: wmx-download-btn
@@ -72,7 +72,7 @@ at the EtherCAT NIC.
    .. tab-item:: arm64
       :sync: arm64
 
-      .. button-link:: http://download.movensys.com:8111/webdav/WMX3_Installer/Linux/20261113_WMX3_v3.7_Linux_ARM64.zip
+      .. button-link:: http://guest:guest@download.movensys.com:8111/webdav/WMX3_Installer/Linux/20261113_WMX3_v3.7_Linux_ARM64.zip
          :color: primary
          :shadow:
          :class: wmx-download-btn
@@ -396,5 +396,6 @@ up.
 ---------------------------
 
 .. code-block:: bash
-
+   #this will delete /opt/wmx3/ and all its contents, including the license file
+   sudo dpkg --purge wmx3-robot-installer
    sudo dpkg --purge wmx3-installer
