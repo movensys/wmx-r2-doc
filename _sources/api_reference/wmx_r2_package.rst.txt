@@ -4,9 +4,9 @@ wmx_r2_package
 Overview
 --------
 
-``wmx_r2_package`` is where WMX R2 actually runs. It holds the ten nodes
-that talk to the WMX3 SDK, the three launch files that start them, and the
-per-robot example configurations.
+``wmx_r2_package`` is where WMX R2 actually runs. It holds the eleven
+nodes that talk to the WMX3 SDK, the four launch files that start them, and
+the per-robot example configurations.
 
 Two rules shape the whole package:
 
@@ -45,10 +45,16 @@ destroyed at ``deactivate``, so an inactive node advertises nothing.
            DDC["differential_drive_controller"]
        end
 
+       subgraph RO["+ wmx_r2_robot_option.launch.py"]
+           JSB3["joint_state_broadcaster"]
+           RON["wmx_robot_option_node<br/><i>WMX3 Robot Option</i>"]
+       end
+
        ENG -->|engine status| LCM
        LCM -->|configure / activate| CM & IO & EC
        LCM -->|configure / activate| JSB & JTC & JPC & GC
        LCM -->|configure / activate| JSB2 & DDC
+       LCM -->|configure / activate| JSB3 & RON
        SDK["WMX3 SDK  /opt/wmx3"]
        ENG --> SDK
        CM --> SDK
@@ -58,6 +64,7 @@ destroyed at ``deactivate``, so an inactive node advertises nothing.
        JTC --> SDK
        JPC --> SDK
        DDC --> SDK
+       RON --> SDK
 
 Package structure
 -----------------
@@ -75,22 +82,29 @@ Package structure
    │   ├── joint_trajectory_controller.cpp    # FollowJointTrajectory
    │   ├── joint_position_controller.cpp      # MoveIt Servo stream
    │   ├── gripper_controller.cpp             # gripper output bit
-   │   └── differential_drive_controller.cpp  # diff-drive + odometry
+   │   ├── differential_drive_controller.cpp  # diff-drive + odometry
+   │   └── wmx_robot_option_node.cpp          # WMX3 Robot Option (kinematics)
    ├── include/                               # one header per node
    ├── launch/
    │   ├── wmx_r2_general_nodes.launch.py
    │   ├── wmx_r2_manipulator.launch.py
-   │   └── wmx_r2_differential.launch.py
+   │   ├── wmx_r2_differential.launch.py
+   │   └── wmx_r2_robot_option.launch.py
    ├── config/
    │   ├── wmx_r2_general_nodes_config.yaml   # generic, no robot
    │   └── wmx_parameters.xml
    ├── example/
    │   ├── cr3a_manipulator_config.yaml
-   │   ├── cr3a_wmx_parameters.xml
+   │   ├── cr3a_wmx_parameters.xml            # radian axes (MoveIt2 stack)
+   │   ├── cr3a_robot_option_config.yaml
+   │   ├── cr3a_robot_option_parameters.xml   # robot model for the Robot Option
+   │   ├── cr3a_wmx_parameters_deg.xml        # degree axes (Robot Option stack)
    │   ├── cr5a_manipulator_config.yaml
    │   ├── cr5a_wmx_parameters.xml
    │   ├── diffbot_differential_config.yaml
-   │   └── diffbot_wmx_parameters.xml
+   │   ├── diffbot_wmx_parameters.xml         # rad/s wheel axes
+   │   ├── diffbot_differential_config_rpm.yaml
+   │   └── diffbot_wmx_parameters_rpm.xml     # rpm wheel axes
    ├── test/                                  # launch tests, no hardware needed
    ├── CMakeLists.txt
    └── package.xml
@@ -147,6 +161,10 @@ passed to ``CreateDevice`` at runtime by every node.
      - Digital input and output
    * - ``libecapi``
      - EtherCAT master and slave diagnostics
+   * - ``librobotmotionapi``, ``libkinematicsapi``, ``libcoordinateapi``
+     - WMX3 Robot Option: kinematics, robot motion and tool coordinates
+       (``wmx_robot_option_node`` only). Free in renewable 6-hour sessions,
+       like the engine.
 
 .. important::
 
@@ -156,8 +174,8 @@ passed to ``CreateDevice`` at runtime by every node.
    ``LD_LIBRARY_PATH=/opt/wmx3/lib``. This matters in containers that only
    mount the SDK.
 
-   Manipulator and differential launches need **root** for real-time
-   scheduling. Start them with ``sudo --preserve-env`` on the host, or with
+   Manipulator, differential and robot option launches need **root** for
+   real-time scheduling. Start them with ``sudo --preserve-env`` on the host, or with
    ``wros`` in the container.
 
 Node coordination
@@ -297,7 +315,10 @@ wmx_core_motion_node
 *Lifecycle.* Serves all ``/wmx/axes/*`` services and publishes
 ``/wmx/axes/status``. It also arbitrates: while any node listed in
 ``motion_controllers`` is ``active``, the manual motion services answer
-``success: false``. See :doc:`ros2_services`.
+``success: false``. Any lifecycle node name can be listed, not only the
+shipped controllers — the robot option stack lists ``wmx_robot_option_node``.
+A listed name that never appears on the graph is treated as active and blocks
+manual motion. See :doc:`ros2_services`.
 
 wmx_io_node
 ^^^^^^^^^^^
@@ -378,6 +399,20 @@ torque.
    * - ``gripper_close_value``
      - ``0.0``
      - Reported joint value while the bit is 1
+   * - ``degree_to_radian_axes``
+     - ``[]``
+     - Axes, by WMX axis number from ``joint_axes``, whose user unit is the
+       **degree** (``AxisGearRatioDenominator`` 360). Position and velocity
+       are multiplied by π/180 before publishing, so ``/joint_states`` and the
+       simulator mirrors stay in rad and rad/s. Used by the robot option
+       stack. An axis listed here and in ``rpm_to_radian_axes`` warns and is
+       treated as degrees.
+   * - ``rpm_to_radian_axes``
+     - ``[]``
+     - Axes whose user unit follows the rpm convention
+       (``AxisGearRatioDenominator`` 60). Position and velocity are multiplied
+       by 2π/60 before publishing. Empty converts nothing, which is right for
+       the 2π-scaled files.
 
 joint_trajectory_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -501,7 +536,17 @@ wheel-velocity topics out. See :doc:`ros2_topics`.
      - Control-loop rate in Hz; one loop does one ``GetStatus``
    * - ``acc_time`` / ``dec_time``
      - ``1.0``
-     - ``StartVel`` ramp times in **milliseconds**
+     - ``StartVel`` ramp times in **seconds**, converted to the milliseconds
+       the SDK profile takes. ``dec_time`` also applies to the stale-command
+       stop.
+   * - ``wheel_velocity_unit``
+     - ``"rad/s"``
+     - Unit the wheel **axes** are scaled in, not the unit of any ROS topic.
+       ``"rad/s"`` for a 2π denominator; ``"rpm"`` for a denominator of 60,
+       which scales commands by 60/2π and feedback by the inverse.
+       ``"rad"``, ``"rad_s"``, ``"RPM"`` and ``"rev/min"`` are accepted
+       spellings; anything else warns and falls back to ``"rad/s"``. Every ROS
+       topic stays in rad/s either way.
    * - ``cmd_vel_timeout``
      - ``0.25``
      - Seconds without a command before the wheel target is forced to zero
@@ -514,6 +559,34 @@ wheel-velocity topics out. See :doc:`ros2_topics`.
    * - ``joint_name``
      - ``[left, right]``
      - Wheel joint names, in ``[left, right]`` order; needs exactly 2
+
+Robot option
+------------
+
+wmx_robot_option_node
+^^^^^^^^^^^^^^^^^^^^^
+
+*Lifecycle.* Exposes the **WMX3 Robot Option** — the kinematics and
+robot-motion layer above CoreMotion — as ``/wmx/robot/*`` services and the
+``/wmx/robot/status`` topic. Where ``wmx_core_motion_node`` commands axes one
+by one, this node commands the robot as a whole: point-to-point and
+straight-line moves to joint or tool-pose targets in mm and degrees. It needs
+**degree/mm** axes. See :doc:`wmx_robot_option` for the full reference.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 28 16 56
+
+   * - Parameter
+     - Default
+     - Meaning
+   * - ``robot_param_file``
+     - ``""``
+     - Absolute path to the robot parameter XML or URDF, registered at
+       ``configure``. Empty warns and configures without a robot.
+   * - ``robot_status_rate``
+     - ``10``
+     - ``/wmx/robot/status`` rate in Hz; ``<= 0`` falls back to 10
 
 Launch files
 ------------
@@ -534,6 +607,9 @@ Launch files
    * - ``wmx_r2_differential.launch.py``
      - the general nodes, plus ``joint_state_broadcaster`` and
        ``differential_drive_controller``
+   * - ``wmx_r2_robot_option.launch.py``
+     - the general nodes, plus ``joint_state_broadcaster`` and
+       ``wmx_robot_option_node``
 
 The ``ros2_control`` variants live in the ``wmx_r2_control`` package; see
 :doc:`../integration/moveit2_integration` and
@@ -622,6 +698,34 @@ required.
        'config_file:=$(ros2 pkg prefix --share wmx_r2_package)/example/diffbot_differential_config.yaml' \
        'wmx_param_file:=$(ros2 pkg prefix --share wmx_r2_package)/example/diffbot_wmx_parameters.xml'
 
+The same base with its wheel axes scaled in rpm. Both files change together;
+see :ref:`other-axis-units`:
+
+.. code-block:: bash
+
+   wros ros2 launch wmx_r2_package wmx_r2_differential.launch.py \
+       use_sim_time:=false \
+       'config_file:=$(ros2 pkg prefix --share wmx_r2_package)/example/diffbot_differential_config_rpm.yaml' \
+       'wmx_param_file:=$(ros2 pkg prefix --share wmx_r2_package)/example/diffbot_wmx_parameters_rpm.xml'
+
+wmx_r2_robot_option.launch.py
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The general-nodes arguments plus ``robot_param_file``, the robot parameter
+XML or URDF registered with the Robot Option at ``configure``. It overrides
+``robot_param_file`` in ``config_file``; empty leaves the node waiting for
+``/wmx/robot/set_robot_param``. Pass ``config_file`` explicitly — its
+declared default, ``config/wmx_r2_robot_option_config.yaml``, is not shipped.
+
+.. code-block:: bash
+
+   # Dobot CR3A, degree-scaled axes
+   wros ros2 launch wmx_r2_package wmx_r2_robot_option.launch.py \
+       use_sim_time:=false \
+       'config_file:=$(ros2 pkg prefix --share wmx_r2_package)/example/cr3a_robot_option_config.yaml' \
+       'wmx_param_file:=$(ros2 pkg prefix --share wmx_r2_package)/example/cr3a_wmx_parameters_deg.xml' \
+       'robot_param_file:=$(ros2 pkg prefix --share wmx_r2_package)/example/cr3a_robot_option_parameters.xml'
+
 Configuration files
 -------------------
 
@@ -643,10 +747,13 @@ A deployment is **one YAML plus one XML**.
 
 .. important::
 
-   Joint values pass through the ROS nodes **unconverted**. There is no
-   gear-ratio or offset parameter anywhere in ``wmx_r2_package``. If the
-   robot moves the wrong distance, the XML is wrong — not the YAML. See
-   :doc:`../try_your_robot/robot_parameters`.
+   Joint values pass through the ROS nodes **unconverted** by default. There
+   is no gear-ratio or offset parameter anywhere in ``wmx_r2_package``; the
+   only conversions are the opt-in unit declarations for degree and rpm axes
+   (``degree_to_radian_axes``, ``rpm_to_radian_axes``,
+   ``wheel_velocity_unit``), which must match the XML. If the robot moves the
+   wrong distance, the XML is wrong — or the YAML declares a unit the XML does
+   not use. See :doc:`../try_your_robot/robot_parameters`.
 
 cr3a_manipulator_config.yaml
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -726,6 +833,9 @@ diffbot_differential_config.yaml
        left_axis: 0
        right_axis: 1
        rate: 100
+       acc_time: 1.0                   # s
+       dec_time: 1.0                   # s
+       wheel_velocity_unit: "rad/s"    # matches diffbot_wmx_parameters.xml (2π)
        wheel_radius: 0.095
        wheel_to_wheel: 0.55
        cmd_vel_timeout: 0.25
@@ -760,6 +870,51 @@ diffbot_differential_config.yaml
          - wmx_ethercat_node
          - joint_state_broadcaster
          - differential_drive_controller
+
+``diffbot_differential_config_rpm.yaml`` is the same file with
+``wheel_velocity_unit: "rpm"`` on the controller and
+``rpm_to_radian_axes: [0, 1]`` on the broadcaster.
+
+cr3a_robot_option_config.yaml
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: yaml
+
+   wmx_lifecycle_manager_node:
+     ros__parameters:
+       managed_nodes:
+         - wmx_core_motion_node
+         - wmx_io_node
+         - wmx_ethercat_node
+         - joint_state_broadcaster       # servos on before the robot option
+         - wmx_robot_option_node
+       discovery_period: 0.2
+
+   wmx_core_motion_node:
+     ros__parameters:
+       axes_status_rate: 1
+       motion_controllers:
+         - wmx_robot_option_node
+
+   joint_state_broadcaster:
+     ros__parameters:
+       joint_feedback_rate: 100
+       joint_axes: [0, 1, 2, 3, 4, 5]
+       degree_to_radian_axes: [0, 1, 2, 3, 4, 5]
+       joint_name: ["joint1", "joint2", "joint3", "joint4", "joint5", "joint6"]
+       encoder_joint_topic: /joint_states
+       isaacsim_joint_topic: /isaacsim/joint_command
+       gazebo_position_joint_topic: /gazebo_position_controller/commands
+       gazebo_position_joint_axes: [0, 1, 2, 3, 4, 5]
+
+   wmx_robot_option_node:
+     ros__parameters:
+       robot_param_file: ""            # set by the launch argument
+       robot_status_rate: 1
+
+``wmx_robot_option_node`` appears twice: in ``managed_nodes`` so it is brought
+up, and in ``motion_controllers`` so it owns the axes while active.
+``joint_state_broadcaster`` is managed but is not a motion controller.
 
 What to change per robot
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -811,4 +966,5 @@ See also
 - :doc:`ros2_topics` -- every topic, with QoS and rates
 - :doc:`ros2_actions` -- the ``FollowJointTrajectory`` contract
 - :doc:`wmx_r2_message` -- interface definitions
+- :doc:`wmx_robot_option` -- the Robot Option node and its services
 - :doc:`../try_your_robot/robot_parameters` -- what belongs in the WMX XML

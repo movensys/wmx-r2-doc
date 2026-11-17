@@ -177,7 +177,7 @@ order** — each service depends on the one before it:
 .. code-block:: bash
 
    export XPU_CORE=nvidia-gpu        # {nvidia-gpu, intel-xpu}
-   export CPU_ARCH=amd64             # {amd64, arm64}
+   export CPU_ARCH=x86-64            # {x86-64, arm64}
 
    cd ~/workspaces/movensys-intelligence/movensys_vlm/docker
 

@@ -688,7 +688,7 @@ Configuration files to create or modify
      - Changes Required
    * - **ENI file**
      - Generate it from a scan of your bus with NetConfigurator, so the master
-       knows which slaves are on the network. See
+       knows which slaves are on the network, and keep it in ``/etc/eni``. See
        :doc:`../try_your_robot/wmx_web_tools`.
    * - **WMX XML parameters** (e.g., ``new_robot_wmx_parameters.xml``)
      - Define gear ratios, axis polarities, encoder modes, homing parameters,
@@ -705,8 +705,8 @@ Steps to adapt
 
 1. **Describe the network** -- Check that a matching ESI file is present in
    ``/opt/wmx3/ESI/`` for each servo drive; the drive manufacturer supplies it
-   and NetConfigurator registers it. Then scan the bus and generate the ENI
-   file. See :doc:`../try_your_robot/wmx_web_tools`.
+   and NetConfigurator registers it. Then scan the bus, generate the ENI
+   file, and make sure it is in ``/etc/eni``. See :doc:`../try_your_robot/wmx_web_tools`.
 
 2. **Create the WMX parameter file** -- Copy ``cr3a_wmx_parameters.xml`` and
    modify gear ratios, polarities, and encoder settings for your servo drives.

@@ -57,7 +57,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Oct 29, 2026"/>
+    <meta name="docbuild:last-update" content="Nov 17, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -268,6 +268,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../examples/movensys_manipulator.html">movensys-manipulator</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../examples/movensys_manipulator_setup.html">movensys-manipulator Setup</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/trajectory_planning.html">Trajectory Planning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/robot_option_motion.html">Robot Option Motion</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/apriltag_pick_and_place.html">AprilTag Pick-and-Place</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/obstacle_avoidance.html">Nvblox Obstacle Avoidance</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/yolo_pick_and_place.html">YOLO Pick-and-Place</a></li>
@@ -308,6 +309,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/ros2_actions.html">ROS2 Actions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_message.html">wmx_r2_message</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_package.html">wmx_r2_package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_robot_option.html">wmx_robot_option_node</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx_r2_control.html">wmx_r2_control</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_reference/wmx3_api.html">The WMX3 API Underneath WMX R2</a></li>
 </ul>
@@ -562,7 +564,7 @@ ignores it.</p>
 <p><strong>Symptom:</strong> <code class="docutils literal notranslate"><span class="pre">Failed</span> <span class="pre">to</span> <span class="pre">create</span> <span class="pre">device</span> <span class="pre">after</span> <span class="pre">N</span> <span class="pre">attempts</span></code></p>
 <p><strong>Solutions:</strong></p>
 <ul class="simple">
-<li><p>Verify the WMX Runtime is installed: <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">/opt/wmx3/lib/libwmx3api.so</span></code></p></li>
+<li><p>Verify the WMX Runtime is installed: <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">/opt/wmx3/lib/libwmx3api.a</span></code></p></li>
 <li><p>Ensure you are running with <code class="docutils literal notranslate"><span class="pre">sudo</span></code></p></li>
 <li><p>Check that no other WMX application is running (lock contention causes
 error code 297)</p></li>
@@ -580,6 +582,9 @@ port</p></li>
 <li><p>Ensure all servo drives are powered on</p></li>
 <li><p>Check that <code class="docutils literal notranslate"><span class="pre">/opt/wmx3/ESI/</span></code> holds a matching EtherCAT Slave Information
 (ESI) file for each servo drive on the chain</p></li>
+<li><p>Check that <code class="docutils literal notranslate"><span class="pre">/etc/eni/</span></code> holds the EtherCAT Network Information (ENI) file
+for each device type on the chain; the engine reads ENI files from no other
+folder</p></li>
 <li><p>Verify the EtherCAT Ethernet port does <strong>not</strong> have an IP address assigned</p></li>
 </ul>
 </section>
@@ -796,7 +801,7 @@ issue on the project repository.</p>
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Oct 29, 2026</p>
+      <p>Last updated: Nov 17, 2026</p>
     
   </div>
   <div class="movensys-footer__links">
