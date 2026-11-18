@@ -236,7 +236,8 @@ What each WOS screen corresponds to in ROS 2
    * - Setup → Parameters (Axis Command Mode)
      - ``/wmx/axes/set_axis_command_mode``
    * - Single-Axis Control → Homing
-     - ``/wmx/axes/start_home``
+     - ``/wmx/axes/start_home`` (always ``CurrentPos``; other home types
+       need WOS)
    * - Single-Axis Control → Jog
      - ``/wmx/axes/start_jog``
    * - Single-Axis Control → Abs / Rel
