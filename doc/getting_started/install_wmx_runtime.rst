@@ -53,15 +53,12 @@ at the EtherCAT NIC.
    .. tab-item:: x86-64
       :sync: x86
 
-      .. button-link:: http://download.movensys.com:8111/webdav/WMX3_Installer/Linux/20261113_WMX3_v3.7_Linux_x86.zip
+      .. button-link:: https://github.com/movensys/wmx-r2/releases/download/release-0.3/20261113_WMX3_v3.7_Linux_x86.zip
          :color: primary
          :shadow:
          :class: wmx-download-btn
 
          Download WMX3 for x86-64
-
-      When the browser asks you to log in, use username ``guest`` and password
-      ``guest``.
 
       **Install WMX3** — extract the archive and run the installer:
 
@@ -75,15 +72,12 @@ at the EtherCAT NIC.
    .. tab-item:: arm64
       :sync: arm64
 
-      .. button-link:: http://download.movensys.com:8111/webdav/WMX3_Installer/Linux/20261113_WMX3_v3.7_Linux_ARM64.zip
+      .. button-link:: https://github.com/movensys/wmx-r2/releases/download/release-0.3/20261113_WMX3_v3.7_Linux_ARM64.zip
          :color: primary
          :shadow:
          :class: wmx-download-btn
 
          Download WMX3 for arm64
-
-      When the browser asks you to log in, use username ``guest`` and password
-      ``guest``.
 
       **Install WMX3** — extract the archive and run the installer:
 
@@ -402,6 +396,7 @@ up.
 ---------------------------
 
 .. code-block:: bash
-   #this will delete /opt/wmx3/ and all its contents, including the license file
+
+   # this will delete /opt/wmx3/ and all its contents, including the license file
    sudo dpkg --purge wmx3-robot-installer
    sudo dpkg --purge wmx3-installer
