@@ -440,7 +440,7 @@ Starting a new ``ros2 service call`` per refresh takes far longer than
 
 .. code-block:: bash
 
-   wros ros2 service call -r 20 /wmx/axes/start_jog wmx_r2_message/srv/StartAxesVelocity \
+   wros ros2 service call -r 1 /wmx/axes/start_jog wmx_r2_message/srv/StartAxesVelocity \
      '"{axis: [0], velocity: [10], acc: [100], dec: [100]}"'
 
 .. list-table:: ``wmx_core_motion_node`` parameters

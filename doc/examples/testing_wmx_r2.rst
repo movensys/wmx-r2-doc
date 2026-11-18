@@ -219,7 +219,7 @@ count — ``axis: [0,1,2,3,4,5]`` for a six-axis arm — keeping ``axis`` and
      '"{axis: [0], target: [10], velocity: [30], acc: [100], dec: [100]}"'
 
    # 8. Or jog by hand instead of step 7. Ctrl+C releases it (section 7).
-   wros ros2 service call -r 20 /wmx/axes/start_jog wmx_r2_message/srv/StartAxesVelocity \
+   wros ros2 service call -r 1 /wmx/axes/start_jog wmx_r2_message/srv/StartAxesVelocity \
      '"{axis: [0], velocity: [10], acc: [100], dec: [100]}"'
 
    # 9. Stop the axis.
@@ -529,11 +529,11 @@ acts as the release:
 .. code-block:: bash
 
    # positive direction
-   wros ros2 service call -r 20 /wmx/axes/start_jog wmx_r2_message/srv/StartAxesVelocity \
+   wros ros2 service call -r 1 /wmx/axes/start_jog wmx_r2_message/srv/StartAxesVelocity \
      '"{axis: [0], velocity: [10], acc: [100], dec: [100]}"'
 
    # negative direction: negate velocity
-   wros ros2 service call -r 20 /wmx/axes/start_jog wmx_r2_message/srv/StartAxesVelocity \
+   wros ros2 service call -r 1 /wmx/axes/start_jog wmx_r2_message/srv/StartAxesVelocity \
      '"{axis: [0], velocity: [-10], acc: [100], dec: [100]}"'
 
 Stop explicitly at any time:
