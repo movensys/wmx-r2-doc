@@ -171,9 +171,10 @@ Homing, absolute position, brakes, and safety
      - Handling
    * - **Homing**
      - Not used on any shipped robot. ``AbsoluteEncoderMode = 1`` on every
-       axis, so position is known at power-on. The homing service
-       (``/wmx/axes/start_home``) and the ``HomeParam`` block exist and are
-       populated with defaults, but no shipped configuration exercises them.
+       axis, so position is known at power-on. The ``HomeParam`` block is
+       populated with defaults, but no shipped configuration uses it, and the
+       homing service (``/wmx/axes/start_home``) always overwrites it with
+       ``CurrentPos`` — calling it re-zeroes the axis where it stands.
        A robot with incremental encoders requires a homing strategy that this
        project does not provide.
    * - **Absolute position**

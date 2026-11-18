@@ -51,7 +51,7 @@ Add the following to your ``~/.bashrc``:
 
 .. code-block:: bash
 
-   export ROS_DOMAIN_ID=73                         # any number; the same one everywhere
+   export ROS_DOMAIN_ID=70                         # any number; the same one everywhere
    export ROS_DISTRO=jazzy                         # tested {jazzy, humble}
    export CPU_ARCH=x86-64                          # tested {x86-64, arm64}
    export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
