@@ -388,7 +388,7 @@ else:
 
 .. code-block:: bash
 
-   wros ros2 service call /wmx/lifecycle/get_node_states wmx_r2_message/srv/GetNodeStates "{}"
+   wros ros2 service call /wmx/lifecycle/get_node_states wmx_r2_message/srv/GetNodeStates '"{}"'
 
 See also
 --------

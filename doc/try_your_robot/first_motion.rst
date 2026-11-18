@@ -78,18 +78,18 @@ services do not exist until ``wmx_core_motion_node`` is ``active``:
 .. code-block:: bash
 
    wros ros2 service call /wmx/lifecycle/get_node_states \
-        wmx_r2_message/srv/GetNodeStates "{}"
+        wmx_r2_message/srv/GetNodeStates '"{}"'
 
 Confirm the engine and the bus, then read back the parameters the engine
 actually holds:
 
 .. code-block:: bash
 
-   wros ros2 service call /wmx/engine/get_engine_status std_srvs/srv/Trigger "{}"   # expect "Communicating"
+   wros ros2 service call /wmx/engine/get_engine_status std_srvs/srv/Trigger '"{}"'   # expect "Communicating"
    wros ros2 service call /wmx/ecat/get_master_info \
-        wmx_r2_message/srv/EcatGetMasterInfo "{master_id: 0}"     # expect every drive present
+        wmx_r2_message/srv/EcatGetMasterInfo '"{master_id: 0}"'     # expect every drive present
    wros ros2 service call /wmx/engine/get_axis_param wmx_r2_message/srv/GetAxisParam \
-        "{axis: [0,1,2,3,4,5]}"                                      # gear ratio, polarity, mode
+        '"{axis: [0,1,2,3,4,5]}"'                                      # gear ratio, polarity, mode
 
 **Checkpoint.** The gear ratio, polarity, and command mode in the response
 must match the table you built in :doc:`robot_parameters`. Stop here if they
@@ -137,9 +137,9 @@ Enable **one** axis only. Leave every other axis off.
 .. code-block:: bash
 
    wros ros2 service call /wmx/axes/clear_amp_alarm wmx_r2_message/srv/SetAxes \
-        "{axis: [0], data: [0]}"
+        '"{axis: [0], data: [0]}"'
    wros ros2 service call /wmx/axes/set_servo_on wmx_r2_message/srv/SetAxes \
-        "{axis: [0], data: [1]}"
+        '"{axis: [0], data: [1]}"'
 
 Command a small relative move. The units are radians, and the velocity and
 acceleration are rad/s and rad/s² (this holds only because
@@ -149,7 +149,7 @@ acceleration are rad/s and rad/s² (this holds only because
 
    # +0.05 rad (≈2.9°) at 0.05 rad/s with gentle ramps
    wros ros2 service call /wmx/axes/start_mov wmx_r2_message/srv/StartAxesPose \
-     "{axis: [0], target: [0.05], velocity: [0.05], acc: [0.1], dec: [0.1]}"
+     '"{axis: [0], target: [0.05], velocity: [0.05], acc: [0.1], dec: [0.1]}"'
 
 .. warning::
 
@@ -207,7 +207,7 @@ Disable the axis before moving to the next one:
 .. code-block:: bash
 
    wros ros2 service call /wmx/axes/set_servo_on wmx_r2_message/srv/SetAxes \
-        "{axis: [0], data: [0]}"
+        '"{axis: [0], data: [0]}"'
 
 **Checkpoint.** Do not proceed to multi-axis motion until every axis has
 passed checks 1–6 individually.
@@ -335,7 +335,7 @@ controlled stop, still not an emergency stop:
 .. code-block:: bash
 
    wros ros2 service call /wmx/axes/set_servo_on wmx_r2_message/srv/SetAxes \
-        "{axis: [0,1,2,3,4,5], data: [0,0,0,0,0,0]}"
+        '"{axis: [0,1,2,3,4,5], data: [0,0,0,0,0,0]}"'
 
 .. note:: **``keyboard_teleop`` and the clock.**
 

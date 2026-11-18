@@ -136,6 +136,7 @@ What happens at startup
        L->>M: start (ordinary node)
        L->>N: start (lifecycle, unconfigured)
        E->>W: CreateDevice, retry up to 5x on lock error 297
+       E->>W: ImportAndSetAll (wmx_param_file)
        E->>W: StartCommunication
        W-->>E: Communicating
        loop every discovery_period
@@ -150,13 +151,17 @@ What happens at startup
    retrying up to five times if another application holds the lock
    (error 297).
 
-2. **Communication start** — ``StartCommunication`` brings up the real-time
+2. **Parameter import, then communication start** — the engine imports
+   ``wmx_param_file`` and refuses to communicate if that import fails.
+   ``StartCommunication`` then brings up the real-time
    EtherCAT cycle, which discovers the drives on the bus. The engine node
    does this itself at startup; you do not have to call a service.
 
 3. **Bring-up** — ``wmx_lifecycle_manager_node`` polls the engine status. Once
    it reads ``Communicating``, it drives the three lifecycle nodes through
    ``configure`` and ``activate``, in the order given by ``managed_nodes``.
+   It does this once per node; a node you take down by hand stays down until
+   you bring it up again.
 
 .. important::
 
@@ -185,45 +190,45 @@ count — ``axis: [0,1,2,3,4,5]`` for a six-axis arm — keeping ``axis`` and
 
    # 1. Check that every node came up.
    wros ros2 service call /wmx/lifecycle/get_node_states \
-     wmx_r2_message/srv/GetNodeStates "{}"
+     wmx_r2_message/srv/GetNodeStates
 
    # 2. Check the engine status. The launch already started the EtherCAT
    #    cycle, so this should report "Communicating".
-   wros ros2 service call /wmx/engine/get_engine_status std_srvs/srv/Trigger "{}"
+   wros ros2 service call /wmx/engine/get_engine_status std_srvs/srv/Trigger
 
    # 3. Set the gear ratio. It defines the user unit of every command below.
    #    8388608 counts (23-bit encoder) per 360 degrees makes one command
    #    unit equal one degree.
    wros ros2 service call /wmx/axes/set_gear_ratio wmx_r2_message/srv/SetAxesGearRatio \
-     "{axis: [0], numerator: [8388608.0], denominator: [360.0]}"
+     '"{axis: [0], numerator: [8388608.0], denominator: [360.0]}"'
 
-   # 4. Clear any amp alarms.
+   # 4. Clear any amp alarms (data is ignored).
    wros ros2 service call /wmx/axes/clear_amp_alarm wmx_r2_message/srv/SetAxes \
-     "{axis: [0], data: [0]}"
+     '"{axis: [0]}"'
 
    # 5. Enable the servo.
    wros ros2 service call /wmx/axes/set_servo_on wmx_r2_message/srv/SetAxes \
-     "{axis: [0], data: [1]}"
+     '"{axis: [0], data: [1]}"'
 
-   # 6. Home the axis. With the shipped parameter file the current encoder
-   #    position becomes zero.
+   # 6. Home the axis: the current position becomes zero.
    wros ros2 service call /wmx/axes/start_home wmx_r2_message/srv/SetAxes \
-     "{axis: [0], data: [0]}"
+     '"{axis: [0]}"'
 
    # 7. First move: +10 degrees relative, at low velocity.
    wros ros2 service call /wmx/axes/start_mov wmx_r2_message/srv/StartAxesPose \
-     "{axis: [0], target: [10], velocity: [30], acc: [100], dec: [100]}"
+     '"{axis: [0], target: [10], velocity: [30], acc: [100], dec: [100]}"'
 
-   # 8. Or jog by hand instead of step 7. Ctrl+C releases it.
-   #    (see section 7 for the loop)
+   # 8. Or jog by hand instead of step 7. Ctrl+C releases it (section 7).
+   wros ros2 service call -r 20 /wmx/axes/start_jog wmx_r2_message/srv/StartAxesVelocity \
+     '"{axis: [0], velocity: [10], acc: [100], dec: [100]}"'
 
    # 9. Stop the axis.
    wros ros2 service call /wmx/axes/stop wmx_r2_message/srv/SetAxes \
-     "{axis: [0], data: [0]}"
+     '"{axis: [0], data: [0]}"'
 
    # 10. Turn the servo off. Always do this before stopping communication.
    wros ros2 service call /wmx/axes/set_servo_on wmx_r2_message/srv/SetAxes \
-     "{axis: [0], data: [0]}"
+     '"{axis: [0], data: [0]}"'
 
 Keep a second terminal on the axis feedback while you work through it. After
 step 5 ``servo_on`` should be ``true``, after step 6 ``home_done`` should be
@@ -279,26 +284,26 @@ Each node owns one slice of the interface:
    wros ros2 topic list | grep /wmx       # available WMX topics
 
    # engine state: expect "Communicating"
-   wros ros2 service call /wmx/engine/get_engine_status std_srvs/srv/Trigger "{}"
+   wros ros2 service call /wmx/engine/get_engine_status std_srvs/srv/Trigger
 
    # every lifecycle node and its state
    wros ros2 service call /wmx/lifecycle/get_node_states \
-        wmx_r2_message/srv/GetNodeStates "{}"
+        wmx_r2_message/srv/GetNodeStates
 
    # EtherCAT master and slave status
    wros ros2 service call /wmx/ecat/get_master_info \
-        wmx_r2_message/srv/EcatGetMasterInfo "{master_id: 0}"
+        wmx_r2_message/srv/EcatGetMasterInfo '"{master_id: 0}"'
 
 If a node is stuck in ``unconfigured``, drive it by hand:
 
 .. code-block:: bash
 
    wros ros2 service call /wmx/lifecycle/set_node_state wmx_r2_message/srv/SetNodeState \
-        "{node_name: 'wmx_core_motion_node', transition: 'bringup'}"
+        '"{node_name: wmx_core_motion_node, transition: bringup}"'
 
    # or everything at once
    wros ros2 service call /wmx/lifecycle/set_node_state wmx_r2_message/srv/SetNodeState \
-        "{node_name: '', transition: 'bringup'}"
+        '"{node_name: \"\", transition: bringup}"'
 
 ``wmx_core_motion_node`` publishes axis feedback at ``axes_status_rate``:
 
@@ -349,7 +354,7 @@ trust it:
 .. code-block:: bash
 
    wros ros2 service call /wmx/engine/get_axis_param wmx_r2_message/srv/GetAxisParam \
-        "{axis: [0,1,2,3,4,5]}"
+        '"{axis: [0,1,2,3,4,5]}"'
 
 The reply returns one human-readable dump per axis in ``axis_param``, and the
 engine must already be communicating. In the dump, ``CommandMode`` is
@@ -363,7 +368,7 @@ To load a parameter file into the running engine without restarting:
 
    wros ros2 service call /wmx/engine/import_and_set_all \
         wmx_r2_message/srv/ImportAndSetAll \
-        "{path: '/opt/wmx3/wmx_parameters.xml'}"
+        '"{path: $(ros2 pkg prefix --share wmx_r2_package)/config/wmx_parameters.xml}"'
 
 The path must be absolute.
 
@@ -381,7 +386,7 @@ motor shaft rotation:
 .. code-block:: bash
 
    wros ros2 service call /wmx/axes/set_gear_ratio wmx_r2_message/srv/SetAxesGearRatio \
-        "{axis: [0], numerator: [8388608.0], denominator: [360.0]}"
+        '"{axis: [0], numerator: [8388608.0], denominator: [360.0]}"'
 
 .. note::
 
@@ -396,20 +401,19 @@ motor shaft rotation:
 
    # Clear any amp alarms (data is ignored)
    wros ros2 service call /wmx/axes/clear_amp_alarm wmx_r2_message/srv/SetAxes \
-        "{axis: [0,1,2,3,4,5], data: [0,0,0,0,0,0]}"
+        '"{axis: [0,1,2,3,4,5]}"'
 
    # Enable the servos (1 = on, 0 = off)
    wros ros2 service call /wmx/axes/set_servo_on wmx_r2_message/srv/SetAxes \
-        "{axis: [0,1,2,3,4,5], data: [1,1,1,1,1,1]}"
+        '"{axis: [0,1,2,3,4,5], data: [1,1,1,1,1,1]}"'
 
    # Home all axes (data is ignored)
    wros ros2 service call /wmx/axes/start_home wmx_r2_message/srv/SetAxes \
-        "{axis: [0,1,2,3,4,5], data: [0,0,0,0,0,0]}"
+        '"{axis: [0,1,2,3,4,5]}"'
 
-``start_home`` uses the ``HomeType`` configured in the WMX parameter file for
-that axis. The shipped files use ``CurrentPos``, which makes the current
-encoder position zero. The service does not write the home configuration, so
-a switch-based or Z-pulse setup is left alone.
+``start_home`` **overwrites** each axis's ``HomeType`` with ``CurrentPos``
+before homing, so the current position becomes zero. A switch-based or
+Z-pulse home configured in the parameter file is replaced, not used.
 
 Confirm on ``/wmx/axes/status`` that ``amp_alarm`` is all ``false``,
 ``servo_on`` all ``true``, and ``home_done`` all ``true`` before commanding
@@ -419,13 +423,13 @@ Two more axis settings are available when a machine needs them:
 
 .. code-block:: bash
 
-   # Command mode: 0 = Position, 1 = Velocity, 2 = Torque
+   # Command mode: 0 = Position, 1 = Velocity (other values are rejected)
    wros ros2 service call /wmx/axes/set_axis_command_mode wmx_r2_message/srv/SetAxes \
-        "{axis: [0,1], data: [0,0]}"
+        '"{axis: [0,1], data: [0,0]}"'
 
    # Polarity: 1 = normal, -1 = reversed
    wros ros2 service call /wmx/axes/set_axis_polarity wmx_r2_message/srv/SetAxes \
-        "{axis: [0,1], data: [1,1]}"
+        '"{axis: [0,1], data: [1,1]}"'
 
 6. Command motion
 ^^^^^^^^^^^^^^^^^
@@ -445,8 +449,7 @@ arrays, so one call can command several axes at once.
 .. code-block:: bash
 
    wros ros2 service call /wmx/axes/start_pos wmx_r2_message/srv/StartAxesPose \
-        "{axis: [0,1], target: [45, -90], velocity: [10, 20], \
-          acc: [10, 20], dec: [10, 20]}"
+        '"{axis: [0,1], target: [45, -90], velocity: [10, 20], acc: [10, 20], dec: [10, 20]}"'
 
 **Relative position** — move by ``target`` from wherever the axis is now.
 This is the safer of the two for a first move: a small number stays a small
@@ -455,8 +458,7 @@ move regardless of where the axis happens to be.
 .. code-block:: bash
 
    wros ros2 service call /wmx/axes/start_mov wmx_r2_message/srv/StartAxesPose \
-        "{axis: [0,1], target: [10, -10], velocity: [10, 20], \
-          acc: [10, 10], dec: [10, 20]}"
+        '"{axis: [0,1], target: [10, -10], velocity: [10, 20], acc: [10, 10], dec: [10, 20]}"'
 
 **Continuous velocity** — the axis keeps turning until you stop it. The sign
 of ``velocity`` selects the direction.
@@ -464,14 +466,15 @@ of ``velocity`` selects the direction.
 .. code-block:: bash
 
    wros ros2 service call /wmx/axes/start_vel wmx_r2_message/srv/StartAxesVelocity \
-        "{axis: [0,1], velocity: [10, -10], acc: [10, 20], dec: [10, 20]}"
+        '"{axis: [0,1], velocity: [10, -10], acc: [10, 20], dec: [10, 20]}"'
 
-**Stop** — decelerate to a standstill. ``data`` is ignored:
+**Stop** — decelerate to a standstill. ``data`` is ignored but must match
+``axis`` in length:
 
 .. code-block:: bash
 
    wros ros2 service call /wmx/axes/stop wmx_r2_message/srv/SetAxes \
-        "{axis: [0,1], data: [0,0]}"
+        '"{axis: [0,1], data: [0,0]}"'
 
 Watch ``motion_complete`` and ``actual_pos`` to confirm each move finished
 where you expected:
@@ -488,6 +491,11 @@ where you expected:
    ``start_home`` all refuse. This is deliberate: a manual jog must not fight
    a running trajectory.
 
+   A name that is listed but never launched also counts as active. The
+   general config ships ``motion_controllers: ['']`` for this reason; if you
+   use an older config that still lists the three controllers, every motion
+   call here answers ``a controller is active and owns the axes``.
+
    ``stop`` is never blocked. To take manual control, deactivate the
    controller:
 
@@ -495,7 +503,7 @@ where you expected:
 
       wros ros2 service call /wmx/lifecycle/set_node_state \
            wmx_r2_message/srv/SetNodeState \
-           "{node_name: 'joint_trajectory_controller', transition: 'deactivate'}"
+           '"{node_name: joint_trajectory_controller, transition: deactivate}"'
 
 7. Jog an axis (hold to move)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -503,7 +511,7 @@ where you expected:
 ``/wmx/axes/start_jog`` is a dead-man command: keep calling it to keep moving,
 stop calling it to release. ``wmx_core_motion_node`` stops the axis once
 refreshes stop arriving (``jog_timeout_ms``, default 200 ms). The sign of
-``velocity`` selects the direction.
+``velocity`` selects the direction, and ``velocity: [0]`` stops at once.
 
 Jog runs ``Motion::StartJog``, which requires the axis to be in **Position
 mode**. After the sequence in section 5:
@@ -511,32 +519,29 @@ mode**. After the sequence in section 5:
 .. code-block:: bash
 
    wros ros2 service call /wmx/axes/set_axis_command_mode wmx_r2_message/srv/SetAxes \
-        "{axis: [0], data: [0]}"
+        '"{axis: [0], data: [0]}"'
 
-Then loop the call. ``Ctrl+C`` acts as the release:
+Then let one ``ros2`` process repeat the call with ``-r`` (Hz). A shell loop
+does not work: starting a new ``wros ros2 service call`` takes far longer
+than the 200 ms timeout, so the axis would stop between calls. ``Ctrl+C``
+acts as the release:
 
 .. code-block:: bash
 
    # positive direction
-   while true; do
-     wros ros2 service call /wmx/axes/start_jog wmx_r2_message/srv/StartAxesVelocity \
-       "{axis: [0], velocity: [10], acc: [100], dec: [100]}"
-     sleep 0.05
-   done
+   wros ros2 service call -r 20 /wmx/axes/start_jog wmx_r2_message/srv/StartAxesVelocity \
+     '"{axis: [0], velocity: [10], acc: [100], dec: [100]}"'
 
    # negative direction: negate velocity
-   while true; do
-     wros ros2 service call /wmx/axes/start_jog wmx_r2_message/srv/StartAxesVelocity \
-       "{axis: [0], velocity: [-10], acc: [100], dec: [100]}"
-     sleep 0.05
-   done
+   wros ros2 service call -r 20 /wmx/axes/start_jog wmx_r2_message/srv/StartAxesVelocity \
+     '"{axis: [0], velocity: [-10], acc: [100], dec: [100]}"'
 
 Stop explicitly at any time:
 
 .. code-block:: bash
 
    wros ros2 service call /wmx/axes/stop wmx_r2_message/srv/SetAxes \
-        "{axis: [0], data: [0]}"
+        '"{axis: [0], data: [0]}"'
 
 **Tuning.** These are ``wmx_core_motion_node`` parameters, read once at
 startup — set them in the config YAML, not with ``ros2 param set``:
@@ -591,31 +596,31 @@ decimal on the wire (``15`` = ``0x0F``).
 
    # Read a single input bit / output bit
    wros ros2 service call /wmx/io/get_in_bit \
-        wmx_r2_message/srv/GetIoBit "{addr: 0, bit: 0}"
+        wmx_r2_message/srv/GetIoBit '"{addr: 0, bit: 0}"'
    wros ros2 service call /wmx/io/get_out_bit \
-        wmx_r2_message/srv/GetIoBit "{addr: 0, bit: 0}"
+        wmx_r2_message/srv/GetIoBit '"{addr: 0, bit: 0}"'
 
    # Read scattered bits in one call
    wros ros2 service call /wmx/io/get_in_bits wmx_r2_message/srv/GetIoBits \
-        "{addr: [0, 2], bit: [1, 5]}"
+        '"{addr: [0, 2], bit: [1, 5]}"'
 
    # Read a single byte, or a run of bytes
    wros ros2 service call /wmx/io/get_in_byte \
-        wmx_r2_message/srv/GetIoByte "{addr: 0}"
+        wmx_r2_message/srv/GetIoByte '"{addr: 0}"'
    wros ros2 service call /wmx/io/get_in_bytes \
-        wmx_r2_message/srv/GetIoBytes "{addr: 0, size: 4}"
+        wmx_r2_message/srv/GetIoBytes '"{addr: 0, size: 4}"'
 
    # Set and clear an output bit (e.g. a gripper solenoid)
    wros ros2 service call /wmx/io/set_out_bit \
-        wmx_r2_message/srv/SetIoBit "{addr: 0, bit: 0, data: 1}"
+        wmx_r2_message/srv/SetIoBit '"{addr: 0, bit: 0, data: 1}"'
    wros ros2 service call /wmx/io/set_out_bit \
-        wmx_r2_message/srv/SetIoBit "{addr: 0, bit: 0, data: 0}"
+        wmx_r2_message/srv/SetIoBit '"{addr: 0, bit: 0, data: 0}"'
 
    # Write output byte 2 to 0x0F, then bytes 2 and 3 to 0x0F and 0x0E
    wros ros2 service call /wmx/io/set_out_byte \
-        wmx_r2_message/srv/SetIoByte "{addr: 2, data: 15}"
+        wmx_r2_message/srv/SetIoByte '"{addr: 2, data: 15}"'
    wros ros2 service call /wmx/io/set_out_bytes \
-        wmx_r2_message/srv/SetIoBytes "{addr: 2, data: [15, 14]}"
+        wmx_r2_message/srv/SetIoBytes '"{addr: 2, data: [15, 14]}"'
 
 A quick way to find which bit a device is wired to: read the input bytes,
 toggle the device by hand, read them again.
@@ -635,7 +640,7 @@ a slave stuck below ``Op``, packet loss, or a drive that does not appear.
 
    # Master and per-slave state; master 0 unless you run several rings
    wros ros2 service call /wmx/ecat/get_master_info \
-        wmx_r2_message/srv/EcatGetMasterInfo "{master_id: 0}"
+        wmx_r2_message/srv/EcatGetMasterInfo '"{master_id: 0}"'
 
 The reply gives the master state and mode, the communication period, the
 packet-loss, timeout, and over-cycle counters, and parallel arrays describing
@@ -649,23 +654,23 @@ master and every slave.
 
    # Read ESC registers directly (reg_addr is decimal, 0x000-0xFFF)
    wros ros2 service call /wmx/ecat/register_read wmx_r2_message/srv/EcatRegisterRead \
-        "{master_id: 0, slave_id: 0, reg_addr: 0, len: 1}"      # 0x000 type
+        '"{master_id: 0, slave_id: 0, reg_addr: 0, len: 1}"'      # 0x000 type
    wros ros2 service call /wmx/ecat/register_read wmx_r2_message/srv/EcatRegisterRead \
-        "{master_id: 0, slave_id: 0, reg_addr: 16, len: 4}"     # 0x010 vendor ID
+        '"{master_id: 0, slave_id: 0, reg_addr: 16, len: 4}"'     # 0x010 vendor ID
    wros ros2 service call /wmx/ecat/register_read wmx_r2_message/srv/EcatRegisterRead \
-        "{master_id: 0, slave_id: 1, reg_addr: 256, len: 16}"   # 0x100 DL status
+        '"{master_id: 0, slave_id: 1, reg_addr: 256, len: 16}"'   # 0x100 DL status
 
    # Reset ref-clock and transmit statistics, then re-scan the network
    wros ros2 service call /wmx/ecat/reset_statistics \
-        wmx_r2_message/srv/EcatResetStatistics "{master_id: 0}"
+        wmx_r2_message/srv/EcatResetStatistics '"{master_id: 0}"'
 
    # Re-scan the network for slaves
    wros ros2 service call /wmx/ecat/scan_network \
-        wmx_r2_message/srv/EcatScanNetwork "{master_id: 0}"
+        wmx_r2_message/srv/EcatScanNetwork '"{master_id: 0}"'
 
    # Enable dynamic slave discovery (call once after the network reaches Op)
    wros ros2 service call /wmx/ecat/start_hotconnect \
-        wmx_r2_message/srv/EcatStartHotconnect "{master_id: 0}"
+        wmx_r2_message/srv/EcatStartHotconnect '"{master_id: 0}"'
 
 ``reg_addr + len`` must not exceed ``0x1000`` (4096 bytes).
 
@@ -681,13 +686,13 @@ startup fault.
 
    # Stop / start the real-time EtherCAT cycle
    wros ros2 service call /wmx/engine/set_communication \
-        std_srvs/srv/SetBool "{data: false}"
+        std_srvs/srv/SetBool '"{data: false}"'
    wros ros2 service call /wmx/engine/set_communication \
-        std_srvs/srv/SetBool "{data: true}"
+        std_srvs/srv/SetBool '"{data: true}"'
 
    # Close / create the WMX3 device
-   wros ros2 service call /wmx/engine/set_engine std_srvs/srv/SetBool "{data: false}"
-   wros ros2 service call /wmx/engine/set_engine std_srvs/srv/SetBool "{data: true}"
+   wros ros2 service call /wmx/engine/set_engine std_srvs/srv/SetBool '"{data: false}"'
+   wros ros2 service call /wmx/engine/set_engine std_srvs/srv/SetBool '"{data: true}"'
 
 .. warning::
 
