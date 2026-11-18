@@ -23,7 +23,7 @@ RViz and the physical robot move opposite ways.
   .. code-block:: bash
 
      wros ros2 service call /wmx/engine/get_axis_param wmx_r2_message/srv/GetAxisParam \
-       "{axis: [0,1,2,3,4,5]}"
+       '"{axis: [0,1,2,3,4,5]}"'
 
 - Correct ``AxisPolarity`` for that axis in the robot's WMX parameter XML
   (``+1`` or ``-1``) and rebuild, or override it for testing:
@@ -31,7 +31,7 @@ RViz and the physical robot move opposite ways.
   .. code-block:: bash
 
      wros ros2 service call /wmx/axes/set_axis_polarity wmx_r2_message/srv/SetAxes \
-       "{axis: [0], data: [-1]}"
+       '"{axis: [0], data: [-1]}"'
 
 - Confirm the URDF's sign convention for that joint (``<axis xyz>`` together
   with the joint ``<origin rpy>``) before deciding which sign is correct.
@@ -73,7 +73,7 @@ Wrong Joint Moves
   .. code-block:: bash
 
      wros ros2 service call /wmx/ecat/get_master_info \
-       wmx_r2_message/srv/EcatGetMasterInfo "{master_id: 0}"
+       wmx_r2_message/srv/EcatGetMasterInfo '"{master_id: 0}"'
 
 - Re-cabling the drives in a different order shifts every axis index after the
   change, with no error anywhere in ROS 2.
@@ -115,14 +115,14 @@ interfaces only while they are ``active``, and
   .. code-block:: bash
 
      wros ros2 service call /wmx/lifecycle/get_node_states \
-       wmx_r2_message/srv/GetNodeStates "{}"
+       wmx_r2_message/srv/GetNodeStates
 
 - If they are ``unconfigured``, the engine is not communicating. Fix that
   first:
 
   .. code-block:: bash
 
-     wros ros2 service call /wmx/engine/get_engine_status std_srvs/srv/Trigger "{}"
+     wros ros2 service call /wmx/engine/get_engine_status std_srvs/srv/Trigger
 
 - If the engine *is* communicating and the nodes are still down, bring them
   up by hand and read the error the failed transition logs:
@@ -131,7 +131,7 @@ interfaces only while they are ``active``, and
 
      wros ros2 service call /wmx/lifecycle/set_node_state \
        wmx_r2_message/srv/SetNodeState \
-       "{node_name: '', transition: 'bringup'}"
+       '"{node_name: \"\", transition: bringup}"'
 
 - A node missing from the list entirely was never started — check the launch
   file and the ``managed_nodes`` list in the config YAML.
@@ -148,6 +148,13 @@ position, or differential controller — is ``active`` and owns the axes.
 ``wmx_core_motion_node`` blocks manual motion so a jog cannot fight a
 running trajectory.
 
+A name that is listed but **never launched** counts as active too. If you
+run ``wmx_r2_general_nodes.launch.py`` with a config that still lists the
+three controllers, every motion call answers ``a controller is active and
+owns the axes`` although no controller is running. The shipped
+``wmx_r2_general_nodes_config.yaml`` sets ``motion_controllers: ['']`` for
+this reason; update a copied config the same way.
+
 **Solutions:**
 
 - ``/wmx/axes/stop`` is never blocked; use it to stop the machine.
@@ -157,7 +164,7 @@ running trajectory.
 
      wros ros2 service call /wmx/lifecycle/set_node_state \
        wmx_r2_message/srv/SetNodeState \
-       "{node_name: 'joint_trajectory_controller', transition: 'deactivate'}"
+       '"{node_name: joint_trajectory_controller, transition: deactivate}"'
 
 - Note that deactivating ``joint_state_broadcaster`` switches the **servos
   off**, which drops an arm's holding torque. Deactivate the motion
@@ -220,7 +227,7 @@ Communication Start Failures
 
   .. code-block:: bash
 
-     wros ros2 service call /wmx/engine/get_engine_status std_srvs/srv/Trigger "{}"
+     wros ros2 service call /wmx/engine/get_engine_status std_srvs/srv/Trigger
 
 Joint States All Zero
 ---------------------
@@ -244,7 +251,7 @@ Joint States All Zero
   .. code-block:: bash
 
      wros ros2 service call /wmx/axes/clear_amp_alarm wmx_r2_message/srv/SetAxes \
-       "{axis: [0,1,2,3,4,5], data: [0,0,0,0,0,0]}"
+       '"{axis: [0,1,2,3,4,5]}"'
 
 Servo Alarm Errors
 ------------------
@@ -259,7 +266,7 @@ rejected.
   .. code-block:: bash
 
      wros ros2 service call /wmx/axes/clear_amp_alarm wmx_r2_message/srv/SetAxes \
-       "{axis: [0,1,2,3,4,5], data: [0,0,0,0,0,0]}"
+       '"{axis: [0,1,2,3,4,5]}"'
 
 - Check for physical obstructions or overcurrent conditions on the robot
 - Verify gear ratios and polarities match the physical servo configuration
@@ -298,6 +305,48 @@ Trajectory Execution Failures
   robot YAML and the controller name in the MoveIt2 controllers YAML.
 
 
+MoveIt Servo Keeps Waiting for Robot State
+------------------------------------------
+
+**Symptom:** ``servo_node`` prints ``Waiting to receive robot state update.``
+once a second, forever, although ``/joint_states`` is publishing.
+
+**Checks, in order:**
+
+1. **Every URDF joint is in** ``/joint_states``. The CR3A model has eight
+   moving joints, ``joint1``–``joint6`` plus ``picker_1_joint`` and
+   ``picker_2_joint``; MoveIt does not consider the state complete with six.
+
+   .. code-block:: bash
+
+      mros ros2 topic echo --once /joint_states --field name
+
+   ``joint_state_broadcaster`` always appends ``gripper_joint_name``, so the
+   picker joints are missing only when the robot config does not list them
+   (the robot option config has no gripper).
+
+2. **The clocks agree.** With ``use_sim_time:=true`` on both stacks, the
+   stamps on ``/joint_states`` must track ``/clock``; Isaac Sim must be
+   playing.
+
+   .. code-block:: bash
+
+      mros ros2 topic echo --once /clock --field clock.sec
+      mros ros2 topic echo --once /joint_states --field header.stamp.sec
+
+3. **The arm is not perfectly still.** In ``moveit_servo`` 2.12.4 (the Jazzy
+   binary), Servo starts only after the planning scene receives a joint state
+   newer than Servo's own start time, and the scene is refreshed from
+   ``/joint_states`` **only when a joint value changes**. An arm that is
+   completely still — every position and velocity identical in every
+   message, which is normal for a homed axis in simulation — never refreshes
+   it, and Servo waits forever. Restarting does not help.
+
+   **Workaround:** move any joint slightly after Servo starts — a small plan
+   and execute in RViz, or a jog. Servo continues within a second and stays
+   running. Upstream MoveIt has fixed the start-up check on ``main``; a Jazzy
+   release with the fix removes the need for this.
+
 Gripper Not Responding
 -----------------------
 
@@ -312,19 +361,34 @@ does not move.
 
   .. code-block:: bash
 
-     wros ros2 service call /wmx/set_gripper std_srvs/srv/SetBool "{data: true}"
+     wros ros2 service call /wmx/set_gripper std_srvs/srv/SetBool '"{data: true}"'
 
 - Check ``pre_setup_io``. It defaults to ``false``, and with it false the
   controller skips the gripper power-up sequence at ``configure`` — the
   service then toggles a bit on an unpowered gripper. The power-up addresses
   are compiled in, so set it ``true`` only if your gripper matches them.
+- ``[pre_setup_io] gripper state unexpected: switchData=113, powerData=0``
+  means the power byte (output byte 28) was written and read back correctly,
+  but the gripper's power-ok input (input byte 0, bit 1) was still ``0``. The
+  check reads that input in the same instant as the write, before the output
+  has gone out on the bus and the gripper has powered up, so it is usually
+  only a warning. Read the input again a moment later:
+
+  .. code-block:: bash
+
+     wros ros2 service call /wmx/io/get_in_bit wmx_r2_message/srv/GetIoBit \
+       '"{addr: 0, bit: 1}"'
+
+  ``data: 1`` means the gripper is fine. ``data: 0`` means it really has no
+  power: check its 24 V supply and which input its power-ok signal is wired
+  to.
 - Confirm ``gripper_address: [byte, bit]`` matches the wiring, and drive the
   bit directly to isolate the controller:
 
   .. code-block:: bash
 
      wros ros2 service call /wmx/io/set_out_bit wmx_r2_message/srv/SetIoBit \
-       "{addr: 0, bit: 0, data: 1}"
+       '"{addr: 0, bit: 0, data: 1}"'
 
 Nodes Not Found
 ---------------
@@ -337,6 +401,11 @@ Nodes Not Found
   packages live inside it, not on the host — ``wros`` sources the workspace
   for you, so there is nothing to source by hand.
 - Rebuild if needed: ``wros colcon build``
+- ``FileNotFoundError`` for a launch file that exists in ``src``: the
+  repository was deleted and cloned again on the host while the container
+  was running. The container still has the old, now-empty bind mount, so the
+  symlinked install points at nothing. Restart the container
+  (``docker restart wmx_r2_container``) so it mounts the new directory.
 - Check the two-stage build was done correctly (message package first).
   See :doc:`../getting_started/index`.
 

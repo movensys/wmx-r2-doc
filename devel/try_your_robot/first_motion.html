@@ -475,7 +475,7 @@ Servo, so nothing can generate a trajectory while you are still checking
 feedback.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>wmx_r2_package<span class="w"> </span>wmx_r2_general_nodes.launch.py<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>use_sim_time:<span class="o">=</span><span class="nb">false</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span><span class="s1">'config_file:=$(ros2 pkg prefix --share wmx_r2_package)/example/&lt;robot&gt;_manipulator_config.yaml'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s1">'config_file:=$(ros2 pkg prefix --share wmx_r2_package)/config/wmx_r2_general_nodes_config.yaml'</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span><span class="s1">'wmx_param_file:=$(ros2 pkg prefix --share wmx_r2_package)/example/&lt;robot&gt;_wmx_parameters.xml'</span>
 </pre></div>
 </div>
@@ -484,23 +484,28 @@ feedback.</p>
 <p><strong>Pass your robot’s files explicitly.</strong></p>
 <p>Launched with an empty <code class="docutils literal notranslate"><span class="pre">wmx_param_file</span></code>, the engine imports nothing and
 keeps whatever a previous session left in it — which is exactly the stale
-state the read-back below is meant to catch. Point both arguments at the
-parameter file and config you validated in
-<a class="reference internal" href="robot_parameters.html"><span class="doc">Robot Parameter Configuration and Validation</span></a>.</p>
+state the read-back below is meant to catch. Point <code class="docutils literal notranslate"><span class="pre">wmx_param_file</span></code> at the
+parameter file you validated in <a class="reference internal" href="robot_parameters.html"><span class="doc">Robot Parameter Configuration and Validation</span></a>; it carries every
+axis setting.</p>
+<p>Keep <code class="docutils literal notranslate"><span class="pre">config_file</span></code> on the general config. A robot config such as
+<code class="docutils literal notranslate"><span class="pre">&lt;robot&gt;_manipulator_config.yaml</span></code> lists the trajectory and position
+controllers in <code class="docutils literal notranslate"><span class="pre">motion_controllers</span></code>; this launch does not start them,
+and a listed controller that never appears counts as active, so every
+<code class="docutils literal notranslate"><span class="pre">start_mov</span></code> below would be refused.</p>
 </div>
 <p>Wait for the lifecycle manager to bring the nodes up — the <code class="docutils literal notranslate"><span class="pre">/wmx/axes/*</span></code>
 services do not exist until <code class="docutils literal notranslate"><span class="pre">wmx_core_motion_node</span></code> is <code class="docutils literal notranslate"><span class="pre">active</span></code>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/lifecycle/get_node_states<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>wmx_r2_message/srv/GetNodeStates<span class="w"> </span><span class="s2">"{}"</span>
+<span class="w">     </span>wmx_r2_message/srv/GetNodeStates
 </pre></div>
 </div>
 <p>Confirm the engine and the bus, then read back the parameters the engine
 actually holds:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/engine/get_engine_status<span class="w"> </span>std_srvs/srv/Trigger<span class="w"> </span><span class="s2">"{}"</span><span class="w">   </span><span class="c1"># expect "Communicating"</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/engine/get_engine_status<span class="w"> </span>std_srvs/srv/Trigger<span class="w">   </span><span class="c1"># expect "Communicating"</span>
 wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/ecat/get_master_info<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>wmx_r2_message/srv/EcatGetMasterInfo<span class="w"> </span><span class="s2">"{master_id: 0}"</span><span class="w">     </span><span class="c1"># expect every drive present</span>
+<span class="w">     </span>wmx_r2_message/srv/EcatGetMasterInfo<span class="w"> </span><span class="s1">'"{master_id: 0}"'</span><span class="w">     </span><span class="c1"># expect every drive present</span>
 wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/engine/get_axis_param<span class="w"> </span>wmx_r2_message/srv/GetAxisParam<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span><span class="s2">"{axis: [0,1,2,3,4,5]}"</span><span class="w">                                      </span><span class="c1"># gear ratio, polarity, mode</span>
+<span class="w">     </span><span class="s1">'"{axis: [0,1,2,3,4,5]}"'</span><span class="w">                                      </span><span class="c1"># gear ratio, polarity, mode</span>
 </pre></div>
 </div>
 <p><strong>Checkpoint.</strong> The gear ratio, polarity, and command mode in the response
@@ -556,9 +561,9 @@ these three checks to stage 4B and use the smallest steps in the table.</p>
 <h2>Stage 4B — One axis, low speed, small step<a class="headerlink" href="#stage-4b-one-axis-low-speed-small-step" title="Link to this heading">#</a></h2>
 <p>Enable <strong>one</strong> axis only. Leave every other axis off.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/clear_amp_alarm<span class="w"> </span>wmx_r2_message/srv/SetAxes<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span><span class="s2">"{axis: [0], data: [0]}"</span>
+<span class="w">     </span><span class="s1">'"{axis: [0], data: [0]}"'</span>
 wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/set_servo_on<span class="w"> </span>wmx_r2_message/srv/SetAxes<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span><span class="s2">"{axis: [0], data: [1]}"</span>
+<span class="w">     </span><span class="s1">'"{axis: [0], data: [1]}"'</span>
 </pre></div>
 </div>
 <p>Command a small relative move. The units are radians, and the velocity and
@@ -566,7 +571,7 @@ acceleration are rad/s and rad/s² (this holds only because
 <code class="docutils literal notranslate"><span class="pre">AxisGearRatioDenominator</span></code> is 2π — see <a class="reference internal" href="robot_parameters.html"><span class="doc">Robot Parameter Configuration and Validation</span></a>):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># +0.05 rad (≈2.9°) at 0.05 rad/s with gentle ramps</span>
 wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/start_mov<span class="w"> </span>wmx_r2_message/srv/StartAxesPose<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">"{axis: [0], target: [0.05], velocity: [0.05], acc: [0.1], dec: [0.1]}"</span>
+<span class="w">  </span><span class="s1">'"{axis: [0], target: [0.05], velocity: [0.05], acc: [0.1], dec: [0.1]}"'</span>
 </pre></div>
 </div>
 <div class="admonition warning">
@@ -635,7 +640,7 @@ WMX soft limits are <strong>disabled</strong> in the shipped parameter files.</p
 </div>
 <p>Disable the axis before moving to the next one:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/set_servo_on<span class="w"> </span>wmx_r2_message/srv/SetAxes<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span><span class="s2">"{axis: [0], data: [0]}"</span>
+<span class="w">     </span><span class="s1">'"{axis: [0], data: [0]}"'</span>
 </pre></div>
 </div>
 <p><strong>Checkpoint.</strong> Do not proceed to multi-axis motion until every axis has
@@ -785,7 +790,7 @@ that removes drive power independently of all of it. See <a class="reference int
 <p>To stop motion deliberately from ROS 2, disable the servos — which is a
 controlled stop, still not an emergency stop:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/set_servo_on<span class="w"> </span>wmx_r2_message/srv/SetAxes<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span><span class="s2">"{axis: [0,1,2,3,4,5], data: [0,0,0,0,0,0]}"</span>
+<span class="w">     </span><span class="s1">'"{axis: [0,1,2,3,4,5], data: [0,0,0,0,0,0]}"'</span>
 </pre></div>
 </div>
 <div class="admonition note">

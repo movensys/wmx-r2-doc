@@ -626,9 +626,10 @@ with a wrong one. For the CR5A this covers everything under
 <tbody>
 <tr class="row-even"><td><p><strong>Homing</strong></p></td>
 <td><p>Not used on any shipped robot. <code class="docutils literal notranslate"><span class="pre">AbsoluteEncoderMode</span> <span class="pre">=</span> <span class="pre">1</span></code> on every
-axis, so position is known at power-on. The homing service
-(<code class="docutils literal notranslate"><span class="pre">/wmx/axes/start_home</span></code>) and the <code class="docutils literal notranslate"><span class="pre">HomeParam</span></code> block exist and are
-populated with defaults, but no shipped configuration exercises them.
+axis, so position is known at power-on. The <code class="docutils literal notranslate"><span class="pre">HomeParam</span></code> block is
+populated with defaults, but no shipped configuration uses it, and the
+homing service (<code class="docutils literal notranslate"><span class="pre">/wmx/axes/start_home</span></code>) always overwrites it with
+<code class="docutils literal notranslate"><span class="pre">CurrentPos</span></code> — calling it re-zeroes the axis where it stands.
 A robot with incremental encoders requires a homing strategy that this
 project does not provide.</p></td>
 </tr>

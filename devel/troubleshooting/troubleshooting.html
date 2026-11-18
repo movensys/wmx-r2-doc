@@ -422,14 +422,14 @@ RViz and the physical robot move opposite ways.</p>
 <ul>
 <li><p>Read back the polarity the engine actually holds:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/engine/get_axis_param<span class="w"> </span>wmx_r2_message/srv/GetAxisParam<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">"{axis: [0,1,2,3,4,5]}"</span>
+<span class="w">  </span><span class="s1">'"{axis: [0,1,2,3,4,5]}"'</span>
 </pre></div>
 </div>
 </li>
 <li><p>Correct <code class="docutils literal notranslate"><span class="pre">AxisPolarity</span></code> for that axis in the robot’s WMX parameter XML
 (<code class="docutils literal notranslate"><span class="pre">+1</span></code> or <code class="docutils literal notranslate"><span class="pre">-1</span></code>) and rebuild, or override it for testing:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/set_axis_polarity<span class="w"> </span>wmx_r2_message/srv/SetAxes<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">"{axis: [0], data: [-1]}"</span>
+<span class="w">  </span><span class="s1">'"{axis: [0], data: [-1]}"'</span>
 </pre></div>
 </div>
 </li>
@@ -468,7 +468,7 @@ They are matched by position: <code class="docutils literal notranslate"><span c
 <code class="docutils literal notranslate"><span class="pre">joint_axes[i]</span></code>.</p></li>
 <li><p>Confirm the EtherCAT chain order, which is what assigns the axis indices:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/ecat/get_master_info<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>wmx_r2_message/srv/EcatGetMasterInfo<span class="w"> </span><span class="s2">"{master_id: 0}"</span>
+<span class="w">  </span>wmx_r2_message/srv/EcatGetMasterInfo<span class="w"> </span><span class="s1">'"{master_id: 0}"'</span>
 </pre></div>
 </div>
 </li>
@@ -505,13 +505,13 @@ interfaces only while they are <code class="docutils literal notranslate"><span 
 <ul>
 <li><p>Read the actual node states first:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/lifecycle/get_node_states<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>wmx_r2_message/srv/GetNodeStates<span class="w"> </span><span class="s2">"{}"</span>
+<span class="w">  </span>wmx_r2_message/srv/GetNodeStates
 </pre></div>
 </div>
 </li>
 <li><p>If they are <code class="docutils literal notranslate"><span class="pre">unconfigured</span></code>, the engine is not communicating. Fix that
 first:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/engine/get_engine_status<span class="w"> </span>std_srvs/srv/Trigger<span class="w"> </span><span class="s2">"{}"</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/engine/get_engine_status<span class="w"> </span>std_srvs/srv/Trigger
 </pre></div>
 </div>
 </li>
@@ -519,7 +519,7 @@ first:</p>
 up by hand and read the error the failed transition logs:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/lifecycle/set_node_state<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>wmx_r2_message/srv/SetNodeState<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">"{node_name: '', transition: 'bringup'}"</span>
+<span class="w">  </span><span class="s1">'"{node_name: \"\", transition: bringup}"'</span>
 </pre></div>
 </div>
 </li>
@@ -536,13 +536,19 @@ about a controller.</p>
 position, or differential controller — is <code class="docutils literal notranslate"><span class="pre">active</span></code> and owns the axes.
 <code class="docutils literal notranslate"><span class="pre">wmx_core_motion_node</span></code> blocks manual motion so a jog cannot fight a
 running trajectory.</p>
+<p>A name that is listed but <strong>never launched</strong> counts as active too. If you
+run <code class="docutils literal notranslate"><span class="pre">wmx_r2_general_nodes.launch.py</span></code> with a config that still lists the
+three controllers, every motion call answers <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">controller</span> <span class="pre">is</span> <span class="pre">active</span> <span class="pre">and</span>
+<span class="pre">owns</span> <span class="pre">the</span> <span class="pre">axes</span></code> although no controller is running. The shipped
+<code class="docutils literal notranslate"><span class="pre">wmx_r2_general_nodes_config.yaml</span></code> sets <code class="docutils literal notranslate"><span class="pre">motion_controllers:</span> <span class="pre">['']</span></code> for
+this reason; update a copied config the same way.</p>
 <p><strong>Solutions:</strong></p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">/wmx/axes/stop</span></code> is never blocked; use it to stop the machine.</p></li>
 <li><p>To take manual control, deactivate the controller:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/lifecycle/set_node_state<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>wmx_r2_message/srv/SetNodeState<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">"{node_name: 'joint_trajectory_controller', transition: 'deactivate'}"</span>
+<span class="w">  </span><span class="s1">'"{node_name: joint_trajectory_controller, transition: deactivate}"'</span>
 </pre></div>
 </div>
 </li>
@@ -598,7 +604,7 @@ errors in the log)</p></li>
 <li><p>Verify servo drives are properly daisy-chained (IN port to OUT port)</p></li>
 <li><p>Remove any IP address from the EtherCAT network interface</p></li>
 <li><p>Check the WMX engine status:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/engine/get_engine_status<span class="w"> </span>std_srvs/srv/Trigger<span class="w"> </span><span class="s2">"{}"</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/engine/get_engine_status<span class="w"> </span>std_srvs/srv/Trigger
 </pre></div>
 </div>
 </li>
@@ -620,7 +626,7 @@ parameter XML for your robot (the launch file injects it into the engine
 node as <code class="docutils literal notranslate"><span class="pre">wmx_param_file_path</span></code>)</p></li>
 <li><p>Clear alarms and re-enable servos:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/clear_amp_alarm<span class="w"> </span>wmx_r2_message/srv/SetAxes<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">"{axis: [0,1,2,3,4,5], data: [0,0,0,0,0,0]}"</span>
+<span class="w">  </span><span class="s1">'"{axis: [0,1,2,3,4,5]}"'</span>
 </pre></div>
 </div>
 </li>
@@ -634,7 +640,7 @@ rejected.</p>
 <ul>
 <li><p>Clear alarms via the service:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/clear_amp_alarm<span class="w"> </span>wmx_r2_message/srv/SetAxes<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">"{axis: [0,1,2,3,4,5], data: [0,0,0,0,0,0]}"</span>
+<span class="w">  </span><span class="s1">'"{axis: [0,1,2,3,4,5]}"'</span>
 </pre></div>
 </div>
 </li>
@@ -674,6 +680,44 @@ than intended.</p></li>
 robot YAML and the controller name in the MoveIt2 controllers YAML.</p></li>
 </ul>
 </section>
+<section id="moveit-servo-keeps-waiting-for-robot-state">
+<h2>MoveIt Servo Keeps Waiting for Robot State<a class="headerlink" href="#moveit-servo-keeps-waiting-for-robot-state" title="Link to this heading">#</a></h2>
+<p><strong>Symptom:</strong> <code class="docutils literal notranslate"><span class="pre">servo_node</span></code> prints <code class="docutils literal notranslate"><span class="pre">Waiting</span> <span class="pre">to</span> <span class="pre">receive</span> <span class="pre">robot</span> <span class="pre">state</span> <span class="pre">update.</span></code>
+once a second, forever, although <code class="docutils literal notranslate"><span class="pre">/joint_states</span></code> is publishing.</p>
+<p><strong>Checks, in order:</strong></p>
+<ol class="arabic">
+<li><p><strong>Every URDF joint is in</strong> <code class="docutils literal notranslate"><span class="pre">/joint_states</span></code>. The CR3A model has eight
+moving joints, <code class="docutils literal notranslate"><span class="pre">joint1</span></code>–<code class="docutils literal notranslate"><span class="pre">joint6</span></code> plus <code class="docutils literal notranslate"><span class="pre">picker_1_joint</span></code> and
+<code class="docutils literal notranslate"><span class="pre">picker_2_joint</span></code>; MoveIt does not consider the state complete with six.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mros<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>--once<span class="w"> </span>/joint_states<span class="w"> </span>--field<span class="w"> </span>name
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code> always appends <code class="docutils literal notranslate"><span class="pre">gripper_joint_name</span></code>, so the
+picker joints are missing only when the robot config does not list them
+(the robot option config has no gripper).</p>
+</li>
+<li><p><strong>The clocks agree.</strong> With <code class="docutils literal notranslate"><span class="pre">use_sim_time:=true</span></code> on both stacks, the
+stamps on <code class="docutils literal notranslate"><span class="pre">/joint_states</span></code> must track <code class="docutils literal notranslate"><span class="pre">/clock</span></code>; Isaac Sim must be
+playing.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mros<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>--once<span class="w"> </span>/clock<span class="w"> </span>--field<span class="w"> </span>clock.sec
+mros<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>--once<span class="w"> </span>/joint_states<span class="w"> </span>--field<span class="w"> </span>header.stamp.sec
+</pre></div>
+</div>
+</li>
+<li><p><strong>The arm is not perfectly still.</strong> In <code class="docutils literal notranslate"><span class="pre">moveit_servo</span></code> 2.12.4 (the Jazzy
+binary), Servo starts only after the planning scene receives a joint state
+newer than Servo’s own start time, and the scene is refreshed from
+<code class="docutils literal notranslate"><span class="pre">/joint_states</span></code> <strong>only when a joint value changes</strong>. An arm that is
+completely still — every position and velocity identical in every
+message, which is normal for a homed axis in simulation — never refreshes
+it, and Servo waits forever. Restarting does not help.</p>
+<p><strong>Workaround:</strong> move any joint slightly after Servo starts — a small plan
+and execute in RViz, or a jog. Servo continues within a second and stays
+running. Upstream MoveIt has fixed the start-up check on <code class="docutils literal notranslate"><span class="pre">main</span></code>; a Jazzy
+release with the fix removes the need for this.</p>
+</li>
+</ol>
+</section>
 <section id="gripper-not-responding">
 <h2>Gripper Not Responding<a class="headerlink" href="#gripper-not-responding" title="Link to this heading">#</a></h2>
 <p><strong>Symptom:</strong> Gripper open/close service calls succeed but the gripper
@@ -683,7 +727,7 @@ does not move.</p>
 <li><p>Verify the I/O module is part of the EtherCAT daisy chain</p></li>
 <li><p>Check EtherCAT communication is active (engine state = <code class="docutils literal notranslate"><span class="pre">Communicating</span></code>)</p></li>
 <li><p>Test the I/O directly:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/set_gripper<span class="w"> </span>std_srvs/srv/SetBool<span class="w"> </span><span class="s2">"{data: true}"</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/set_gripper<span class="w"> </span>std_srvs/srv/SetBool<span class="w"> </span><span class="s1">'"{data: true}"'</span>
 </pre></div>
 </div>
 </li>
@@ -691,10 +735,24 @@ does not move.</p>
 controller skips the gripper power-up sequence at <code class="docutils literal notranslate"><span class="pre">configure</span></code> — the
 service then toggles a bit on an unpowered gripper. The power-up addresses
 are compiled in, so set it <code class="docutils literal notranslate"><span class="pre">true</span></code> only if your gripper matches them.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[pre_setup_io]</span> <span class="pre">gripper</span> <span class="pre">state</span> <span class="pre">unexpected:</span> <span class="pre">switchData=113,</span> <span class="pre">powerData=0</span></code>
+means the power byte (output byte 28) was written and read back correctly,
+but the gripper’s power-ok input (input byte 0, bit 1) was still <code class="docutils literal notranslate"><span class="pre">0</span></code>. The
+check reads that input in the same instant as the write, before the output
+has gone out on the bus and the gripper has powered up, so it is usually
+only a warning. Read the input again a moment later:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/io/get_in_bit<span class="w"> </span>wmx_r2_message/srv/GetIoBit<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s1">'"{addr: 0, bit: 1}"'</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">data:</span> <span class="pre">1</span></code> means the gripper is fine. <code class="docutils literal notranslate"><span class="pre">data:</span> <span class="pre">0</span></code> means it really has no
+power: check its 24 V supply and which input its power-ok signal is wired
+to.</p>
+</li>
 <li><p>Confirm <code class="docutils literal notranslate"><span class="pre">gripper_address:</span> <span class="pre">[byte,</span> <span class="pre">bit]</span></code> matches the wiring, and drive the
 bit directly to isolate the controller:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/io/set_out_bit<span class="w"> </span>wmx_r2_message/srv/SetIoBit<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">"{addr: 0, bit: 0, data: 1}"</span>
+<span class="w">  </span><span class="s1">'"{addr: 0, bit: 0, data: 1}"'</span>
 </pre></div>
 </div>
 </li>
@@ -709,6 +767,11 @@ bit directly to isolate the controller:</p>
 packages live inside it, not on the host — <code class="docutils literal notranslate"><span class="pre">wros</span></code> sources the workspace
 for you, so there is nothing to source by hand.</p></li>
 <li><p>Rebuild if needed: <code class="docutils literal notranslate"><span class="pre">wros</span> <span class="pre">colcon</span> <span class="pre">build</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FileNotFoundError</span></code> for a launch file that exists in <code class="docutils literal notranslate"><span class="pre">src</span></code>: the
+repository was deleted and cloned again on the host while the container
+was running. The container still has the old, now-empty bind mount, so the
+symlinked install points at nothing. Restart the container
+(<code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">restart</span> <span class="pre">wmx_r2_container</span></code>) so it mounts the new directory.</p></li>
 <li><p>Check the two-stage build was done correctly (message package first).
 See <a class="reference internal" href="../getting_started/index.html"><span class="doc">Getting Started</span></a>.</p></li>
 </ul>
