@@ -152,7 +152,7 @@ Read the current end-effector pose:
 .. code-block:: bash
 
    mros ros2 service call /wmx/moveit2/get_eef_pose \
-        movensys_manipulator_moveit_config/srv/GetEefPose '"{}"'
+        movensys_manipulator_moveit_config/srv/GetEefPose
 
 Absolute Cartesian move (base frame):
 

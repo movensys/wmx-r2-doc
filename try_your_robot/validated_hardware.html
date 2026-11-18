@@ -57,7 +57,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Nov 17, 2026"/>
+    <meta name="docbuild:last-update" content="Nov 18, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -626,9 +626,10 @@ with a wrong one. For the CR5A this covers everything under
 <tbody>
 <tr class="row-even"><td><p><strong>Homing</strong></p></td>
 <td><p>Not used on any shipped robot. <code class="docutils literal notranslate"><span class="pre">AbsoluteEncoderMode</span> <span class="pre">=</span> <span class="pre">1</span></code> on every
-axis, so position is known at power-on. The homing service
-(<code class="docutils literal notranslate"><span class="pre">/wmx/axes/start_home</span></code>) and the <code class="docutils literal notranslate"><span class="pre">HomeParam</span></code> block exist and are
-populated with defaults, but no shipped configuration exercises them.
+axis, so position is known at power-on. The <code class="docutils literal notranslate"><span class="pre">HomeParam</span></code> block is
+populated with defaults, but no shipped configuration uses it, and the
+homing service (<code class="docutils literal notranslate"><span class="pre">/wmx/axes/start_home</span></code>) always overwrites it with
+<code class="docutils literal notranslate"><span class="pre">CurrentPos</span></code> — calling it re-zeroes the axis where it stands.
 A robot with incremental encoders requires a homing strategy that this
 project does not provide.</p></td>
 </tr>
@@ -790,7 +791,7 @@ robot that is not listed above.</p>
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Nov 17, 2026</p>
+      <p>Last updated: Nov 18, 2026</p>
     
   </div>
   <div class="movensys-footer__links">

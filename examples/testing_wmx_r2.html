@@ -415,7 +415,7 @@ window.runMermaid = runMermaid;</script>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Nov 17, 2026"/>
+    <meta name="docbuild:last-update" content="Nov 18, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -885,6 +885,7 @@ and <code class="docutils literal notranslate"><span class="pre">wmx_ethercat_no
     L-&gt;&gt;M: start (ordinary node)
     L-&gt;&gt;N: start (lifecycle, unconfigured)
     E-&gt;&gt;W: CreateDevice, retry up to 5x on lock error 297
+    E-&gt;&gt;W: ImportAndSetAll (wmx_param_file)
     E-&gt;&gt;W: StartCommunication
     W--&gt;&gt;E: Communicating
     loop every discovery_period
@@ -902,12 +903,16 @@ and <code class="docutils literal notranslate"><span class="pre">wmx_ethercat_no
 <li><p><strong>Device creation</strong> — <code class="docutils literal notranslate"><span class="pre">wmx_engine_node</span></code> creates the WMX device handle,
 retrying up to five times if another application holds the lock
 (error 297).</p></li>
-<li><p><strong>Communication start</strong> — <code class="docutils literal notranslate"><span class="pre">StartCommunication</span></code> brings up the real-time
+<li><p><strong>Parameter import, then communication start</strong> — the engine imports
+<code class="docutils literal notranslate"><span class="pre">wmx_param_file</span></code> and refuses to communicate if that import fails.
+<code class="docutils literal notranslate"><span class="pre">StartCommunication</span></code> then brings up the real-time
 EtherCAT cycle, which discovers the drives on the bus. The engine node
 does this itself at startup; you do not have to call a service.</p></li>
 <li><p><strong>Bring-up</strong> — <code class="docutils literal notranslate"><span class="pre">wmx_lifecycle_manager_node</span></code> polls the engine status. Once
 it reads <code class="docutils literal notranslate"><span class="pre">Communicating</span></code>, it drives the three lifecycle nodes through
-<code class="docutils literal notranslate"><span class="pre">configure</span></code> and <code class="docutils literal notranslate"><span class="pre">activate</span></code>, in the order given by <code class="docutils literal notranslate"><span class="pre">managed_nodes</span></code>.</p></li>
+<code class="docutils literal notranslate"><span class="pre">configure</span></code> and <code class="docutils literal notranslate"><span class="pre">activate</span></code>, in the order given by <code class="docutils literal notranslate"><span class="pre">managed_nodes</span></code>.
+It does this once per node; a node you take down by hand stays down until
+you bring it up again.</p></li>
 </ol>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
@@ -934,45 +939,45 @@ move, with a hand on the emergency stop, after completing
 </div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. Check that every node came up.</span>
 wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/lifecycle/get_node_states<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>wmx_r2_message/srv/GetNodeStates<span class="w"> </span><span class="s2">"{}"</span>
+<span class="w">  </span>wmx_r2_message/srv/GetNodeStates
 
 <span class="c1"># 2. Check the engine status. The launch already started the EtherCAT</span>
 <span class="c1">#    cycle, so this should report "Communicating".</span>
-wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/engine/get_engine_status<span class="w"> </span>std_srvs/srv/Trigger<span class="w"> </span><span class="s2">"{}"</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/engine/get_engine_status<span class="w"> </span>std_srvs/srv/Trigger
 
 <span class="c1"># 3. Set the gear ratio. It defines the user unit of every command below.</span>
 <span class="c1">#    8388608 counts (23-bit encoder) per 360 degrees makes one command</span>
 <span class="c1">#    unit equal one degree.</span>
 wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/set_gear_ratio<span class="w"> </span>wmx_r2_message/srv/SetAxesGearRatio<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">"{axis: [0], numerator: [8388608.0], denominator: [360.0]}"</span>
+<span class="w">  </span><span class="s1">'"{axis: [0], numerator: [8388608.0], denominator: [360.0]}"'</span>
 
-<span class="c1"># 4. Clear any amp alarms.</span>
+<span class="c1"># 4. Clear any amp alarms (data is ignored).</span>
 wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/clear_amp_alarm<span class="w"> </span>wmx_r2_message/srv/SetAxes<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">"{axis: [0], data: [0]}"</span>
+<span class="w">  </span><span class="s1">'"{axis: [0]}"'</span>
 
 <span class="c1"># 5. Enable the servo.</span>
 wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/set_servo_on<span class="w"> </span>wmx_r2_message/srv/SetAxes<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">"{axis: [0], data: [1]}"</span>
+<span class="w">  </span><span class="s1">'"{axis: [0], data: [1]}"'</span>
 
-<span class="c1"># 6. Home the axis. With the shipped parameter file the current encoder</span>
-<span class="c1">#    position becomes zero.</span>
+<span class="c1"># 6. Home the axis: the current position becomes zero.</span>
 wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/start_home<span class="w"> </span>wmx_r2_message/srv/SetAxes<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">"{axis: [0], data: [0]}"</span>
+<span class="w">  </span><span class="s1">'"{axis: [0]}"'</span>
 
 <span class="c1"># 7. First move: +10 degrees relative, at low velocity.</span>
 wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/start_mov<span class="w"> </span>wmx_r2_message/srv/StartAxesPose<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">"{axis: [0], target: [10], velocity: [30], acc: [100], dec: [100]}"</span>
+<span class="w">  </span><span class="s1">'"{axis: [0], target: [10], velocity: [30], acc: [100], dec: [100]}"'</span>
 
-<span class="c1"># 8. Or jog by hand instead of step 7. Ctrl+C releases it.</span>
-<span class="c1">#    (see section 7 for the loop)</span>
+<span class="c1"># 8. Or jog by hand instead of step 7. Ctrl+C releases it (section 7).</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>-r<span class="w"> </span><span class="m">1</span><span class="w"> </span>/wmx/axes/start_jog<span class="w"> </span>wmx_r2_message/srv/StartAxesVelocity<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s1">'"{axis: [0], velocity: [10], acc: [100], dec: [100]}"'</span>
 
 <span class="c1"># 9. Stop the axis.</span>
 wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/stop<span class="w"> </span>wmx_r2_message/srv/SetAxes<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">"{axis: [0], data: [0]}"</span>
+<span class="w">  </span><span class="s1">'"{axis: [0], data: [0]}"'</span>
 
 <span class="c1"># 10. Turn the servo off. Always do this before stopping communication.</span>
 wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/set_servo_on<span class="w"> </span>wmx_r2_message/srv/SetAxes<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">"{axis: [0], data: [0]}"</span>
+<span class="w">  </span><span class="s1">'"{axis: [0], data: [0]}"'</span>
 </pre></div>
 </div>
 <p>Keep a second terminal on the axis feedback while you work through it. After
@@ -1037,24 +1042,24 @@ wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> 
 wros<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>/wmx<span class="w">       </span><span class="c1"># available WMX topics</span>
 
 <span class="c1"># engine state: expect "Communicating"</span>
-wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/engine/get_engine_status<span class="w"> </span>std_srvs/srv/Trigger<span class="w"> </span><span class="s2">"{}"</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/engine/get_engine_status<span class="w"> </span>std_srvs/srv/Trigger
 
 <span class="c1"># every lifecycle node and its state</span>
 wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/lifecycle/get_node_states<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>wmx_r2_message/srv/GetNodeStates<span class="w"> </span><span class="s2">"{}"</span>
+<span class="w">     </span>wmx_r2_message/srv/GetNodeStates
 
 <span class="c1"># EtherCAT master and slave status</span>
 wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/ecat/get_master_info<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>wmx_r2_message/srv/EcatGetMasterInfo<span class="w"> </span><span class="s2">"{master_id: 0}"</span>
+<span class="w">     </span>wmx_r2_message/srv/EcatGetMasterInfo<span class="w"> </span><span class="s1">'"{master_id: 0}"'</span>
 </pre></div>
 </div>
 <p>If a node is stuck in <code class="docutils literal notranslate"><span class="pre">unconfigured</span></code>, drive it by hand:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/lifecycle/set_node_state<span class="w"> </span>wmx_r2_message/srv/SetNodeState<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span><span class="s2">"{node_name: 'wmx_core_motion_node', transition: 'bringup'}"</span>
+<span class="w">     </span><span class="s1">'"{node_name: wmx_core_motion_node, transition: bringup}"'</span>
 
 <span class="c1"># or everything at once</span>
 wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/lifecycle/set_node_state<span class="w"> </span>wmx_r2_message/srv/SetNodeState<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span><span class="s2">"{node_name: '', transition: 'bringup'}"</span>
+<span class="w">     </span><span class="s1">'"{node_name: \"\", transition: bringup}"'</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">wmx_core_motion_node</span></code> publishes axis feedback at <code class="docutils literal notranslate"><span class="pre">axes_status_rate</span></code>:</p>
@@ -1095,7 +1100,7 @@ below use six axes; use however many your machine has. The <code class="docutils
 per-robot launch, by WOS, or by a previous session. Read it back before you
 trust it:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/engine/get_axis_param<span class="w"> </span>wmx_r2_message/srv/GetAxisParam<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span><span class="s2">"{axis: [0,1,2,3,4,5]}"</span>
+<span class="w">     </span><span class="s1">'"{axis: [0,1,2,3,4,5]}"'</span>
 </pre></div>
 </div>
 <p>The reply returns one human-readable dump per axis in <code class="docutils literal notranslate"><span class="pre">axis_param</span></code>, and the
@@ -1106,7 +1111,7 @@ engine must already be communicating. In the dump, <code class="docutils literal
 <p>To load a parameter file into the running engine without restarting:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/engine/import_and_set_all<span class="w"> </span><span class="se">\</span>
 <span class="w">     </span>wmx_r2_message/srv/ImportAndSetAll<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span><span class="s2">"{path: '/opt/wmx3/wmx_parameters.xml'}"</span>
+<span class="w">     </span><span class="s1">'"{path: $(ros2 pkg prefix --share wmx_r2_package)/config/wmx_parameters.xml}"'</span>
 </pre></div>
 </div>
 <p>The path must be absolute.</p>
@@ -1119,7 +1124,7 @@ confirm it with step 5-1 rather than overwriting it.</p>
 motor revolution), dividing by 360 makes one command unit equal one degree of
 motor shaft rotation:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/set_gear_ratio<span class="w"> </span>wmx_r2_message/srv/SetAxesGearRatio<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span><span class="s2">"{axis: [0], numerator: [8388608.0], denominator: [360.0]}"</span>
+<span class="w">     </span><span class="s1">'"{axis: [0], numerator: [8388608.0], denominator: [360.0]}"'</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -1132,32 +1137,31 @@ gearbox between the motor and the joint shifts it again.</p>
 <p><strong>5-3. Clear alarms, enable servos, home</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clear any amp alarms (data is ignored)</span>
 wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/clear_amp_alarm<span class="w"> </span>wmx_r2_message/srv/SetAxes<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span><span class="s2">"{axis: [0,1,2,3,4,5], data: [0,0,0,0,0,0]}"</span>
+<span class="w">     </span><span class="s1">'"{axis: [0,1,2,3,4,5]}"'</span>
 
 <span class="c1"># Enable the servos (1 = on, 0 = off)</span>
 wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/set_servo_on<span class="w"> </span>wmx_r2_message/srv/SetAxes<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span><span class="s2">"{axis: [0,1,2,3,4,5], data: [1,1,1,1,1,1]}"</span>
+<span class="w">     </span><span class="s1">'"{axis: [0,1,2,3,4,5], data: [1,1,1,1,1,1]}"'</span>
 
 <span class="c1"># Home all axes (data is ignored)</span>
 wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/start_home<span class="w"> </span>wmx_r2_message/srv/SetAxes<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span><span class="s2">"{axis: [0,1,2,3,4,5], data: [0,0,0,0,0,0]}"</span>
+<span class="w">     </span><span class="s1">'"{axis: [0,1,2,3,4,5]}"'</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">start_home</span></code> uses the <code class="docutils literal notranslate"><span class="pre">HomeType</span></code> configured in the WMX parameter file for
-that axis. The shipped files use <code class="docutils literal notranslate"><span class="pre">CurrentPos</span></code>, which makes the current
-encoder position zero. The service does not write the home configuration, so
-a switch-based or Z-pulse setup is left alone.</p>
+<p><code class="docutils literal notranslate"><span class="pre">start_home</span></code> <strong>overwrites</strong> each axis’s <code class="docutils literal notranslate"><span class="pre">HomeType</span></code> with <code class="docutils literal notranslate"><span class="pre">CurrentPos</span></code>
+before homing, so the current position becomes zero. A switch-based or
+Z-pulse home configured in the parameter file is replaced, not used.</p>
 <p>Confirm on <code class="docutils literal notranslate"><span class="pre">/wmx/axes/status</span></code> that <code class="docutils literal notranslate"><span class="pre">amp_alarm</span></code> is all <code class="docutils literal notranslate"><span class="pre">false</span></code>,
 <code class="docutils literal notranslate"><span class="pre">servo_on</span></code> all <code class="docutils literal notranslate"><span class="pre">true</span></code>, and <code class="docutils literal notranslate"><span class="pre">home_done</span></code> all <code class="docutils literal notranslate"><span class="pre">true</span></code> before commanding
 motion.</p>
 <p>Two more axis settings are available when a machine needs them:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Command mode: 0 = Position, 1 = Velocity, 2 = Torque</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Command mode: 0 = Position, 1 = Velocity (other values are rejected)</span>
 wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/set_axis_command_mode<span class="w"> </span>wmx_r2_message/srv/SetAxes<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span><span class="s2">"{axis: [0,1], data: [0,0]}"</span>
+<span class="w">     </span><span class="s1">'"{axis: [0,1], data: [0,0]}"'</span>
 
 <span class="c1"># Polarity: 1 = normal, -1 = reversed</span>
 wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/set_axis_polarity<span class="w"> </span>wmx_r2_message/srv/SetAxes<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span><span class="s2">"{axis: [0,1], data: [1,1]}"</span>
+<span class="w">     </span><span class="s1">'"{axis: [0,1], data: [1,1]}"'</span>
 </pre></div>
 </div>
 </section>
@@ -1175,27 +1179,26 @@ this on a robot for the first time.</p>
 arrays, so one call can command several axes at once.</p>
 <p><strong>Absolute position</strong> — move to <code class="docutils literal notranslate"><span class="pre">target</span></code> in user units:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/start_pos<span class="w"> </span>wmx_r2_message/srv/StartAxesPose<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span><span class="s2">"{axis: [0,1], target: [45, -90], velocity: [10, 20], \</span>
-<span class="s2">       acc: [10, 20], dec: [10, 20]}"</span>
+<span class="w">     </span><span class="s1">'"{axis: [0,1], target: [45, -90], velocity: [10, 20], acc: [10, 20], dec: [10, 20]}"'</span>
 </pre></div>
 </div>
 <p><strong>Relative position</strong> — move by <code class="docutils literal notranslate"><span class="pre">target</span></code> from wherever the axis is now.
 This is the safer of the two for a first move: a small number stays a small
 move regardless of where the axis happens to be.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/start_mov<span class="w"> </span>wmx_r2_message/srv/StartAxesPose<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span><span class="s2">"{axis: [0,1], target: [10, -10], velocity: [10, 20], \</span>
-<span class="s2">       acc: [10, 10], dec: [10, 20]}"</span>
+<span class="w">     </span><span class="s1">'"{axis: [0,1], target: [10, -10], velocity: [10, 20], acc: [10, 10], dec: [10, 20]}"'</span>
 </pre></div>
 </div>
 <p><strong>Continuous velocity</strong> — the axis keeps turning until you stop it. The sign
 of <code class="docutils literal notranslate"><span class="pre">velocity</span></code> selects the direction.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/start_vel<span class="w"> </span>wmx_r2_message/srv/StartAxesVelocity<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span><span class="s2">"{axis: [0,1], velocity: [10, -10], acc: [10, 20], dec: [10, 20]}"</span>
+<span class="w">     </span><span class="s1">'"{axis: [0,1], velocity: [10, -10], acc: [10, 20], dec: [10, 20]}"'</span>
 </pre></div>
 </div>
-<p><strong>Stop</strong> — decelerate to a standstill. <code class="docutils literal notranslate"><span class="pre">data</span></code> is ignored:</p>
+<p><strong>Stop</strong> — decelerate to a standstill. <code class="docutils literal notranslate"><span class="pre">data</span></code> is ignored but must match
+<code class="docutils literal notranslate"><span class="pre">axis</span></code> in length:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/stop<span class="w"> </span>wmx_r2_message/srv/SetAxes<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span><span class="s2">"{axis: [0,1], data: [0,0]}"</span>
+<span class="w">     </span><span class="s1">'"{axis: [0,1], data: [0,0]}"'</span>
 </pre></div>
 </div>
 <p>Watch <code class="docutils literal notranslate"><span class="pre">motion_complete</span></code> and <code class="docutils literal notranslate"><span class="pre">actual_pos</span></code> to confirm each move finished
@@ -1211,11 +1214,15 @@ trajectory, position, and differential controllers — it owns the axes, and
 <code class="docutils literal notranslate"><span class="pre">start_pos</span></code>, <code class="docutils literal notranslate"><span class="pre">start_mov</span></code>, <code class="docutils literal notranslate"><span class="pre">start_vel</span></code>, <code class="docutils literal notranslate"><span class="pre">start_jog</span></code>, and
 <code class="docutils literal notranslate"><span class="pre">start_home</span></code> all refuse. This is deliberate: a manual jog must not fight
 a running trajectory.</p>
+<p>A name that is listed but never launched also counts as active. The
+general config ships <code class="docutils literal notranslate"><span class="pre">motion_controllers:</span> <span class="pre">['']</span></code> for this reason; if you
+use an older config that still lists the three controllers, every motion
+call here answers <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">controller</span> <span class="pre">is</span> <span class="pre">active</span> <span class="pre">and</span> <span class="pre">owns</span> <span class="pre">the</span> <span class="pre">axes</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">stop</span></code> is never blocked. To take manual control, deactivate the
 controller:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/lifecycle/set_node_state<span class="w"> </span><span class="se">\</span>
 <span class="w">     </span>wmx_r2_message/srv/SetNodeState<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span><span class="s2">"{node_name: 'joint_trajectory_controller', transition: 'deactivate'}"</span>
+<span class="w">     </span><span class="s1">'"{node_name: joint_trajectory_controller, transition: deactivate}"'</span>
 </pre></div>
 </div>
 </div>
@@ -1225,32 +1232,29 @@ controller:</p>
 <p><code class="docutils literal notranslate"><span class="pre">/wmx/axes/start_jog</span></code> is a dead-man command: keep calling it to keep moving,
 stop calling it to release. <code class="docutils literal notranslate"><span class="pre">wmx_core_motion_node</span></code> stops the axis once
 refreshes stop arriving (<code class="docutils literal notranslate"><span class="pre">jog_timeout_ms</span></code>, default 200 ms). The sign of
-<code class="docutils literal notranslate"><span class="pre">velocity</span></code> selects the direction.</p>
+<code class="docutils literal notranslate"><span class="pre">velocity</span></code> selects the direction, and <code class="docutils literal notranslate"><span class="pre">velocity:</span> <span class="pre">[0]</span></code> stops at once.</p>
 <p>Jog runs <code class="docutils literal notranslate"><span class="pre">Motion::StartJog</span></code>, which requires the axis to be in <strong>Position
 mode</strong>. After the sequence in section 5:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/set_axis_command_mode<span class="w"> </span>wmx_r2_message/srv/SetAxes<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span><span class="s2">"{axis: [0], data: [0]}"</span>
+<span class="w">     </span><span class="s1">'"{axis: [0], data: [0]}"'</span>
 </pre></div>
 </div>
-<p>Then loop the call. <code class="docutils literal notranslate"><span class="pre">Ctrl+C</span></code> acts as the release:</p>
+<p>Then let one <code class="docutils literal notranslate"><span class="pre">ros2</span></code> process repeat the call with <code class="docutils literal notranslate"><span class="pre">-r</span></code> (Hz). A shell loop
+does not work: starting a new <code class="docutils literal notranslate"><span class="pre">wros</span> <span class="pre">ros2</span> <span class="pre">service</span> <span class="pre">call</span></code> takes far longer
+than the 200 ms timeout, so the axis would stop between calls. <code class="docutils literal notranslate"><span class="pre">Ctrl+C</span></code>
+acts as the release:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># positive direction</span>
-<span class="k">while</span><span class="w"> </span>true<span class="p">;</span><span class="w"> </span><span class="k">do</span>
-<span class="w">  </span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/start_jog<span class="w"> </span>wmx_r2_message/srv/StartAxesVelocity<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span><span class="s2">"{axis: [0], velocity: [10], acc: [100], dec: [100]}"</span>
-<span class="w">  </span>sleep<span class="w"> </span><span class="m">0</span>.05
-<span class="k">done</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>-r<span class="w"> </span><span class="m">1</span><span class="w"> </span>/wmx/axes/start_jog<span class="w"> </span>wmx_r2_message/srv/StartAxesVelocity<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s1">'"{axis: [0], velocity: [10], acc: [100], dec: [100]}"'</span>
 
 <span class="c1"># negative direction: negate velocity</span>
-<span class="k">while</span><span class="w"> </span>true<span class="p">;</span><span class="w"> </span><span class="k">do</span>
-<span class="w">  </span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/start_jog<span class="w"> </span>wmx_r2_message/srv/StartAxesVelocity<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span><span class="s2">"{axis: [0], velocity: [-10], acc: [100], dec: [100]}"</span>
-<span class="w">  </span>sleep<span class="w"> </span><span class="m">0</span>.05
-<span class="k">done</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>-r<span class="w"> </span><span class="m">1</span><span class="w"> </span>/wmx/axes/start_jog<span class="w"> </span>wmx_r2_message/srv/StartAxesVelocity<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s1">'"{axis: [0], velocity: [-10], acc: [100], dec: [100]}"'</span>
 </pre></div>
 </div>
 <p>Stop explicitly at any time:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/axes/stop<span class="w"> </span>wmx_r2_message/srv/SetAxes<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span><span class="s2">"{axis: [0], data: [0]}"</span>
+<span class="w">     </span><span class="s1">'"{axis: [0], data: [0]}"'</span>
 </pre></div>
 </div>
 <p><strong>Tuning.</strong> These are <code class="docutils literal notranslate"><span class="pre">wmx_core_motion_node</span></code> parameters, read once at
@@ -1313,31 +1317,31 @@ address and <code class="docutils literal notranslate"><span class="pre">bit</sp
 decimal on the wire (<code class="docutils literal notranslate"><span class="pre">15</span></code> = <code class="docutils literal notranslate"><span class="pre">0x0F</span></code>).</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Read a single input bit / output bit</span>
 wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/io/get_in_bit<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>wmx_r2_message/srv/GetIoBit<span class="w"> </span><span class="s2">"{addr: 0, bit: 0}"</span>
+<span class="w">     </span>wmx_r2_message/srv/GetIoBit<span class="w"> </span><span class="s1">'"{addr: 0, bit: 0}"'</span>
 wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/io/get_out_bit<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>wmx_r2_message/srv/GetIoBit<span class="w"> </span><span class="s2">"{addr: 0, bit: 0}"</span>
+<span class="w">     </span>wmx_r2_message/srv/GetIoBit<span class="w"> </span><span class="s1">'"{addr: 0, bit: 0}"'</span>
 
 <span class="c1"># Read scattered bits in one call</span>
 wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/io/get_in_bits<span class="w"> </span>wmx_r2_message/srv/GetIoBits<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span><span class="s2">"{addr: [0, 2], bit: [1, 5]}"</span>
+<span class="w">     </span><span class="s1">'"{addr: [0, 2], bit: [1, 5]}"'</span>
 
 <span class="c1"># Read a single byte, or a run of bytes</span>
 wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/io/get_in_byte<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>wmx_r2_message/srv/GetIoByte<span class="w"> </span><span class="s2">"{addr: 0}"</span>
+<span class="w">     </span>wmx_r2_message/srv/GetIoByte<span class="w"> </span><span class="s1">'"{addr: 0}"'</span>
 wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/io/get_in_bytes<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>wmx_r2_message/srv/GetIoBytes<span class="w"> </span><span class="s2">"{addr: 0, size: 4}"</span>
+<span class="w">     </span>wmx_r2_message/srv/GetIoBytes<span class="w"> </span><span class="s1">'"{addr: 0, size: 4}"'</span>
 
 <span class="c1"># Set and clear an output bit (e.g. a gripper solenoid)</span>
 wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/io/set_out_bit<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>wmx_r2_message/srv/SetIoBit<span class="w"> </span><span class="s2">"{addr: 0, bit: 0, data: 1}"</span>
+<span class="w">     </span>wmx_r2_message/srv/SetIoBit<span class="w"> </span><span class="s1">'"{addr: 0, bit: 0, data: 1}"'</span>
 wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/io/set_out_bit<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>wmx_r2_message/srv/SetIoBit<span class="w"> </span><span class="s2">"{addr: 0, bit: 0, data: 0}"</span>
+<span class="w">     </span>wmx_r2_message/srv/SetIoBit<span class="w"> </span><span class="s1">'"{addr: 0, bit: 0, data: 0}"'</span>
 
 <span class="c1"># Write output byte 2 to 0x0F, then bytes 2 and 3 to 0x0F and 0x0E</span>
 wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/io/set_out_byte<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>wmx_r2_message/srv/SetIoByte<span class="w"> </span><span class="s2">"{addr: 2, data: 15}"</span>
+<span class="w">     </span>wmx_r2_message/srv/SetIoByte<span class="w"> </span><span class="s1">'"{addr: 2, data: 15}"'</span>
 wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/io/set_out_bytes<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>wmx_r2_message/srv/SetIoBytes<span class="w"> </span><span class="s2">"{addr: 2, data: [15, 14]}"</span>
+<span class="w">     </span>wmx_r2_message/srv/SetIoBytes<span class="w"> </span><span class="s1">'"{addr: 2, data: [15, 14]}"'</span>
 </pre></div>
 </div>
 <p>A quick way to find which bit a device is wired to: read the input bytes,
@@ -1354,7 +1358,7 @@ valves, brakes. Confirm what each output is wired to before writing it.</p>
 a slave stuck below <code class="docutils literal notranslate"><span class="pre">Op</span></code>, packet loss, or a drive that does not appear.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Master and per-slave state; master 0 unless you run several rings</span>
 wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/ecat/get_master_info<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>wmx_r2_message/srv/EcatGetMasterInfo<span class="w"> </span><span class="s2">"{master_id: 0}"</span>
+<span class="w">     </span>wmx_r2_message/srv/EcatGetMasterInfo<span class="w"> </span><span class="s1">'"{master_id: 0}"'</span>
 </pre></div>
 </div>
 <p>The reply gives the master state and mode, the communication period, the
@@ -1366,23 +1370,23 @@ count. Master states are <code class="docutils literal notranslate"><span class=
 master and every slave.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Read ESC registers directly (reg_addr is decimal, 0x000-0xFFF)</span>
 wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/ecat/register_read<span class="w"> </span>wmx_r2_message/srv/EcatRegisterRead<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span><span class="s2">"{master_id: 0, slave_id: 0, reg_addr: 0, len: 1}"</span><span class="w">      </span><span class="c1"># 0x000 type</span>
+<span class="w">     </span><span class="s1">'"{master_id: 0, slave_id: 0, reg_addr: 0, len: 1}"'</span><span class="w">      </span><span class="c1"># 0x000 type</span>
 wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/ecat/register_read<span class="w"> </span>wmx_r2_message/srv/EcatRegisterRead<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span><span class="s2">"{master_id: 0, slave_id: 0, reg_addr: 16, len: 4}"</span><span class="w">     </span><span class="c1"># 0x010 vendor ID</span>
+<span class="w">     </span><span class="s1">'"{master_id: 0, slave_id: 0, reg_addr: 16, len: 4}"'</span><span class="w">     </span><span class="c1"># 0x010 vendor ID</span>
 wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/ecat/register_read<span class="w"> </span>wmx_r2_message/srv/EcatRegisterRead<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span><span class="s2">"{master_id: 0, slave_id: 1, reg_addr: 256, len: 16}"</span><span class="w">   </span><span class="c1"># 0x100 DL status</span>
+<span class="w">     </span><span class="s1">'"{master_id: 0, slave_id: 1, reg_addr: 256, len: 16}"'</span><span class="w">   </span><span class="c1"># 0x100 DL status</span>
 
 <span class="c1"># Reset ref-clock and transmit statistics, then re-scan the network</span>
 wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/ecat/reset_statistics<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>wmx_r2_message/srv/EcatResetStatistics<span class="w"> </span><span class="s2">"{master_id: 0}"</span>
+<span class="w">     </span>wmx_r2_message/srv/EcatResetStatistics<span class="w"> </span><span class="s1">'"{master_id: 0}"'</span>
 
 <span class="c1"># Re-scan the network for slaves</span>
 wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/ecat/scan_network<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>wmx_r2_message/srv/EcatScanNetwork<span class="w"> </span><span class="s2">"{master_id: 0}"</span>
+<span class="w">     </span>wmx_r2_message/srv/EcatScanNetwork<span class="w"> </span><span class="s1">'"{master_id: 0}"'</span>
 
 <span class="c1"># Enable dynamic slave discovery (call once after the network reaches Op)</span>
 wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/ecat/start_hotconnect<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>wmx_r2_message/srv/EcatStartHotconnect<span class="w"> </span><span class="s2">"{master_id: 0}"</span>
+<span class="w">     </span>wmx_r2_message/srv/EcatStartHotconnect<span class="w"> </span><span class="s1">'"{master_id: 0}"'</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">reg_addr</span> <span class="pre">+</span> <span class="pre">len</span></code> must not exceed <code class="docutils literal notranslate"><span class="pre">0x1000</span></code> (4096 bytes).</p>
@@ -1395,13 +1399,13 @@ nodes — after changing <code class="docutils literal notranslate"><span class=
 startup fault.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Stop / start the real-time EtherCAT cycle</span>
 wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/engine/set_communication<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>std_srvs/srv/SetBool<span class="w"> </span><span class="s2">"{data: false}"</span>
+<span class="w">     </span>std_srvs/srv/SetBool<span class="w"> </span><span class="s1">'"{data: false}"'</span>
 wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/engine/set_communication<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>std_srvs/srv/SetBool<span class="w"> </span><span class="s2">"{data: true}"</span>
+<span class="w">     </span>std_srvs/srv/SetBool<span class="w"> </span><span class="s1">'"{data: true}"'</span>
 
 <span class="c1"># Close / create the WMX3 device</span>
-wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/engine/set_engine<span class="w"> </span>std_srvs/srv/SetBool<span class="w"> </span><span class="s2">"{data: false}"</span>
-wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/engine/set_engine<span class="w"> </span>std_srvs/srv/SetBool<span class="w"> </span><span class="s2">"{data: true}"</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/engine/set_engine<span class="w"> </span>std_srvs/srv/SetBool<span class="w"> </span><span class="s1">'"{data: false}"'</span>
+wros<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/wmx/engine/set_engine<span class="w"> </span>std_srvs/srv/SetBool<span class="w"> </span><span class="s1">'"{data: true}"'</span>
 </pre></div>
 </div>
 <div class="admonition warning">
@@ -1492,7 +1496,7 @@ EtherCAT communication, and close the WMX device.</p>
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Nov 17, 2026</p>
+      <p>Last updated: Nov 18, 2026</p>
     
   </div>
   <div class="movensys-footer__links">

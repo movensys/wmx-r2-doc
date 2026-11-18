@@ -301,10 +301,15 @@ and drives every managed node to match.
      - Meaning
    * - ``managed_nodes``
      - ``[]``
-     - Bring-up order; take-down is the reverse
+     - Nodes to manage, in bring-up order; take-down is the reverse. Empty
+       manages every lifecycle node found, ``wmx_*`` first
    * - ``discovery_period``
      - ``2.0``
-     - Seconds between engine-state sweeps
+     - Seconds between engine-state sweeps. Nodes are taken down after three
+       failed sweeps in a row
+
+Each node is brought up once per engine session; a node taken down by hand
+stays down until it is brought up by hand.
 
 Services: ``/wmx/lifecycle/set_node_state``,
 ``/wmx/lifecycle/get_node_states``.
@@ -318,7 +323,9 @@ wmx_core_motion_node
 ``success: false``. Any lifecycle node name can be listed, not only the
 shipped controllers — the robot option stack lists ``wmx_robot_option_node``.
 A listed name that never appears on the graph is treated as active and blocks
-manual motion. See :doc:`ros2_services`.
+manual motion, so ``wmx_r2_general_nodes_config.yaml`` sets
+``motion_controllers: ['']`` — the general launch starts no controller. See
+:doc:`ros2_services`.
 
 wmx_io_node
 ^^^^^^^^^^^
@@ -389,10 +396,13 @@ torque.
      - Axis order for that topic
    * - ``gripper_joint_name``
      - ``[]``
-     - Extra joint names appended to the feedback message
+     - Extra joint names appended to **every** feedback message
    * - ``gripper_address``
      - ``[0, 0]``
-     - ``[byte, bit]`` of the output bit read back for gripper state
+     - ``[byte, bit]`` of the output bit read back for gripper state. If a
+       read fails, the last known state is published (open until the first
+       good read) and a throttled warning is logged; with fewer than two
+       entries the gripper joints are always published as open
    * - ``gripper_open_value``
      - ``0.0``
      - Reported joint value while the bit is 0

@@ -467,7 +467,7 @@ trusting any axis index:
 .. code-block:: bash
 
    wros ros2 service call /wmx/ecat/get_master_info \
-        wmx_r2_message/srv/EcatGetMasterInfo "{master_id: 0}"
+        wmx_r2_message/srv/EcatGetMasterInfo '"{master_id: 0}"'
 
 The scan matches each discovered slave against the EtherCAT Slave
 Information (ESI) files installed with the WMX Runtime at ``/opt/wmx3/ESI/``,
@@ -580,7 +580,7 @@ parameters that the engine currently holds, per axis:
 .. code-block:: bash
 
    wros ros2 service call /wmx/engine/get_axis_param wmx_r2_message/srv/GetAxisParam \
-        "{axis: [0,1,2,3,4,5]}"
+        '"{axis: [0,1,2,3,4,5]}"'
 
 Compare the ``GearRatio``, ``AxisPolarity``, and ``CommandMode`` lines in the
 response against the table you built for your robot. This is the definitive
@@ -611,16 +611,16 @@ immediately on a live engine.
 
    # Load a different parameter file wholesale
    wros ros2 service call /wmx/engine/import_and_set_all wmx_r2_message/srv/ImportAndSetAll \
-        "{path: '/abs/path/to/<robot>_wmx_parameters.xml'}"
+        '"{path: /abs/path/to/<robot>_wmx_parameters.xml}"'
 
    # Override the gear ratio on selected axes
    wros ros2 service call /wmx/axes/set_gear_ratio \
         wmx_r2_message/srv/SetAxesGearRatio \
-        "{axis: [0], numerator: [52953088.0], denominator: [6.283185307179586]}"
+        '"{axis: [0], numerator: [52953088.0], denominator: [6.283185307179586]}"'
 
    # Override the polarity on selected axes (+1 or -1)
    wros ros2 service call /wmx/axes/set_axis_polarity wmx_r2_message/srv/SetAxes \
-        "{axis: [0], data: [-1]}"
+        '"{axis: [0], data: [-1]}"'
 
 .. warning::
 

@@ -415,7 +415,7 @@ window.runMermaid = runMermaid;</script>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-    <meta name="docbuild:last-update" content="Nov 17, 2026"/>
+    <meta name="docbuild:last-update" content="Nov 18, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -1094,15 +1094,19 @@ and drives every managed node to match.</p>
 <tbody>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">managed_nodes</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
-<td><p>Bring-up order; take-down is the reverse</p></td>
+<td><p>Nodes to manage, in bring-up order; take-down is the reverse. Empty
+manages every lifecycle node found, <code class="docutils literal notranslate"><span class="pre">wmx_*</span></code> first</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">discovery_period</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">2.0</span></code></p></td>
-<td><p>Seconds between engine-state sweeps</p></td>
+<td><p>Seconds between engine-state sweeps. Nodes are taken down after three
+failed sweeps in a row</p></td>
 </tr>
 </tbody>
 </table>
 </div>
+<p>Each node is brought up once per engine session; a node taken down by hand
+stays down until it is brought up by hand.</p>
 <p>Services: <code class="docutils literal notranslate"><span class="pre">/wmx/lifecycle/set_node_state</span></code>,
 <code class="docutils literal notranslate"><span class="pre">/wmx/lifecycle/get_node_states</span></code>.</p>
 </section>
@@ -1114,7 +1118,9 @@ and drives every managed node to match.</p>
 <code class="docutils literal notranslate"><span class="pre">success:</span> <span class="pre">false</span></code>. Any lifecycle node name can be listed, not only the
 shipped controllers — the robot option stack lists <code class="docutils literal notranslate"><span class="pre">wmx_robot_option_node</span></code>.
 A listed name that never appears on the graph is treated as active and blocks
-manual motion. See <a class="reference internal" href="ros2_services.html"><span class="doc">ROS2 Services</span></a>.</p>
+manual motion, so <code class="docutils literal notranslate"><span class="pre">wmx_r2_general_nodes_config.yaml</span></code> sets
+<code class="docutils literal notranslate"><span class="pre">motion_controllers:</span> <span class="pre">['']</span></code> — the general launch starts no controller. See
+<a class="reference internal" href="ros2_services.html"><span class="doc">ROS2 Services</span></a>.</p>
 </section>
 <section id="wmx-io-node">
 <h3>wmx_io_node<a class="headerlink" href="#wmx-io-node" title="Link to this heading">#</a></h3>
@@ -1194,11 +1200,14 @@ rates that divide 1000.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">gripper_joint_name</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
-<td><p>Extra joint names appended to the feedback message</p></td>
+<td><p>Extra joint names appended to <strong>every</strong> feedback message</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">gripper_address</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">0]</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">[byte,</span> <span class="pre">bit]</span></code> of the output bit read back for gripper state</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[byte,</span> <span class="pre">bit]</span></code> of the output bit read back for gripper state. If a
+read fails, the last known state is published (open until the first
+good read) and a throttled warning is logged; with fewer than two
+entries the gripper joints are always published as open</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">gripper_open_value</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">0.0</span></code></p></td>
@@ -1936,7 +1945,7 @@ does not need the SDK and can be built anywhere.</p>
   <div class="movensys-footer__info">
     <p>&copy; 2026, MOVENSYS MOVENSYS. All rights reserved.</p>
     
-      <p>Last updated: Nov 17, 2026</p>
+      <p>Last updated: Nov 18, 2026</p>
     
   </div>
   <div class="movensys-footer__links">
