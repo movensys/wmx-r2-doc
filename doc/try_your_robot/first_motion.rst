@@ -61,16 +61,22 @@ feedback.
 
    wros ros2 launch wmx_r2_package wmx_r2_general_nodes.launch.py \
        use_sim_time:=false \
-       'config_file:=$(ros2 pkg prefix --share wmx_r2_package)/example/<robot>_manipulator_config.yaml' \
+       'config_file:=$(ros2 pkg prefix --share wmx_r2_package)/config/wmx_r2_general_nodes_config.yaml' \
        'wmx_param_file:=$(ros2 pkg prefix --share wmx_r2_package)/example/<robot>_wmx_parameters.xml'
 
 .. important:: **Pass your robot's files explicitly.**
 
    Launched with an empty ``wmx_param_file``, the engine imports nothing and
    keeps whatever a previous session left in it — which is exactly the stale
-   state the read-back below is meant to catch. Point both arguments at the
-   parameter file and config you validated in
-   :doc:`robot_parameters`.
+   state the read-back below is meant to catch. Point ``wmx_param_file`` at the
+   parameter file you validated in :doc:`robot_parameters`; it carries every
+   axis setting.
+
+   Keep ``config_file`` on the general config. A robot config such as
+   ``<robot>_manipulator_config.yaml`` lists the trajectory and position
+   controllers in ``motion_controllers``; this launch does not start them,
+   and a listed controller that never appears counts as active, so every
+   ``start_mov`` below would be refused.
 
 Wait for the lifecycle manager to bring the nodes up — the ``/wmx/axes/*``
 services do not exist until ``wmx_core_motion_node`` is ``active``:
@@ -78,14 +84,14 @@ services do not exist until ``wmx_core_motion_node`` is ``active``:
 .. code-block:: bash
 
    wros ros2 service call /wmx/lifecycle/get_node_states \
-        wmx_r2_message/srv/GetNodeStates '"{}"'
+        wmx_r2_message/srv/GetNodeStates
 
 Confirm the engine and the bus, then read back the parameters the engine
 actually holds:
 
 .. code-block:: bash
 
-   wros ros2 service call /wmx/engine/get_engine_status std_srvs/srv/Trigger '"{}"'   # expect "Communicating"
+   wros ros2 service call /wmx/engine/get_engine_status std_srvs/srv/Trigger   # expect "Communicating"
    wros ros2 service call /wmx/ecat/get_master_info \
         wmx_r2_message/srv/EcatGetMasterInfo '"{master_id: 0}"'     # expect every drive present
    wros ros2 service call /wmx/engine/get_axis_param wmx_r2_message/srv/GetAxisParam \

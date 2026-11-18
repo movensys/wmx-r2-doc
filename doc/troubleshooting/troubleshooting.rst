@@ -115,7 +115,7 @@ interfaces only while they are ``active``, and
   .. code-block:: bash
 
      wros ros2 service call /wmx/lifecycle/get_node_states \
-       wmx_r2_message/srv/GetNodeStates '"{}"'
+       wmx_r2_message/srv/GetNodeStates
 
 - If they are ``unconfigured``, the engine is not communicating. Fix that
   first:

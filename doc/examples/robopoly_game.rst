@@ -149,8 +149,7 @@ Simulation
 
    .. code-block:: bash
 
-      mros ros2 launch movensys_manipulator_moveit_config sim_bridge.launch.py \
-           simulator:=isaacsim use_sim_time:=true
+      mros ros2 launch movensys_manipulator_moveit_config sim_bridge.launch.py use_sim_time:=true
 
 5. Launch MoveIt2 OMPL and the service API:
 
