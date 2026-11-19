@@ -101,6 +101,11 @@ Package structure
    │   ├── cr3a_wmx_parameters_deg.xml        # degree axes (Robot Option stack)
    │   ├── cr5a_manipulator_config.yaml
    │   ├── cr5a_wmx_parameters.xml
+   │   ├── nachi_mz07_manipulator_config.yaml
+   │   ├── nachi_mz07_wmx_parameters.xml      # radian axes (MoveIt2 stack)
+   │   ├── nachi_mz07_robot_option_config.yaml
+   │   ├── nachi_mz07_robot_option_parameters.xml
+   │   ├── nachi_mz07_wmx_parameters_deg.xml  # degree axes (Robot Option stack)
    │   ├── diffbot_differential_config.yaml
    │   ├── diffbot_wmx_parameters.xml         # rad/s wheel axes
    │   ├── diffbot_differential_config_rpm.yaml
@@ -695,6 +700,12 @@ the bring-up order all live in that one YAML.
        'config_file:=$(ros2 pkg prefix --share wmx_r2_package)/example/cr5a_manipulator_config.yaml' \
        'wmx_param_file:=$(ros2 pkg prefix --share wmx_r2_package)/example/cr5a_wmx_parameters.xml'
 
+   # Nachi MZ07LF (experimental)
+   wros ros2 launch wmx_r2_package wmx_r2_manipulator.launch.py \
+       use_sim_time:=false \
+       'config_file:=$(ros2 pkg prefix --share wmx_r2_package)/example/nachi_mz07_manipulator_config.yaml' \
+       'wmx_param_file:=$(ros2 pkg prefix --share wmx_r2_package)/example/nachi_mz07_wmx_parameters.xml'
+
 wmx_r2_differential.launch.py
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -735,6 +746,13 @@ declared default, ``config/wmx_r2_robot_option_config.yaml``, is not shipped.
        'config_file:=$(ros2 pkg prefix --share wmx_r2_package)/example/cr3a_robot_option_config.yaml' \
        'wmx_param_file:=$(ros2 pkg prefix --share wmx_r2_package)/example/cr3a_wmx_parameters_deg.xml' \
        'robot_param_file:=$(ros2 pkg prefix --share wmx_r2_package)/example/cr3a_robot_option_parameters.xml'
+
+   # Nachi MZ07LF, degree-scaled axes (experimental)
+   wros ros2 launch wmx_r2_package wmx_r2_robot_option.launch.py \
+       use_sim_time:=false \
+       'config_file:=$(ros2 pkg prefix --share wmx_r2_package)/example/nachi_mz07_robot_option_config.yaml' \
+       'wmx_param_file:=$(ros2 pkg prefix --share wmx_r2_package)/example/nachi_mz07_wmx_parameters_deg.xml' \
+       'robot_param_file:=$(ros2 pkg prefix --share wmx_r2_package)/example/nachi_mz07_robot_option_parameters.xml'
 
 Configuration files
 -------------------
@@ -829,7 +847,8 @@ cr3a_manipulator_config.yaml
          - gripper_controller
        discovery_period: 1.0
 
-``cr5a_manipulator_config.yaml`` is the same file with the CR5A's values.
+``cr5a_manipulator_config.yaml`` is the same file with the CR5A's values, and
+``nachi_mz07_manipulator_config.yaml`` the same again for the Nachi MZ07LF.
 On a gripperless arm, drop ``gripper_controller`` from ``managed_nodes`` and
 leave ``use_gripper`` at ``false``.
 

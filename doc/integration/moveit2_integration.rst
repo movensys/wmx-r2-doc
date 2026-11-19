@@ -57,7 +57,7 @@ enter the container with the ``mros`` helper. Key environment variables:
    * - ``ROS_DISTRO``
      - ``humble`` or ``jazzy``
    * - ``MANIPULATOR_MODEL``
-     - ``dobot_cr3a`` or ``dobot_cr5a`` (selects the MoveIt config)
+     - ``dobot_cr3a``, ``dobot_cr5a`` or ``nachi_mz07`` (selects the MoveIt config)
    * - ``MOVENSYS_ROS_VERSION``
      - ``isaac-ros_4.1``, ``isaac-ros_3.2``, or ``general``
    * - ``CPU_ARCH``

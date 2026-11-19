@@ -72,6 +72,14 @@ Robot matrix
      - ``cr5a_wmx_parameters.xml``
      - Trajectory execution and keyboard/Servo jogging only. No gripper and
        no perception configuration is shipped — see the function matrix.
+   * - **Nachi MZ07LF**
+     - 6
+     - Experimental
+     - ``nachi_mz07_wmx_parameters.xml``
+     - Trajectory planning only. The axis parameters
+       come from the WMX3 SDK sample ``wmx_parameter_MZ07L.xml``. 
+       The URDF follows the MZ07LF kinematics, with the
+       standard MZ07 meshes stretched to the longer arm.
    * - **Differential-drive base** (``diffbot``)
      - 2
      - Validated
@@ -84,13 +92,15 @@ Function matrix
 
 .. list-table::
    :header-rows: 1
-   :widths: 34 22 22 22
+   :widths: 31 17 17 18 17
 
    * - Function
      - Dobot CR3A
      - Dobot CR5A
+     - Nachi MZ07LF
      - diffbot
    * - General nodes (engine, axis, I/O, EtherCAT)
+     - Validated
      - Validated
      - Validated
      - Validated
@@ -98,55 +108,69 @@ Function matrix
      - Validated
      - Validated
      - Validated
+     - Validated
    * - ``FollowJointTrajectory`` execution
+     - Validated
      - Validated
      - Validated
      - —
    * - MoveIt 2 (OMPL) planning
      - Validated
      - Validated
+     - Validated
      - —
    * - Isaac cuMotion planning
      - Validated
      - Not configured
+     - Validated
      - —
    * - MoveIt Servo / keyboard jogging
      - Validated
+     - Reference implementation
      - Reference implementation
      - —
    * - ``ros2_control`` hardware interface
      - Reference implementation
      - Reference implementation
      - Reference implementation
+     - Reference implementation
    * - Gripper (digital I/O)
      - Validated
+     - Not configured
      - Not configured
      - —
    * - AprilTag pick and place
      - Validated
      - Not configured
+     - Not configured
      - —
    * - YOLO pick and place
      - Validated
+     - Not configured
      - Not configured
      - —
    * - Nvblox obstacle avoidance
      - Validated
      - Not configured
+     - Not configured
      - —
    * - Robopoly (VLM/LLM application)
      - Validated
      - Not configured
+     - Not configured
      - —
    * - Nav2 autonomous navigation
+     - —
      - —
      - —
      - Validated
    * - SLAM mapping
      - —
      - —
+     - —
      - Validated
    * - Manual teleoperated driving
+     - —
      - —
      - —
      - Validated
@@ -158,7 +182,8 @@ Function matrix
    with a wrong one. For the CR5A this covers everything under
    ``movensys_manipulator_perception/config/`` and
    ``movensys_manipulator_isaac_ros_config/config/``, and for the diffbot this covers everything under
-   ``movensys_navigation/config/``.
+   ``movensys_navigation/config/``. The Nachi MZ07LF has no gripper, perception
+   or Isaac ROS configuration either.
 
 Homing, absolute position, brakes, and safety
 -----------------------------------------------
@@ -191,11 +216,11 @@ Homing, absolute position, brakes, and safety
        functions of the robot manufacturer's original controller are not
        available when that controller is bypassed. See :doc:`safety`.
    * - **Soft limits**
-     - Disabled (``SoftLimitType = 0``) in all three shipped parameter files.
+     - Disabled (``SoftLimitType = 0``) in all shipped parameter files.
        Position limiting exists only in MoveIt's planning-time check against
        the URDF.
    * - **E-stop input**
-     - ``EnableEStopSignal = 0`` in all three shipped parameter files. The
+     - ``EnableEStopSignal = 0`` in all shipped parameter files. The
        WMX engine's E-stop input is not configured, and is in any case a
        functional input rather than a safety function.
 
@@ -218,6 +243,9 @@ point for the corresponding robot model:
    * - ``cr5a_wmx_parameters.xml``
      - Dobot CR5A
      - ``cr5a_manipulator_config.yaml``
+   * - ``nachi_mz07_wmx_parameters.xml``
+     - Nachi MZ07LF
+     - ``nachi_mz07_manipulator_config.yaml``
    * - ``diffbot_wmx_parameters.xml``
      - Differential-drive base
      - ``diffbot_differential_config.yaml``

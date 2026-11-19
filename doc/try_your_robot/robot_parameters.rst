@@ -103,7 +103,7 @@ The WMX axis index is in turn the position of the servo drive in the EtherCAT
 daisy chain, as discovered by the network scan. The chain order is physical
 wiring, not configuration.
 
-.. list-table:: Shipped mapping (CR3A and CR5A)
+.. list-table:: Shipped mapping (CR3A, CR5A and Nachi MZ07LF)
    :header-rows: 1
    :widths: 20 20 30 30
 
@@ -173,7 +173,8 @@ the axis gear ratio:
    AxisGearRatioDenominator                 user units per revolution
 
 The default parameter files — ``cr3a_wmx_parameters.xml``,
-``cr5a_wmx_parameters.xml`` and ``diffbot_wmx_parameters.xml`` — set:
+``cr5a_wmx_parameters.xml``, ``nachi_mz07_wmx_parameters.xml`` and
+``diffbot_wmx_parameters.xml`` — set:
 
 .. code-block:: xml
 
@@ -218,6 +219,9 @@ boundary so every ROS topic stays in rad and rad/s:
        ``joint_state_broadcaster``. Required by the WMX3 Robot Option, which
        only runs on degree/mm axes — see
        :doc:`../api_reference/wmx_robot_option`.
+   * - ``nachi_mz07_wmx_parameters_deg.xml``
+     - ``360``
+     - Same as the CR3A file, for the Nachi MZ07LF Robot Option example.
    * - ``diffbot_wmx_parameters_rpm.xml``
      - ``60``
      - ``wheel_velocity_unit: "rpm"`` on ``differential_drive_controller``
@@ -226,7 +230,8 @@ boundary so every ROS topic stays in rad and rad/s:
        revolution.
 
 Each XML has a matching YAML that sets those parameters:
-``cr3a_robot_option_config.yaml`` and ``diffbot_differential_config_rpm.yaml``.
+``cr3a_robot_option_config.yaml``, ``nachi_mz07_robot_option_config.yaml`` and
+``diffbot_differential_config_rpm.yaml``.
 Pair them; mixing a ``_deg`` or ``_rpm`` XML with a radian YAML is exactly the
 silent unit error described above.
 
@@ -289,6 +294,50 @@ Gear ratios and encoder resolution — shipped values
 ``cr5a_wmx_parameters.xml`` uses the same two values with a different split:
 axes 0, 1, and 2 use 52 953 088; axes 3, 4, and 5 use 42 467 328.
 
+``nachi_mz07_wmx_parameters.xml`` takes its six axes from the WMX3 SDK sample
+``wmx_parameter_MZ07L.xml`` (axes 4 to 9 there, moved to 0 to 5), with a
+2\ :sup:`17`-count encoder on every joint:
+
+.. list-table:: ``nachi_mz07_wmx_parameters.xml``
+   :header-rows: 1
+   :widths: 14 12 26 22 26
+
+   * - ROS 2 joint
+     - WMX axis
+     - ``AxisGearRatioNumerator``
+     - Counts per rad
+     - Consistent with
+   * - ``joint1``
+     - 0
+     - 15 728 640
+     - 2 503 291
+     - 2\ :sup:`17` counts × 120:1
+   * - ``joint2``
+     - 1
+     - 17 973 904.16
+     - 2 860 636
+     - 2\ :sup:`17` counts × 137.13:1
+   * - ``joint3``
+     - 2
+     - 13 238 273.62
+     - 2 106 937
+     - 2\ :sup:`17` counts × 101:1
+   * - ``joint4``
+     - 3
+     - 10 463 477.44
+     - 1 665 314
+     - 2\ :sup:`17` counts × 79.83:1
+   * - ``joint5``
+     - 4
+     - 9 961 472.22
+     - 1 585 418
+     - 2\ :sup:`17` counts × 76:1
+   * - ``joint6``
+     - 5
+     - 5 604 638.89
+     - 892 006
+     - 2\ :sup:`17` counts × 42.76:1
+
 ``diffbot_wmx_parameters.xml`` uses 4 915 200 counts per wheel revolution on
 both drive axes (782 278 counts per radian), consistent with a
 2\ :sup:`16`-count encoder and a 75:1 reduction.
@@ -305,9 +354,10 @@ Joint direction and sign conventions
 -------------------------------------
 
 ``AxisPolarity`` inverts the direction of both the command and the feedback
-for one axis. It takes ``+1`` or ``-1``. The two arms share one pattern,
-with axis 2 the only non-inverted joint; the base differs because its motors
-are mounted in a different orientation. The ``_deg`` and ``_rpm`` variants
+for one axis. It takes ``+1`` or ``-1``. The two Dobot arms share one pattern,
+with axis 2 the only non-inverted joint; the Nachi MZ07LF leaves every axis at
+``+1``, as in the SDK sample; the base differs because its motors are mounted
+in a different orientation. The ``_deg`` and ``_rpm`` variants
 described in :ref:`other-axis-units` carry the same polarity as the file they
 derive from:
 
@@ -336,6 +386,13 @@ derive from:
      - −1
      - −1
      - −1
+   * - ``nachi_mz07_wmx_parameters.xml``
+     - +1
+     - +1
+     - +1
+     - +1
+     - +1
+     - +1
    * - ``diffbot_wmx_parameters.xml``
      - −1
      - −1
@@ -422,17 +479,23 @@ Limits are enforced in more than one place, and the shipped configuration does
 
        CR5A: ``joint1`` −1.57…4.71239, ``joint2`` ±1.57, ``joint3``
        −0.2…2.55, ``joint4`` ±2.5, ``joint5`` −3.14…0.1, ``joint6`` ±3.14 rad.
+
+       Nachi MZ07LF: ``joint1`` ±2.9671, ``joint2`` −2.3562…1.3963,
+       ``joint3`` −1.15…3.333, ``joint4`` ±3.3161, ``joint5`` ±2.0944,
+       ``joint6`` ±3.14 rad.
    * - Joint position (engine)
      - WMX ``SoftLimitType`` in ``LimitParam``
      - **Disabled** (``SoftLimitType = 0``, both soft-limit positions ``0.0``)
        on every axis of every shipped file.
    * - Joint velocity
      - URDF ``velocity`` attribute; MoveIt ``joint_limits.yaml``
-     - URDF: 3.0 rad/s (both arms). MoveIt: CR3A 2.0 rad/s, CR5A 1.0 rad/s —
+     - URDF: 3.0 rad/s (all arms). MoveIt: CR3A 2.0 rad/s, CR5A and Nachi
+       MZ07LF 1.0 rad/s —
        the MoveIt value is the one that bounds planned trajectories.
    * - Joint acceleration
      - MoveIt ``joint_limits.yaml``
-     - CR3A 2.0 rad/s², CR5A 1.0 rad/s². Not expressed in the URDF.
+     - CR3A 2.0 rad/s², CR5A and Nachi MZ07LF 1.0 rad/s². Not expressed in
+       the URDF.
    * - Motor speed
      - WMX ``MaxMotorSpeed``
      - 3000 rpm on every axis.
@@ -441,7 +504,9 @@ Limits are enforced in more than one place, and the shipped configuration does
      - 300 (% of rated) on every axis.
    * - Deceleration on stop
      - WMX ``QuickStopDec`` and ``EStopDec``
-     - 100 000 user units/s² (rad/s²) on every axis.
+     - 100 000 user units/s² (rad/s²) on every axis, except ``EStopDec`` on
+       the Nachi MZ07LF joints, which keeps the SDK sample's values: 43.6,
+       38.2, 51.8, 78.7, 82.7 and 147.0 rad/s² on axes 0 to 5.
 
 .. warning:: **Soft limits are off in the shipped parameter files.**
 
