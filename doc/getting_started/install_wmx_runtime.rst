@@ -109,12 +109,21 @@ keeping housekeeping work off them. The examples below reserve core ``3`` for th
 control loop and core ``2`` for the universal NIC kernel driver, so both cores
 are isolated on every platform.
 
+The kernel parameters are the same on every CPU architecture; only where you
+put them depends on the bootloader your system uses. Select the tab that matches
+your bootloader:
+
+.. code-block:: text
+
+   isolcpus=2,3 nohz_full=2,3 rcu_nocbs=2,3 irqaffinity=0,1 acpi_irq_nobalance noirqbalance
+
 .. tab-set::
 
-   .. tab-item:: x86-64
-      :sync: x86
+   .. tab-item:: GRUB
+      :sync: grub
 
-      Edit ``/etc/default/grub`` and set ``GRUB_CMDLINE_LINUX``:
+      Most PCs and servers boot with GRUB. Edit ``/etc/default/grub`` and set
+      ``GRUB_CMDLINE_LINUX``:
 
       .. code-block:: text
 
@@ -127,26 +136,11 @@ are isolated on every platform.
          sudo update-grub
          sudo reboot
 
-      .. tip:: **Tighter timing on Intel Core Ultra.**
+   .. tab-item:: U-Boot / extlinux
+      :sync: extlinux
 
-         For the most consistent latency, use this line in
-         ``GRUB_CMDLINE_LINUX_DEFAULT`` instead:
-
-         .. code-block:: text
-
-            GRUB_CMDLINE_LINUX_DEFAULT="isolcpus=managed_irq,domain,2,3 nohz_full=2,3 rcu_nocbs=2,3 irqaffinity=0,1 intel_pstate=disable processor.max_cstate=1 idle=poll"
-
-         - ``idle=poll`` uses more power to get lower latency. Measure with
-           ``cyclictest`` to confirm it helps on your hardware.
-         - Core Ultra chips mix P-cores, E-cores and LP-E-cores. Pin the control
-           loop to isolated **P-cores**.
-
-   .. tab-item:: arm64
-      :sync: arm64
-
-      Most arm64 boards boot with U-Boot/extlinux, not GRUB. **Append** the
-      isolation parameters to the ``APPEND`` line in
-      ``/boot/extlinux/extlinux.conf``:
+      Many embedded boards boot with U-Boot/extlinux. **Append** the isolation
+      parameters to the ``APPEND`` line in ``/boot/extlinux/extlinux.conf``:
 
       .. code-block:: text
 
@@ -158,7 +152,19 @@ are isolated on every platform.
 
          sudo reboot
 
-      If your arm64 board boots with GRUB, follow the x86-64 steps instead.
+.. tip:: **Tighter timing on Intel Core Ultra.**
+
+   For the most consistent latency, use this line in
+   ``GRUB_CMDLINE_LINUX_DEFAULT`` instead:
+
+   .. code-block:: text
+
+      GRUB_CMDLINE_LINUX_DEFAULT="isolcpus=managed_irq,domain,2,3 nohz_full=2,3 rcu_nocbs=2,3 irqaffinity=0,1 intel_pstate=disable processor.max_cstate=1 idle=poll"
+
+   - ``idle=poll`` uses more power to get lower latency. Measure with
+     ``cyclictest`` to confirm it helps on your hardware.
+   - Core Ultra chips mix P-cores, E-cores and LP-E-cores. Pin the control
+     loop to isolated **P-cores**.
 
 **Pin the WMX engine to the isolated core.** Isolating the core keeps other work
 off it; you still have to tell the WMX engine to run there. Edit
