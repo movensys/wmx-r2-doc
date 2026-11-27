@@ -197,9 +197,9 @@ repository. Clone it alongside the manipulator workspace:
    cd ~/workspaces
    git clone https://github.com/movensys/movensys-simulation.git
 
-Scenes are organized under ``dobot_cr3a/`` and ``dobot_cr5a/`` and named
-``<n><mode>_<example>.usd``, where the mode suffix selects how the robot is
-driven:
+Scenes are organized under ``dobot_cr3a/``, ``dobot_cr5a/`` and
+``ovr6048k1-v/`` and named ``<n><mode>_<example>.usd``, where the mode suffix
+selects how the robot is driven:
 
 .. list-table::
    :header-rows: 1
@@ -221,7 +221,11 @@ driven:
 The CR3A directory provides scenes for the trajectory (``3``), AprilTag
 pick-and-place (``4``), Nvblox obstacle avoidance (``5``), AprilTag with
 obstacle avoidance (``6``), RoboPoly (``7``), and YOLO pick-and-place (``8``)
-examples; the CR5A directory currently provides the trajectory scene. In the App Selector
-(``Play``), open a scene such as
+examples. The OVR6048K1-V directory provides the trajectory scene in all three
+modes (``3a_trajectory_simulation.usd``, ``3b_trajectory_hil.usd``,
+``3c_trajectory_real.usd``). The CR5A directory also provides only the
+trajectory scene, without the number prefix (``trajectory_simulation.usd``,
+``trajectory_hil.usd``, ``trajectory_real.usd``).
+In the App Selector (``Play``), open a scene such as
 ``~/workspaces/movensys-simulation/dobot_cr3a/3a_trajectory_simulation.usd``,
 click **Play**, then run the matching manipulator scenario to drive the robot.

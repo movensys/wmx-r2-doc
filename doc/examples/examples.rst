@@ -37,7 +37,8 @@ core WMX R2 container — see :doc:`testing_wmx_r2`). Isaac Sim runs on the host
 
 .. note:: **The robots in these scenarios are examples.**
 
-   The scenarios run on the Dobot CR3A and CR5A arms and the ``diffbot``
+   The scenarios run on the Dobot CR3A, Dobot CR5A and Oriental Motor
+   OVR6048K1-V arms and the ``diffbot``
    differential-drive base because those are the models this project ships a
    ready-made parameter file, URDF, and planning configuration for. WMX R2
    itself controls axes, not a specific robot model: it commands EtherCAT
