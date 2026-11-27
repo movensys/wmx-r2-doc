@@ -489,7 +489,7 @@ Limits are enforced in more than one place, and the shipped configuration does
        on every axis of every shipped file.
    * - Joint velocity
      - URDF ``velocity`` attribute; MoveIt ``joint_limits.yaml``
-     - URDF: 3.0 rad/s (all arms). MoveIt: CR3A 2.0 rad/s, CR5A and Nachi
+     - URDF: 3.0 rad/s (all arms). MoveIt: CR3A 2.7 rad/s, CR5A and Nachi
        MZ07LF 1.0 rad/s —
        the MoveIt value is the one that bounds planned trajectories.
    * - Joint acceleration
@@ -506,7 +506,10 @@ Limits are enforced in more than one place, and the shipped configuration does
      - WMX ``QuickStopDec`` and ``EStopDec``
      - 100 000 user units/s² (rad/s²) on every axis, except ``EStopDec`` on
        the Nachi MZ07LF joints, which keeps the SDK sample's values: 43.6,
-       38.2, 51.8, 78.7, 82.7 and 147.0 rad/s² on axes 0 to 5.
+       38.2, 51.8, 78.7, 82.7 and 147.0 rad/s² on axes 0 to 5 in
+       ``nachi_mz07_wmx_parameters.xml`` (2500, 2187.7, 2970.3, 4509.6,
+       4736.8 and 8423.0 deg/s² in the ``_deg`` file — the same
+       deceleration).
 
 .. warning:: **Soft limits are off in the shipped parameter files.**
 

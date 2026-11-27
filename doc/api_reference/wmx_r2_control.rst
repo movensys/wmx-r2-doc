@@ -172,6 +172,7 @@ Starts, in order:
 
 .. code-block:: bash
 
+   # Dobot CR3A
    wros ros2 launch wmx_r2_control wmx_r2_control_manipulator.launch.py \
        use_sim_time:=false \
        'config_file:=$(ros2 pkg prefix --share wmx_r2_package)/example/cr3a_manipulator_config.yaml' \
@@ -179,6 +180,14 @@ Starts, in order:
        'urdf_file:=$(ros2 pkg prefix --share wmx_r2_control)/urdf/cr3a.wmx.urdf.xacro' \
        'controllers_file:=$(ros2 pkg prefix --share wmx_r2_control)/config/cr3a_controllers.yaml' \
        use_gripper:=true
+
+   # Nachi MZ07LF (experimental, no gripper)
+   wros ros2 launch wmx_r2_control wmx_r2_control_manipulator.launch.py \
+       use_sim_time:=false \
+       'config_file:=$(ros2 pkg prefix --share wmx_r2_package)/example/nachi_mz07_manipulator_config.yaml' \
+       'wmx_param_file:=$(ros2 pkg prefix --share wmx_r2_package)/example/nachi_mz07_wmx_parameters.xml' \
+       'urdf_file:=$(ros2 pkg prefix --share wmx_r2_control)/urdf/nachi_mz07.wmx.urdf.xacro' \
+       'controllers_file:=$(ros2 pkg prefix --share wmx_r2_control)/config/nachi_mz07_controllers.yaml'
 
 wmx_r2_control_differential.launch.py
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

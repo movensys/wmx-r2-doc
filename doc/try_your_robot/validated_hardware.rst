@@ -76,10 +76,12 @@ Robot matrix
      - 6
      - Experimental
      - ``nachi_mz07_wmx_parameters.xml``
-     - Trajectory planning only. The axis parameters
-       come from the WMX3 SDK sample ``wmx_parameter_MZ07L.xml``. 
-       The URDF follows the MZ07LF kinematics, with the
-       standard MZ07 meshes stretched to the longer arm.
+     - Trajectory execution (MoveIt 2 and cuMotion) and the Robot Option
+       example only. No gripper and no perception configuration is shipped.
+       The axis parameters come from the WMX3 SDK sample
+       ``wmx_parameter_MZ07L.xml``. The URDF follows the MZ07LF kinematics
+       (0.420 m upper arm, 0.349 m forearm, 0.078 m wrist), with the standard
+       MZ07 meshes stretched to the longer arm.
    * - **Differential-drive base** (``diffbot``)
      - 2
      - Validated
@@ -182,8 +184,10 @@ Function matrix
    with a wrong one. For the CR5A this covers everything under
    ``movensys_manipulator_perception/config/`` and
    ``movensys_manipulator_isaac_ros_config/config/``, and for the diffbot this covers everything under
-   ``movensys_navigation/config/``. The Nachi MZ07LF has no gripper, perception
-   or Isaac ROS configuration either.
+   ``movensys_navigation/config/``. The Nachi MZ07LF has no gripper or
+   perception configuration and nothing under
+   ``movensys_manipulator_isaac_ros_config/config/`` either; cuMotion only
+   needs the robot's ``movensys_manipulator.xrdf``, which is shipped.
 
 Homing, absolute position, brakes, and safety
 -----------------------------------------------

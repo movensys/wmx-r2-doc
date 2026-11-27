@@ -847,9 +847,10 @@ cr3a_manipulator_config.yaml
          - gripper_controller
        discovery_period: 1.0
 
-``cr5a_manipulator_config.yaml`` is the same file with the CR5A's values, and
-``nachi_mz07_manipulator_config.yaml`` the same again for the Nachi MZ07LF.
-On a gripperless arm, drop ``gripper_controller`` from ``managed_nodes`` and
+``cr5a_manipulator_config.yaml`` and ``nachi_mz07_manipulator_config.yaml``
+are the same file for the CR5A and the Nachi MZ07LF, without the gripper
+entries: both arms are gripperless, so ``gripper_controller`` is not in
+``managed_nodes``. On a gripperless arm, drop ``gripper_controller`` from ``managed_nodes`` and
 leave ``use_gripper`` at ``false``.
 
 diffbot_differential_config.yaml
