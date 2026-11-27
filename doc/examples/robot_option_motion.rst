@@ -17,8 +17,10 @@ through ``wros``. For every service and field, see
      the WMX engine. When a session ends, restart the engine to start a new
      one. A commercial license removes the time limit; see
      :doc:`../licensing`.
-   - The package ships a robot option configuration for the **Dobot CR3A**
-     only. Run this example with ``MANIPULATOR_MODEL=dobot_cr3a``.
+   - The package ships robot option configurations for the **Dobot CR3A**
+     and the **Oriental Motor OVR6048K1-V** (``ovr6048k1-v_robot_option_*``,
+     axes 0 to 5). The commands and joint values below are for the CR3A; run
+     them with ``MANIPULATOR_MODEL=dobot_cr3a``.
    - The robot option stack needs **degree-scaled axes**, so it loads
      ``cr3a_wmx_parameters_deg.xml``, not the radian file the MoveIt2 stack
      uses. ``/joint_states`` and the simulator topics are still published in

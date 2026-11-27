@@ -103,7 +103,7 @@ The WMX axis index is in turn the position of the servo drive in the EtherCAT
 daisy chain, as discovered by the network scan. The chain order is physical
 wiring, not configuration.
 
-.. list-table:: Shipped mapping (CR3A and CR5A)
+.. list-table:: Shipped mapping (CR3A, CR5A and OVR6048K1-V)
    :header-rows: 1
    :widths: 20 20 30 30
 
@@ -173,7 +173,8 @@ the axis gear ratio:
    AxisGearRatioDenominator                 user units per revolution
 
 The default parameter files — ``cr3a_wmx_parameters.xml``,
-``cr5a_wmx_parameters.xml`` and ``diffbot_wmx_parameters.xml`` — set:
+``cr5a_wmx_parameters.xml``, ``ovr6048k1-v_wmx_parameters.xml`` and
+``diffbot_wmx_parameters.xml`` — set:
 
 .. code-block:: xml
 
@@ -218,6 +219,10 @@ boundary so every ROS topic stays in rad and rad/s:
        ``joint_state_broadcaster``. Required by the WMX3 Robot Option, which
        only runs on degree/mm axes — see
        :doc:`../api_reference/wmx_robot_option`.
+   * - ``ovr6048k1-v_wmx_parameters_deg.xml``
+     - ``360``
+     - Same as the CR3A file, for the Oriental Motor OVR6048K1-V Robot Option
+       example.
    * - ``diffbot_wmx_parameters_rpm.xml``
      - ``60``
      - ``wheel_velocity_unit: "rpm"`` on ``differential_drive_controller``
@@ -226,7 +231,8 @@ boundary so every ROS topic stays in rad and rad/s:
        revolution.
 
 Each XML has a matching YAML that sets those parameters:
-``cr3a_robot_option_config.yaml`` and ``diffbot_differential_config_rpm.yaml``.
+``cr3a_robot_option_config.yaml``, ``ovr6048k1-v_robot_option_config.yaml`` and
+``diffbot_differential_config_rpm.yaml``.
 Pair them; mixing a ``_deg`` or ``_rpm`` XML with a radian YAML is exactly the
 silent unit error described above.
 
@@ -289,6 +295,44 @@ Gear ratios and encoder resolution — shipped values
 ``cr5a_wmx_parameters.xml`` uses the same two values with a different split:
 axes 0, 1, and 2 use 52 953 088; axes 3, 4, and 5 use 42 467 328.
 
+``ovr6048k1-v_wmx_parameters.xml`` uses round counts per joint revolution,
+set when the Oriental Motor OVR6048K1-V was commissioned. No encoder and
+reducer factorization is given for them; check them against the drive and
+reducer data as the note below describes:
+
+.. list-table:: ``ovr6048k1-v_wmx_parameters.xml``
+   :header-rows: 1
+   :widths: 20 16 32 32
+
+   * - ROS 2 joint
+     - WMX axis
+     - ``AxisGearRatioNumerator``
+     - Counts per rad
+   * - ``joint1``
+     - 0
+     - 360 000
+     - 57 296
+   * - ``joint2``
+     - 1
+     - 1 000 000
+     - 159 155
+   * - ``joint3``
+     - 2
+     - 1 000 000
+     - 159 155
+   * - ``joint4``
+     - 3
+     - 500 000
+     - 79 577
+   * - ``joint5``
+     - 4
+     - 500 000
+     - 79 577
+   * - ``joint6``
+     - 5
+     - 500 000
+     - 79 577
+
 ``diffbot_wmx_parameters.xml`` uses 4 915 200 counts per wheel revolution on
 both drive axes (782 278 counts per radian), consistent with a
 2\ :sup:`16`-count encoder and a 75:1 reduction.
@@ -305,9 +349,10 @@ Joint direction and sign conventions
 -------------------------------------
 
 ``AxisPolarity`` inverts the direction of both the command and the feedback
-for one axis. It takes ``+1`` or ``-1``. The two arms share one pattern,
-with axis 2 the only non-inverted joint; the base differs because its motors
-are mounted in a different orientation. The ``_deg`` and ``_rpm`` variants
+for one axis. It takes ``+1`` or ``-1``. The two Dobot arms share one
+pattern, with axis 2 the only non-inverted joint; the Oriental Motor
+OVR6048K1-V inverts every axis except axis 0; the base differs because its
+motors are mounted in a different orientation. The ``_deg`` and ``_rpm`` variants
 described in :ref:`other-axis-units` carry the same polarity as the file they
 derive from:
 
@@ -333,6 +378,13 @@ derive from:
      - −1
      - −1
      - +1
+     - −1
+     - −1
+     - −1
+   * - ``ovr6048k1-v_wmx_parameters.xml``
+     - +1
+     - −1
+     - −1
      - −1
      - −1
      - −1
@@ -363,7 +415,7 @@ forward" assumption about the drives is not enough.
 Home positions and encoder offsets
 -----------------------------------
 
-All three shipped parameter files use absolute encoders and no offset:
+All shipped parameter files use absolute encoders and no offset:
 
 .. list-table::
    :header-rows: 1
@@ -422,17 +474,23 @@ Limits are enforced in more than one place, and the shipped configuration does
 
        CR5A: ``joint1`` −1.57…4.71239, ``joint2`` ±1.57, ``joint3``
        −0.2…2.55, ``joint4`` ±2.5, ``joint5`` −3.14…0.1, ``joint6`` ±3.14 rad.
+
+       OVR6048K1-V: ``joint1`` ±2.9671, ``joint2`` −1.885…1.0297,
+       ``joint3`` −2.618…2.3387, ``joint4`` ±2.9671, ``joint5``
+       −1.8501…2.042, ``joint6`` ±2.9671 rad.
    * - Joint position (engine)
      - WMX ``SoftLimitType`` in ``LimitParam``
      - **Disabled** (``SoftLimitType = 0``, both soft-limit positions ``0.0``)
        on every axis of every shipped file.
    * - Joint velocity
      - URDF ``velocity`` attribute; MoveIt ``joint_limits.yaml``
-     - URDF: 3.0 rad/s (both arms). MoveIt: CR3A 2.0 rad/s, CR5A 1.0 rad/s —
-       the MoveIt value is the one that bounds planned trajectories.
+     - URDF: 3.0 rad/s (Dobot arms), 0.5 rad/s (OVR6048K1-V). MoveIt: CR3A
+       2.0 rad/s, CR5A 1.0 rad/s, OVR6048K1-V 0.5 rad/s — the MoveIt value is
+       the one that bounds planned trajectories.
    * - Joint acceleration
      - MoveIt ``joint_limits.yaml``
-     - CR3A 2.0 rad/s², CR5A 1.0 rad/s². Not expressed in the URDF.
+     - CR3A 2.0 rad/s², CR5A 1.0 rad/s², OVR6048K1-V 0.5 rad/s². Not
+       expressed in the URDF.
    * - Motor speed
      - WMX ``MaxMotorSpeed``
      - 3000 rpm on every axis.

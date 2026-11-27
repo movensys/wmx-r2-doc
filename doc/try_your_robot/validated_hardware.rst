@@ -72,6 +72,13 @@ Robot matrix
      - ``cr5a_wmx_parameters.xml``
      - Trajectory execution and keyboard/Servo jogging only. No gripper and
        no perception configuration is shipped — see the function matrix.
+   * - **Oriental Motor OVR6048K1-V**
+     - 6
+     - Experimental
+     - ``ovr6048k1-v_wmx_parameters.xml``
+     - Trajectory execution and the Robot Option example only. No gripper and
+       no perception configuration is shipped. Joint speed is capped at
+       0.5 rad/s in the URDF and MoveIt.
    * - **Differential-drive base** (``diffbot``)
      - 2
      - Validated
@@ -84,13 +91,15 @@ Function matrix
 
 .. list-table::
    :header-rows: 1
-   :widths: 34 22 22 22
+   :widths: 31 17 17 18 17
 
    * - Function
      - Dobot CR3A
      - Dobot CR5A
+     - Oriental Motor OVR6048K1-V
      - diffbot
    * - General nodes (engine, axis, I/O, EtherCAT)
+     - Validated
      - Validated
      - Validated
      - Validated
@@ -98,55 +107,69 @@ Function matrix
      - Validated
      - Validated
      - Validated
+     - Validated
    * - ``FollowJointTrajectory`` execution
+     - Validated
      - Validated
      - Validated
      - —
    * - MoveIt 2 (OMPL) planning
      - Validated
      - Validated
+     - Validated
      - —
    * - Isaac cuMotion planning
      - Validated
      - Not configured
+     - Reference implementation
      - —
    * - MoveIt Servo / keyboard jogging
      - Validated
+     - Reference implementation
      - Reference implementation
      - —
    * - ``ros2_control`` hardware interface
      - Reference implementation
      - Reference implementation
      - Reference implementation
+     - Reference implementation
    * - Gripper (digital I/O)
      - Validated
+     - Not configured
      - Not configured
      - —
    * - AprilTag pick and place
      - Validated
      - Not configured
+     - Not configured
      - —
    * - YOLO pick and place
      - Validated
+     - Not configured
      - Not configured
      - —
    * - Nvblox obstacle avoidance
      - Validated
      - Not configured
+     - Not configured
      - —
    * - Robopoly (VLM/LLM application)
      - Validated
      - Not configured
+     - Not configured
      - —
    * - Nav2 autonomous navigation
+     - —
      - —
      - —
      - Validated
    * - SLAM mapping
      - —
      - —
+     - —
      - Validated
    * - Manual teleoperated driving
+     - —
      - —
      - —
      - Validated
@@ -158,7 +181,10 @@ Function matrix
    with a wrong one. For the CR5A this covers everything under
    ``movensys_manipulator_perception/config/`` and
    ``movensys_manipulator_isaac_ros_config/config/``, and for the diffbot this covers everything under
-   ``movensys_navigation/config/``.
+   ``movensys_navigation/config/``. The Oriental Motor OVR6048K1-V has no
+   gripper or perception configuration and nothing under
+   ``movensys_manipulator_isaac_ros_config/config/`` either; cuMotion only
+   needs the robot's ``movensys_manipulator.xrdf``, which is shipped.
 
 Homing, absolute position, brakes, and safety
 -----------------------------------------------
@@ -191,11 +217,11 @@ Homing, absolute position, brakes, and safety
        functions of the robot manufacturer's original controller are not
        available when that controller is bypassed. See :doc:`safety`.
    * - **Soft limits**
-     - Disabled (``SoftLimitType = 0``) in all three shipped parameter files.
+     - Disabled (``SoftLimitType = 0``) in all shipped parameter files.
        Position limiting exists only in MoveIt's planning-time check against
        the URDF.
    * - **E-stop input**
-     - ``EnableEStopSignal = 0`` in all three shipped parameter files. The
+     - ``EnableEStopSignal = 0`` in all shipped parameter files. The
        WMX engine's E-stop input is not configured, and is in any case a
        functional input rather than a safety function.
 
@@ -218,6 +244,9 @@ point for the corresponding robot model:
    * - ``cr5a_wmx_parameters.xml``
      - Dobot CR5A
      - ``cr5a_manipulator_config.yaml``
+   * - ``ovr6048k1-v_wmx_parameters.xml``
+     - Oriental Motor OVR6048K1-V
+     - ``ovr6048k1-v_manipulator_config.yaml``
    * - ``diffbot_wmx_parameters.xml``
      - Differential-drive base
      - ``diffbot_differential_config.yaml``
