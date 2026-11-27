@@ -49,11 +49,19 @@ neither.
 
 .. code-block:: bash
 
+   # Dobot CR3A
    wros ros2 launch wmx_r2_package wmx_r2_robot_option.launch.py \
        use_sim_time:=false \
        'config_file:=$(ros2 pkg prefix --share wmx_r2_package)/example/cr3a_robot_option_config.yaml' \
        'wmx_param_file:=$(ros2 pkg prefix --share wmx_r2_package)/example/cr3a_wmx_parameters_deg.xml' \
        'robot_param_file:=$(ros2 pkg prefix --share wmx_r2_package)/example/cr3a_robot_option_parameters.xml'
+
+   # Nachi MZ07LF
+   wros ros2 launch wmx_r2_package wmx_r2_robot_option.launch.py \
+       use_sim_time:=false \
+       'config_file:=$(ros2 pkg prefix --share wmx_r2_package)/example/nachi_mz07_robot_option_config.yaml' \
+       'wmx_param_file:=$(ros2 pkg prefix --share wmx_r2_package)/example/nachi_mz07_wmx_parameters_deg.xml' \
+       'robot_param_file:=$(ros2 pkg prefix --share wmx_r2_package)/example/nachi_mz07_robot_option_parameters.xml'
 
 .. list-table::
    :header-rows: 1
@@ -504,8 +512,10 @@ different things and are read by different nodes:
      - ``wmx_engine_node`` at engine start
      - ``wmx_robot_option_node`` at configure
    * - Shipped
-     - ``example/cr3a_wmx_parameters_deg.xml``
-     - ``example/cr3a_robot_option_parameters.xml``
+     - ``example/cr3a_wmx_parameters_deg.xml``,
+       ``example/nachi_mz07_wmx_parameters_deg.xml``
+     - ``example/cr3a_robot_option_parameters.xml``,
+       ``example/nachi_mz07_robot_option_parameters.xml``
    * - SDK samples
      - ``/opt/wmx3/robot_sample/common/wmx_parameter_*.xml``
      - ``/opt/wmx3/robot_sample/common/robotParamXML_*.xml``
